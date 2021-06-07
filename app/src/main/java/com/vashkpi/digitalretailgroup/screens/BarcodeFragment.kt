@@ -1,20 +1,21 @@
-package com.vashkpi.digitalretailgroup.ui.dashboard
+package com.vashkpi.digitalretailgroup.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.vashkpi.digitalretailgroup.R
-import com.vashkpi.digitalretailgroup.databinding.FragmentDashboardBinding
+import com.vashkpi.digitalretailgroup.base.BaseFragment
+import com.vashkpi.digitalretailgroup.databinding.FragmentBarcodeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class DashboardFragment : Fragment() {
+@AndroidEntryPoint
+class BarcodeFragment : BaseFragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
-    private var _binding: FragmentDashboardBinding? = null
+    private lateinit var barcodeViewModel: BarcodeViewModel
+    private var _binding: FragmentBarcodeBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,14 +26,14 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
+        barcodeViewModel =
+            ViewModelProvider(this).get(BarcodeViewModel::class.java)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentBarcodeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
+        val textView: TextView = binding.textHome
+        barcodeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

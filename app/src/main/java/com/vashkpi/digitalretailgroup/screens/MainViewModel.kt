@@ -1,10 +1,13 @@
-package com.vashkpi.digitalretailgroup.ui.dashboard
+package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class DashboardViewModel : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(): ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"
