@@ -18,6 +18,8 @@ import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
 
 class NotificationsFragment : BaseFragment() {
 
+    override var bottomNavigationViewVisibility = View.GONE
+
     private var _binding: FragmentNotificationsBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
