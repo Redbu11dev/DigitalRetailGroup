@@ -6,13 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".screens.BarcodeFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/custom_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/teal_200"
-        />
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/custom_toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?actionBarSize"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:background="@color/teal_200"-->
+<!--        app:menu="@menu/toolbar_main_menu"-->
+<!--        app:title="asdasd"-->
+<!--        app:navigationContentDescription="asd"-->
+<!--        />-->
+
+    <include android:id="@+id/custom_toolbar" layout="@layout/custom_toolbar"/>
 
     <TextView
         android:id="@+id/text_home"

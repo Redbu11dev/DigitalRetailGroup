@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.vashkpi.digitalretailgroup.R
@@ -58,7 +59,7 @@ class BarcodeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val toolbar = binding.customToolbar
+        val toolbar = binding.customToolbar.toolbar
         val appBarConfiguration = AppBarConfiguration(setOf(
             R.id.navigation_barcode,
             R.id.navigation_main  // set all your top level destinations in here
@@ -79,11 +80,22 @@ class BarcodeFragment : BaseFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         //super.onCreateOptionsMenu(menu, inflater)
         // Inflate the menu items for use in the action bar
-        inflater.inflate(R.menu.toolbar_main_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.toolbar_main_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
+        //return super.onOptionsItemSelected(item)
+
+        when (item.itemId) {
+            R.id.item1 -> {
+                findNavController().navigate(R.id.action_navigation_barcode_to_notificationsFragment)
+            }
+            else -> {
+
+            }
+        }
+
+        return true
     }
 }

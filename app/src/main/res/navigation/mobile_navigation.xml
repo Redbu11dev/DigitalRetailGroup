@@ -9,12 +9,22 @@
         android:id="@+id/navigation_barcode"
         android:name="com.vashkpi.digitalretailgroup.screens.BarcodeFragment"
         android:label="@string/title_barcode"
-        tools:layout="@layout/fragment_barcode" />
+        tools:layout="@layout/fragment_barcode" >
+        <action
+            android:id="@+id/action_navigation_barcode_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_main"
         android:name="com.vashkpi.digitalretailgroup.screens.MainFragment"
         android:label="@string/title_main"
         tools:layout="@layout/fragment_main" />
+    <fragment
+
+        android:id="@+id/notificationsFragment"
+        android:name="com.vashkpi.digitalretailgroup.screens.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
 
 </navigation>

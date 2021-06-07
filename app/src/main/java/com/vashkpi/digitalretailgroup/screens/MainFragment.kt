@@ -59,7 +59,7 @@ class MainFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val toolbar = binding.customToolbar
+        val toolbar = binding.customToolbar.toolbar
         val appBarConfiguration = AppBarConfiguration(setOf(
             R.id.navigation_barcode,
             R.id.navigation_main  // set all your top level destinations in here
