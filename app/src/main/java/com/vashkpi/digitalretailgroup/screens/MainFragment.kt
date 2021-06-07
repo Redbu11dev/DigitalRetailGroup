@@ -56,35 +56,35 @@ class MainFragment : BaseFragment() {
 //        setHasOptionsMenu(true)
 //    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val toolbar = binding.customToolbar.toolbar
-        val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_barcode,
-            R.id.navigation_main  // set all your top level destinations in here
-        )
-        )
-
-        val navHostFragment = NavHostFragment.findNavController(this)
-        NavigationUI.setupWithNavController(toolbar, navHostFragment,appBarConfiguration)
-
-        setHasOptionsMenu(true)
-
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        toolbar.setNavigationOnClickListener { view ->
-            view.findNavController().navigateUp()
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        //super.onCreateOptionsMenu(menu, inflater)
-        // Inflate the menu items for use in the action bar
-        inflater.inflate(R.menu.toolbar_main_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        val toolbar = binding.customToolbar.toolbar
+//        val appBarConfiguration = AppBarConfiguration(setOf(
+//            R.id.navigation_barcode,
+//            R.id.navigation_main  // set all your top level destinations in here
+//        )
+//        )
+//
+//        val navHostFragment = NavHostFragment.findNavController(this)
+//        NavigationUI.setupWithNavController(toolbar, navHostFragment,appBarConfiguration)
+//
+//        setHasOptionsMenu(true)
+//
+//        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+//        toolbar.setNavigationOnClickListener { view ->
+//            view.findNavController().navigateUp()
+//        }
+//    }
+//
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        //super.onCreateOptionsMenu(menu, inflater)
+//        // Inflate the menu items for use in the action bar
+//        inflater.inflate(R.menu.toolbar_main_menu, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return super.onOptionsItemSelected(item)
+//    }
 }
