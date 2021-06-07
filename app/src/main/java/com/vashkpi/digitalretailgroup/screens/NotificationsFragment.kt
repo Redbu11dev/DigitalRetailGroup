@@ -13,9 +13,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
+import com.vashkpi.digitalretailgroup.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
 
-class NotificationsFragment : Fragment() {
+class NotificationsFragment : BaseFragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
     // This property is only valid between onCreateView and
@@ -38,6 +39,8 @@ class NotificationsFragment : Fragment() {
 
         val navController = findNavController()
         binding.customToolbar.toolbar.setupWithNavController(navController)
+        //binding.customToolbar.toolbar.setNavigationIcon(R.drawable.ic_bell)
+        //binding.customToolbar.toolbar.nav
 
         return root
     }

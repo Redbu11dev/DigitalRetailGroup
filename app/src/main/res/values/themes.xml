@@ -16,21 +16,21 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">
-        <item name="android:background">@drawable/profile_with_bg</item>
+<!--    <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">-->
+<!--        <item name="android:background">@drawable/profile_with_bg</item>-->
 
-<!--        <item name="android:minWidth">0dip</item>-->
-<!--        <item name="android:paddingStart">0dip</item>-->
-<!--        <item name="android:paddingEnd">0dip</item>-->
-<!--        <item name="android:paddingTop">0dip</item>-->
-<!--        <item name="android:paddingBottom">0dip</item>-->
-<!--        <item name="android:drawablePadding">0dp</item>-->
-<!--        <item name="android:background">?attr/actionBarItemBackground</item>-->
-<!--        <item name="android:minWidth">500dp</item>-->
-<!--        <item name="android:minHeight">500dp</item>-->
-<!--        <item name="android:scaleType">center</item>-->
-<!--        <item name="android:gravity">center</item>-->
-<!--        <item name="android:maxLines">2</item>-->
-<!--        <item name="textAllCaps">@bool/abc_config_actionMenuItemAllCaps</item>-->
-    </style>
+<!--&lt;!&ndash;        <item name="android:minWidth">0dip</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:paddingStart">0dip</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:paddingEnd">0dip</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:paddingTop">0dip</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:paddingBottom">0dip</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:drawablePadding">0dp</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:background">?attr/actionBarItemBackground</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:minWidth">500dp</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:minHeight">500dp</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:scaleType">center</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:gravity">center</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:maxLines">2</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="textAllCaps">@bool/abc_config_actionMenuItemAllCaps</item>&ndash;&gt;-->
+<!--    </style>-->
 </resources>
