@@ -1,6 +1,7 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.vashkpi.digitalretailgroup.R
@@ -43,6 +45,29 @@ class MainFragment : BaseFragment() {
             textView.text = it
         })
 
+        val toolbar = binding.customToolbar.toolbar
+
+//        val navController = findNavController()
+//        toolbar.setupWithNavController(navController)
+
+        toolbar.inflateMenu(R.menu.toolbar_main_menu)
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                // these ids should match the item ids from my_fragment_menu.xml file
+                R.id.item1 -> {
+                    findNavController().navigate(R.id.action_navigation_barcode_to_notificationsFragment)
+
+                    // by returning 'true' we're saying that the event
+                    // is handled and it shouldn't be propagated further
+                    true
+                }
+                else -> false
+            }
+        }
+
+        binding.customToolbar.logo.visibility = View.VISIBLE
+        toolbar.title = ""
+
         return root
     }
 
@@ -50,41 +75,4 @@ class MainFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setHasOptionsMenu(true)
-//    }
-
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        val toolbar = binding.customToolbar.toolbar
-//        val appBarConfiguration = AppBarConfiguration(setOf(
-//            R.id.navigation_barcode,
-//            R.id.navigation_main  // set all your top level destinations in here
-//        )
-//        )
-//
-//        val navHostFragment = NavHostFragment.findNavController(this)
-//        NavigationUI.setupWithNavController(toolbar, navHostFragment,appBarConfiguration)
-//
-//        setHasOptionsMenu(true)
-//
-//        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-//        toolbar.setNavigationOnClickListener { view ->
-//            view.findNavController().navigateUp()
-//        }
-//    }
-//
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        //super.onCreateOptionsMenu(menu, inflater)
-//        // Inflate the menu items for use in the action bar
-//        inflater.inflate(R.menu.toolbar_main_menu, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return super.onOptionsItemSelected(item)
-//    }
 }
