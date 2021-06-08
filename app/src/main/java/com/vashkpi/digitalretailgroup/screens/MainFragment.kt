@@ -3,6 +3,7 @@ package com.vashkpi.digitalretailgroup.screens
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -12,7 +13,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.ListAdapter
 import com.vashkpi.digitalretailgroup.R
+import com.vashkpi.digitalretailgroup.adapters.PartnersAdapter
 import com.vashkpi.digitalretailgroup.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,6 +69,15 @@ class MainFragment : BaseFragment() {
 
         binding.customToolbar.logo.visibility = View.VISIBLE
         toolbar.title = ""
+
+        val adapter = PartnersAdapter { view, data ->
+
+        }
+
+        binding.partnersList.adapter = adapter
+
+        adapter.setList(arrayListOf("1", "2", "3", "4", "5"))
+        adapter.notifyDataSetChanged()
 
         return root
     }
