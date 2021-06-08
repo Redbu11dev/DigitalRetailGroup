@@ -7,22 +7,6 @@
     android:background="@color/bg"
     >
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/custom_toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?actionBarSize"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:background="@color/teal_200"-->
-<!--        >-->
-<!--&lt;!&ndash;        <View&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="4dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:background="@mipmap/ic_launcher"&ndash;&gt;-->
-<!--&lt;!&ndash;            />&ndash;&gt;-->
-<!--    </androidx.appcompat.widget.Toolbar>-->
-
-<!--    <include android:id="@+id/custom_toolbar" layout="@layout/custom_toolbar"/>-->
-
     <fragment
         android:id="@+id/nav_host_fragment_activity_main"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -34,31 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
-
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/toolbar_mimic"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?actionBarSize"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:background="@color/bg"-->
-<!--        >-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_alignParentLeft="true"-->
-<!--            />-->
-
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1px"-->
-<!--            android:background="@color/bg_shadow"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            />-->
-
-<!--    </RelativeLayout>-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

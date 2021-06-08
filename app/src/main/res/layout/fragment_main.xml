@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".screens.MainFragment">
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/custom_toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?actionBarSize"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:background="@color/teal_200"-->
-<!--        >-->
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="4dp"-->
-<!--            android:background="@mipmap/ic_launcher"-->
-<!--            />-->
-<!--    </androidx.appcompat.widget.Toolbar>-->
-
     <include android:id="@+id/custom_toolbar" layout="@layout/custom_toolbar"/>
 
     <TextView
