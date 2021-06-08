@@ -40,10 +40,10 @@ class MainFragment : BaseFragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        mainViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+//        val textView: TextView = binding.textDashboard
+//        mainViewModel.text.observe(viewLifecycleOwner, Observer {
+//            textView.text = it
+//        })
 
         val toolbar = binding.customToolbar.toolbar
 

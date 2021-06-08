@@ -42,11 +42,6 @@ class BarcodeFragment : BaseFragment() {
         _binding = FragmentBarcodeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        barcodeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-
         val toolbar = binding.customToolbar.toolbar
 
 //        val navController = findNavController()

@@ -8,12 +8,12 @@
 
     <include android:id="@+id/custom_toolbar" layout="@layout/custom_toolbar"/>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
-        android:layout_centerInParent="true"
-        />
+<!--    &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/hello_blank_fragment"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        />-->
 
 </RelativeLayout>

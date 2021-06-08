@@ -9,8 +9,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(): ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
-    }
-    val text: LiveData<String> = _text
+//    private val _text = MutableLiveData<String>().apply {
+//        value = "This is dashboard Fragment"
+//    }
+//    val text: LiveData<String> = _text
 }
