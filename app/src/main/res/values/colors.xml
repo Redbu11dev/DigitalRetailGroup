@@ -7,6 +7,20 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray">#FF202020</color>
+
+    <color name="error_color">#DD2C00</color>
+
+    <color name="color_on_surface">#f6fcfc</color>
+    <color name="color_on_surface_38">#60f6fcfc</color>
+
+    <color name="dark_grey_color">#242526</color>
+    <color name="grey_light_color">#C3C4C5</color>
+    <color name="medium_grey_color">#959596</color>
+    <color name="gold_color">#EECC8D</color>
+
+    <color name="app_white">#F6FFFB</color>
+    <color name="not_active">#89AA9B</color>
 
     <color name="bg">#151D19</color>
     <color name="bg_shadow">#1D2822</color>

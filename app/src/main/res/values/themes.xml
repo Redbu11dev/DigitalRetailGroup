@@ -1,36 +1,67 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.DigitalRetailGroup" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.DigitalRetailGroup" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">#00FF00</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-
-<!--        <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>-->
+        <item name="android:statusBarColor" tools:targetApi="l">#000000</item>
         <!-- Customize your theme here. -->
+
+        <item name="colorAccent">#d81b60</item>
+        <item name="colorSurface">#f6fcfc</item>
+        <item name="colorOnSurface">@color/color_on_surface</item>
+
+        <item name="colorError">@color/error_color</item>
+
+        <!-- Customize your theme here. -->
+        <!--        <item name="actionBarStyle">@style/MyActionBar</item>-->
+        <!--        <item name="toolbarStyle">@style/MyToolBar</item>-->
+
+        <!--        <item name="colorOnSurface">?colorOnSurface</item>-->
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/gray</item>
+        <item name="android:textColorTertiary">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">#46bdbf</item>
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">#f1f1f1</item>
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">@color/grey_light_color</item>
+
+        <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
     </style>
 
-<!--    <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">-->
-<!--        <item name="android:background">@drawable/profile_with_bg</item>-->
+    <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">
+        <item name="android:background">@drawable/toolbar_icon_background</item>
+        <!--        <item name="android:padding">0dp</item>-->
 
-<!--&lt;!&ndash;        <item name="android:minWidth">0dip</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:paddingStart">0dip</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:paddingEnd">0dip</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:paddingTop">0dip</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:paddingBottom">0dip</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:drawablePadding">0dp</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:background">?attr/actionBarItemBackground</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:minWidth">500dp</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:minHeight">500dp</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:scaleType">center</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:gravity">center</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:maxLines">2</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="textAllCaps">@bool/abc_config_actionMenuItemAllCaps</item>&ndash;&gt;-->
-<!--    </style>-->
+        <item name="android:padding">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+
+        <!--        <item name="android:minWidth">0dip</item>-->
+        <!--        <item name="android:paddingStart">0dip</item>-->
+        <!--        <item name="android:paddingEnd">0dip</item>-->
+        <!--        <item name="android:paddingTop">0dip</item>-->
+        <!--        <item name="android:paddingBottom">0dip</item>-->
+        <!--        <item name="android:drawablePadding">0dp</item>-->
+        <!--        <item name="android:background">?attr/actionBarItemBackground</item>-->
+        <!--        <item name="android:minWidth">500dp</item>-->
+        <!--        <item name="android:minHeight">500dp</item>-->
+        <!--        <item name="android:scaleType">center</item>-->
+        <!--        <item name="android:gravity">center</item>-->
+        <!--        <item name="android:maxLines">2</item>-->
+        <!--        <item name="textAllCaps">@bool/abc_config_actionMenuItemAllCaps</item>-->
+    </style>
 </resources>
