@@ -12,6 +12,5 @@
         android:id="@+id/navigation_main"
         android:icon="@drawable/ic_stores"
         android:title="@string/title_main"
-        app:showAsAction="always"
         />
 </menu>
