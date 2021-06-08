@@ -57,7 +57,7 @@ class BarcodeFragment : BaseFragment() {
             when (it.itemId) {
                 // these ids should match the item ids from my_fragment_menu.xml file
                 R.id.item1 -> {
-                    findNavController().navigate(R.id.action_navigation_barcode_to_notificationsFragment)
+                    findNavController().navigate(BarcodeFragmentDirections.actionNavigationBarcodeToNotificationsFragment())
 
                     // by returning 'true' we're saying that the event
                     // is handled and it shouldn't be propagated further

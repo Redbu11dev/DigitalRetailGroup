@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#FF202020</color>
 
+    <color name="transparent">#00000000</color>
+
     <color name="error_color">#DD2C00</color>
 
     <color name="color_on_surface">#f6fcfc</color>

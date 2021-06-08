@@ -6,11 +6,13 @@
         android:id="@+id/navigation_barcode"
         android:icon="@drawable/ic_perse"
         android:title="@string/title_barcode"
+        app:showAsAction="always"
         />
 
     <item
         android:id="@+id/navigation_main"
         android:icon="@drawable/ic_stores"
         android:title="@string/title_main"
+        app:showAsAction="always"
         />
 </menu>
