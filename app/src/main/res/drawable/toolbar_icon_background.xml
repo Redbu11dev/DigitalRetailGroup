@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Something for API < 23-->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:shape="oval">
-            <solid android:color="#bdbdbd" />
-            <size
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <layer-list>
+            <item
+                android:drawable="@drawable/icon_background_active"
                 android:width="@dimen/toolbar_icon_background_height"
-                android:height="@dimen/toolbar_icon_background_height" />
-        </shape>
+                android:height="@dimen/toolbar_icon_background_height"
+                >
+            </item>
+        </layer-list>
     </item>
-</layer-list>
+    <item>
+        <layer-list>
+            <item
+                android:drawable="@drawable/icon_background"
+                android:width="@dimen/toolbar_icon_background_height"
+                android:height="@dimen/toolbar_icon_background_height"
+                >
+            </item>
+        </layer-list>
+    </item>
+</selector>

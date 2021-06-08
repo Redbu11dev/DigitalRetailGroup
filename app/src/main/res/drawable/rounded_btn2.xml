@@ -1,28 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:shape="rectangle">
-            <corners
-                android:radius="140dp"
-                />
-            <gradient
-                android:startColor="#FACB01"
-                android:endColor="#DC8701"
-                android:angle="-90"
-                />
-        </shape>
-    </item>
-    <item>
-        <inset android:inset="2px">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:state_pressed="true">
+    <layer-list>
+        <item>
             <shape android:shape="rectangle">
                 <corners
                     android:radius="140dp"
                     />
                 <gradient
                     android:startColor="#FACB01"
-                    android:endColor="#DB7200"
+                    android:endColor="#DC8701"
+                    android:angle="-90"
                     />
             </shape>
-        </inset>
-    </item>
-</layer-list>
+        </item>
+        <item>
+            <inset android:inset="2px">
+                <shape android:shape="rectangle">
+                    <corners
+                        android:radius="140dp"
+                        />
+                    <gradient
+                        android:startColor="#FFFFFF"
+                        android:endColor="#FFFFFF"
+                        />
+                </shape>
+            </inset>
+        </item>
+    </layer-list>
+</item>
+<item>
+    <layer-list>
+        <item>
+            <shape android:shape="rectangle">
+                <corners
+                    android:radius="140dp"
+                    />
+                <gradient
+                    android:startColor="#FACB01"
+                    android:endColor="#DC8701"
+                    android:angle="-90"
+                    />
+            </shape>
+        </item>
+        <item>
+            <inset android:inset="2px">
+                <shape android:shape="rectangle">
+                    <corners
+                        android:radius="140dp"
+                        />
+                    <gradient
+                        android:startColor="#FACB01"
+                        android:endColor="#DB7200"
+                        />
+                </shape>
+            </inset>
+        </item>
+    </layer-list>
+</item>
+</selector>
