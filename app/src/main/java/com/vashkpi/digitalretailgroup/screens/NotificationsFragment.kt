@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NotificationsFragment : BaseFragment() {
+
+    private val viewModel: NotificationsViewModel by viewModels()
 
     private var _binding: FragmentNotificationsBinding? = null
     // This property is only valid between onCreateView and
@@ -32,10 +36,21 @@ class NotificationsFragment : BaseFragment() {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val toolbar = binding.customToolbar.toolbar
+
+        toolbar.inflateMenu(R.menu.toolbar_menu_notifications)
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.delete -> {
+                    //viewModel.postNavigationEvent(MainFragmentDirections.actionNavigationMainToNotificationsFragment())
+                    true
+                }
+                else -> false
+            }
+        }
+
         val navController = findNavController()
-        binding.customToolbar.toolbar.setupWithNavController(navController)
-        //binding.customToolbar.toolbar.setNavigationIcon(R.drawable.ic_bell)
-        //binding.customToolbar.toolbar.nav
+        toolbar.setupWithNavController(navController)
 
         return root
     }

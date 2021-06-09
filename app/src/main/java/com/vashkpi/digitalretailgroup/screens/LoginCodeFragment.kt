@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.databinding.FragmentLauncherBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentLoginCodeBinding
@@ -25,6 +27,9 @@ class LoginCodeFragment : BaseFragment() {
     ): View {
         _binding = FragmentLoginCodeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val navController = findNavController()
+        binding.customToolbar.toolbar.setupWithNavController(navController)
 
         return root
     }
