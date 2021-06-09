@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_navigation_main_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_navigation_main_to_brandInfoFragment"
+            app:destination="@id/brandInfoFragment" />
     </fragment>
     <fragment
 
@@ -87,5 +90,28 @@
         android:name="com.vashkpi.digitalretailgroup.screens.ViewNotificationFragment"
         android:label="fragment_view_notification"
         tools:layout="@layout/fragment_view_notification" />
+    <fragment
+        android:id="@+id/brandInfoFragment"
+        android:name="com.vashkpi.digitalretailgroup.screens.BrandInfoFragment"
+        android:label="fragment_brand_info"
+        tools:layout="@layout/fragment_brand_info" >
+        <action
+            android:id="@+id/action_brandInfoFragment_to_storesFragment"
+            app:destination="@id/storesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storesFragment"
+        android:name="com.vashkpi.digitalretailgroup.screens.StoresFragment"
+        android:label="fragment_stores"
+        tools:layout="@layout/fragment_stores" >
+        <action
+            android:id="@+id/action_storesFragment_to_storeInfoFragment"
+            app:destination="@id/storeInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeInfoFragment"
+        android:name="com.vashkpi.digitalretailgroup.screens.StoreInfoFragment"
+        android:label="fragment_store_info"
+        tools:layout="@layout/fragment_store_info" />
 
 </navigation>

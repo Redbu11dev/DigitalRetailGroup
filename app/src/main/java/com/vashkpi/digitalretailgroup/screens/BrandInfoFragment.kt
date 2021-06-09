@@ -2,21 +2,26 @@ package com.vashkpi.digitalretailgroup.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
-import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
+import com.vashkpi.digitalretailgroup.adapters.BrandInfoAdapter
+import com.vashkpi.digitalretailgroup.databinding.FragmentBrandInfoBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentViewNotificationBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
+import com.vashkpi.digitalretailgroup.utils.safeNavigate
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
-@AndroidEntryPoint
-class ViewNotificationFragment : BaseFragment() {
+class BrandInfoFragment : BaseFragment() {
 
-    private var _binding: FragmentViewNotificationBinding? = null
+    private var _binding: FragmentBrandInfoBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -25,24 +30,21 @@ class ViewNotificationFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        _binding = FragmentViewNotificationBinding.inflate(inflater, container, false)
+        _binding = FragmentBrandInfoBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val toolbar = binding.customToolbar.toolbar
         val navController = findNavController()
         toolbar.setupWithNavController(navController)
 
-        toolbar.inflateMenu(R.menu.toolbar_menu_notifications)
-        toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.delete -> {
-                    //viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToNotificationsFragment())
-                    true
-                }
-                else -> false
-            }
+        val adapter = BrandInfoAdapter { view, data ->
+            findNavController().navigate(BrandInfoFragmentDirections.actionBrandInfoFragmentToStoresFragment())
         }
+
+        binding.infoList.adapter = adapter
+
+        adapter.setList(arrayListOf("1", "2", "3", "4", "5"))
+        adapter.notifyDataSetChanged()
 
         return root
     }
@@ -51,5 +53,4 @@ class ViewNotificationFragment : BaseFragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

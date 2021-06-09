@@ -58,7 +58,7 @@ class MainFragment : BaseFragment() {
         toolbar.title = ""
 
         val adapter = PartnersAdapter { view, data ->
-
+            viewModel.postNavigationEvent(MainFragmentDirections.actionNavigationMainToBrandInfoFragment())
         }
 
         binding.partnersList.adapter = adapter
