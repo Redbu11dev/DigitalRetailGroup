@@ -1,11 +1,8 @@
-package com.vashkpi.digitalretailgroup.base
+package com.vashkpi.digitalretailgroup.screens.base
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.ActivityInfo
-import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver

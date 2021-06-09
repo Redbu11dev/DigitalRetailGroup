@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".screens.ProfileFragment">
+    tools:context=".screens.ProfileFragment"
+    android:background="@color/bg"
+    >
 
     <include android:id="@+id/custom_toolbar" layout="@layout/custom_toolbar"/>
 

@@ -1,4 +1,4 @@
-package com.vashkpi.digitalretailgroup.base
+package com.vashkpi.digitalretailgroup.screens.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -1,21 +1,16 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import com.vashkpi.digitalretailgroup.R
-import com.vashkpi.digitalretailgroup.base.BaseFragment
+import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NotificationsFragment : BaseFragment() {
 
     private var _binding: FragmentNotificationsBinding? = null

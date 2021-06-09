@@ -22,7 +22,8 @@
         android:id="@+id/navigation_main"
         android:name="com.vashkpi.digitalretailgroup.screens.MainFragment"
         android:label="@string/title_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main"
+        >
         <action
             android:id="@+id/action_navigation_main_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />

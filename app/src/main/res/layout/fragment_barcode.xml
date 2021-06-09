@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.BarcodeFragment">
+    tools:context=".screens.BarcodeFragment"
+    android:background="@color/bg"
+    >
 
     <include android:id="@+id/custom_toolbar" layout="@layout/custom_toolbar"/>
 

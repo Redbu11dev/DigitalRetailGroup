@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.MainFragment">
+    tools:context=".screens.MainFragment"
+    android:background="@color/bg"
+    >
 
     <include
         android:id="@+id/custom_toolbar"

@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import com.vashkpi.digitalretailgroup.R
-import com.vashkpi.digitalretailgroup.base.BaseFragment
+import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentBarcodeBinding
 import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint

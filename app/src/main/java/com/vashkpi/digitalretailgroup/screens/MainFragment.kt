@@ -1,22 +1,13 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.ListAdapter
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.adapters.PartnersAdapter
-import com.vashkpi.digitalretailgroup.base.BaseFragment
+import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentMainBinding
 import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
