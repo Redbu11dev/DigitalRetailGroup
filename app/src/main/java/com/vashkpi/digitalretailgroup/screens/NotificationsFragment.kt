@@ -29,7 +29,7 @@ class NotificationsFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 //        // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_blank, container, false)
 
@@ -37,18 +37,6 @@ class NotificationsFragment : BaseFragment() {
         val root: View = binding.root
 
         val toolbar = binding.customToolbar.toolbar
-
-        toolbar.inflateMenu(R.menu.toolbar_menu_notifications)
-        toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.delete -> {
-                    //viewModel.postNavigationEvent(MainFragmentDirections.actionNavigationMainToNotificationsFragment())
-                    true
-                }
-                else -> false
-            }
-        }
-
         val navController = findNavController()
         toolbar.setupWithNavController(navController)
 
