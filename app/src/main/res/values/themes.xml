@@ -25,6 +25,7 @@
 
         <!-- Customize your theme here. -->
 <!--        <item name="android:windowBackground">@color/bg</item>-->
+<!--        Splash screen: https://stackoverflow.com/a/54756525-->
         <item name="android:windowBackground">@drawable/splash_background</item>
 
         <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>

@@ -1,33 +1,27 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentBarcodeBinding
+import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class BarcodeFragment : BaseFragment() {
 
     override var bottomNavigationViewVisibility = View.VISIBLE
-//    override var showActionBar = true
 
-    private lateinit var barcodeViewModel: BarcodeViewModel
+    private val viewModel: BarcodeViewModel by viewModels()
+
     private var _binding: FragmentBarcodeBinding? = null
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -36,27 +30,21 @@ class BarcodeFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        barcodeViewModel =
-            ViewModelProvider(this).get(BarcodeViewModel::class.java)
-
+    ): View {
         _binding = FragmentBarcodeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val toolbar = binding.customToolbar.toolbar
 
-//        val navController = findNavController()
-//        toolbar.setupWithNavController(navController)
-
         toolbar.inflateMenu(R.menu.toolbar_main_menu)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.notifications -> {
-                    findNavController().navigate(BarcodeFragmentDirections.actionNavigationBarcodeToNotificationsFragment())
+                    viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToNotificationsFragment())
                     true
                 }
                 R.id.profile -> {
-                    findNavController().navigate(BarcodeFragmentDirections.actionNavigationBarcodeToProfileFragment())
+                    viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToProfileFragment())
                     true
                 }
                 else -> false
@@ -65,6 +53,15 @@ class BarcodeFragment : BaseFragment() {
 
         binding.customToolbar.logo.visibility = View.VISIBLE
         toolbar.title = ""
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.navigationEvent.collect {
+                    Timber.i("collecting navigation event ${it}")
+                    findNavController().safeNavigate(it)
+                }
+            }
+        }
 
         return root
     }
