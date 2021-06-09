@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import com.vashkpi.digitalretailgroup.R
+import com.vashkpi.digitalretailgroup.adapters.NotificationsAdapter
 import com.vashkpi.digitalretailgroup.adapters.PartnersAdapter
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentMainBinding

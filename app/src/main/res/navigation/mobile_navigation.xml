@@ -36,7 +36,11 @@
         android:id="@+id/notificationsFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.NotificationsFragment"
         android:label="fragment_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_notificationsFragment_to_viewNotificationFragment"
+            app:destination="@id/viewNotificationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.ProfileFragment"
@@ -78,5 +82,10 @@
             app:popUpTo="@id/loginCodeFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/viewNotificationFragment"
+        android:name="com.vashkpi.digitalretailgroup.screens.ViewNotificationFragment"
+        android:label="fragment_view_notification"
+        tools:layout="@layout/fragment_view_notification" />
 
 </navigation>

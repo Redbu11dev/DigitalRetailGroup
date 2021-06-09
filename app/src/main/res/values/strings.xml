@@ -12,7 +12,7 @@
     <!--    &lt;!&ndash; TODO: Remove or change this placeholder text &ndash;&gt;-->
     <!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
 
-<!--    Common-->
+    <!--    Common-->
     <string name="contact_us">Свяжитесь с нами</string>
     <string name="login_problems">Проблемы со входом?</string>
     <string name="send_sms_again">Отправить смс повторно</string>
@@ -25,5 +25,8 @@
     <string name="barcode_balance_currency">баллов</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    Notifications-->
+    <string name="notification_empty_text">Уведомлений пока нет</string>
 
 </resources>

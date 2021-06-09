@@ -4,30 +4,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.vashkpi.digitalretailgroup.databinding.ItemOptionBinding
+import com.vashkpi.digitalretailgroup.databinding.NotificationListItemBinding
 import com.vashkpi.digitalretailgroup.databinding.PartnersListItemBinding
 
-class PartnersAdapter(
+class NotificationsAdapter(
     private val clickListener: (View, String) -> Unit
-) : RecyclerView.Adapter<PartnersViewHolder>() {
+) : RecyclerView.Adapter<NotificationsViewHolder>() {
 
     private val list = ArrayList<String>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PartnersViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding =
-            PartnersListItemBinding.inflate(
+            NotificationListItemBinding.inflate(
                 layoutInflater,
                 parent,
                 false
             )
-        return PartnersViewHolder(binding)
+        return NotificationsViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    override fun onBindViewHolder(holder: PartnersViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NotificationsViewHolder, position: Int) {
         holder.bind(list[position], clickListener)
     }
 
@@ -39,7 +41,7 @@ class PartnersAdapter(
 
 }
 
-class PartnersViewHolder(val binding: PartnersListItemBinding) :
+class NotificationsViewHolder(val binding: NotificationListItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(data: String, clickListener: (view: View, String) -> Unit) {
         binding.root.setOnClickListener {

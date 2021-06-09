@@ -7,7 +7,7 @@
         android:id="@+id/delete"
         android:title="Уведомления"
         android:orderInCategory="10"
-        android:icon="@drawable/ic_bell"
+        android:icon="@drawable/ic_trash"
         app:showAsAction="always"
         />
 </menu>
