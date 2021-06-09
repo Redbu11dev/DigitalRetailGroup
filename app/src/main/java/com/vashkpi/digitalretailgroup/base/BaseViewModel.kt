@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
-open class BaseViewModel: ViewModel() {
+abstract class BaseViewModel: ViewModel() {
     private val _navigationEvent = MutableSharedFlow<NavDirections>(replay = 0)
     val navigationEvent: SharedFlow<NavDirections> = _navigationEvent
 
