@@ -77,4 +77,11 @@
     <style name="Widget.DigitalRetailGroup.TextDescription" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/not_active</item>
     </style>
+
+    <style name="Widget.DigitalRetailGroup.PseudoCard" parent="">
+        <item name="android:background">@drawable/card_item_bgr</item>
+        <item name="layout_constraintDimensionRatio">343:220</item>
+    </style>
+
+
 </resources>
