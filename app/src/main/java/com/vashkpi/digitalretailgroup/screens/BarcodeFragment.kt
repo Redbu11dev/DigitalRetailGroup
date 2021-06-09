@@ -22,7 +22,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class BarcodeFragment : BaseFragment() {
 
-    override var showActionBar = true
+    override var bottomNavigationViewVisibility = View.VISIBLE
+//    override var showActionBar = true
 
     private lateinit var barcodeViewModel: BarcodeViewModel
     private var _binding: FragmentBarcodeBinding? = null
@@ -50,12 +51,12 @@ class BarcodeFragment : BaseFragment() {
         toolbar.inflateMenu(R.menu.toolbar_main_menu)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                // these ids should match the item ids from my_fragment_menu.xml file
-                R.id.item1 -> {
+                R.id.notifications -> {
                     findNavController().navigate(BarcodeFragmentDirections.actionNavigationBarcodeToNotificationsFragment())
-
-                    // by returning 'true' we're saying that the event
-                    // is handled and it shouldn't be propagated further
+                    true
+                }
+                R.id.profile -> {
+                    findNavController().navigate(BarcodeFragmentDirections.actionNavigationBarcodeToProfileFragment())
                     true
                 }
                 else -> false

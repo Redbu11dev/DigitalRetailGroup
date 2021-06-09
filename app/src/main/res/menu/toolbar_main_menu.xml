@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools" >
 
     <item
-        android:id="@+id/item1"
+        android:id="@+id/notifications"
         android:title="Уведомления"
         android:orderInCategory="10"
         android:icon="@drawable/ic_bell"
@@ -12,7 +12,7 @@
         />
 
     <item
-        android:id="@+id/item2"
+        android:id="@+id/profile"
         android:title="Профиль"
         android:orderInCategory="10"
         android:icon="@drawable/ic_profile"

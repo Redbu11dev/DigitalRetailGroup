@@ -9,15 +9,17 @@
     <string name="app_name">Digital Retail Group</string>
     <string name="title_barcode">Barcode</string>
     <string name="title_main">Main</string>
-<!--    &lt;!&ndash; TODO: Remove or change this placeholder text &ndash;&gt;-->
-<!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
+    <!--    &lt;!&ndash; TODO: Remove or change this placeholder text &ndash;&gt;-->
+    <!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
 
-<!--    Main-->
+    <!--    Main-->
     <string name="main_description">Бренды-партнёры, в чьих магазинах вы можете использвать баллы при оплате.</string>
 
-<!--    Barcode-->
+    <!--    Barcode-->
     <string name="barcode_balance_title">Ваш баланс</string>
     <string name="barcode_balance_currency">баллов</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

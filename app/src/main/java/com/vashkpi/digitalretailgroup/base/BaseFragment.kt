@@ -17,8 +17,7 @@ import com.vashkpi.digitalretailgroup.MainActivity
  */
 abstract class BaseFragment : Fragment(), LifecycleObserver {
 
-    protected open var bottomNavigationViewVisibility = View.VISIBLE
-    protected open var showActionBar = false
+    protected open var bottomNavigationViewVisibility = View.GONE
     protected open var orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
 //    override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,18 +53,18 @@ abstract class BaseFragment : Fragment(), LifecycleObserver {
         }
     }
 
-    @SuppressLint("RestrictedApi")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        (requireActivity() as AppCompatActivity).supportActionBar?.setShowHideAnimationEnabled(false)
-        if (showActionBar) {
-            (requireActivity() as AppCompatActivity).supportActionBar?.show()
-        }
-        else {
-            (requireActivity() as AppCompatActivity).supportActionBar?.hide()
-        }
-    }
+//    @SuppressLint("RestrictedApi")
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        (requireActivity() as AppCompatActivity).supportActionBar?.setShowHideAnimationEnabled(false)
+//        if (showActionBar) {
+//            (requireActivity() as AppCompatActivity).supportActionBar?.show()
+//        }
+//        else {
+//            (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+//        }
+//    }
 
     lateinit var progressView: View
 

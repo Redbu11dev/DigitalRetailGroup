@@ -23,7 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {
 
-    override var showActionBar = true
+    override var bottomNavigationViewVisibility = View.VISIBLE
+//    override var showActionBar = true
 
     private lateinit var mainViewModel: MainViewModel
     private var _binding: FragmentMainBinding? = null

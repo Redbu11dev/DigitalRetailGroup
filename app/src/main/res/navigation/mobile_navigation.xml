@@ -13,18 +13,33 @@
         <action
             android:id="@+id/action_navigation_barcode_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_navigation_barcode_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_main"
         android:name="com.vashkpi.digitalretailgroup.screens.MainFragment"
         android:label="@string/title_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_navigation_main_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_navigation_main_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
 
         android:id="@+id/notificationsFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.vashkpi.digitalretailgroup.screens.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 
 </navigation>
