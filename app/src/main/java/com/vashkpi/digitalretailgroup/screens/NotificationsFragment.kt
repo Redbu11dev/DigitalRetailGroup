@@ -63,4 +63,9 @@ class NotificationsFragment : BaseFragment() {
 //        toolbar.setNavigationIcon(R.drawable.ic_bell)
 //        toolbar.navigationContentDescription = "asdsadad"
 //    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
