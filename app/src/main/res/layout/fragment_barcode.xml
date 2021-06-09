@@ -72,8 +72,6 @@
         android:layout_width="match_parent"
         android:layout_height="68dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:backgroundTint="@null"
-        android:background="@drawable/rounded_btn2"
         android:text="Код подтверждения"
         android:layout_below="@+id/barcode_container"
         />
