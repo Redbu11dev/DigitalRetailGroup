@@ -37,10 +37,9 @@
         android:layout_above="@+id/logout_btn"
         android:layout_marginBottom="8dp"
         android:layout_marginHorizontal="12dp"
-        android:text="@string/barcode_btn_confirmation_code"
+        android:text="@string/btn_save"
         app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="visible"
-        style="@style/Widget.DigitalRetailGroup.GreenButton"
         />
 
     <com.google.android.material.button.MaterialButton
@@ -50,8 +49,9 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:layout_marginHorizontal="12dp"
-        android:text="@string/barcode_btn_confirmation_code"
+        android:text="@string/btn_logout"
         app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/Widget.DigitalRetailGroup.GreenButton"
         android:visibility="visible"
         />
 

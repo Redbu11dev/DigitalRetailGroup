@@ -49,4 +49,7 @@
     <!--    Profile-->
     <string name="profile_title">Профиль</string>
 
+    <string name="btn_save">Сохранить изменения</string>
+    <string name="btn_logout">Выйти</string>
+
 </resources>
