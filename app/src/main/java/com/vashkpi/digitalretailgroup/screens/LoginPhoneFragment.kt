@@ -1,12 +1,17 @@
 package com.vashkpi.digitalretailgroup.screens
 
+import android.R.attr.endColor
+import android.R.attr.startColor
+import android.graphics.Color
+import android.graphics.LinearGradient
+import android.graphics.Shader
 import android.os.Bundle
 import android.text.InputType
 import android.text.method.DigitsKeyListener
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doBeforeTextChanged
 import androidx.core.widget.doOnTextChanged
@@ -17,7 +22,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.vashkpi.digitalretailgroup.R
-import com.vashkpi.digitalretailgroup.databinding.FragmentLoginCodeBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentLoginPhoneBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.utils.safeNavigate
@@ -25,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
+
 
 @AndroidEntryPoint
 class LoginPhoneFragment : BaseFragment() {
@@ -82,6 +87,12 @@ class LoginPhoneFragment : BaseFragment() {
                 }
             }
         }
+
+//        val shader: Shader = LinearGradient(
+//            0f, 0f, binding.contactUs.paint.measureText(binding.contactUs.text.toString()), 0f,
+//            ContextCompat.getColor(requireContext(), R.color.clickable_green_text_color), ContextCompat.getColor(requireContext(), R.color.clickable_yellow_text_color), Shader.TileMode.CLAMP
+//        )
+//        binding.contactUs.paint.shader = shader
 
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
