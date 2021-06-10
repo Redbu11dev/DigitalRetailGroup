@@ -10,12 +10,49 @@
 
     <include android:id="@+id/custom_toolbar" layout="@layout/custom_toolbar"/>
 
-    <!--    &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
-    <!--    <TextView-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="@string/hello_blank_fragment"-->
-    <!--        android:layout_centerInParent="true"-->
-    <!--        />-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/custom_toolbar"
+        android:id="@+id/content_layout_scroll_view"
+        android:layout_above="@id/save_btn"
+        android:layout_marginBottom="20dp"
+        >
+
+        <RelativeLayout
+            android:id="@+id/content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            >
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_above="@+id/logout_btn"
+        android:layout_marginBottom="8dp"
+        android:layout_marginHorizontal="12dp"
+        android:text="@string/barcode_btn_confirmation_code"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
+        style="@style/Widget.DigitalRetailGroup.GreenButton"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="12dp"
+        android:text="@string/barcode_btn_confirmation_code"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
+        />
 
 </RelativeLayout>

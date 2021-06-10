@@ -41,9 +41,12 @@
     <string name="barcode_code_description">Сообщите код кассиру</string>
     <string name="code_timer_text">Запросить новый код можно будет через</string>
 
-
+    <string name="barcode_offer_rules">Правила акции</string>
 
     <!--    Notifications-->
     <string name="notification_empty_text">Уведомлений пока нет</string>
+
+    <!--    Profile-->
+    <string name="profile_title">Профиль</string>
 
 </resources>

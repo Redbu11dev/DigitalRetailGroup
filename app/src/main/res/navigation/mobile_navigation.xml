@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="@string/profile_title"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/launcherFragment"

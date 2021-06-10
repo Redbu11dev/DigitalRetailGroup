@@ -69,7 +69,8 @@
 
     <style name="Widget.DigitalRetailGroup.GreenButton" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@null</item>
-        <item name="android:background">@drawable/rounded_btn2</item>
+        <item name="android:background">@drawable/rounded_btn1</item>
+        <item name="android:textColor">@color/app_white</item>
     </style>
 
     <style name="Widget.DigitalRetailGroup.TextGeneric" parent="Widget.MaterialComponents.TextView">

@@ -22,8 +22,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:minHeight="0dp"
+        android:layout_height="@dimen/bottom_navbar_height"
         app:layout_constraintDimensionRatio="216:60"
         android:background="@drawable/navbar_bgr"
         app:itemBackground="@drawable/navbar_item_bgr"
@@ -36,6 +35,8 @@
         app:labelVisibilityMode="unlabeled"
         app:itemIconSize="34dp"
         android:paddingHorizontal="8dp"
+
+        android:layout_marginBottom="@dimen/bottom_navbar_margin_bottom"
 
         app:elevation="4dp"
         android:elevation="4dp"
