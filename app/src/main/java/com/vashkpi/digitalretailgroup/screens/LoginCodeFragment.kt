@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.databinding.FragmentLauncherBinding
@@ -15,6 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginCodeFragment : BaseFragment() {
+
+    private val args: LoginCodeFragmentArgs by navArgs()
 
     private var _binding: FragmentLoginCodeBinding? = null
     // This property is only valid between onCreateView and
@@ -30,6 +33,9 @@ class LoginCodeFragment : BaseFragment() {
 
         val navController = findNavController()
         binding.customToolbar.toolbar.setupWithNavController(navController)
+
+        val phoneStringFakeSpaces = args.phoneString.replace(" ", " ")
+        binding.text2.text = String.format(getString(R.string.login_code_description), phoneStringFakeSpaces)
 
         return root
     }

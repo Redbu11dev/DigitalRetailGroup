@@ -17,6 +17,13 @@
     <string name="login_problems">Проблемы со входом?</string>
     <string name="send_sms_again">Отправить смс повторно</string>
 
+    <!--    Login phone-->
+    <string name="login_login_text">Вход</string>
+    <string name="login_phone_description">Введите номер телефона. На него будет отправлен код подтверждения.</string>
+
+    <!--    Login code-->
+    <string name="login_code_description">Введите пароль из смс, отправленного на номер %s</string>
+
     <!--    Main-->
     <string name="main_description">Бренды-партнёры, в чьих магазинах вы можете использвать баллы при оплате.</string>
 
