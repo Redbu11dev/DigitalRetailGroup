@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <layer-list>
+            <item
+                android:drawable="@drawable/icon_background_active"
+                android:width="55dp"
+                android:height="55dp"
+                >
+            </item>
+            <item
+                android:drawable="@drawable/ic_female"
+                android:width="16dp"
+                android:height="25dp"
+                android:gravity="center"
+                >
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_checked="true">
+        <layer-list>
+            <item
+                android:drawable="@drawable/icon_background_active"
+                android:width="55dp"
+                android:height="55dp"
+                >
+            </item>
+            <item
+                android:drawable="@drawable/ic_female"
+                android:width="16dp"
+                android:height="25dp"
+                android:gravity="center"
+                >
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item
+                android:drawable="@drawable/icon_background"
+                android:width="55dp"
+                android:height="55dp"
+                >
+            </item>
+            <item
+                android:drawable="@drawable/ic_female"
+                android:width="16dp"
+                android:height="25dp"
+                android:gravity="center"
+                >
+            </item>
+        </layer-list>
+    </item>
+</selector>

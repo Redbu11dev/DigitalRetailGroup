@@ -134,5 +134,9 @@
         <item name="android:textSize">14dp</item>
     </style>
 
+    <style name="Test" parent="">
+        <item name="android:paddingLeft">40dp</item>
+        <item name="android:paddingRight">40dp</item>
+    </style>
 
 </resources>
