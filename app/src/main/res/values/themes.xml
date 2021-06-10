@@ -116,6 +116,7 @@
 
     <style name="Widget.DigitalRetailGroup.BottomClickableTextPrimary" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/clickable_yellow_text_color</item>
+        <item name="gtvSecondaryColor">@color/clickable_yellow_end_text_color</item>
         <item name="android:textSize">14dp</item>
     </style>
 

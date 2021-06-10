@@ -67,7 +67,7 @@
         style="@style/Widget.DigitalRetailGroup.LoginDescriptionText"
         />
 
-    <TextView
+    <com.vashkpi.digitalretailgroup.view.GradientTextView
         android:id="@+id/send_sms_again"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
