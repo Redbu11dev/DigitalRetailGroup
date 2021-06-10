@@ -6,6 +6,9 @@ import android.graphics.Canvas
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.util.AttributeSet
+import android.util.Log
+import android.util.StateSet
+import android.view.View
 import com.google.android.material.textview.MaterialTextView
 import com.vashkpi.digitalretailgroup.R
 
@@ -39,7 +42,8 @@ class GradientTextView @JvmOverloads constructor(
 
     private fun updateGradient() {
         mGradientSecondaryColorStateList?.let {
-            val gradientEndColor = it.getColorForState(drawableState, 0)
+
+            val gradientEndColor = it.getColorForState(drawableState, currentTextColor)
 
             val newGradient = LinearGradient(
                 0f,
