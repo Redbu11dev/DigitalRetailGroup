@@ -76,7 +76,10 @@
             android:clickable="true"
             android:focusable="true"
             android:layout_marginBottom="20dp"
+            app:gtvSecondaryColor="@color/clickable_yellow_end_text_color"
             />
+
+<!--        app:gtvSecondaryColor="@color/clickable_color_test"-->
 
         <TextView
             android:id="@+id/login_problems"
