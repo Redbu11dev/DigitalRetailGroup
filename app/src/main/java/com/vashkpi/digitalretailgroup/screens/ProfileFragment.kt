@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
 import com.vashkpi.digitalretailgroup.utils.showMessage
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment() {
@@ -23,7 +26,7 @@ class ProfileFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -44,6 +47,20 @@ class ProfileFragment : BaseFragment() {
 
                 },
                 2000)
+        }
+
+        val builder = MaterialDatePicker.Builder.datePicker()
+        val picker = builder.build()
+        val outputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).apply {
+            timeZone = TimeZone.getTimeZone("UTC")
+        }
+
+        picker.addOnPositiveButtonClickListener {
+            binding.birthDateText.setText(outputDateFormat.format(it))
+        }
+
+        binding.birthDateText.setOnClickListener {
+            picker.show(parentFragmentManager, picker.toString())
         }
 
         return root

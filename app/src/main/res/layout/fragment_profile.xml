@@ -141,18 +141,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 style="@style/Widget.DigitalRetailGroup.TextInputLayoutStyle"
-                app:endIconMode="clear_text"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_calendar"
                 android:layout_below="@+id/date_title"
                 android:layout_marginTop="8dp"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/birth_date_text"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="numberSigned|phone"
-                    android:selectAllOnFocus="true"
-                    style="@style/Widget.DigitalRetailGroup.EditTextStyle"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:cursorVisible="false"
+                    android:editable="false"
                     android:hint="@string/profile_birth_date_hint"
+                    style="@style/Widget.DigitalRetailGroup.EditTextStyle"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
