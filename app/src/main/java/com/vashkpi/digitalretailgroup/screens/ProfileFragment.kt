@@ -38,8 +38,8 @@ class ProfileFragment : BaseFragment() {
 
         binding.logoutBtn.setOnClickListener {
             showMessage(
-                "asdsadasd",
-                android.R.string.ok,
+                R.string.snackbar_msg_message_removed,
+                R.string.snackbar_btn_cancel,
                 {
 
                 },

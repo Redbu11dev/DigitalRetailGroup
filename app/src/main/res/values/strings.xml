@@ -73,5 +73,9 @@
     <string name="dialog_save_profile_data_btn_positive">Сохранить</string>
     <string name="dialog_save_profile_data_btn_negative">Не сохранять</string>
 
+    <!--    Snackbar-->
+    <string name="snackbar_btn_cancel">Отменить</string>
+    <string name="snackbar_msg_message_removed">Сообщение удалено</string>
+
 
 </resources>

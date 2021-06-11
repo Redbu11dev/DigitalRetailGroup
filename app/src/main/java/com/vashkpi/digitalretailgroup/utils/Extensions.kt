@@ -1,9 +1,12 @@
 package com.vashkpi.digitalretailgroup.utils
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.annotation.IdRes
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -11,17 +14,23 @@ import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.*
+import com.vashkpi.digitalretailgroup.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import java.lang.reflect.Type
 
-fun Fragment.showMessage(message: String, btnTextResId: Int, btnListener: View.OnClickListener, duration: Int) {
+fun Fragment.showMessage(messageResId: Int, btnTextResId: Int, btnListener: View.OnClickListener, duration: Int) {
     view?.let { v ->
-        message.let { msg ->
+        messageResId.let { msg ->
             Snackbar
                 .make(v, msg, duration)
+//                .apply {
+//                    view.background = ContextCompat.getDrawable(view.context, R.drawable.notification_card_item_bgr)
+//                    view.findViewById<TextView>(android.support.design.R.id.snackbar_text)
+//                }
+                .setBackgroundTint(Color.parseColor("#4B685A"))
                 .setAction(btnTextResId, btnListener)
                 .show()
         }
