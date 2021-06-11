@@ -44,30 +44,7 @@ class NotificationsFragment : BaseFragment() {
         }
 
         binding.notificationsList.adapter = adapter
-
         (binding.notificationsList.adapter as NotificationsAdapter).setMode(Attributes.Mode.Single)
-
-//        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(
-//            requireContext()
-//        ))
-//        val itemTouchHelper = ItemTouchHelper(object: ItemTouchHelper.SimpleCallback(ItemTouchHelper.ACTION_STATE_IDLE,
-//            ItemTouchHelper.LEFT) {
-//            override fun onMove(
-//                recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder,
-//                target: RecyclerView.ViewHolder
-//            ): Boolean {
-//                //TODO("Not yet implemented")
-//                return false
-//            }
-//
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                //TODO("Not yet implemented")
-//            }
-//
-//        })
-//        itemTouchHelper.attachToRecyclerView(binding.notificationsList)
-
         adapter.setList(arrayListOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"))
         adapter.notifyDataSetChanged()
 
