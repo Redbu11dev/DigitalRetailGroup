@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
+import com.vashkpi.digitalretailgroup.utils.showMessage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +34,16 @@ class ProfileFragment : BaseFragment() {
 
         binding.saveBtn.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment())
+        }
+
+        binding.logoutBtn.setOnClickListener {
+            showMessage(
+                "asdsadasd",
+                android.R.string.ok,
+                {
+
+                },
+                2000)
         }
 
         return root

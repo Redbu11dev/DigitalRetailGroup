@@ -17,12 +17,12 @@ import okhttp3.ResponseBody
 import org.json.JSONObject
 import java.lang.reflect.Type
 
-fun Fragment.showMessage(message: String) {
+fun Fragment.showMessage(message: String, btnTextResId: Int, btnListener: View.OnClickListener, duration: Int) {
     view?.let { v ->
         message.let { msg ->
             Snackbar
-                .make(v, msg, Snackbar.LENGTH_INDEFINITE)
-                .setAction(android.R.string.ok, { /*Do nothing. Dismiss by default*/ })
+                .make(v, msg, duration)
+                .setAction(btnTextResId, btnListener)
                 .show()
         }
     }
