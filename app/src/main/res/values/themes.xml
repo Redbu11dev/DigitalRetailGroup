@@ -15,7 +15,7 @@
         <item name="android:colorBackground">@color/bg</item>
         <item name="colorOnBackground">@color/color_on_surface</item>
 
-        <item name="colorError">@color/error_color</item>
+        <item name="colorError">@color/orange</item>
         <item name="colorOnError">@color/color_on_surface</item>
 
         <item name="scrimBackground">@color/mtrl_scrim_color</item>
@@ -27,6 +27,7 @@
 <!--        <item name="android:windowBackground">@color/bg</item>-->
 <!--        Splash screen: https://stackoverflow.com/a/54756525-->
         <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:navigationBarColor">@color/bg</item>
 
         <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
 

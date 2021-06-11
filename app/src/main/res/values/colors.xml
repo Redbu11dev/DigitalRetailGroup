@@ -19,7 +19,7 @@
 
     <color name="transparent">#00000000</color>
 
-    <color name="error_color">#DD2C00</color>
+<!--    <color name="error_color">#DB7200</color>-->
 
     <color name="color_on_surface">#f6fcfc</color>
     <color name="color_on_surface_38">#60f6fcfc</color>
