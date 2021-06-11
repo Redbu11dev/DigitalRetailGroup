@@ -38,7 +38,6 @@ class NotificationsAdapter(
     }
 
     override fun onBindViewHolder(holder: NotificationsViewHolder, position: Int) {
-        holder.binding.swipe.setShowMode(SwipeLayout.ShowMode.LayDown);
         holder.bind(list[position], clickListener)
     }
 
@@ -52,11 +51,42 @@ class NotificationsAdapter(
 
 class NotificationsViewHolder(val binding: NotificationListItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
+
     fun bind(data: String, clickListener: (view: View, String) -> Unit) {
-        binding.root.setOnClickListener {
+        binding.swipe.setShowMode(SwipeLayout.ShowMode.LayDown)
+        binding.swipe.addSwipeListener(object: SwipeLayout.SwipeListener{
+            override fun onStartOpen(layout: SwipeLayout?) {
+                //TODO("Not yet implemented")
+                binding.visiblePart.isClickable = false
+            }
+
+            override fun onOpen(layout: SwipeLayout?) {
+                //TODO("Not yet implemented")
+            }
+
+            override fun onStartClose(layout: SwipeLayout?) {
+                //TODO("Not yet implemented")
+            }
+
+            override fun onClose(layout: SwipeLayout?) {
+                //TODO("Not yet implemented")
+            }
+
+            override fun onUpdate(layout: SwipeLayout?, leftOffset: Int, topOffset: Int) {
+                //mLeftOffset = leftOffset
+                println("left offset: $leftOffset")
+                //TODO("Not yet implemented")
+            }
+
+            override fun onHandRelease(layout: SwipeLayout?, xvel: Float, yvel: Float) {
+                //TODO("Not yet implemented")
+                binding.visiblePart.isClickable = true
+            }
+
+        })
+
+        binding.visiblePart.setOnClickListener {
             clickListener(it, data)
         }
-//        binding.codeText.text = data.code
-//        binding.nameText.text = data.name
     }
 }

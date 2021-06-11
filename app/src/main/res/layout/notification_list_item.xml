@@ -26,14 +26,16 @@
             android:background="@drawable/selector_icon_background"
             app:srcCompat="@drawable/ic_trash_orange"
             android:padding="15dp"
-            android:layout_centerVertical="true"
             />
 
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/visible_part"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
