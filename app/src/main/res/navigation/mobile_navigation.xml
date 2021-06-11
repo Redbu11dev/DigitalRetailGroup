@@ -48,7 +48,12 @@
         android:id="@+id/profileFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.ProfileFragment"
         android:label="@string/profile_title"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+
+        <action
+            android:id="@+id/action_profileFragment_to_saveProfileDataDialogFragment"
+            app:destination="@id/saveProfileDataDialogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/launcherFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.LauncherFragment"
@@ -116,5 +121,19 @@
         android:name="com.vashkpi.digitalretailgroup.screens.StoreInfoFragment"
         android:label="fragment_store_info"
         tools:layout="@layout/fragment_store_info" />
+
+    <dialog
+        android:id="@+id/saveProfileDataDialogFragment"
+        android:name="com.vashkpi.digitalretailgroup.screens.dialogs.SaveProfileDataDialogFragment"
+        tools:layout="@layout/dialog_save_profile_data"
+        >
+<!--        <argument-->
+<!--            android:name="string_resource"-->
+<!--            android:defaultValue="@string/main_description"-->
+<!--            app:argType="reference" />-->
+        <!--        <action-->
+        <!--            android:id="@+id/myaction"-->
+        <!--            app:destination="@+id/another_destination"/>-->
+    </dialog>
 
 </navigation>

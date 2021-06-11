@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +30,10 @@ class ProfileFragment : BaseFragment() {
         binding.customToolbar.toolbar.setupWithNavController(navController)
         //binding.customToolbar.toolbar.setNavigationIcon(R.drawable.ic_bell)
         //binding.customToolbar.toolbar.nav
+
+        binding.saveBtn.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment())
+        }
 
         return root
     }

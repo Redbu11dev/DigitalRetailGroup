@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screens.dialogs.SaveProfileDataDialogFragment"
+    android:padding="12dp"
+    android:gravity="center"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_item_bgr"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/cross_btn"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:srcCompat="@drawable/selector_btn_cancel"
+            android:background="@android:color/transparent"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cross_btn"
+            android:text="@string/dialog_save_profile_data_title"
+            android:gravity="center"
+            android:textColor="@color/app_white"
+            android:layout_marginHorizontal="16dp"
+            />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:text="@string/dialog_save_profile_data_message"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/not_active"
+            android:layout_marginHorizontal="43dp"
+            />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#323E38"
+            android:layout_below="@+id/message"
+            android:layout_marginTop="27dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:layout_below="@id/divider"
+            >
+
+            <com.vashkpi.digitalretailgroup.view.GradientTextView
+                android:id="@+id/btn_positive"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/dialog_save_profile_data_btn_positive"
+                android:layout_centerHorizontal="true"
+                style="@style/Widget.DigitalRetailGroup.BottomClickableTextPrimary"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:padding="16dp"
+                />
+
+            <View
+                android:id="@+id/vertical_divider"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#323E38"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/btn_negative"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/dialog_save_profile_data_btn_negative"
+                android:layout_centerHorizontal="true"
+                style="@style/Widget.DigitalRetailGroup.BottomClickableTextSecondary"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:padding="16dp"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
