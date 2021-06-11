@@ -14,7 +14,7 @@
                 </shape>
             </item>
             <item>
-                <inset android:inset="2px">
+                <inset android:inset="1dp">
                     <shape android:shape="rectangle">
                         <corners
                             android:radius="140dp"
@@ -39,7 +39,7 @@
                 </shape>
             </item>
             <item>
-                <inset android:inset="2px">
+                <inset android:inset="1dp">
                     <shape android:shape="rectangle">
                         <corners
                             android:radius="140dp"
