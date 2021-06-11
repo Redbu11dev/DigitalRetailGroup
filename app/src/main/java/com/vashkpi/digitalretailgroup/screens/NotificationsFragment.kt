@@ -7,8 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.daimajia.swipe.util.Attributes
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.adapters.NotificationsAdapter
+import com.vashkpi.digitalretailgroup.adapters.helpers.SwipeToDeleteCallback
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +44,29 @@ class NotificationsFragment : BaseFragment() {
         }
 
         binding.notificationsList.adapter = adapter
+
+        (binding.notificationsList.adapter as NotificationsAdapter).setMode(Attributes.Mode.Single)
+
+//        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(
+//            requireContext()
+//        ))
+//        val itemTouchHelper = ItemTouchHelper(object: ItemTouchHelper.SimpleCallback(ItemTouchHelper.ACTION_STATE_IDLE,
+//            ItemTouchHelper.LEFT) {
+//            override fun onMove(
+//                recyclerView: RecyclerView,
+//                viewHolder: RecyclerView.ViewHolder,
+//                target: RecyclerView.ViewHolder
+//            ): Boolean {
+//                //TODO("Not yet implemented")
+//                return false
+//            }
+//
+//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                //TODO("Not yet implemented")
+//            }
+//
+//        })
+//        itemTouchHelper.attachToRecyclerView(binding.notificationsList)
 
         adapter.setList(arrayListOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"))
         adapter.notifyDataSetChanged()

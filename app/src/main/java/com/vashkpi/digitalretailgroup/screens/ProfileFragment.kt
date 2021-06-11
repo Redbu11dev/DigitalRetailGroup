@@ -49,6 +49,7 @@ class ProfileFragment : BaseFragment() {
                 2000)
         }
 
+        //TODO move date picker to a separate nav component fragment
         val builder = MaterialDatePicker.Builder.datePicker()
         val picker = builder.build()
         val outputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).apply {
