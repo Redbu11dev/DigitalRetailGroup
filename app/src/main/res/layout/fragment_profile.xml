@@ -30,7 +30,9 @@
                 android:id="@+id/surname_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login_login_text"
+                android:text="@string/profile_surname_title"
+                android:textSize="12dp"
+                android:textColor="@color/not_active"
                 />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -43,7 +45,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:endIconMode="clear_text"
                 android:layout_below="@+id/surname_title"
-                android:hint="asdasdad"
+                android:hint="@string/profile_surname_hint"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/surname_text"
@@ -59,8 +61,9 @@
                 android:id="@+id/first_name_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login_login_text"
+                android:text="@string/profile_first_name_title"
                 android:layout_below="@+id/surname_text_layout"
+                android:layout_marginTop="9dp"
                 />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -73,7 +76,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:endIconMode="clear_text"
                 android:layout_below="@+id/first_name_title"
-                android:hint="asdasdad"
+                android:hint="@string/profile_first_name_hint"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/first_name_text"
@@ -86,15 +89,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/second_name_title"
+                android:id="@+id/last_name_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login_login_text"
+                android:text="@string/profile_last_name_title"
                 android:layout_below="@+id/first_name_text_layout"
+                android:layout_marginTop="9dp"
                 />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/second_name_text_layout"
+                android:id="@+id/last_name_text_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -102,8 +106,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:endIconMode="clear_text"
-                android:layout_below="@+id/second_name_title"
-                android:hint="asdasdad"
+                android:layout_below="@+id/last_name_title"
+                android:hint="@string/profile_last_name_hint"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/second_name_text"
@@ -119,12 +123,13 @@
                 android:id="@+id/date_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login_login_text"
-                android:layout_below="@+id/second_name_text_layout"
+                android:text="@string/profile_birth_date_title"
+                android:layout_below="@+id/last_name_text_layout"
+                android:layout_marginTop="9dp"
                 />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/date_text_layout"
+                android:id="@+id/birth_date_text_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -133,10 +138,10 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:endIconMode="clear_text"
                 android:layout_below="@+id/date_title"
-                android:hint="asdasdad"
+                android:hint="@string/profile_birth_date_hint"
                 >
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/date_text"
+                    android:id="@+id/birth_date_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="numberSigned|phone"
@@ -149,31 +154,34 @@
                 android:id="@+id/radio_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/date_text_layout"
+                android:layout_below="@+id/birth_date_text_layout"
                 android:layout_marginTop="26dp"
                 android:orientation="horizontal"
                 >
 
                 <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radio_male"
                     android:layout_width="96dp"
                     android:layout_height="55dp"
                     android:layout_weight="1"
                     android:text="Жен"
                     android:button="@drawable/radio_btn_icon_female"
                     app:buttonTint="@null"
-                    android:paddingLeft="40dp"
+                    android:paddingLeft="16dp"
                     android:checked="true"
                     android:textColor="@color/radiobutton_text_colors"
                     />
 
                 <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radio_female"
                     android:layout_width="96dp"
                     android:layout_height="55dp"
                     android:layout_weight="1"
                     android:text="Муж"
                     android:button="@drawable/radio_btn_icon_male"
-                    android:paddingLeft="40dp"
+                    android:paddingLeft="16dp"
                     android:textColor="@color/radiobutton_text_colors"
+                    android:checked="false"
                     />
 
             </RadioGroup>
@@ -189,7 +197,7 @@
         android:layout_above="@+id/logout_btn"
         android:layout_marginBottom="8dp"
         android:layout_marginHorizontal="12dp"
-        android:text="@string/btn_save"
+        android:text="@string/profile_btn_save"
         app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="visible"
         />
@@ -201,7 +209,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:layout_marginHorizontal="12dp"
-        android:text="@string/btn_logout"
+        android:text="@string/profile_btn_logout"
         app:layout_constraintBottom_toBottomOf="parent"
         style="@style/Widget.DigitalRetailGroup.GreenButton"
         android:visibility="visible"
