@@ -136,11 +136,15 @@
 
     <style name="Widget.DigitalRetailGroup.TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintEnabled">false</item>
+        <item name="boxBackgroundColor">@color/bg_shadow</item>
+        <item name="boxStrokeColor">@color/text_input_stroke</item>
     </style>
 
     <style name="Widget.DigitalRetailGroup.EditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:lines">1</item>
         <item name="android:textSize">16dp</item>
+        <item name="hintTextColor">@color/not_active</item>
+        <item name="android:textColor">@color/app_white</item>
     </style>
 
     <style name="Widget.DigitalRetailGroup.TextInputTitleStyle" parent="Widget.AppCompat.TextView">
