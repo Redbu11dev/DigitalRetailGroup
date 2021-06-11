@@ -20,6 +20,9 @@
     <string name="login_problems">Проблемы со входом?</string>
     <string name="send_sms_again">Отправить смс повторно</string>
 
+    <string name="radio_btn_male">Муж</string>
+    <string name="radio_btn_female">Жен</string>
+
     <!--    Login phone-->
     <string name="login_login_text">Вход</string>
     <string name="login_phone_description">Введите номер телефона. На него будет отправлен код подтверждения.</string>

@@ -134,6 +134,29 @@
         <item name="android:textSize">14dp</item>
     </style>
 
+    <style name="Widget.DigitalRetailGroup.TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="Widget.DigitalRetailGroup.EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:lines">1</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="Widget.DigitalRetailGroup.TextInputTitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/not_active</item>
+    </style>
+
+    <style name="Widget.DigitalRetailGroup.RadioButtonStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/radiobutton_text_colors</item>
+        <item name="android:paddingLeft">16dp</item>
+    </style>
+
+
+
+
     <style name="Test" parent="">
         <item name="android:paddingLeft">40dp</item>
         <item name="android:paddingRight">40dp</item>
