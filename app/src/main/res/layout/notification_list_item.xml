@@ -23,10 +23,11 @@
             android:id="@+id/icon"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:background="@drawable/selector_icon_background"
             app:srcCompat="@drawable/ic_trash_orange"
             android:padding="15dp"
             />
+
+<!--        android:background="@drawable/selector_icon_background"-->
 
     </LinearLayout>
 
@@ -40,7 +41,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bgr_notification_card_item"
+            android:background="@drawable/bgr_card"
             android:paddingHorizontal="16dp"
             android:paddingVertical="21dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +49,6 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title"
-                style="@style/Widget.DigitalRetailGroup.NotificationItemTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/icon_end"
@@ -63,7 +63,6 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text"
-                style="@style/Widget.DigitalRetailGroup.NotificationItemText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
@@ -72,7 +71,6 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/date"
-                style="@style/Widget.DigitalRetailGroup.NotificationItemDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text"

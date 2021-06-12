@@ -31,7 +31,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_surname_title"
-                style="@style/Widget.DigitalRetailGroup.TextInputTitleStyle"
                 />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -52,7 +51,6 @@
                     android:layout_height="match_parent"
                     android:inputType="numberSigned|phone"
                     android:selectAllOnFocus="true"
-                    style="@style/Widget.DigitalRetailGroup.EditTextStyle"
                     android:hint="@string/profile_surname_hint"
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -63,7 +61,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/profile_first_name_title"
                 android:layout_below="@+id/surname_text_layout"
-                style="@style/Widget.DigitalRetailGroup.TextInputTitleStyle"
                 android:layout_marginTop="9dp"
                 />
 
@@ -85,7 +82,6 @@
                     android:layout_height="match_parent"
                     android:inputType="numberSigned|phone"
                     android:selectAllOnFocus="true"
-                    style="@style/Widget.DigitalRetailGroup.EditTextStyle"
                     android:hint="@string/profile_first_name_hint"
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -96,7 +92,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/profile_last_name_title"
                 android:layout_below="@+id/first_name_text_layout"
-                style="@style/Widget.DigitalRetailGroup.TextInputTitleStyle"
                 android:layout_marginTop="9dp"
                 />
 
@@ -118,7 +113,6 @@
                     android:layout_height="match_parent"
                     android:inputType="numberSigned|phone"
                     android:selectAllOnFocus="true"
-                    style="@style/Widget.DigitalRetailGroup.EditTextStyle"
                     android:hint="@string/profile_last_name_hint"
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -129,7 +123,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/profile_birth_date_title"
                 android:layout_below="@+id/last_name_text_layout"
-                style="@style/Widget.DigitalRetailGroup.TextInputTitleStyle"
                 android:layout_marginTop="9dp"
                 />
 
@@ -156,7 +149,6 @@
                     android:cursorVisible="false"
                     android:editable="false"
                     android:hint="@string/profile_birth_date_hint"
-                    style="@style/Widget.DigitalRetailGroup.EditTextStyle"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -175,10 +167,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/radio_btn_male"
-                    android:button="@drawable/radio_btn_icon_female"
                     android:checked="true"
-                    style="@style/Widget.DigitalRetailGroup.RadioButtonStyle"
                     />
+<!--                android:button="@drawable/selector_radio_btn_icon_female"-->
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/radio_female"
@@ -186,10 +177,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/radio_btn_female"
-                    android:button="@drawable/radio_btn_icon_male"
                     android:checked="false"
-                    style="@style/Widget.DigitalRetailGroup.RadioButtonStyle"
                     />
+<!--                android:button="@drawable/selector_radio_btn_icon_male"-->
 
             </RadioGroup>
 

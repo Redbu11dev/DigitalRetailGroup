@@ -26,7 +26,6 @@
         android:layout_above="@+id/navbar_space_bottom"
         android:text="@string/barcode_offer_rules"
         android:layout_centerHorizontal="true"
-        style="@style/Widget.DigitalRetailGroup.BottomClickableTextPrimary"
         android:clickable="true"
         android:focusable="true"
         android:layout_marginBottom="20dp"

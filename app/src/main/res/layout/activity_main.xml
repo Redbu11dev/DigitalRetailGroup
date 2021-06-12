@@ -26,13 +26,11 @@
         android:layout_height="@dimen/bottom_navbar_height"
         app:layout_constraintDimensionRatio="216:60"
         android:background="@drawable/bgr_navbar"
-        app:itemBackground="@drawable/bgr_navbar_item"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav_menu"
-        app:itemIconTint="@color/home_nav_menu_ic_color"
-        app:itemTextColor="@color/home_nav_menu_ic_color"
         app:labelVisibilityMode="unlabeled"
         app:itemIconSize="34dp"
         android:paddingHorizontal="8dp"
@@ -42,5 +40,9 @@
         app:elevation="4dp"
         android:elevation="4dp"
         />
+
+<!--    app:itemBackground="@drawable/selector_bgr_navbar_item"-->
+<!--    app:itemIconTint="@color/selector_home_nav_menu_ic_color"-->
+<!--    app:itemTextColor="@color/selector_home_nav_menu_ic_color"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

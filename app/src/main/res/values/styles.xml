@@ -4,7 +4,7 @@
 
     <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">
 <!--        Style is used for toolbar buttons-->
-        <item name="android:background">@drawable/toolbar_icon_background</item>
+<!--        <item name="android:background">@drawable/selector_toolbar_icon_background</item>-->
         <!--        <item name="android:padding">0dp</item>-->
 
         <item name="android:padding">0dp</item>
@@ -81,6 +81,7 @@
     <style name="Widget.DigitalRetailGroup.Button.Main" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@null</item>
         <item name="android:background">@drawable/btn_main</item>
+
         <item name="android:textColor">@color/bg</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -99,7 +100,7 @@
     <style name="Widget.DigitalRetailGroup.TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintEnabled">false</item>
         <item name="boxBackgroundColor">@color/bg</item>
-        <item name="boxStrokeColor">@color/text_input_stroke</item>
+<!--        <item name="boxStrokeColor">@color/selector_text_input_stroke</item>-->
     </style>
 
 

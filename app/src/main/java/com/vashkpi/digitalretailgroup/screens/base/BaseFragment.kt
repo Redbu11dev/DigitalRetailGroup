@@ -69,8 +69,8 @@ abstract class BaseFragment : Fragment(), LifecycleObserver {
         this@BaseFragment.progressView.apply { visibility = if (enabled) View.VISIBLE else View.GONE }
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-    }
+//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+//        super.setUserVisibleHint(isVisibleToUser)
+//    }
 
 }

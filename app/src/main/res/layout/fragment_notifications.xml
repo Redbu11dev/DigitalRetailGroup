@@ -35,7 +35,6 @@
                 android:text="@string/notification_empty_text"
                 android:gravity="center"
                 app:layout_constraintTop_toTopOf="parent"
-                style="@style/Widget.DigitalRetailGroup.TextDescription"
                 />
 
             <androidx.appcompat.widget.AppCompatImageView

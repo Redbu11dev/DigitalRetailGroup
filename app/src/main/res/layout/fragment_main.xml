@@ -59,7 +59,6 @@
         android:text="@string/main_description"
         android:layout_below="@+id/divider2"
         android:layout_marginTop="12dp"
-        style="@style/Widget.DigitalRetailGroup.TextDescription"
         />
 
         <androidx.recyclerview.widget.RecyclerView

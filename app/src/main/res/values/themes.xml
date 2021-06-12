@@ -40,7 +40,7 @@
 
         <item name="materialButtonStyle">@style/Widget.DigitalRetailGroup.Button.Main</item>
 
-        <item name="android:textAppearance">@style/Widget.DigitalRetailGroup.TextGeneric</item>
+<!--        <item name="android:textAppearance">@style/Widget.DigitalRetailGroup.TextGeneric</item>-->
 
 <!--        <item name="materialCalendarTheme">@style/ThemeOverlay.DigitalRetailGroup.DatePicker</item>-->
     </style>
