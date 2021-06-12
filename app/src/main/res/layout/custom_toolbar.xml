@@ -25,6 +25,7 @@
         app:buttonGravity="center_vertical"
         app:maxButtonHeight="@dimen/toolbar_icon_background_height"
         android:paddingVertical="0dp"
+        tools:title=""
         >
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -33,6 +34,7 @@
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_logo"
             android:visibility="gone"
+            tools:visibility="visible"
             />
 
     </com.google.android.material.appbar.MaterialToolbar>

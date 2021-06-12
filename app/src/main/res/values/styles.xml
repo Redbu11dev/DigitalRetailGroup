@@ -4,16 +4,20 @@
 
     <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">
 <!--        Style is used for toolbar buttons-->
-        <item name="android:background">@drawable/selector_icon_background</item>
+        <item name="android:background">@drawable/selector_toolbar_icon_background</item>
 
         <item name="android:padding">0dp</item>
-        <item name="android:minWidth">0dp</item>
-        <item name="android:minHeight">50dp</item>
+        <item name="android:minWidth">@dimen/toolbar_icon_background_height</item>
+        <item name="android:minHeight">@dimen/toolbar_icon_background_height</item>
+        <item name="android:maxWidth">@dimen/toolbar_icon_background_height</item>
+        <item name="android:maxHeight">@dimen/toolbar_icon_background_height</item>
+        <item name="android:height">@dimen/toolbar_icon_background_height</item>
+        <item name="android:width">@dimen/toolbar_icon_background_height</item>
         <item name="android:paddingStart">0dp</item>
         <item name="android:paddingEnd">0dp</item>
 
-<!--        <item name="android:scaleType">center</item>-->
-<!--        <item name="android:gravity">center</item>-->
+        <item name="android:scaleType">center</item>
+        <item name="android:gravity">center</item>
 
         <!--        <item name="android:minWidth">0dip</item>-->
         <!--        <item name="android:paddingStart">0dip</item>-->
