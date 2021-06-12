@@ -21,7 +21,6 @@
         <!-- Customize your theme here. -->
 
 <!--        Strict element color definitions-->
-
 <!--        Scrim color reference-->
         <item name="scrimBackground">@color/mtrl_scrim_color</item>
 
@@ -33,13 +32,9 @@
         <item name="android:navigationBarColor">@color/bg</item>
 
 <!--        Styles-->
-
         <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
-
         <item name="materialButtonStyle">@style/Widget.DigitalRetailGroup.GoldButton</item>
-
         <item name="android:textViewStyle">@style/Widget.DigitalRetailGroup.TextGeneric</item>
-
         <item name="snackbarStyle">@style/Widget.DigitalRetailGroup.SnackbarStyle</item>
         <item name="snackbarTextViewStyle">@style/Widget.DigitalRetailGroup.SnackbarTextStyle</item>
         <item name="snackbarButtonStyle">@style/Widget.DigitalRetailGroup.SnackbarButtonStyle</item>
@@ -54,185 +49,6 @@
 <!--        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>-->
 <!--        &lt;!&ndash; Customize text field of the text input mode. &ndash;&gt;-->
 <!--        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>-->
-    </style>
-
-    <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">
-        <item name="android:background">@drawable/toolbar_icon_background</item>
-        <!--        <item name="android:padding">0dp</item>-->
-
-        <item name="android:padding">0dp</item>
-        <item name="android:minWidth">0dp</item>
-        <item name="android:minHeight">0dp</item>
-        <item name="android:paddingStart">0dp</item>
-        <item name="android:paddingEnd">0dp</item>
-
-        <!--        <item name="android:minWidth">0dip</item>-->
-        <!--        <item name="android:paddingStart">0dip</item>-->
-        <!--        <item name="android:paddingEnd">0dip</item>-->
-        <!--        <item name="android:paddingTop">0dip</item>-->
-        <!--        <item name="android:paddingBottom">0dip</item>-->
-        <!--        <item name="android:drawablePadding">0dp</item>-->
-        <!--        <item name="android:background">?attr/actionBarItemBackground</item>-->
-        <!--        <item name="android:minWidth">500dp</item>-->
-        <!--        <item name="android:minHeight">500dp</item>-->
-        <!--        <item name="android:scaleType">center</item>-->
-        <!--        <item name="android:gravity">center</item>-->
-        <!--        <item name="android:maxLines">2</item>-->
-        <!--        <item name="textAllCaps">@bool/abc_config_actionMenuItemAllCaps</item>-->
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.SnackbarStyle" parent="Widget.MaterialComponents.Snackbar">
-        <item name="android:background">@drawable/snackbar_bgr</item>
-        <item name="android:paddingTop">0dp</item>
-        <item name="android:paddingBottom">0dp</item>
-        <item name="android:paddingLeft">0dp</item>
-        <item name="android:paddingRight">0dp</item>
-
-        <item name="actionTextColorAlpha">1</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.SnackbarTextStyle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:paddingTop">0dp</item>
-        <item name="android:paddingBottom">0dp</item>
-        <item name="android:paddingLeft">0dp</item>
-        <item name="android:paddingRight">0dp</item>
-
-        <item name="android:layout_marginTop">0dp</item>
-        <item name="android:layout_marginBottom">0dp</item>
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">16dp</item>
-<!--        <item name="android:background">@drawable/snackbar_bgr</item>-->
-
-        <item name="android:textColor">@color/app_white</item>
-        <item name="android:textSize">16dp</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.SnackbarButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Snackbar">
-        <item name="android:paddingTop">0dp</item>
-        <item name="android:paddingBottom">0dp</item>
-        <item name="android:paddingLeft">0dp</item>
-        <item name="android:paddingRight">0dp</item>
-
-        <item name="android:layout_marginTop">0dp</item>
-        <item name="android:layout_marginBottom">0dp</item>
-        <item name="android:layout_marginLeft">0dp</item>
-        <item name="android:layout_marginRight">24dp</item>
-
-        <item name="android:textColor">@color/app_white</item>
-        <item name="android:textSize">16dp</item>
-
-        <item name="android:letterSpacing">0</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Caption</item>
-
-<!--        <item name="backgroundTint">@null</item>-->
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.GoldButton" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@null</item>
-        <item name="android:background">@drawable/rounded_btn2</item>
-        <item name="android:textColor">@color/bg</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.GreenButton" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@null</item>
-        <item name="android:background">@drawable/rounded_btn1</item>
-        <item name="android:textColor">@color/app_white</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.TextGeneric" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/app_white</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.TextDescription" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/not_active</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.PseudoCard" parent="">
-        <item name="android:background">@drawable/card_item_bgr</item>
-        <item name="layout_constraintDimensionRatio">343:220</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.NotificationItemTitle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/app_white</item>
-        <item name="android:textSize">16dp</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:lines">1</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.NotificationItemText" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/not_active</item>
-        <item name="android:textSize">14dp</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:lines">1</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.LoginHeadlineText" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/app_white</item>
-        <item name="android:textSize">18dp</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.LoginDescriptionText" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/app_white</item>
-        <item name="android:textSize">14dp</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.BottomClickableTextSecondary" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/clickable_green_text_color</item>
-        <item name="android:textSize">14dp</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.BottomClickableTextPrimary" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/clickable_yellow_text_color</item>
-        <item name="gtvSecondaryColor">@color/clickable_yellow_end_text_color</item>
-<!--        <item name="gtvSecondaryColor">#FF0000</item>-->
-        <item name="android:textSize">14dp</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.NotificationItemDate" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/not_active</item>
-        <item name="android:textSize">12dp</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:lines">1</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.NotificationItemViewText" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/app_white</item>
-        <item name="android:textSize">14dp</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="hintEnabled">false</item>
-        <item name="boxBackgroundColor">@color/bg_shadow</item>
-        <item name="boxStrokeColor">@color/text_input_stroke</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.EditTextStyle" parent="Widget.AppCompat.EditText">
-        <item name="android:lines">1</item>
-        <item name="android:textSize">16dp</item>
-        <item name="hintTextColor">@color/not_active</item>
-        <item name="android:textColor">@color/app_white</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.TextInputTitleStyle" parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">12dp</item>
-        <item name="android:textColor">@color/not_active</item>
-    </style>
-
-    <style name="Widget.DigitalRetailGroup.RadioButtonStyle" parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">12dp</item>
-        <item name="android:textColor">@color/radiobutton_text_colors</item>
-        <item name="android:paddingLeft">16dp</item>
-    </style>
-
-
-
-
-    <style name="Test" parent="">
-        <item name="android:paddingLeft">40dp</item>
-        <item name="android:paddingRight">40dp</item>
     </style>
 
 </resources>
