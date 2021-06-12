@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/card_item_bgr"
+        android:background="@drawable/bgr_card"
         >
 
         <androidx.appcompat.widget.AppCompatImageButton

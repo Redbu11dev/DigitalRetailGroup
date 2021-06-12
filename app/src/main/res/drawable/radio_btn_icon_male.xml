@@ -3,7 +3,7 @@
     <item android:state_pressed="true">
         <layer-list>
             <item
-                android:drawable="@drawable/icon_background_active"
+                android:drawable="@drawable/img_icon_background_active"
                 android:width="55dp"
                 android:height="55dp"
                 >
@@ -20,7 +20,7 @@
     <item android:state_checked="true">
         <layer-list>
             <item
-                android:drawable="@drawable/icon_background_active"
+                android:drawable="@drawable/img_icon_background_active"
                 android:width="55dp"
                 android:height="55dp"
                 >
@@ -37,7 +37,7 @@
     <item>
         <layer-list>
             <item
-                android:drawable="@drawable/icon_background"
+                android:drawable="@drawable/img_icon_background"
                 android:width="55dp"
                 android:height="55dp"
                 >

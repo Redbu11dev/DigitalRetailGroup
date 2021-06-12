@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:context=".screens.LauncherFragment"
-    android:background="@drawable/splash_logo"
+    android:background="@drawable/img_splash_logo"
     android:layout_gravity="center"
     >
 

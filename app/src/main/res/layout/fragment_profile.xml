@@ -218,7 +218,7 @@
         android:layout_marginHorizontal="12dp"
         android:text="@string/profile_btn_logout"
         app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/Widget.DigitalRetailGroup.GreenButton"
+        style="@style/Widget.DigitalRetailGroup.Button.Green"
         android:visibility="visible"
         />
 

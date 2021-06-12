@@ -13,7 +13,7 @@
         </shape> -->
     </item>
     <item>
-        <bitmap android:src="@drawable/splash_logo"
+        <bitmap android:src="@drawable/img_splash_logo"
             android:gravity="center"/>
     </item>
 </layer-list>

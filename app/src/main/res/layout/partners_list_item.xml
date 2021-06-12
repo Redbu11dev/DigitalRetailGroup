@@ -18,7 +18,7 @@
             android:id="@+id/logo"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:srcCompat="@drawable/dummy_partner_logo"
+            app:srcCompat="@drawable/img_dummy_partner_logo"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.3"
