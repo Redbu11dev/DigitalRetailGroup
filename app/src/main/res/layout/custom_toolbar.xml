@@ -23,6 +23,8 @@
         tools:menu="@menu/toolbar_main_menu"
         app:contentInsetStart="8dp"
         app:buttonGravity="center_vertical"
+        app:maxButtonHeight="@dimen/toolbar_icon_background_height"
+        android:paddingVertical="0dp"
         >
 
         <androidx.appcompat.widget.AppCompatImageView
