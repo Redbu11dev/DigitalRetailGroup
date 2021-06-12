@@ -33,7 +33,7 @@
             android:layout_below="@id/cross_btn"
             android:text="@string/dialog_save_profile_data_title"
             android:gravity="center"
-            android:textColor="@color/app_white"
+            android:textColor="@color/white"
             android:layout_marginHorizontal="16dp"
             />
 

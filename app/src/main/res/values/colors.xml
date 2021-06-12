@@ -2,33 +2,42 @@
 <resources>
 
     <!--    Overrides-->
+
 <!--    <color name="mtrl_textinput_default_box_stroke_color">#fff</color>-->
 
-    <!--    Default-->
-
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="gray">#FF202020</color>
-
-<!--    Design-->
+<!--    Utility colors-->
 
     <color name="transparent">#00000000</color>
 
-<!--    <color name="error_color">#DB7200</color>-->
+<!--    Design colors (named as given)-->
 
-    <color name="color_on_surface">#f6fcfc</color>
-    <color name="color_on_surface_38">#60f6fcfc</color>
-
-    <color name="app_white">#F6FFFB</color>
-    <color name="not_active">#89AA9B</color>
+    <color name="white">#F6FFFB</color>
 
     <color name="bg">#151D19</color>
-    <color name="bg_shadow">#1D2822</color>
+
+    <color name="button_start">#E1D100</color>
+    <color name="button_end">#DB7200</color>
+
+    <color name="one_layer_strock_start">#323E38</color>
+    <color name="one_layer_strock_end">#323E38</color>
+
+    <color name="one_layer_start">#24322B</color>
+    <color name="one_layer_end">#1D2923</color>
+
+    <color name="not_active">#89AA9B</color>
+
+    <color name="green_btn_start">#3A5246</color>
+    <color name="green_btn_end">#4B685A</color>
+
+    <color name="blue_white">#F4FAFF</color>
+
+    <color name="blue_one_layer_start">#002242</color>
+    <color name="blue_one_layer_end">#001930</color>
+
+    <color name="input_field_start">#2D3F36</color>
+    <color name="input_field_end">#1C2621</color>
+
+    <color name="input_strock">#394942</color>
 
     <color name="orange">#DB7200</color>
 
