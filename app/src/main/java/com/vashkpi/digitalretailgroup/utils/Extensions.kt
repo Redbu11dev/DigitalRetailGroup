@@ -1,7 +1,9 @@
 package com.vashkpi.digitalretailgroup.utils
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -42,6 +44,18 @@ fun View.isVisible() = visibility == View.VISIBLE
 fun View.hideKeyboard() {
     val imm = getSystemService(context, InputMethodManager::class.java)
     imm?.hideSoftInputFromWindow(windowToken, 0)
+}
+
+@SuppressLint("ClickableViewAccessibility")
+fun View.changeAlphaOnTouch() {
+    setOnTouchListener { v, event ->
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            v.alpha = 0.6f
+        } else {
+            v.alpha = 1f
+        }
+        false
+    }
 }
 
 /**

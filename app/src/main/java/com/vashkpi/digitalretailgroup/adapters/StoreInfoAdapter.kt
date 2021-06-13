@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vashkpi.digitalretailgroup.databinding.ItemOptionBinding
+import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 
 class StoreInfoAdapter(
     private val clickListener: (View, String) -> Unit
@@ -45,6 +46,7 @@ class StoreInfoViewHolder(val binding: ItemOptionBinding) :
         binding.root.setOnClickListener {
             clickListener(it, data)
         }
+        binding.root.changeAlphaOnTouch()
 //        binding.codeText.text = data.code
 //        binding.nameText.text = data.name
     }

@@ -10,6 +10,7 @@ import com.vashkpi.digitalretailgroup.adapters.NotificationsAdapter
 import com.vashkpi.digitalretailgroup.adapters.PartnersAdapter
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentMainBinding
+import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -74,6 +75,9 @@ class MainFragment : BaseFragment() {
                 }
             }
         }
+
+        binding.item1.root.changeAlphaOnTouch()
+        binding.item2.root.changeAlphaOnTouch()
 
         return root
     }

@@ -8,6 +8,7 @@ import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.databinding.ItemNotificationBinding
+import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 
 class NotificationsAdapter(
     private val clickListener: (View, String) -> Unit
@@ -51,6 +52,7 @@ class NotificationsViewHolder(val binding: ItemNotificationBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(data: String, clickListener: (view: View, String) -> Unit) {
+
         binding.swipe.setShowMode(SwipeLayout.ShowMode.LayDown)
         binding.swipe.addSwipeListener(object: SwipeLayout.SwipeListener{
             override fun onStartOpen(layout: SwipeLayout?) {
@@ -83,6 +85,7 @@ class NotificationsViewHolder(val binding: ItemNotificationBinding) :
 
         })
 
+        binding.visiblePart.changeAlphaOnTouch()
         binding.visiblePart.setOnClickListener {
             clickListener(it, data)
         }
