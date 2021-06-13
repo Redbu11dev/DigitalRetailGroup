@@ -6,12 +6,14 @@ import android.graphics.Canvas
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.util.AttributeSet
-import android.util.Log
-import android.util.StateSet
-import android.view.View
 import com.google.android.material.textview.MaterialTextView
 import com.vashkpi.digitalretailgroup.R
 
+/**
+ * In order to work:
+ * - view must have no horizontal padding
+ * - width must me wrap_content or text should be horizontally centered
+ */
 class GradientTextView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : MaterialTextView(context, attrs, defStyleAttr) {
@@ -42,20 +44,44 @@ class GradientTextView @JvmOverloads constructor(
 
     private fun updateGradient() {
         mGradientSecondaryColorStateList?.let {
+            val gradientEndColor = it.getColorForState(drawableState, it.defaultColor)
 
-            val gradientEndColor = it.getColorForState(drawableState, currentTextColor)
+            //println("state: ${drawableState.asList().toString()}")
+            //[16842909, 16842910, 16842919, 16843547, 16843597]
 
-            val newGradient = LinearGradient(
+//            android.util.StateSet
+//            /** @hide */
+//            public static final int VIEW_STATE_WINDOW_FOCUSED = 1;
+//            /** @hide */
+//            public static final int VIEW_STATE_SELECTED = 1 << 1;
+//            /** @hide */
+//            public static final int VIEW_STATE_FOCUSED = 1 << 2;
+//            /** @hide */
+//            public static final int VIEW_STATE_ENABLED = 1 << 3;
+//            /** @hide */
+//            public static final int VIEW_STATE_PRESSED = 1 << 4;
+//            /** @hide */
+//            public static final int VIEW_STATE_ACTIVATED = 1 << 5;
+//            /** @hide */
+//            public static final int VIEW_STATE_ACCELERATED = 1 << 6;
+//            /** @hide */
+//            public static final int VIEW_STATE_HOVERED = 1 << 7;
+//            /** @hide */
+//            public static final int VIEW_STATE_DRAG_CAN_ACCEPT = 1 << 8;
+//            /** @hide */
+//            public static final int VIEW_STATE_DRAG_HOVERED = 1 << 9;
+
+            val textWidth = paint.measureText(text.toString())
+            val left = (width/2f)-(textWidth/2f)
+            mCurrentGradient = LinearGradient(
+                left,
                 0f,
-                0f,
-                width.toFloat(),
+                if (drawableState.size != 5) left+textWidth else left+(textWidth*0.25f),
                 0f,
                 currentTextColor,
                 gradientEndColor,
                 Shader.TileMode.CLAMP
             )
-
-            mCurrentGradient = newGradient
         }
     }
 

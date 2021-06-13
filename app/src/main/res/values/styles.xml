@@ -165,12 +165,12 @@
     </style>
 
     <style name="Widget.DigitalRetailGroup.ClickableTextView.GradientTextView" parent="Widget.DigitalRetailGroup.ClickableTextView">
-        <item name="android:textColor">@color/button_start</item>
+        <item name="android:textColor">@color/selector_color_clickable_textview_gradient_start</item>
         <item name="gtvSecondaryColor">@color/button_end</item>
     </style>
 
     <style name="Widget.DigitalRetailGroup.ClickableTextView.Secondary" parent="Widget.DigitalRetailGroup.ClickableTextView">
-        <item name="android:textColor">@color/not_active</item>
+        <item name="android:textColor">@color/selector_color_clickable_textview_secondary</item>
     </style>
 
 <!--    etc-->

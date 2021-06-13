@@ -76,10 +76,11 @@
                 android:layout_weight="1"
                 android:text="@string/dialog_save_profile_data_btn_positive"
                 android:gravity="center"
-                android:padding="16dp"
+                android:layout_margin="16dp"
 
                 style="@style/Widget.DigitalRetailGroup.ClickableTextView.GradientTextView"
                 android:textSize="16dp"
+
                 />
 
             <View
@@ -98,7 +99,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:padding="16dp"
+                android:layout_margin="16dp"
 
                 style="@style/Widget.DigitalRetailGroup.ClickableTextView.Secondary"
                 android:textSize="16dp"
