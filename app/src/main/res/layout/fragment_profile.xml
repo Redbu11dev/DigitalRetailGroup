@@ -180,7 +180,11 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:text="@string/radio_btn_female" />
+                    android:text="@string/radio_btn_female"
+
+                    android:button="@drawable/ic_female"
+
+                    />
                 <!--                android:button="@drawable/selector_radio_btn_icon_male"-->
 
             </RadioGroup>
