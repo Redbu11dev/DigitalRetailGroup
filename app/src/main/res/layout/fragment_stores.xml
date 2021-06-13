@@ -28,7 +28,7 @@
             android:scrollbars="vertical"
             android:splitMotionEvents="false"
             android:elevation="10dp"
-            tools:listitem="@layout/store_list_item"
+            tools:listitem="@layout/item_store"
             tools:itemCount="4"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />

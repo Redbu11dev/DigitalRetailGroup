@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bgr_card"
+        style="@style/Widget.DigitalRetailGroup.PseudoCard.FreeForm"
         >
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -20,11 +20,10 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:padding="0dp"
-            app:srcCompat="@drawable/ic_cancel"
-            android:background="?selectableItemBackground"
             android:layout_alignParentRight="true"
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
+            style="@style/Widget.DigitalRetailGroup.ImageButton.Dialog.Cancel"
             />
 
         <com.google.android.material.textview.MaterialTextView
@@ -72,12 +71,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/dialog_save_profile_data_btn_positive"
-                android:layout_centerHorizontal="true"
-                android:clickable="true"
-                android:focusable="true"
                 android:gravity="center"
                 android:textSize="16dp"
                 android:padding="16dp"
+                style="@style/Widget.DigitalRetailGroup.ClickableTextView.GradientTextView"
                 />
 
             <View
@@ -93,12 +90,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/dialog_save_profile_data_btn_negative"
-                android:layout_centerHorizontal="true"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
                 android:textSize="16dp"
                 android:padding="16dp"
+                style="@style/Widget.DigitalRetailGroup.ClickableTextView.Secondary"
                 />
 
         </LinearLayout>

@@ -70,7 +70,7 @@
             android:splitMotionEvents="false"
             android:elevation="10dp"
             android:layout_marginTop="12dp"
-            tools:listitem="@layout/partners_list_item"
+            tools:listitem="@layout/item_partner"
             tools:itemCount="4"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 

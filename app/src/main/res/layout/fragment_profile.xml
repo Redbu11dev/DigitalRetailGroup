@@ -40,10 +40,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                style="@style/Widget.DigitalRetailGroup.TextInputLayoutStyle"
-                app:endIconMode="clear_text"
+                style="@style/Widget.DigitalRetailGroup.TextInputLayout.Titled"
                 android:layout_below="@+id/surname_title"
-                android:layout_marginTop="8dp"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/surname_text"
@@ -71,10 +69,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                style="@style/Widget.DigitalRetailGroup.TextInputLayoutStyle"
-                app:endIconMode="clear_text"
+                style="@style/Widget.DigitalRetailGroup.TextInputLayout.Titled"
                 android:layout_below="@+id/first_name_title"
-                android:layout_marginTop="8dp"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/first_name_text"
@@ -102,10 +98,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                style="@style/Widget.DigitalRetailGroup.TextInputLayoutStyle"
-                app:endIconMode="clear_text"
+                style="@style/Widget.DigitalRetailGroup.TextInputLayout.Titled"
                 android:layout_below="@+id/last_name_title"
-                android:layout_marginTop="8dp"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/second_name_text"
@@ -133,11 +127,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                style="@style/Widget.DigitalRetailGroup.TextInputLayoutStyle"
+                style="@style/Widget.DigitalRetailGroup.TextInputLayout.Titled"
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/ic_calendar"
                 android:layout_below="@+id/date_title"
-                android:layout_marginTop="8dp"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/birth_date_text"
@@ -168,6 +161,7 @@
                     android:layout_weight="1"
                     android:text="@string/radio_btn_male"
                     android:checked="true"
+                    style="@style/Widget.DigitalRetailGroup.RadioButton"
                     />
 <!--                android:button="@drawable/selector_radio_btn_icon_female"-->
 
@@ -178,6 +172,7 @@
                     android:layout_weight="1"
                     android:text="@string/radio_btn_female"
                     android:checked="false"
+                    style="@style/Widget.DigitalRetailGroup.RadioButton"
                     />
 <!--                android:button="@drawable/selector_radio_btn_icon_male"-->
 

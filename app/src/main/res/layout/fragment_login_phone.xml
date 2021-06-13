@@ -23,7 +23,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:endIconMode="clear_text"
             android:layout_centerInParent="true"
             >
             <com.google.android.material.textfield.TextInputEditText
@@ -43,8 +42,6 @@
             android:layout_height="wrap_content"
             android:text="@string/login_login_text"
             android:layout_centerHorizontal="true"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_marginBottom="35dp"
             android:layout_above="@id/text2"
             android:gravity="center"
@@ -56,8 +53,6 @@
             android:layout_height="wrap_content"
             android:text="@string/login_phone_description"
             android:layout_centerHorizontal="true"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_marginBottom="35dp"
             android:layout_above="@id/phone_layout"
             android:gravity="center"
@@ -70,9 +65,8 @@
             android:layout_alignParentBottom="true"
             android:text="@string/contact_us"
             android:layout_centerHorizontal="true"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_marginBottom="20dp"
+            style="@style/Widget.DigitalRetailGroup.ClickableTextView.GradientTextView"
             />
 
         <com.google.android.material.textview.MaterialTextView
@@ -81,10 +75,9 @@
             android:layout_height="wrap_content"
             android:text="@string/login_problems"
             android:layout_centerHorizontal="true"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_marginBottom="20dp"
             android:layout_above="@id/contact_us"
+            style="@style/Widget.DigitalRetailGroup.ClickableTextView.Secondary"
             />
 
     </RelativeLayout>

@@ -86,7 +86,7 @@
 
     <style name="Widget.DigitalRetailGroup.Button.Main" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@null</item>
-        <item name="android:background">@drawable/btn_main</item>
+        <item name="android:background">@drawable/selector_btn_main</item>
 
         <item name="android:textColor">@color/bg</item>
         <item name="android:textStyle">bold</item>
@@ -94,26 +94,65 @@
 
     <style name="Widget.DigitalRetailGroup.Button.Green" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@null</item>
-        <item name="android:background">@drawable/btn_secondary</item>
+        <item name="android:background">@drawable/selector_btn_secondary</item>
+
         <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Widget.DigitalRetailGroup.PseudoCard" parent="">
+    <style name="Widget.DigitalRetailGroup.PseudoCard.FreeForm" parent="">
         <item name="android:background">@drawable/bgr_card</item>
+    </style>
+
+    <style name="Widget.DigitalRetailGroup.PseudoCard.Big" parent="Widget.DigitalRetailGroup.PseudoCard.FreeForm">
         <item name="layout_constraintDimensionRatio">343:220</item>
     </style>
 
-    <style name="Widget.DigitalRetailGroup.TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="Widget.DigitalRetailGroup.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:paddingStart">16dp</item>
+    </style>
+
+    <style name="Widget.DigitalRetailGroup.IconImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/selector_icon_background</item>
+    </style>
+
+    <style name="Widget.DigitalRetailGroup.ImageButton.Dialog.Cancel" parent="Widget.AppCompat.ImageButton">
+        <item name="srcCompat">@drawable/ic_cancel</item>
+        <item name="android:background">?selectableItemBackground</item>
+    </style>
+
+<!--    Text related styles (do not want to make separate text appearances because they are not defined by design)-->
+
+    <style name="Widget.DigitalRetailGroup.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintEnabled">false</item>
         <item name="boxBackgroundColor">@color/bg</item>
-<!--        <item name="boxStrokeColor">@color/selector_text_input_stroke</item>-->
+        <item name="endIconMode">clear_text</item>
+        <!--        <item name="boxStrokeColor">@color/selector_text_input_stroke</item>-->
     </style>
 
+    <style name="Widget.DigitalRetailGroup.TextInputLayout.Titled" parent="Widget.DigitalRetailGroup.TextInputLayout">
+        <item name="android:paddingTop">8dp</item>
+        <!--        <item name="boxStrokeColor">@color/selector_text_input_stroke</item>-->
+    </style>
+
+    <style name="Widget.DigitalRetailGroup.ClickableTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="Widget.DigitalRetailGroup.ClickableTextView.GradientTextView" parent="Widget.DigitalRetailGroup.ClickableTextView">
+        <item name="android:textColor">@color/button_start</item>
+        <item name="gtvSecondaryColor">@color/button_end</item>
+    </style>
+
+    <style name="Widget.DigitalRetailGroup.ClickableTextView.Secondary" parent="Widget.DigitalRetailGroup.ClickableTextView">
+        <item name="android:textColor">@color/not_active</item>
+    </style>
 
 <!--    etc-->
-    <style name="Test" parent="">
-        <item name="android:paddingLeft">40dp</item>
-        <item name="android:paddingRight">40dp</item>
-    </style>
+<!--    <style name="Test" parent="">-->
+<!--        <item name="android:paddingLeft">40dp</item>-->
+<!--        <item name="android:paddingRight">40dp</item>-->
+<!--    </style>-->
 
 </resources>

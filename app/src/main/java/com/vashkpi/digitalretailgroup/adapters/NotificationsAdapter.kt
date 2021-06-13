@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
-import com.vashkpi.digitalretailgroup.databinding.ItemOptionBinding
-import com.vashkpi.digitalretailgroup.databinding.NotificationListItemBinding
-import com.vashkpi.digitalretailgroup.databinding.PartnersListItemBinding
 import com.vashkpi.digitalretailgroup.R
+import com.vashkpi.digitalretailgroup.databinding.ItemNotificationBinding
 
 class NotificationsAdapter(
     private val clickListener: (View, String) -> Unit
@@ -20,7 +18,7 @@ class NotificationsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding =
-            NotificationListItemBinding.inflate(
+            ItemNotificationBinding.inflate(
                 layoutInflater,
                 parent,
                 false
@@ -49,7 +47,7 @@ class NotificationsAdapter(
 
 }
 
-class NotificationsViewHolder(val binding: NotificationListItemBinding) :
+class NotificationsViewHolder(val binding: ItemNotificationBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(data: String, clickListener: (view: View, String) -> Unit) {

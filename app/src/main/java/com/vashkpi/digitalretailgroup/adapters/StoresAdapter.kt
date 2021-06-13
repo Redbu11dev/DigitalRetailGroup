@@ -4,9 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.vashkpi.digitalretailgroup.databinding.ItemOptionBinding
-import com.vashkpi.digitalretailgroup.databinding.PartnersListItemBinding
-import com.vashkpi.digitalretailgroup.databinding.StoreListItemBinding
+import com.vashkpi.digitalretailgroup.databinding.ItemStoreBinding
 
 class StoresAdapter(
     private val clickListener: (View, String) -> Unit
@@ -17,7 +15,7 @@ class StoresAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoresViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding =
-            StoreListItemBinding.inflate(
+            ItemStoreBinding.inflate(
                 layoutInflater,
                 parent,
                 false
@@ -41,7 +39,7 @@ class StoresAdapter(
 
 }
 
-class StoresViewHolder(val binding: StoreListItemBinding) :
+class StoresViewHolder(val binding: ItemStoreBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(data: String, clickListener: (view: View, String) -> Unit) {
         binding.root.setOnClickListener {

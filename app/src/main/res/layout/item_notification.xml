@@ -11,6 +11,7 @@
     swipe:rightEdgeSwipeOffset="0dp"
     >
 
+<!--    Must have android:tag="Bottom3" to work-->
     <LinearLayout
         android:layout_width="103dp"
         android:layout_height="match_parent"
@@ -25,6 +26,7 @@
             android:layout_height="55dp"
             app:srcCompat="@drawable/ic_trash_orange"
             android:padding="15dp"
+            style="@style/Widget.DigitalRetailGroup.IconImageButton"
             />
 
 <!--        android:background="@drawable/selector_icon_background"-->
@@ -41,7 +43,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bgr_card"
+            style="@style/Widget.DigitalRetailGroup.PseudoCard.FreeForm"
             android:paddingHorizontal="16dp"
             android:paddingVertical="21dp"
             app:layout_constraintBottom_toBottomOf="parent"

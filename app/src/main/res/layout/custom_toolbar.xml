@@ -14,7 +14,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:background="@color/orange"
+        android:background="@color/bg"
         android:textAlignment="viewStart"
         android:textDirection="ltr"
         app:layout_constraintTop_toTopOf="parent"

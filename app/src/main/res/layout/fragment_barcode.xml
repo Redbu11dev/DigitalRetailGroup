@@ -26,9 +26,8 @@
         android:layout_above="@+id/navbar_space_bottom"
         android:text="@string/barcode_offer_rules"
         android:layout_centerHorizontal="true"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_marginBottom="20dp"
+        style="@style/Widget.DigitalRetailGroup.ClickableTextView.GradientTextView"
         />
 
     <ScrollView
@@ -81,14 +80,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/balance_currency"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    style="@style/Widget.DigitalRetailGroup.PseudoCard"
+                    style="@style/Widget.DigitalRetailGroup.PseudoCard.Big"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/logo"

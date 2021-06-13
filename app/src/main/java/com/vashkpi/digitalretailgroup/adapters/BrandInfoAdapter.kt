@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vashkpi.digitalretailgroup.databinding.ItemOptionBinding
-import com.vashkpi.digitalretailgroup.databinding.PartnersListItemBinding
 
 class BrandInfoAdapter(
     private val clickListener: (View, String) -> Unit

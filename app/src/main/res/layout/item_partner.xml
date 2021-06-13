@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/Widget.DigitalRetailGroup.PseudoCard"
+        style="@style/Widget.DigitalRetailGroup.PseudoCard.Big"
         >
 
         <androidx.appcompat.widget.AppCompatImageView

@@ -23,7 +23,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bgr_card"
+            style="@style/Widget.DigitalRetailGroup.PseudoCard.FreeForm"
             android:paddingHorizontal="16dp"
             android:paddingVertical="21dp"
             app:layout_constraintTop_toTopOf="parent"
