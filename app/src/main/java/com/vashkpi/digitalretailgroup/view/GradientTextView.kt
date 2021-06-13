@@ -11,8 +11,9 @@ import com.vashkpi.digitalretailgroup.R
 
 /**
  * In order to work:
+ * - text color should have different colors in selector
  * - view must have no horizontal padding
- * - width must me wrap_content or text should be horizontally centered
+ * - width must be wrap_content or text should be horizontally centered
  */
 class GradientTextView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
