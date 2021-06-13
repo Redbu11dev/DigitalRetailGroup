@@ -26,6 +26,8 @@
 
     <color name="not_active">#89AA9B</color>
 
+    <color name="not_active_50_percent">#8089AA9B</color>
+
     <color name="green_btn_start">#3A5246</color>
     <color name="green_btn_end">#4B685A</color>
 
