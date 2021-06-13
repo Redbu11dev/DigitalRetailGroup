@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape android:shape="rectangle">
+        <inset>
+            <shape android:shape="rectangle" android:dither="true">
+                <corners
+                    android:radius="24dp"
+                    />
+<!--                <solid android:color="#1D2923"/>-->
+                <gradient
+                    android:startColor="#24322B"
+                    android:endColor="#1D2923"
+                    android:angle="135"
+                    />
+            </shape>
+        </inset>
+    </item>
+    <item>
+        <shape android:shape="rectangle" android:dither="true">
             <corners
                 android:radius="24dp"
                 />
@@ -14,11 +29,15 @@
     </item>
     <item>
         <inset android:inset="1dp">
-            <shape android:shape="rectangle">
+            <shape android:shape="rectangle" android:dither="true">
                 <corners
                     android:radius="24dp"
                     />
-                <solid android:color="#1D2923"/>
+                <gradient
+                    android:startColor="#24322B"
+                    android:endColor="#1D2923"
+                    android:angle="135"
+                    />
             </shape>
         </inset>
     </item>

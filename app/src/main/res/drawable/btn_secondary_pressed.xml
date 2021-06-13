@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
     >
-<!--    <item>-->
-<!--        <inset>-->
-<!--            <shape android:shape="rectangle">-->
-<!--                <corners android:radius="140dp" />-->
-<!--                <gradient-->
-<!--                    android:startColor="#000000"-->
-<!--                    android:centerColor="#000000"-->
-<!--                    android:endColor="#00000000"-->
-<!--                    android:gradientRadius="100%"-->
-<!--                    android:angle="-90"-->
-<!--                    android:type="linear"-->
-<!--                    android:centerY="0.7"-->
-<!--                    />-->
-<!--            </shape>-->
-<!--        </inset>-->
-<!--    </item>-->
-
     <item>
         <shape
             android:shape="rectangle">
@@ -37,4 +20,19 @@
             </shape>
         </inset>
     </item>
+<!--    <item>-->
+<!--        <inset android:inset="2dp">-->
+<!--            <shape android:shape="rectangle" android:dither="true">-->
+<!--                <gradient-->
+<!--                    android:startColor="#00000000"-->
+<!--                    android:endColor="#80000000"-->
+<!--                    android:gradientRadius="100%"-->
+<!--                    android:centerX="0.5"-->
+<!--                    android:centerY="0.5"-->
+<!--                    android:angle="-90"-->
+<!--                    android:type="radial"-->
+<!--                    />-->
+<!--            </shape>-->
+<!--        </inset>-->
+<!--    </item>-->
 </layer-list>

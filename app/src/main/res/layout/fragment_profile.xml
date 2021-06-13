@@ -201,7 +201,8 @@
         android:layout_marginBottom="8dp"
         android:text="@string/profile_btn_save"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/logout_btn"
@@ -213,6 +214,9 @@
         android:layout_marginBottom="10dp"
         android:text="@string/profile_btn_logout"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/btn_secondary_pressed"
+        android:layerType="software"
+        />
 
 </RelativeLayout>

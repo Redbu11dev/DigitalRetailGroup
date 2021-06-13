@@ -102,6 +102,7 @@
 
     <style name="Widget.DigitalRetailGroup.PseudoCard.FreeForm" parent="">
         <item name="android:background">@drawable/bgr_card</item>
+        <item name="android:layerType">software</item>
     </style>
 
     <style name="Widget.DigitalRetailGroup.PseudoCard.Big" parent="Widget.DigitalRetailGroup.PseudoCard.FreeForm">

@@ -1,8 +1,10 @@
 package com.vashkpi.digitalretailgroup.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
@@ -53,7 +55,7 @@ class NotificationsViewHolder(val binding: ItemNotificationBinding) :
 
     fun bind(data: String, clickListener: (view: View, String) -> Unit) {
 
-        binding.swipe.setShowMode(SwipeLayout.ShowMode.LayDown)
+        binding.swipe.showMode = SwipeLayout.ShowMode.LayDown
         binding.swipe.addSwipeListener(object: SwipeLayout.SwipeListener{
             override fun onStartOpen(layout: SwipeLayout?) {
                 //TODO("Not yet implemented")
@@ -88,6 +90,10 @@ class NotificationsViewHolder(val binding: ItemNotificationBinding) :
         binding.visiblePart.changeAlphaOnTouch()
         binding.visiblePart.setOnClickListener {
             clickListener(it, data)
+        }
+
+        binding.icon.setOnClickListener {
+
         }
     }
 }
