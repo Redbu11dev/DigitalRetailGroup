@@ -38,6 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Фирменный магазин Xiaomi. Здесь доступны такие услуги как демонстрация устройств и консультация."
+
+            android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Generic"
             android:textSize="14dp"
             />
 

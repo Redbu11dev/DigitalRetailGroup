@@ -31,6 +31,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_surname_title"
+
+                android:textAppearance="@style/TextAppearance.DigitalRetailGroup.TextInputTitle"
+                android:textSize="12dp"
                 />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -60,6 +63,9 @@
                 android:text="@string/profile_first_name_title"
                 android:layout_below="@+id/surname_text_layout"
                 android:layout_marginTop="9dp"
+
+                android:textAppearance="@style/TextAppearance.DigitalRetailGroup.TextInputTitle"
+                android:textSize="12dp"
                 />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -89,6 +95,9 @@
                 android:text="@string/profile_last_name_title"
                 android:layout_below="@+id/first_name_text_layout"
                 android:layout_marginTop="9dp"
+
+                android:textAppearance="@style/TextAppearance.DigitalRetailGroup.TextInputTitle"
+                android:textSize="12dp"
                 />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -118,6 +127,9 @@
                 android:text="@string/profile_birth_date_title"
                 android:layout_below="@+id/last_name_text_layout"
                 android:layout_marginTop="9dp"
+
+                android:textAppearance="@style/TextAppearance.DigitalRetailGroup.TextInputTitle"
+                android:textSize="12dp"
                 />
 
             <com.google.android.material.textfield.TextInputLayout

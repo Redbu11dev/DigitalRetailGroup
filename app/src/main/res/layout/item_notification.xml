@@ -54,7 +54,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/icon_end"
-                android:text="С новым годом!" />
+                android:text="С новым годом!"
+
+                android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Title1"
+                android:textSize="16dp"
+                />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon_end"
@@ -69,7 +73,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
                 android:layout_marginTop="11dp"
-                android:text="Команда компании DRG поздравляет вас с sad asd dsa f" />
+                android:text="Команда компании DRG поздравляет вас с sad asd dsa fgff"
+
+                style="@style/Widget.DigitalRetailGroup.TextView.OneLine"
+                android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Secondary"
+                android:textSize="14dp"
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/date"
@@ -77,7 +86,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text"
                 android:layout_marginTop="11dp"
-                android:text="14:30" />
+                android:text="14:30"
+
+                android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Secondary"
+                android:textSize="12dp"
+                />
 
         </RelativeLayout>
 

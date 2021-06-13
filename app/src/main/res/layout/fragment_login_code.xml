@@ -45,11 +45,12 @@
         android:layout_height="wrap_content"
         android:text="@string/login_login_text"
         android:layout_centerHorizontal="true"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_marginBottom="35dp"
         android:layout_above="@id/text2"
         android:gravity="center"
+
+        android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Title1"
+        android:textSize="18dp"
         />
 
     <com.google.android.material.textview.MaterialTextView
@@ -58,11 +59,12 @@
         android:layout_height="wrap_content"
         android:text="@string/login_code_description"
         android:layout_centerHorizontal="true"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_marginBottom="35dp"
         android:layout_above="@id/phone_layout"
         android:gravity="center"
+
+        android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Generic"
+        android:textSize="14dp"
         />
 
     <com.vashkpi.digitalretailgroup.view.GradientTextView

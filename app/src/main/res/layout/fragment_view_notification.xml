@@ -34,7 +34,11 @@
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="С новым годом!" />
+                android:text="С новым годом!"
+
+                android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Title1"
+                android:textSize="16dp"
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/date"
@@ -42,7 +46,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
                 android:layout_marginTop="11dp"
-                android:text="21 Декабря 2020  14:30" />
+                android:text="21 Декабря 2020  14:30"
+
+                android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Secondary"
+                android:textSize="12dp"
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text"
@@ -51,6 +59,9 @@
                 android:layout_below="@id/date"
                 android:layout_marginTop="11dp"
                 android:text="Команда компании DRG поздравляет вас с sad asd dsa f"
+
+                android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Generic"
+                android:textSize="14dp"
                 />
 
 

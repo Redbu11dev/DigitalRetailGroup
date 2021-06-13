@@ -35,6 +35,9 @@
                 android:text="@string/notification_empty_text"
                 android:gravity="center"
                 app:layout_constraintTop_toTopOf="parent"
+
+                android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Generic"
+                android:textSize="14dp"
                 />
 
             <androidx.appcompat.widget.AppCompatImageView

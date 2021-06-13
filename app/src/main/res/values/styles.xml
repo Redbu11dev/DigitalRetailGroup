@@ -135,6 +135,11 @@
         <!--        <item name="boxStrokeColor">@color/selector_text_input_stroke</item>-->
     </style>
 
+    <style name="Widget.DigitalRetailGroup.TextView.OneLine" parent="Widget.MaterialComponents.TextView">
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
     <style name="Widget.DigitalRetailGroup.ClickableTextView" parent="Widget.MaterialComponents.TextView">
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
