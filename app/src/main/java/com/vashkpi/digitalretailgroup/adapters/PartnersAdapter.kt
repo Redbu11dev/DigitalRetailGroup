@@ -45,7 +45,6 @@ class PartnersAdapter(
 class PartnersViewHolder(val binding: ItemPartnerBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    @SuppressLint("ClickableViewAccessibility")
     fun bind(data: String, clickListener: (view: View, String) -> Unit) {
         binding.root.setOnClickListener {
             clickListener(it, data)
