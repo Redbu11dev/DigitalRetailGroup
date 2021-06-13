@@ -182,9 +182,8 @@
                     android:checked="false"
                     android:text="@string/radio_btn_female"
 
-                    android:button="@drawable/ic_female"
-
                     />
+                <!--                    android:background="@drawable/selector_radio_button_female"-->
                 <!--                android:button="@drawable/selector_radio_btn_icon_male"-->
 
             </RadioGroup>
