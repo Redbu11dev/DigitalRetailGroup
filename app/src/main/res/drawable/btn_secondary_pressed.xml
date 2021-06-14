@@ -20,6 +20,23 @@
             </shape>
         </inset>
     </item>
+    <item android:gravity="fill">
+        <inset android:inset="2dp">
+            <shape android:shape="rectangle" android:dither="true">
+                <corners
+                    android:radius="140dp"
+                    />
+                <gradient
+                    android:type="linear"
+                    android:angle="-90"
+                    android:gradientRadius="300%"
+                    android:endColor="#80000000"
+                    android:startColor="#80000000"
+                    android:centerColor="#40000000"
+                    />
+            </shape>
+        </inset>
+    </item>
 <!--    <item>-->
 <!--        <inset android:inset="2dp">-->
 <!--            <shape android:shape="rectangle" android:dither="true">-->

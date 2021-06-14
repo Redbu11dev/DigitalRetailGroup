@@ -87,20 +87,28 @@
 
 <!--    Other widget styles-->
 
-    <style name="Widget.DigitalRetailGroup.Button.Main" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.DigitalRetailGroup.Button.Main" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="backgroundTint">@null</item>
         <item name="android:background">@drawable/selector_btn_main</item>
 
         <item name="android:textColor">@color/bg</item>
         <item name="android:textStyle">bold</item>
+
+<!--        <item name="elevation">8dp</item>-->
+        <item name="android:elevation">6dp</item>
+        <item name="android:layerType">software</item>
+<!--        <item name="android:outlineSpotShadowColor">#00FF00</item>-->
     </style>
 
-    <style name="Widget.DigitalRetailGroup.Button.Green" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.DigitalRetailGroup.Button.Green" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="backgroundTint">@null</item>
         <item name="android:background">@drawable/selector_btn_secondary</item>
 
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
+
+        <item name="android:elevation">6dp</item>
+        <item name="android:layerType">software</item>
     </style>
 
     <style name="Widget.DigitalRetailGroup.PseudoCard.FreeForm" parent="">
@@ -114,6 +122,9 @@
 
     <style name="Widget.DigitalRetailGroup.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:paddingStart">16dp</item>
+
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/selector_color_radio_btn_text</item>
     </style>
 
     <style name="Widget.DigitalRetailGroup.IconImageButton" parent="Widget.AppCompat.ImageButton">

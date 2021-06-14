@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:gravity="center">
-
-        <shape android:shape="rectangle">
+        <inset>
+        <shape android:shape="rectangle" android:dither="true">
             <corners
                 android:radius="140dp"
                 />
@@ -17,11 +17,12 @@
                 android:type="linear"
                 />
         </shape>
+        </inset>
         <rotate android:toDegrees="95"/>
     </item>
     <item android:gravity="center">
         <inset android:inset="1dp">
-            <shape android:shape="rectangle">
+            <shape android:shape="rectangle" android:dither="true">
                 <corners
                     android:radius="140dp"
                     />
