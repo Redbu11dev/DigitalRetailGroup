@@ -167,21 +167,29 @@
                     android:id="@+id/radio_male"
                     style="@style/Widget.DigitalRetailGroup.RadioButton"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="55dp"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="@string/radio_btn_male" />
+                    android:text="@string/radio_btn_male"
+
+                    android:button="@drawable/selector_radio_button_male"
+                    android:height="55dp"
+                    android:maxHeight="55dp"
+                    />
                 <!--                android:button="@drawable/selector_radio_btn_icon_female"-->
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/radio_female"
                     style="@style/Widget.DigitalRetailGroup.RadioButton"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="55dp"
                     android:layout_weight="1"
                     android:checked="false"
                     android:text="@string/radio_btn_female"
 
+                    android:button="@drawable/selector_radio_button_female"
+                    android:height="55dp"
+                    android:maxHeight="55dp"
                     />
                 <!--                    android:background="@drawable/selector_radio_button_female"-->
                 <!--                android:button="@drawable/selector_radio_btn_icon_male"-->
