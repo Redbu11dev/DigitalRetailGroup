@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1043644584610",
+    "project_id": "digital-retail-group",
+    "storage_bucket": "digital-retail-group.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043644584610:android:ae9be96585d4fcdb427dfb",
+        "android_client_info": {
+          "package_name": "com.vashkpi.digitalretailgroup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043644584610-m3t2rp286kr47apuqqhuv2l40u93a1em.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5rn0ag_JqTVtcSwomv07W955imKSWuLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043644584610-m3t2rp286kr47apuqqhuv2l40u93a1em.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
