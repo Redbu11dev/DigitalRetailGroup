@@ -55,11 +55,14 @@ class LoginCodeFragment : BaseFragment() {
 //                    phoneNumberValueListener.rawValue,
 //                    binding.password.text.toString()
 //                )
-                if (phoneNumberValueListener.rawValue.length > 10) {
-                    val phone = phoneNumberValueListener.rawValue
-                    //viewModel.postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(it.toString()))
-                    binding.phone.setText("")
-                    viewModel.loginWithPhone(phone)
+//                if (phoneNumberValueListener.rawValue.length > 10) {
+//                    val phone = phoneNumberValueListener.rawValue
+//                    //viewModel.postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(it.toString()))
+//                    binding.phone.setText("")
+//                    viewModel.loginWithPhone(phone)
+//                }
+                if (it.toString().length > 3) {
+                    viewModel.confirmCode("", "")
                 }
             }
         }
