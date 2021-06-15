@@ -33,7 +33,7 @@ class LoginPhoneViewModel @Inject constructor(private val preferencesRepository:
                     //preferencesRepository.token = loginResponseData.token
                     //preferencesRepository.loginUserData = loginResponseData.user
 
-                    response.body()?.asJsonObject?.getAsJsonPrimitive("data")!!.asString
+                    //response.body()?.asJsonObject?.getAsJsonPrimitive("data")!!.asString
 
                     postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(phone))
                 }

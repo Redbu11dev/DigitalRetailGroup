@@ -14,6 +14,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -40,6 +41,15 @@ object AppModule {
     @Provides
     fun provideOkHttpClient(preferencesRepository: PreferencesRepository, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val credentials = Credentials.basic("user", "user")
+                chain.proceed(
+                    chain.request()
+                        .newBuilder()
+                        .header("Authorization", credentials)
+                        .build()
+                )
+            }
             .addInterceptor { chain ->
                 val newFullUrl = chain.request().url().toString()
                     .replace(AppConstants.DEFAULT_API_BASE_URL, preferencesRepository.apiUrl)
