@@ -84,17 +84,13 @@ class LoginPhoneFragment : BaseFragment() {
 //                    binding.password.text.toString()
 //                )
                 if (phoneNumberValueListener.rawValue.length > 10) {
+                    val phone = phoneNumberValueListener.rawValue
                     //viewModel.postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(it.toString()))
-                    viewModel.loginWithPhone(phoneNumberValueListener.rawValue)
+                    binding.phone.setText("")
+                    viewModel.loginWithPhone(phone)
                 }
             }
         }
-
-//        val shader: Shader = LinearGradient(
-//            0f, 0f, binding.contactUs.paint.measureText(binding.contactUs.text.toString()), 0f,
-//            ContextCompat.getColor(requireContext(), R.color.clickable_green_text_color), ContextCompat.getColor(requireContext(), R.color.clickable_yellow_text_color), Shader.TileMode.CLAMP
-//        )
-//        binding.contactUs.paint.shader = shader
 
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {

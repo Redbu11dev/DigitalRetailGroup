@@ -50,16 +50,16 @@ object AppModule {
                         .build()
                 )
             }
-            .addInterceptor { chain ->
-                val newFullUrl = chain.request().url().toString()
-                    .replace(AppConstants.DEFAULT_API_BASE_URL, preferencesRepository.apiUrl)
-                chain.proceed(
-                    chain.request()
-                        .newBuilder()
-                        .url(newFullUrl)
-                        .build()
-                )
-            }
+//            .addInterceptor { chain ->
+//                val newFullUrl = chain.request().url().toString()
+//                    .replace(AppConstants.DEFAULT_API_BASE_URL, preferencesRepository.apiUrl)
+//                chain.proceed(
+//                    chain.request()
+//                        .newBuilder()
+//                        .url(newFullUrl)
+//                        .build()
+//                )
+//            }
             .addInterceptor(loggingInterceptor)
             .retryOnConnectionFailure(true)
             .connectTimeout(AppConstants.API_TIMEOUT_CONNECTION_SECONDS, TimeUnit.SECONDS)
