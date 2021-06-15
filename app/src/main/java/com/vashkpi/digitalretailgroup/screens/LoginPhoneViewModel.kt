@@ -20,6 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginPhoneViewModel @Inject constructor(private val preferencesRepository: PreferencesRepository, private val apiRepository: ApiRepository): BaseViewModel() {
 
+
+
     fun loginWithPhone(phone: String) {
         viewModelScope.launch {
             apiRepository.registerPhone(RegisterPhone(phone)).collect {

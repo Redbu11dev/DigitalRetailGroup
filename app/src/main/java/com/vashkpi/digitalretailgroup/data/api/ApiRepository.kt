@@ -27,7 +27,11 @@ class ApiRepository @Inject constructor(appContext: Context, private val  apiSer
 
     suspend fun registerPhone(registerPhone: RegisterPhone): Flow<Resource<out JsonElement?>> {
         Timber.i("trying")
-        return networkBoundResource(suspend {apiService.registerPhone(registerPhone)})
+        return networkBoundResource(
+            fetch = {
+                apiService.registerPhone(registerPhone)
+            }
+        )
     }
 
     suspend fun confirmCode(confirmCode: ConfirmCode): ApiResponse {
