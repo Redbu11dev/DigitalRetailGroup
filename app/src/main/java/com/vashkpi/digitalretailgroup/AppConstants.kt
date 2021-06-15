@@ -8,7 +8,8 @@ object AppConstants {
     const val DEFAULT_SHARED_PREFERENCES_NAME = "app_preferences"
 
     //API
-    const val DEFAULT_API_BASE_URL = "http://192.168.88.66:8080/sbs/"
+    //const val DEFAULT_API_BASE_URL = "http://192.168.88.66:8080/sbs/"
+    const val DEFAULT_API_BASE_URL = "http://109.226.211.209:59301/sbs"
     //const val DEFAULT_API_BASE_URL = "http://akpoker.vashkpi.ru/sbs/"
 
     const val API_TIMEOUT_CONNECTION_SECONDS = 15L
