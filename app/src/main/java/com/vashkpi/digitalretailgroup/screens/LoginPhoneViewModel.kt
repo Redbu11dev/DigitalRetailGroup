@@ -8,12 +8,25 @@ import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import com.vashkpi.digitalretailgroup.utils.stringSuspending
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginPhoneViewModel @Inject constructor(private val preferencesRepository: PreferencesRepository, private val apiRepository: ApiRepository): BaseViewModel() {
+
+    fun lp(phone: String) {
+        viewModelScope.launch {
+            apiRepository.registerPhoneNetBoRes(RegisterPhone(phone)).collect {
+
+            }
+        }
+    }
+
+    //val something = apiRepository.registerPhoneNetBoRes(RegisterPhone(phone))
 
     /**
      * Login

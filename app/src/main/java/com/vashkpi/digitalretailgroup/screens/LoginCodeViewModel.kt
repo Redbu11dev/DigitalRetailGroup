@@ -20,6 +20,7 @@ class LoginCodeViewModel @Inject constructor(private val preferencesRepository: 
     fun confirmCode(phone: String, code: String) {
         //_progressViewVisible.value = true
         viewModelScope.launch {
+
             val loginApiResponse =
                 apiRepository.confirmCode(ConfirmCode(phone, code, preferencesRepository.fcmToken, AppConstants.DEVICE_PLATFORM))
 

@@ -87,7 +87,8 @@ class LoginPhoneFragment : BaseFragment() {
                     val phone = phoneNumberValueListener.rawValue
                     //viewModel.postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(it.toString()))
                     binding.phone.setText("")
-                    viewModel.loginWithPhone(phone)
+                    //viewModel.loginWithPhone(phone)
+                    viewModel.lp(phone)
                 }
             }
         }
