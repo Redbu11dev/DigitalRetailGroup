@@ -3,13 +3,22 @@ package com.vashkpi.digitalretailgroup.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import com.vashkpi.digitalretailgroup.AppConstants
+import com.vashkpi.digitalretailgroup.AppConstants.DEFAULT_API_BASE_URL
 import com.vashkpi.digitalretailgroup.AppConstants.DEFAULT_SHARED_PREFERENCES_NAME
+import com.vashkpi.digitalretailgroup.data.api.ApiRepository
+import com.vashkpi.digitalretailgroup.data.api.ApiService
 import com.vashkpi.digitalretailgroup.data.local.PreferencesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
@@ -17,57 +26,57 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-//    @Singleton
-//    @Provides
-//    fun provideRetrofit(client: OkHttpClient): Retrofit {
-//        return Retrofit.Builder()
-//            .baseUrl(DEFAULT_API_BASE_URL)
-//            .client(client)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//    }
-//
-//    @Singleton
-//    @Provides
-//    fun provideOkHttpClient(preferencesRepository: PreferencesRepository, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
-//        return OkHttpClient.Builder()
-//            .addInterceptor { chain ->
-//                val newFullUrl = chain.request().url().toString()
-//                    .replace(AppConstants.DEFAULT_API_BASE_URL, preferencesRepository.apiUrl)
-//                chain.proceed(
-//                    chain.request()
-//                        .newBuilder()
-//                        .url(newFullUrl)
-//                        .build()
-//                )
-//            }
-//            .addInterceptor(loggingInterceptor)
-//            .retryOnConnectionFailure(true)
-//            .connectTimeout(AppConstants.API_TIMEOUT_CONNECTION_SECONDS, TimeUnit.SECONDS)
-//            .readTimeout(AppConstants.API_TIMEOUT_READ_SECONDS, TimeUnit.SECONDS)
-//            .writeTimeout(AppConstants.API_TIMEOUT_WRITE_SECONDS, TimeUnit.SECONDS)
-//            .build()
-//    }
-//
-//    @Singleton
-//    @Provides
-//    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-//        return HttpLoggingInterceptor().apply {
-//            level = HttpLoggingInterceptor.Level.BODY
-//        }
-//    }
-//
-//    @Singleton
-//    @Provides
-//    fun provideApiInterface(retrofit: Retrofit): ApiInterface {
-//        return retrofit.create(ApiInterface::class.java)
-//    }
-//
-//    @Singleton
-//    @Provides
-//    fun provideApiRepository(@ApplicationContext appContext: Context, apiInterface: ApiInterface): ApiRepository {
-//        return ApiRepository(appContext, apiInterface)
-//    }
+    @Singleton
+    @Provides
+    fun provideRetrofit(client: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(DEFAULT_API_BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(preferencesRepository: PreferencesRepository, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val newFullUrl = chain.request().url().toString()
+                    .replace(AppConstants.DEFAULT_API_BASE_URL, preferencesRepository.apiUrl)
+                chain.proceed(
+                    chain.request()
+                        .newBuilder()
+                        .url(newFullUrl)
+                        .build()
+                )
+            }
+            .addInterceptor(loggingInterceptor)
+            .retryOnConnectionFailure(true)
+            .connectTimeout(AppConstants.API_TIMEOUT_CONNECTION_SECONDS, TimeUnit.SECONDS)
+            .readTimeout(AppConstants.API_TIMEOUT_READ_SECONDS, TimeUnit.SECONDS)
+            .writeTimeout(AppConstants.API_TIMEOUT_WRITE_SECONDS, TimeUnit.SECONDS)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiService(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiRepository(@ApplicationContext appContext: Context, apiService: ApiService): ApiRepository {
+        return ApiRepository(appContext, apiService)
+    }
 
     @Singleton
     @Provides
