@@ -33,6 +33,7 @@ class LoginPhoneViewModel @Inject constructor(private val preferencesRepository:
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
+                        //check if empty?!
                     }
                 }
             }

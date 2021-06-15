@@ -31,11 +31,11 @@ inline fun <T> networkBoundResource(
             }
             is ApiEmptyResponse -> {
                 //TODO()
-                //emit(Resource.Success())
+                //emit(Resource.Success<T>())
             }
             is ApiErrorResponse -> {
                 //TODO()
-                emit(Resource.Error(throwable = Throwable("hggh"), null))
+                emit(Resource.Error(throwable = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"), null))
             }
         }
 
