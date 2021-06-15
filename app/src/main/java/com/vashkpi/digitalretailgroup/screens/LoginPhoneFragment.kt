@@ -61,6 +61,7 @@ class LoginPhoneFragment : BaseFragment() {
 //                Log.d("TAG_filled", maskFilled.toString())
 //                Log.d("TAG_formatted", formattedValue)
                 rawValue = Regex("[^0-9]").replace(formattedValue, "")
+                Timber.i("phone: $rawValue")
             }
         }
         val listener: MaskedTextChangedListener = MaskedTextChangedListener.installOn(
@@ -83,7 +84,8 @@ class LoginPhoneFragment : BaseFragment() {
 //                    binding.password.text.toString()
 //                )
                 if (phoneNumberValueListener.rawValue.length > 10) {
-                    viewModel.postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(it.toString()))
+                    //viewModel.postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(it.toString()))
+                    viewModel.loginWithPhone(phoneNumberValueListener.rawValue)
                 }
             }
         }

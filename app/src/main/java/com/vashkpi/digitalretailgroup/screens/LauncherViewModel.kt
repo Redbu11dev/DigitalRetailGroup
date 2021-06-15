@@ -15,8 +15,8 @@ class LauncherViewModel @Inject constructor(private val preferencesRepository: P
             postNavigationEvent(LauncherFragmentDirections.actionLauncherFragmentToNavigationBarcode())
         }
         else {
-//            postNavigationEvent(LauncherFragmentDirections.actionLauncherFragmentToLoginPhoneFragment())
-            postNavigationEvent(LauncherFragmentDirections.actionLauncherFragmentToNavigationBarcode())
+            postNavigationEvent(LauncherFragmentDirections.actionLauncherFragmentToLoginPhoneFragment())
+            //postNavigationEvent(LauncherFragmentDirections.actionLauncherFragmentToNavigationBarcode())
         }
     }
 }
