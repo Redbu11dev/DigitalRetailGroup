@@ -14,7 +14,7 @@ sealed class Resource<T>(
 }
 
 inline fun <T> networkBoundResource(
-    crossinline fetch : suspend () -> Response<T>
+    crossinline fetch : suspend () -> ApiResponse<T>
 ) = flow {
     //Timber.i("loading")
     emit(Resource.Loading(null))
@@ -22,14 +22,29 @@ inline fun <T> networkBoundResource(
     try {
         //Timber.i("emit1")
         //TODO here check if cached and cache if needed
-        val fetchResult = fetch()
+        val fetchResult: ApiResponse<T> = fetch()
 
-        if (fetchResult.isSuccessful) {
-            emit(Resource.Success(fetchResult.body()))
+        when (fetchResult) {
+            is ApiSuccessResponse -> {
+                //TODO()
+                emit(Resource.Success(fetchResult.body))
+            }
+            is ApiEmptyResponse -> {
+                //TODO()
+                //emit(Resource.Success())
+            }
+            is ApiErrorResponse -> {
+                //TODO()
+                emit(Resource.Error(throwable = Throwable("hggh"), null))
+            }
         }
-        else {
-            emit(Resource.Error(throwable = Throwable("hggh"), null))
-        }
+
+//        if (fetchResult.isSuccessful) {
+//            emit(Resource.Success(fetchResult.body()))
+//        }
+//        else {
+//            emit(Resource.Error(throwable = Throwable("hggh"), null))
+//        }
     }
     catch(throwable : Throwable){
         //Timber.i("emit2")

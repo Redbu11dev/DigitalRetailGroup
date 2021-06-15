@@ -34,14 +34,14 @@ class ApiRepository @Inject constructor(appContext: Context, private val  apiSer
         )
     }
 
-    suspend fun confirmCode(confirmCode: ConfirmCode): ApiResponse {
-        return try {
-            val response = apiService.confirmCode(confirmCode)
-            //println("response error body api: ${response.errorBody()?.string()}")
-            ApiResponse(null, response)
-        } catch (e: Throwable) {
-            e.printStackTrace()
-            ApiResponse(e, null)
-        }
-    }
+//    suspend fun confirmCode(confirmCode: ConfirmCode): ApiResponse {
+//        return try {
+//            val response = apiService.confirmCode(confirmCode)
+//            //println("response error body api: ${response.errorBody()?.string()}")
+//            ApiResponse(null, response)
+//        } catch (e: Throwable) {
+//            e.printStackTrace()
+//            ApiResponse(e, null)
+//        }
+//    }
 }

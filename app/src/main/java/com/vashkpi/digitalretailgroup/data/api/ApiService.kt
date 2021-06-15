@@ -9,10 +9,15 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ApiService {
+//    @POST("hs/bss/v1/register")
+//    suspend fun registerPhone(
+//        @Body registerPhone: RegisterPhone
+//    ): Response<JsonElement>
+
     @POST("hs/bss/v1/register")
     suspend fun registerPhone(
         @Body registerPhone: RegisterPhone
-    ): Response<JsonElement>
+    ): ApiResponse<JsonElement>
 
     @POST("hs/bss/v1/confirm")
     suspend fun confirmCode(
