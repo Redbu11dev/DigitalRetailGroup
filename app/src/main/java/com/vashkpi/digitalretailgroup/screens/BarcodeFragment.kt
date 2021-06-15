@@ -44,7 +44,7 @@ class BarcodeFragment : BaseFragment() {
                     true
                 }
                 R.id.profile -> {
-                    viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToProfileFragment())
+                    viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToProfileFragment(false))
                     true
                 }
                 else -> false

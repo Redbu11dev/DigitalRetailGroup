@@ -48,7 +48,7 @@ class MainFragment : BaseFragment() {
                     true
                 }
                 R.id.profile -> {
-                    viewModel.postNavigationEvent(MainFragmentDirections.actionNavigationMainToProfileFragment())
+                    viewModel.postNavigationEvent(MainFragmentDirections.actionNavigationMainToProfileFragment(false))
                     true
                 }
                 else -> false

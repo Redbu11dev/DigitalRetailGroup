@@ -9,6 +9,9 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doBeforeTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
@@ -16,7 +19,11 @@ import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.databinding.FragmentLauncherBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentLoginCodeBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
+import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class LoginCodeFragment : BaseFragment() {
@@ -47,6 +54,15 @@ class LoginCodeFragment : BaseFragment() {
             doAfterTextChanged {
                 if (it.toString().length > 3) {
                     viewModel.confirmCode(args.phoneString, it.toString())
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.navigationEvent.collect {
+                    Timber.i("collecting navigation event ${it}")
+                    findNavController().safeNavigate(it)
                 }
             }
         }

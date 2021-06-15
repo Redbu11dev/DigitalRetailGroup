@@ -32,6 +32,7 @@ class LoginCodeViewModel @Inject constructor(private val preferencesRepository: 
 
                     //postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(phone))
                     //navigate to profile screen
+                    postNavigationEvent(LoginCodeFragmentDirections.actionLoginCodeFragmentToProfileFragment(true))
                 }
                 else {
                     //val errors = Gson().fromJson(response.errorBody()?.stringSuspending(), ApiError::class.java)

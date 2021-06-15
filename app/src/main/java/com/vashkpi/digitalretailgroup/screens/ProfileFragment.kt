@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.vashkpi.digitalretailgroup.R
@@ -17,6 +19,10 @@ import java.util.*
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment() {
+
+    private val viewModel: ProfileViewModel by viewModels()
+
+    private val args: ProfileFragmentArgs by navArgs()
 
     private var _binding: FragmentProfileBinding? = null
     // This property is only valid between onCreateView and
@@ -35,18 +41,27 @@ class ProfileFragment : BaseFragment() {
         //binding.customToolbar.toolbar.setNavigationIcon(R.drawable.ic_bell)
         //binding.customToolbar.toolbar.nav
 
+        if (args.registration) {
+            binding.saveBtn.setText(R.string.profile_btn_1_save_data)
+            binding.logoutBtn.setText(R.string.profile_btn_2_later)
+        }
+        else {
+            binding.saveBtn.setText(R.string.profile_btn_1_save)
+            binding.logoutBtn.setText(R.string.profile_btn_2_logout)
+        }
+
         binding.saveBtn.setOnClickListener {
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment())
+            //findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment())
         }
 
         binding.logoutBtn.setOnClickListener {
-            showMessage(
-                R.string.snackbar_msg_message_removed,
-                R.string.snackbar_btn_cancel,
-                {
-
-                },
-                2000)
+//            showMessage(
+//                R.string.snackbar_msg_message_removed,
+//                R.string.snackbar_btn_cancel,
+//                {
+//
+//                },
+//                2000)
         }
 
         //TODO move date picker to a separate nav component fragment

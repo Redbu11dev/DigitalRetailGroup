@@ -53,6 +53,10 @@
         <action
             android:id="@+id/action_profileFragment_to_saveProfileDataDialogFragment"
             app:destination="@id/saveProfileDataDialogFragment" />
+
+        <argument
+            android:name="registration"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/launcherFragment"
