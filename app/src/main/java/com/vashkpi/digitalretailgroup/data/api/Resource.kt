@@ -26,15 +26,12 @@ inline fun <T> networkBoundResource(
 
         when (fetchResult) {
             is ApiSuccessResponse -> {
-                //TODO()
                 emit(Resource.Success(fetchResult.body))
             }
             is ApiEmptyResponse -> {
-                //TODO()
-                //emit(Resource.Success<T>())
+                emit(Resource.Success(null))
             }
             is ApiErrorResponse -> {
-                //TODO()
                 emit(Resource.Error(throwable = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"), null))
             }
         }
@@ -47,7 +44,7 @@ inline fun <T> networkBoundResource(
 //        }
     }
     catch(throwable : Throwable){
-        //Timber.i("emit2")
+        //Timber.i("in here")
         emit(Resource.Error(throwable, null))
     }
 }

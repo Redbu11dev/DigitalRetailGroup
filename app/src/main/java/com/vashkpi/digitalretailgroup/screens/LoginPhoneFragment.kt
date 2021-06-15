@@ -48,8 +48,8 @@ class LoginPhoneFragment : BaseFragment() {
         _binding = FragmentLoginPhoneBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.phone.inputType = InputType.TYPE_CLASS_NUMBER;
-        binding.phone.keyListener = DigitsKeyListener.getInstance("1234567890+-() ");
+        binding.phone.inputType = InputType.TYPE_CLASS_NUMBER
+        binding.phone.keyListener = DigitsKeyListener.getInstance("1234567890+-() ")
         val phoneNumberValueListener = object : MaskedTextChangedListener.ValueListener {
             var rawValue = ""
             override fun onTextChanged(

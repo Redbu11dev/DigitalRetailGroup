@@ -1,11 +1,9 @@
 package com.vashkpi.digitalretailgroup.data.api
 
 import android.content.Context
-import com.google.gson.JsonElement
-import com.vashkpi.digitalretailgroup.data.models.outgoing.ConfirmCode
+import com.vashkpi.digitalretailgroup.data.models.incoming.ApiGenericAnswer
 import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -25,11 +23,11 @@ class ApiRepository @Inject constructor(appContext: Context, private val  apiSer
 //        }
 //    }
 
-    suspend fun registerPhone(registerPhone: RegisterPhone): Flow<Resource<out JsonElement?>> {
+    suspend fun registerPhone(registerPhone: RegisterPhone): Flow<Resource<out ApiGenericAnswer?>> {
         Timber.i("trying")
         return networkBoundResource(
             fetch = {
-                apiService.registerPhone(registerPhone)
+                ApiResponse.create(apiService.registerPhone(registerPhone))
             }
         )
     }

@@ -22,18 +22,21 @@ class LoginPhoneViewModel @Inject constructor(private val preferencesRepository:
 
     fun loginWithPhone(phone: String) {
         viewModelScope.launch {
-            apiRepository.registerPhone(RegisterPhone(phone)).collect {
+            apiRepository.registerPhone(RegisterPhone("phone")).collect {
                 when (it) {
                     is Resource.Loading -> {
                         Timber.i("it's loading")
                     }
                     is Resource.Error -> {
-                        Timber.i("it's error: ${it.error.toString()}")
+                        Timber.i("it's error: ${it.error?.message}")
                         //it.error.
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
                         //check if empty?!
+                        it.data?.let {
+                            Timber.i("here is the data: $it")
+                        }
                     }
                 }
             }

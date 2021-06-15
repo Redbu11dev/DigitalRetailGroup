@@ -19,14 +19,14 @@ class GradientTextView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : MaterialTextView(context, attrs, defStyleAttr) {
 
-    private var mGradientSecondaryColorStateList: ColorStateList? = null
-    private lateinit var mCurrentGradient: LinearGradient
+    private var _gradientSecondaryColorStateList: ColorStateList? = null
+    private lateinit var _currentGradient: LinearGradient
 
     init {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.GradientTextView, 0, 0)
         try {
             //try to get the color state list
-            mGradientSecondaryColorStateList = ta.getColorStateList(R.styleable.GradientTextView_gtvSecondaryColor)
+            _gradientSecondaryColorStateList = ta.getColorStateList(R.styleable.GradientTextView_gtvSecondaryColor)
             updateGradient()
         }
         catch (t: Throwable) {
@@ -44,7 +44,7 @@ class GradientTextView @JvmOverloads constructor(
     }
 
     private fun updateGradient() {
-        mGradientSecondaryColorStateList?.let {
+        _gradientSecondaryColorStateList?.let {
             val gradientEndColor = it.getColorForState(drawableState, it.defaultColor)
 
             //println("state: ${drawableState.asList().toString()}")
@@ -74,7 +74,7 @@ class GradientTextView @JvmOverloads constructor(
 
             val textWidth = paint.measureText(text.toString())
             val left = (width/2f)-(textWidth/2f)
-            mCurrentGradient = LinearGradient(
+            _currentGradient = LinearGradient(
                 left,
                 0f,
                 if (drawableState.size != 5) left+textWidth else left+(textWidth*0.25f),
@@ -105,8 +105,8 @@ class GradientTextView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas?) {
-        mGradientSecondaryColorStateList?.let {
-            paint.shader = mCurrentGradient
+        _gradientSecondaryColorStateList?.let {
+            paint.shader = _currentGradient
         }
 
         super.onDraw(canvas)
