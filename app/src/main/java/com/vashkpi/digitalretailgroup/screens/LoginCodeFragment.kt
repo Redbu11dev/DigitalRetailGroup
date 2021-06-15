@@ -44,25 +44,9 @@ class LoginCodeFragment : BaseFragment() {
         binding.text2.text = String.format(getString(R.string.login_code_description), phoneStringFakeSpaces)
 
         binding.phone.apply {
-            doBeforeTextChanged { text, start, count, after ->
-
-            }
-            doOnTextChanged { text, start, before, count ->
-
-            }
             doAfterTextChanged {
-//                loginViewModel.loginDataChanged(
-//                    phoneNumberValueListener.rawValue,
-//                    binding.password.text.toString()
-//                )
-//                if (phoneNumberValueListener.rawValue.length > 10) {
-//                    val phone = phoneNumberValueListener.rawValue
-//                    //viewModel.postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(it.toString()))
-//                    binding.phone.setText("")
-//                    viewModel.loginWithPhone(phone)
-//                }
                 if (it.toString().length > 3) {
-                    viewModel.confirmCode("", "")
+                    viewModel.confirmCode(args.phoneString, it.toString())
                 }
             }
         }

@@ -37,24 +37,31 @@ class PreferencesRepository(private val pref: SharedPreferences, private val gso
     private fun String.getBooleanPreference() = pref.getBoolean(this, false)
 
     companion object {
-        const val PREF_API_URL = "PREF_API_URL"
+//        const val PREF_API_URL = "PREF_API_URL"
 
-        const val TOKEN = "TOKEN"
+        const val FCM_TOKEN = "FCM_TOKEN"
+        const val AUTH_TOKEN = "AUTH_TOKEN"
     }
 
-    var apiUrl: String
-        get() = PREF_API_URL.getStringPreference()
-        set(value) = PREF_API_URL.putStringPreference(value)
+//    var apiUrl: String
+//        get() = PREF_API_URL.getStringPreference()
+//        set(value) = PREF_API_URL.putStringPreference(value)
 
-    var token: String
-        get() = TOKEN.getStringPreference()
-        set(value) = TOKEN.putStringPreference(value)
+    var fcmToken: String
+        get() = FCM_TOKEN.getStringPreference()
+        set(value) = FCM_TOKEN.putStringPreference(value)
+
+    var authToken: String
+        get() = AUTH_TOKEN.getStringPreference()
+        set(value) = AUTH_TOKEN.putStringPreference(value)
 
     init {
         //init default values to not to headbutt if they are empty
-        if (apiUrl.isEmpty()) {
-            apiUrl = AppConstants.DEFAULT_API_BASE_URL
-        }
+//        if (apiUrl.isEmpty()) {
+//            apiUrl = AppConstants.DEFAULT_API_BASE_URL
+//        }
+
+        //probably should obtain FCM token here as default value
     }
 
 }

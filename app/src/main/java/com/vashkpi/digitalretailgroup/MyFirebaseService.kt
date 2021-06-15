@@ -2,18 +2,28 @@ package com.vashkpi.digitalretailgroup
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.vashkpi.digitalretailgroup.data.local.PreferencesRepository
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
-class MyFirebaseService: FirebaseMessagingService() {
+@AndroidEntryPoint
+class MyFirebaseService : FirebaseMessagingService() {
 
-    override fun onMessageReceived(p0: RemoteMessage) {
-        super.onMessageReceived(p0)
+    @Inject
+    lateinit var preferencesRepository: PreferencesRepository
+
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        super.onMessageReceived(remoteMessage)
     }
 
-    override fun onNewToken(p0: String) {
-        super.onNewToken(p0)
+    override fun onNewToken(newToken: String) {
+        super.onNewToken(newToken)
 
-        Timber.i("new FCM token: $p0")
+        preferencesRepository.fcmToken = newToken
+        Timber.i("new FCM token obtained: $newToken")
+
+        //not very safe, probably should also obtain token in pref init
     }
 
 }

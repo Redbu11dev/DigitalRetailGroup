@@ -21,7 +21,7 @@ class LoginCodeViewModel @Inject constructor(private val preferencesRepository: 
         //_progressViewVisible.value = true
         viewModelScope.launch {
             val loginApiResponse =
-                apiRepository.confirmCode(ConfirmCode(phone, "code", "AppConstants.DEVICE_PLATFORM", AppConstants.DEVICE_PLATFORM))
+                apiRepository.confirmCode(ConfirmCode(phone, code, preferencesRepository.fcmToken, AppConstants.DEVICE_PLATFORM))
 
             //_progressViewVisible.value = false
 
@@ -30,7 +30,8 @@ class LoginCodeViewModel @Inject constructor(private val preferencesRepository: 
                     //val loginResponseData = Gson().fromJson(response.body()?.asJsonObject?.getAsJsonPrimitive("data").asString, String::class.java)
                     //response.body()?.asJsonObject?.getAsJsonPrimitive("data")!!.asString
 
-                    postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(phone))
+                    //postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(phone))
+                    //navigate to profile screen
                 }
                 else {
                     //val errors = Gson().fromJson(response.errorBody()?.stringSuspending(), ApiError::class.java)

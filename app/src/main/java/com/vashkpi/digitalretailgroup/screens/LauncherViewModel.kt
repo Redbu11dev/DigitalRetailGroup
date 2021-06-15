@@ -9,8 +9,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LauncherViewModel @Inject constructor(private val preferencesRepository: PreferencesRepository): BaseViewModel() {
     fun checkIfHasToken() {
-        Timber.i("saved token: ${preferencesRepository.token}")
-        if (preferencesRepository.token.isNotBlank()) {
+        Timber.i("saved token: ${preferencesRepository.authToken}")
+        if (preferencesRepository.authToken.isNotBlank()) {
             //go directly to home screen
             postNavigationEvent(LauncherFragmentDirections.actionLauncherFragmentToNavigationBarcode())
         }
