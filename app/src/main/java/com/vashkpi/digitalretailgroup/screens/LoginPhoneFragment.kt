@@ -88,7 +88,7 @@ class LoginPhoneFragment : BaseFragment() {
                     //viewModel.postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(it.toString()))
                     binding.phone.setText("")
                     //viewModel.loginWithPhone(phone)
-                    viewModel.lp(phone)
+                    viewModel.loginWithPhone(phone)
                 }
             }
         }

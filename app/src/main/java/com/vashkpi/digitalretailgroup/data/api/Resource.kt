@@ -17,15 +17,16 @@ inline fun <T> networkBoundResource(
     crossinline fetch : suspend () -> Response<T>
 ) = flow {
 
-    Timber.i("loading")
+    //Timber.i("loading")
     emit(Resource.Loading(null))
 
     try {
-        Timber.i("emit1")
+        //Timber.i("emit1")
+        //TODO here check if cached and cache if needed
         emit(Resource.Success(fetch().body()))
     }
     catch(throwable : Throwable){
-        Timber.i("emit2")
+        //Timber.i("emit2")
         emit(Resource.Error(throwable, null))
     }
 }
