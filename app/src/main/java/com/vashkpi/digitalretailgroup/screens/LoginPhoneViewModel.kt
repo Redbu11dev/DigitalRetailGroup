@@ -20,8 +20,6 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginPhoneViewModel @Inject constructor(private val preferencesRepository: PreferencesRepository, private val apiRepository: ApiRepository): BaseViewModel() {
 
-
-
     fun loginWithPhone(phone: String) {
         viewModelScope.launch {
             apiRepository.registerPhone(RegisterPhone(phone)).collect {
@@ -30,14 +28,15 @@ class LoginPhoneViewModel @Inject constructor(private val preferencesRepository:
                         Timber.i("it's loading")
                     }
                     is Resource.Error -> {
-                        Timber.i("it's error")
+                        Timber.i("it's error: ${it.error.toString()}")
+                        //it.error.
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
                     }
                 }
             }
-            cancel()
+            //cancel()
         }
     }
 

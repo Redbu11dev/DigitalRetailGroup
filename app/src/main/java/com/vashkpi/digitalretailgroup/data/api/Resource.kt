@@ -16,14 +16,20 @@ sealed class Resource<T>(
 inline fun <T> networkBoundResource(
     crossinline fetch : suspend () -> Response<T>
 ) = flow {
-
     //Timber.i("loading")
     emit(Resource.Loading(null))
 
     try {
         //Timber.i("emit1")
         //TODO here check if cached and cache if needed
-        emit(Resource.Success(fetch().body()))
+        val fetchResult = fetch()
+
+        if (fetchResult.isSuccessful) {
+            emit(Resource.Success(fetchResult.body()))
+        }
+        else {
+            emit(Resource.Error(throwable = Throwable("hggh"), null))
+        }
     }
     catch(throwable : Throwable){
         //Timber.i("emit2")
