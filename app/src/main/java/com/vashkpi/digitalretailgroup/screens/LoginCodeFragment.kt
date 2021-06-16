@@ -77,6 +77,17 @@ class LoginCodeFragment : BaseFragment() {
             }
         }
 
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                viewModel.errorMessageOneShot.collect {
+//                    //Timber.i("collecting navigation event ${it}")
+//                    //setProgressViewEnabled(it)
+//                    //findNavController().navigate(R.id.dial)
+//                    findNavController().navigate(LoginCodeFragmentDirections.actionGlobalMessageDialog())
+//                }
+//            }
+//        }
+
         return root
     }
 

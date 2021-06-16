@@ -140,4 +140,23 @@
         <!--            app:destination="@+id/another_destination"/>-->
     </dialog>
 
+    <dialog
+        android:id="@+id/messageDialogFragment"
+        android:name="com.vashkpi.digitalretailgroup.screens.dialogs.MessageDialogFragment"
+        tools:layout="@layout/dialog_message"
+        >
+        <argument
+            android:name="title"
+            android:defaultValue="0"
+            app:argType="reference"
+            />
+        <argument
+            android:name="message"
+            android:defaultValue=""
+            app:argType="string"
+            />
+    </dialog>
+
+    <action android:id="@+id/action_global_messageDialog" app:destination="@id/messageDialogFragment"/>
+
 </navigation>

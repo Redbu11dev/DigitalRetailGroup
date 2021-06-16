@@ -2,6 +2,7 @@ package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
 import com.vashkpi.digitalretailgroup.AppConstants
+import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
@@ -27,9 +28,12 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
                             postProgressViewVisibility(true)
                         }
                         is Resource.Error -> {
-                            Timber.i("it's error: ${it.error?.message}")
+                            val message = it.error?.message
+                            Timber.i("it's error: ${message}")
                             //it.error.
                             postProgressViewVisibility(false)
+                            //postErrorMessageOneShot(message.toString())
+                            postNavigationEvent(LoginCodeFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                         }
                         is Resource.Success -> {
                             Timber.i("it's success")

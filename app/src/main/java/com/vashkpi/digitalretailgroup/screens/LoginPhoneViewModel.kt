@@ -2,6 +2,7 @@ package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
@@ -28,9 +29,11 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
-                        Timber.i("it's error: ${it.error?.message}")
+                        val message = it.error?.message
+                        Timber.i("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false)
+                        postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
