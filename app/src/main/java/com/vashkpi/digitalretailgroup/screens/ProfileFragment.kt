@@ -27,8 +27,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, NotificationsViewMo
     override fun setUpViews() {
         super.setUpViews()
 
-        val root: View = binding.root
-
         val toolbar = binding.customToolbar.toolbar
 
         val navController = findNavController()
@@ -39,7 +37,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, NotificationsViewMo
         if (args.isRegistration) {
             binding.saveBtn.setText(R.string.profile_btn_1_save_data)
             binding.logoutBtn.setText(R.string.profile_btn_2_later)
-            toolbar.setTitle(R.string.profile_title)
+            //findNavController().currentDestination?.label = getString(R.string.profile_title)
+            toolbar.setTitle(R.string.profile_title_is_registration)
 
         }
         else {
