@@ -52,7 +52,7 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
                 }
             }
             .map { preference ->
-                preference[FCM_TOKEN] ?: "" //TODO if empty - try obtaining the token in here directly somehow
+                preference[FCM_TOKEN] ?: "" //TODO if empty - try obtaining the token in here(?) directly somehow
             }
     }
 
