@@ -2,6 +2,7 @@ package com.vashkpi.digitalretailgroup.data.api
 
 import android.content.Context
 import com.vashkpi.digitalretailgroup.data.models.incoming.ApiGenericAnswer
+import com.vashkpi.digitalretailgroup.data.models.outgoing.ConfirmCode
 import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
@@ -28,6 +29,15 @@ class ApiRepository @Inject constructor(appContext: Context, private val  apiSer
         return networkBoundResource(
             fetch = {
                 ApiResponse.create(apiService.registerPhone(registerPhone))
+            }
+        )
+    }
+
+    suspend fun confirmCode(confirmCode: ConfirmCode): Flow<Resource<out ApiGenericAnswer?>> {
+        Timber.i("trying")
+        return networkBoundResource(
+            fetch = {
+                ApiResponse.create(apiService.confirmCode(confirmCode))
             }
         )
     }

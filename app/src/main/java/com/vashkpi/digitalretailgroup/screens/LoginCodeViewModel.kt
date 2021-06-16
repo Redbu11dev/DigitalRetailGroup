@@ -1,12 +1,51 @@
 package com.vashkpi.digitalretailgroup.screens
 
+import androidx.lifecycle.viewModelScope
+import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
+import com.vashkpi.digitalretailgroup.data.api.Resource
+import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
+import com.vashkpi.digitalretailgroup.data.models.outgoing.ConfirmCode
+import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginCodeViewModel @Inject constructor(private val apiRepository: ApiRepository): BaseViewModel() {
+class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository, private val apiRepository: ApiRepository): BaseViewModel() {
+
+    fun confirmCode(phone: String, code: String) {
+        viewModelScope.launch {
+            dataStoreRepository.getFcmToken().collect { fcmToken ->
+                apiRepository.confirmCode(ConfirmCode(phone, code, fcmToken, AppConstants.DEVICE_PLATFORM)).collect {
+                    when (it) {
+                        is Resource.Loading -> {
+                            Timber.i("it's loading")
+                            postProgressViewVisibility(true)
+                        }
+                        is Resource.Error -> {
+                            Timber.i("it's error: ${it.error?.message}")
+                            //it.error.
+                            postProgressViewVisibility(false)
+                        }
+                        is Resource.Success -> {
+                            Timber.i("it's success")
+                            //check if empty?!
+                            it.data?.let {
+                                Timber.i("here is the data: $it")
+                            }
+                            postProgressViewVisibility(false)
+                            postNavigationEvent(LoginCodeFragmentDirections.actionLoginCodeFragmentToProfileFragment(true))
+                        }
+                    }
+                }
+            }
+            //cancel()
+        }
+    }
 
 //    fun confirmCode(phone: String, code: String) {
 //        //_progressViewVisible.value = true

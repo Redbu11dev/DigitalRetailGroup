@@ -47,6 +47,7 @@ class LoginPhoneFragment : BaseFragment() {
     ): View {
         _binding = FragmentLoginPhoneBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        progressView = binding.progressView.root
 
         binding.phone.inputType = InputType.TYPE_CLASS_NUMBER
         binding.phone.keyListener = DigitsKeyListener.getInstance("1234567890+-() ")
@@ -72,17 +73,7 @@ class LoginPhoneFragment : BaseFragment() {
         binding.phone.setHint(listener.placeholder())
 
         binding.phone.apply {
-            doBeforeTextChanged { text, start, count, after ->
-
-            }
-            doOnTextChanged { text, start, before, count ->
-
-            }
             doAfterTextChanged {
-//                loginViewModel.loginDataChanged(
-//                    phoneNumberValueListener.rawValue,
-//                    binding.password.text.toString()
-//                )
                 if (phoneNumberValueListener.rawValue.length > 10) {
                     val phone = phoneNumberValueListener.rawValue
                     //viewModel.postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(it.toString()))
@@ -98,6 +89,15 @@ class LoginPhoneFragment : BaseFragment() {
                 viewModel.navigationEvent.collect {
                     Timber.i("collecting navigation event ${it}")
                     findNavController().safeNavigate(it)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.progressViewVisible.collect {
+                    //Timber.i("collecting navigation event ${it}")
+                    setProgressViewEnabled(it)
                 }
             }
         }

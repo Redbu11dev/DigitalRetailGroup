@@ -43,6 +43,7 @@ class LoginCodeFragment : BaseFragment() {
     ): View {
         _binding = FragmentLoginCodeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        progressView = binding.progressView.root
 
         val navController = findNavController()
         binding.customToolbar.toolbar.setupWithNavController(navController)
@@ -53,7 +54,7 @@ class LoginCodeFragment : BaseFragment() {
         binding.phone.apply {
             doAfterTextChanged {
                 if (it.toString().length > 3) {
-                    //viewModel.confirmCode(args.phoneString, it.toString())
+                    viewModel.confirmCode(args.phoneString, it.toString())
                 }
             }
         }
@@ -63,6 +64,15 @@ class LoginCodeFragment : BaseFragment() {
                 viewModel.navigationEvent.collect {
                     Timber.i("collecting navigation event ${it}")
                     findNavController().safeNavigate(it)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.progressViewVisible.collect {
+                    //Timber.i("collecting navigation event ${it}")
+                    setProgressViewEnabled(it)
                 }
             }
         }

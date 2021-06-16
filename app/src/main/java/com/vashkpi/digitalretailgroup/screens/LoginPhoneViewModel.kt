@@ -25,10 +25,12 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
                 when (it) {
                     is Resource.Loading -> {
                         Timber.i("it's loading")
+                        postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
                         Timber.i("it's error: ${it.error?.message}")
                         //it.error.
+                        postProgressViewVisibility(false)
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
@@ -36,6 +38,7 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
                         it.data?.let {
                             Timber.i("here is the data: $it")
                         }
+                        postProgressViewVisibility(false)
                         postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(phone))
                     }
                 }
@@ -43,40 +46,5 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
             //cancel()
         }
     }
-
-    //val something = apiRepository.registerPhoneNetBoRes(RegisterPhone(phone))
-
-//    /**
-//     * Login
-//     */
-//    fun loginWithPhone(phone: String) {
-//        //_progressViewVisible.value = true
-//        viewModelScope.launch {
-//            val loginApiResponse =
-//                apiRepository.registerPhone(RegisterPhone(phone))
-//
-//            //_progressViewVisible.value = false
-//
-//            loginApiResponse.response?.let { response ->
-//                if (response.isSuccessful) {
-//                    //val loginResponseData = Gson().fromJson(response.body()?.asJsonObject?.getAsJsonPrimitive("data").asString, String::class.java)
-//                    //response.body()?.asJsonObject?.getAsJsonPrimitive("data")!!.asString
-//
-//                    postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(phone))
-//                }
-//                else {
-//                    //val errors = Gson().fromJson(response.errorBody()?.stringSuspending(), ApiError::class.java)
-////                    val errorMessage = try {
-////                        errors.error.last().message
-////                    } catch (e: Exception) {
-////                        e.message
-////                    }
-//                    //_errorText.value = errorMessage.toString()
-//                }
-//            }?:run {
-//                //_errorText.value = loginApiResponse.error.toString()
-//            }
-//        }
-//    }
 
 }

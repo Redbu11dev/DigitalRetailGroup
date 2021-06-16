@@ -22,5 +22,5 @@ interface ApiService {
     @POST("hs/bss/v1/confirm")
     suspend fun confirmCode(
         @Body confirmCode: ConfirmCode
-    ): Response<JsonElement>
+    ): Response<ApiGenericAnswer>
 }

@@ -212,4 +212,11 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <include
+        android:id="@+id/progress_view"
+        layout="@layout/item_progress"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
+
 </RelativeLayout>

@@ -5,10 +5,27 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel: ViewModel() {
+
+    private val _errorText = MutableStateFlow<String>("")
+    val errorText: StateFlow<String> = _errorText
+
+    fun postErrorText(errorText: String) {
+        _errorText.value = errorText
+    }
+
+    private val _progressViewVisible = MutableStateFlow<Boolean>(false)
+    val progressViewVisible: StateFlow<Boolean> = _progressViewVisible
+
+    fun postProgressViewVisibility(visible: Boolean) {
+        _progressViewVisible.value = visible
+    }
+
     private val _navigationEvent = MutableSharedFlow<NavDirections>(replay = 0)
     val navigationEvent: SharedFlow<NavDirections> = _navigationEvent
 
