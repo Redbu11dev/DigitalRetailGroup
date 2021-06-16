@@ -1,6 +1,7 @@
 package com.vashkpi.digitalretailgroup.utils
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.MotionEvent
@@ -16,6 +17,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.*
+import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
