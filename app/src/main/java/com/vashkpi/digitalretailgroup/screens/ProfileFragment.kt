@@ -21,6 +21,8 @@ import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
@@ -101,7 +103,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         }
 
         lifecycleScope.launch {
-            dataStoreRepository.getUserInfo.collect {
+            dataStoreRepository.getUserInfo.firstOrNull()?.let {
                 binding.surnameText.setText(it.surname)
                 binding.firstNameText.setText(it.name)
                 binding.middleNameText.setText(it.middle_name)
@@ -115,7 +117,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
                     }
                 }
             }
-            cancel()
         }
 
     }
@@ -171,8 +172,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         }
 
         return UserInfo(
-            binding.surnameText.text.toString(),
             binding.firstNameText.text.toString(),
+            binding.surnameText.text.toString(),
             binding.middleNameText.text.toString(),
             binding.birthDateText.text.toString(),
             gender

@@ -39,11 +39,11 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
         val FCM_TOKEN = stringPreferencesKey("FCM_TOKEN")
         val AUTH_TOKEN = stringPreferencesKey("AUTH_TOKEN")
 
-        val NAME = stringPreferencesKey("AUTH_TOKEN")
-        val MIDDLE_NAME = stringPreferencesKey("AUTH_TOKEN")
-        val SURNAME = stringPreferencesKey("AUTH_TOKEN")
-        val DATE_OF_BIRTH = stringPreferencesKey("AUTH_TOKEN")
-        val GENDER = stringPreferencesKey("AUTH_TOKEN")
+        val NAME = stringPreferencesKey("NAME")
+        val MIDDLE_NAME = stringPreferencesKey("MIDDLE_NAME")
+        val SURNAME = stringPreferencesKey("SURNAME")
+        val DATE_OF_BIRTH = stringPreferencesKey("DATE_OF_BIRTH")
+        val GENDER = stringPreferencesKey("GENDER")
     }
 
     suspend fun saveFcmToken(fcmToken: String) {
