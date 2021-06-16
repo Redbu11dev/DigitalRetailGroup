@@ -6,11 +6,16 @@ import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository.PreferencesKeys.AUTH_TOKEN
+import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository.PreferencesKeys.DATE_OF_BIRTH
 import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository.PreferencesKeys.FCM_TOKEN
+import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository.PreferencesKeys.GENDER
+import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository.PreferencesKeys.MIDDLE_NAME
+import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository.PreferencesKeys.NAME
+import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository.PreferencesKeys.SURNAME
+import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.runBlocking
 import java.io.IOException
 
 //data class UserPreferences(
@@ -33,6 +38,12 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
     private object PreferencesKeys {
         val FCM_TOKEN = stringPreferencesKey("FCM_TOKEN")
         val AUTH_TOKEN = stringPreferencesKey("AUTH_TOKEN")
+
+        val NAME = stringPreferencesKey("AUTH_TOKEN")
+        val MIDDLE_NAME = stringPreferencesKey("AUTH_TOKEN")
+        val SURNAME = stringPreferencesKey("AUTH_TOKEN")
+        val DATE_OF_BIRTH = stringPreferencesKey("AUTH_TOKEN")
+        val GENDER = stringPreferencesKey("AUTH_TOKEN")
     }
 
     suspend fun saveFcmToken(fcmToken: String) {
@@ -75,6 +86,34 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
             .map { preference ->
                 preference[AUTH_TOKEN] ?: ""
             }
+    }
+
+    val getUserInfo : Flow<UserInfo> = dataStore.data
+    .catch { exception ->
+        if (exception is IOException) {
+            //Log.d("DataStoreRepository", exception.message.toString())
+            emit(emptyPreferences())
+        } else {
+            throw exception
+        }
+    }
+    .map { preference ->
+        val name = preference[NAME] ?: ""
+        val surname = preference[SURNAME] ?: ""
+        val middleName = preference[MIDDLE_NAME] ?: ""
+        val dateOfBirth = preference[DATE_OF_BIRTH] ?: ""
+        val gender = preference[GENDER] ?: ""
+        UserInfo(name, surname, middleName, dateOfBirth, gender)
+    }
+
+    suspend fun saveUserInfo(userInfo: UserInfo) {
+        dataStore.edit { preference ->
+            preference[NAME] = userInfo.name
+            preference[SURNAME] = userInfo.surname
+            preference[MIDDLE_NAME] = userInfo.middle_name
+            preference[DATE_OF_BIRTH] = userInfo.date_of_birth
+            preference[GENDER] = userInfo.gender
+        }
     }
 
 //    val readFromDataStore : Flow<UserPreferences> = dataStore.data

@@ -1,6 +1,6 @@
 package com.vashkpi.digitalretailgroup.data.models.datastore
 
-data class ProfileInfoLocal(
+data class UserInfo(
     val name: String,
     val surname: String,
     val middle_name: String,
