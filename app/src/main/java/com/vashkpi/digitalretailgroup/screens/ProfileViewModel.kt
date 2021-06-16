@@ -14,6 +14,12 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private val apiRepository: ApiRepository): BaseViewModel() {
 
+    //- obtain locally saved profile info
+    //- compare it to values in the text fields
+    //- if some of them do not match -> let the user save it (both locally and remote)
 
+    fun profileDataChanged(surname: String, name: String, middleName: String, birthDate: String, gender: AppConstants.GenderValues) {
+
+    }
 
 }

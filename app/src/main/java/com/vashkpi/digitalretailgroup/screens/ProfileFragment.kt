@@ -1,26 +1,24 @@
 package com.vashkpi.digitalretailgroup.screens
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
-import com.vashkpi.digitalretailgroup.utils.showMessage
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment<FragmentProfileBinding, NotificationsViewModel>(FragmentProfileBinding::inflate) {
+class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(FragmentProfileBinding::inflate) {
 
-    override val viewModel: NotificationsViewModel by viewModels()
+    override val viewModel: ProfileViewModel by viewModels()
 
     private val args: ProfileFragmentArgs by navArgs()
 
@@ -75,6 +73,37 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, NotificationsViewMo
         binding.birthDateText.setOnClickListener {
             picker.show(parentFragmentManager, picker.toString())
         }
+
+    }
+
+    override fun observeViews() {
+        super.observeViews()
+
+        binding.surnameText.doAfterTextChanged {
+            notifyProfileDataChanged()
+        }
+
+        binding.firstNameText.doAfterTextChanged {
+            notifyProfileDataChanged()
+        }
+
+        binding.middleNameText.doAfterTextChanged {
+            notifyProfileDataChanged()
+        }
+
+        binding.birthDateText.doAfterTextChanged {
+            notifyProfileDataChanged()
+        }
+    }
+
+    private fun notifyProfileDataChanged() {
+        viewModel.profileDataChanged(
+            binding.surnameText.text.toString(),
+            binding.firstNameText.text.toString(),
+            binding.middleNameText.text.toString(),
+            binding.birthDateText.text.toString(),
+            AppConstants.GenderValues.MALE
+        )
     }
 
 }

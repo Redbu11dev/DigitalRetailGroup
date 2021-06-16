@@ -17,5 +17,10 @@ object AppConstants {
     const val API_TIMEOUT_READ_SECONDS = 45L
     const val API_TIMEOUT_WRITE_SECONDS = 15L
 
-
+    //other
+    enum class GenderValues(value: String) {
+        MALE("мужской"),
+        FEMALE("женский")
+    }
 }
+

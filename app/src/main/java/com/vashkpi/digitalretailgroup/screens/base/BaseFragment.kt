@@ -59,6 +59,10 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
         //dummy
     }
 
+    open fun observeViews() {
+        //dummy
+    }
+
     /**
      * Observe view model
      */
