@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
-import com.vashkpi.digitalretailgroup.data.local.PreferencesRepository
 import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import com.vashkpi.digitalretailgroup.utils.stringSuspending
@@ -18,11 +17,11 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginPhoneViewModel @Inject constructor(private val preferencesRepository: PreferencesRepository, private val apiRepository: ApiRepository): BaseViewModel() {
+class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepository): BaseViewModel() {
 
     fun loginWithPhone(phone: String) {
         viewModelScope.launch {
-            apiRepository.registerPhone(RegisterPhone("phone")).collect {
+            apiRepository.registerPhone(RegisterPhone(phone)).collect {
                 when (it) {
                     is Resource.Loading -> {
                         Timber.i("it's loading")
@@ -37,6 +36,7 @@ class LoginPhoneViewModel @Inject constructor(private val preferencesRepository:
                         it.data?.let {
                             Timber.i("here is the data: $it")
                         }
+                        postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(phone))
                     }
                 }
             }

@@ -2,8 +2,9 @@ package com.vashkpi.digitalretailgroup
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.vashkpi.digitalretailgroup.data.local.PreferencesRepository
+import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -11,7 +12,7 @@ import javax.inject.Inject
 class MyFirebaseService : FirebaseMessagingService() {
 
     @Inject
-    lateinit var preferencesRepository: PreferencesRepository
+    lateinit var dataStoreRepository: DataStoreRepository
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
@@ -20,10 +21,12 @@ class MyFirebaseService : FirebaseMessagingService() {
     override fun onNewToken(newToken: String) {
         super.onNewToken(newToken)
 
-        preferencesRepository.fcmToken = newToken
+        runBlocking {
+            dataStoreRepository.saveFcmToken(newToken)
+        }
         Timber.i("new FCM token obtained: $newToken")
 
-        //not very safe, probably should also obtain token in pref init
+        //not very safe, probably should also obtain token in pref init somewhere
     }
 
 }

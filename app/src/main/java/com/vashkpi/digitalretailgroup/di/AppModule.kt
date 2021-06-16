@@ -1,18 +1,12 @@
 package com.vashkpi.digitalretailgroup.di
 
 import android.content.Context
-import android.content.SharedPreferences
-import androidx.datastore.core.DataStoreFactory
-import androidx.datastore.dataStoreFile
-import androidx.datastore.preferences.preferencesDataStore
 import com.google.gson.Gson
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.AppConstants.DEFAULT_API_BASE_URL
-import com.vashkpi.digitalretailgroup.AppConstants.DEFAULT_SHARED_PREFERENCES_NAME
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.ApiService
 import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
-import com.vashkpi.digitalretailgroup.data.local.PreferencesRepository
 import com.vashkpi.digitalretailgroup.data.local.dataStore
 import dagger.Module
 import dagger.Provides
@@ -44,7 +38,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(preferencesRepository: PreferencesRepository, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor { chain ->
                 val credentials = Credentials.basic("user", "user")
@@ -93,17 +87,17 @@ object AppModule {
         return ApiRepository(appContext, apiService)
     }
 
-    @Singleton
-    @Provides
-    fun provideSharedPreferences(@ApplicationContext appContext: Context): SharedPreferences {
-        return appContext.getSharedPreferences(DEFAULT_SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-    }
-
-    @Singleton
-    @Provides
-    fun provideSharedPreferencesRepository(sharedPreferences: SharedPreferences, gson: Gson): PreferencesRepository {
-        return PreferencesRepository(sharedPreferences, gson)
-    }
+//    @Singleton
+//    @Provides
+//    fun provideSharedPreferences(@ApplicationContext appContext: Context): SharedPreferences {
+//        return appContext.getSharedPreferences(DEFAULT_SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+//    }
+//
+//    @Singleton
+//    @Provides
+//    fun provideSharedPreferencesRepository(sharedPreferences: SharedPreferences, gson: Gson): PreferencesRepository {
+//        return PreferencesRepository(sharedPreferences, gson)
+//    }
 
     @Provides
     fun provideGson(): Gson {
@@ -113,21 +107,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideDataStore(@ApplicationContext context: Context): DataStoreRepository {
-//        return PrefDataSource(context.createDataStore(name = PrefDataSource.DATA_STORE_NAME, migrations = listOf(
-//            SharedPreferencesMigration(context, PrefDataSource.DATA_STORE_NAME)
-//        )))
-
         return DataStoreRepository(context.dataStore)
-
-        //return DataStoreRepository(preferencesDataStore(AppConstants.USER_PREFERENCES_NAME))
-
-//        return  DataStoreFactory.create(
-//            serializer = SessionSer
-//        )
-//        return context.createDataStore(
-//            name = STORE_NAME,
-//            migrations = listOf(SharedPreferencesMigration(context, PREFS_NAME))
-//        )
     }
 
 }
