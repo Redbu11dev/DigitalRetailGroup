@@ -22,9 +22,10 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class LauncherFragment : BaseFragment() {
+class LauncherFragment : BaseFragment<FragmentLauncherBinding, LauncherViewModel>() {
 
-    private val viewModel: LauncherViewModel by viewModels()
+    //private val viewModel: LauncherViewModel by viewModels()
+    override val viewModel: LauncherViewModel by viewModels()
 
     private var _binding: FragmentLauncherBinding? = null
     // This property is only valid between onCreateView and

@@ -14,7 +14,7 @@ import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ViewNotificationFragment : BaseFragment() {
+class ViewNotificationFragment : Fragment() {
 
     private var _binding: FragmentViewNotificationBinding? = null
     // This property is only valid between onCreateView and

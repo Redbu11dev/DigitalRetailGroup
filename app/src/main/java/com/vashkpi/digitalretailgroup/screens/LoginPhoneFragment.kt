@@ -32,9 +32,10 @@ import timber.log.Timber
 
 
 @AndroidEntryPoint
-class LoginPhoneFragment : BaseFragment() {
+class LoginPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneViewModel>() {
 
-    private val viewModel: LoginPhoneViewModel by viewModels()
+    //private val viewModel: LoginPhoneViewModel by viewModels()
+    override val viewModel: LoginPhoneViewModel by viewModels()
 
     private var _binding: FragmentLoginPhoneBinding? = null
     // This property is only valid between onCreateView and

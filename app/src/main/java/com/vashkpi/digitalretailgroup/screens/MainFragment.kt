@@ -18,11 +18,12 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment() {
+class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override var bottomNavigationViewVisibility = View.VISIBLE
 
-    private val viewModel: MainViewModel by viewModels()
+    //private val viewModel: MainViewModel by viewModels()
+    override val viewModel: MainViewModel by viewModels()
 
     private var _binding: FragmentMainBinding? = null
     // This property is only valid between onCreateView and

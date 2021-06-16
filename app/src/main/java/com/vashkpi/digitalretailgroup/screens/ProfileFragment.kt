@@ -18,9 +18,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment() {
+class ProfileFragment : BaseFragment<FragmentProfileBinding, NotificationsViewModel>() {
 
-    private val viewModel: ProfileViewModel by viewModels()
+    //private val viewModel: ProfileViewModel by viewModels()
+    override val viewModel: NotificationsViewModel by viewModels()
 
     private val args: ProfileFragmentArgs by navArgs()
 

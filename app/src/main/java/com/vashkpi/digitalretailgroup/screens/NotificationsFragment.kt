@@ -18,9 +18,10 @@ import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NotificationsFragment : BaseFragment() {
+class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, NotificationsViewModel>() {
 
-    private val viewModel: NotificationsViewModel by viewModels()
+    //private val viewModel: NotificationsViewModel by viewModels()
+    override val viewModel: NotificationsViewModel by viewModels()
 
     private var _binding: FragmentNotificationsBinding? = null
     // This property is only valid between onCreateView and
