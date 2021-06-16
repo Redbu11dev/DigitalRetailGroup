@@ -10,7 +10,6 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -30,7 +29,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
 
         //compare to local
         viewModelScope.launch {
-            dataStoreRepository.getUserInfo.firstOrNull()?.let { localUserInfo ->
+            dataStoreRepository.getUserInfo.collect { localUserInfo ->
                 Timber.d("local: ${localUserInfo}")
                 Timber.d("generated: ${generatedUserInfo}")
                 if (localUserInfo == generatedUserInfo) {
@@ -42,7 +41,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                     //let the user save it
                     _profileDataChanged.value = true
                 }
-                cancel()
+                this@launch.cancel()
             }
         }
     }

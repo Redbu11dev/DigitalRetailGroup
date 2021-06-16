@@ -10,8 +10,8 @@ import com.vashkpi.digitalretailgroup.data.models.outgoing.ConfirmCode
 import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,7 +21,7 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
 
     fun confirmCode(phone: String, code: String) {
         viewModelScope.launch {
-            dataStoreRepository.getFcmToken().firstOrNull()?.let { fcmToken ->
+            dataStoreRepository.getFcmToken().collect { fcmToken ->
                 apiRepository.confirmCode(ConfirmCode(phone, code, fcmToken, AppConstants.DEVICE_PLATFORM)).collect {
                     when (it) {
                         is Resource.Loading -> {
@@ -29,6 +29,7 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
                             postProgressViewVisibility(true)
                         }
                         is Resource.Error -> {
+                            this@launch.cancel()
                             val message = it.error?.message
                             Timber.i("it's error: ${message}")
                             //it.error.
@@ -37,6 +38,7 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
                             postNavigationEvent(LoginCodeFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                         }
                         is Resource.Success -> {
+                            this@launch.cancel()
                             Timber.i("it's success")
                             //check if empty?!
                             it.data?.let {
@@ -47,6 +49,7 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
                         }
                     }
                 }
+                this@launch.cancel()
             }
             //cancel()
         }

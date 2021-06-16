@@ -21,8 +21,6 @@ import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
@@ -103,7 +101,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         }
 
         lifecycleScope.launch {
-            dataStoreRepository.getUserInfo.firstOrNull()?.let {
+            dataStoreRepository.getUserInfo.collect {
                 binding.surnameText.setText(it.surname)
                 binding.firstNameText.setText(it.name)
                 binding.middleNameText.setText(it.middle_name)
@@ -116,6 +114,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
                         binding.radioGroup.check(R.id.radio_male)
                     }
                 }
+                this@launch.cancel()
             }
         }
 

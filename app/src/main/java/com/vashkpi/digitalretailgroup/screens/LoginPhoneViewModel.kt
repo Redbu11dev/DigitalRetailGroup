@@ -12,8 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -28,15 +26,19 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
                     is Resource.Loading -> {
                         Timber.d("it's loading")
                         postProgressViewVisibility(true)
+                        //this@launch.cancel()
                     }
                     is Resource.Error -> {
+                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.d("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false)
                         postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+
                     }
                     is Resource.Success -> {
+                        this@launch.cancel()
                         Timber.d("it's success")
                         //check if empty?!
                         it.data?.let {
@@ -44,6 +46,7 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
                         }
                         postProgressViewVisibility(false)
                         postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(phone))
+
                     }
                 }
             }
