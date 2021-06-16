@@ -55,7 +55,7 @@
             app:destination="@id/saveProfileDataDialogFragment" />
 
         <argument
-            android:name="registration"
+            android:name="isRegistration"
             app:argType="boolean" />
     </fragment>
     <fragment

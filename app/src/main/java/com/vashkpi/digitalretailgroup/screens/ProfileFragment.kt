@@ -41,7 +41,7 @@ class ProfileFragment : BaseFragment() {
         //binding.customToolbar.toolbar.setNavigationIcon(R.drawable.ic_bell)
         //binding.customToolbar.toolbar.nav
 
-        if (args.registration) {
+        if (args.isRegistration) {
             binding.saveBtn.setText(R.string.profile_btn_1_save_data)
             binding.logoutBtn.setText(R.string.profile_btn_2_later)
         }
