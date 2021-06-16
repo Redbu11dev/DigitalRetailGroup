@@ -53,7 +53,7 @@ class LoginCodeFragment : BaseFragment() {
         binding.phone.apply {
             doAfterTextChanged {
                 if (it.toString().length > 3) {
-                    viewModel.confirmCode(args.phoneString, it.toString())
+                    //viewModel.confirmCode(args.phoneString, it.toString())
                 }
             }
         }
