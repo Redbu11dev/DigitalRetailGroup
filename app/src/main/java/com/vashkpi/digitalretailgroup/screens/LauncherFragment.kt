@@ -28,18 +28,6 @@ class LauncherFragment : BaseFragment<FragmentLauncherBinding, LauncherViewModel
 
     override fun setUpViews() {
         super.setUpViews()
-
-        val root: View = binding.root
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.navigationEvent.collect {
-                    Timber.i("collecting navigation event ${it}")
-                    findNavController().navigate(it)
-                }
-            }
-            cancel()
-        }
     }
 
     override fun onResume() {

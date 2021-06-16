@@ -44,13 +44,5 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
         binding.customToolbar.logo.visibility = View.VISIBLE
         toolbar.title = ""
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.navigationEvent.collect {
-                    Timber.i("collecting navigation event ${it}")
-                    findNavController().safeNavigate(it)
-                }
-            }
-        }
     }
 }

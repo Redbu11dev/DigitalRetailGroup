@@ -159,6 +159,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
                 }
             }
         }
+
     }
 
     private fun getUserInfoFromFields(): UserInfo {

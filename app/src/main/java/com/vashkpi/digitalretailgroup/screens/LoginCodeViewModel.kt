@@ -11,6 +11,7 @@ import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,7 +21,7 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
 
     fun confirmCode(phone: String, code: String) {
         viewModelScope.launch {
-            dataStoreRepository.getFcmToken().collect { fcmToken ->
+            dataStoreRepository.getFcmToken().firstOrNull()?.let { fcmToken ->
                 apiRepository.confirmCode(ConfirmCode(phone, code, fcmToken, AppConstants.DEVICE_PLATFORM)).collect {
                     when (it) {
                         is Resource.Loading -> {

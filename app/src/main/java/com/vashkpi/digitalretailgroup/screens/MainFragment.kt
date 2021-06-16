@@ -58,15 +58,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
         adapter.setList(arrayListOf("1", "2", "3", "4", "5"))
         adapter.notifyDataSetChanged()
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.navigationEvent.collect {
-                    Timber.i("collecting navigation event ${it}")
-                    findNavController().safeNavigate(it)
-                }
-            }
-        }
-
         binding.item1.root.changeAlphaOnTouch()
         binding.item2.root.changeAlphaOnTouch()
     }

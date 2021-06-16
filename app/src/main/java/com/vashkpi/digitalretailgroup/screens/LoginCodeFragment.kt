@@ -47,23 +47,6 @@ class LoginCodeFragment : BaseFragment<FragmentLoginCodeBinding, LoginCodeViewMo
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.progressViewVisible.collect {
-                    //Timber.i("collecting navigation event ${it}")
-                    setProgressViewEnabled(it)
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.navigationEvent.collect {
-                    Timber.i("collecting navigation event ${it}")
-                    findNavController().safeNavigate(it)
-                }
-            }
-        }
     }
 
 }
