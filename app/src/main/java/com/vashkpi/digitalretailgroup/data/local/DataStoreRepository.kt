@@ -23,16 +23,15 @@ val Context.dataStore by preferencesDataStore(
 
 class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
 
+    suspend fun clearDataStore() {
+        dataStore.edit { preferences ->
+            preferences.clear()
+        }
+    }
+
     private object PreferencesKeys {
         val USERNAME = stringPreferencesKey("username")
         val REMEMBER = booleanPreferencesKey("remember")
-    }
-
-    suspend fun saveToDataStore(username: String, remember: Boolean) {
-        dataStore.edit { preference ->
-            preference[USERNAME] = username
-            preference[REMEMBER] = remember
-        }
     }
 
     val readFromDataStore : Flow<UserPreferences> = dataStore.data
@@ -50,9 +49,10 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
             UserPreferences(username, remember)
         }
 
-    suspend fun clearDataStore() {
-        dataStore.edit { preferences ->
-            preferences.clear()
+    suspend fun saveToDataStore(username: String, remember: Boolean) {
+        dataStore.edit { preference ->
+            preference[USERNAME] = username
+            preference[REMEMBER] = remember
         }
     }
 
