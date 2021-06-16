@@ -22,21 +22,34 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class LauncherFragment : BaseFragment<FragmentLauncherBinding, LauncherViewModel>() {
+class LauncherFragment : BaseFragment<FragmentLauncherBinding, LauncherViewModel>(FragmentLauncherBinding::inflate) {
 
     //private val viewModel: LauncherViewModel by viewModels()
     override val viewModel: LauncherViewModel by viewModels()
 
-    private var _binding: FragmentLauncherBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//        _binding = FragmentLauncherBinding.inflate(inflater, container, false)
+//        val root: View = binding.root
+//
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                viewModel.navigationEvent.collect {
+//                    Timber.i("collecting navigation event ${it}")
+//                    findNavController().navigate(it)
+//                }
+//            }
+//            cancel()
+//        }
+//
+//        return root
+//    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentLauncherBinding.inflate(inflater, container, false)
+    override fun setUpViews() {
+        super.setUpViews()
+
         val root: View = binding.root
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -48,8 +61,6 @@ class LauncherFragment : BaseFragment<FragmentLauncherBinding, LauncherViewModel
             }
             cancel()
         }
-
-        return root
     }
 
     override fun onResume() {
@@ -58,9 +69,9 @@ class LauncherFragment : BaseFragment<FragmentLauncherBinding, LauncherViewModel
         viewModel.checkIfHasToken()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        _binding = null
+//    }
 
 }

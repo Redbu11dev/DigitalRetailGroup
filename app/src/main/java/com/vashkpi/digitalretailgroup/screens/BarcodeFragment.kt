@@ -15,24 +15,56 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>() {
+class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(FragmentBarcodeBinding::inflate) {
 
     override var bottomNavigationViewVisibility = View.VISIBLE
 
     //private val viewModel: BarcodeViewModel by viewModels()
     override val viewModel: BarcodeViewModel by viewModels()
 
-    private var _binding: FragmentBarcodeBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//        _binding = FragmentBarcodeBinding.inflate(inflater, container, false)
+//        val root: View = binding.root
+//
+//        val toolbar = binding.customToolbar.toolbar
+//
+//        toolbar.inflateMenu(R.menu.toolbar_main_menu)
+//        toolbar.setOnMenuItemClickListener {
+//            when (it.itemId) {
+//                R.id.notifications -> {
+//                    viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToNotificationsFragment())
+//                    true
+//                }
+//                R.id.profile -> {
+//                    viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToProfileFragment(false))
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
+//
+//        binding.customToolbar.logo.visibility = View.VISIBLE
+//        toolbar.title = ""
+//
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                viewModel.navigationEvent.collect {
+//                    Timber.i("collecting navigation event ${it}")
+//                    findNavController().safeNavigate(it)
+//                }
+//            }
+//        }
+//
+//        return root
+//    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentBarcodeBinding.inflate(inflater, container, false)
+    override fun setUpViews() {
+        super.setUpViews()
+
         val root: View = binding.root
 
         val toolbar = binding.customToolbar.toolbar
@@ -63,12 +95,5 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>()
                 }
             }
         }
-
-        return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

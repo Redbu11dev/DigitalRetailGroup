@@ -12,38 +12,28 @@ import androidx.viewbinding.ViewBinding
 import com.vashkpi.digitalretailgroup.MainActivity
 import com.vashkpi.digitalretailgroup.databinding.FragmentLoginCodeBinding
 
+typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
+
 /**
  * Base fragment, containing commonly used methods
  */
-abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment(), LifecycleObserver {
+abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val inflate: Inflate<VB>) : Fragment(), LifecycleObserver {
 
     protected open var bottomNavigationViewVisibility = View.GONE
     protected open var orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    protected lateinit var progressView: View
 
     protected abstract val viewModel: ViewModel
 
-//    protected open var _binding: VB? = null
-//    // This property is only valid between onCreateView and
-//    // onDestroyView.
-//    val binding get() = _binding!!
+    private var _binding: VB? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    val binding get() = _binding!!
 
-    //    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        // get the reference of the parent activity and call the setBottomNavigationVisibility method.
-//        if (activity is MainActivity) {
-//            var  mainActivity = activity as MainActivity
-//            mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
-//        }
-//    }
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        _binding = VB.inflate(inflater, container, false)
-//        return binding.root
-//    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = inflate.invoke(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,14 +46,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment(), 
     open fun observeView() {}
 
     open fun observeData() {}
-
-//    private fun init() {
-
-//    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreated() {
@@ -87,6 +69,11 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment(), 
             mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
             mainActivity.requestedOrientation = orientation
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -114,8 +101,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment(), 
 //            (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 //        }
 //    }
-
-    lateinit var progressView: View
 
     fun BaseFragment<VB, VM>.setProgressViewEnabled(enabled: Boolean) {
         this@BaseFragment.progressView.apply { visibility = if (enabled) View.VISIBLE else View.GONE }

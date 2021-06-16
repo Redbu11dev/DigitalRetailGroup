@@ -32,21 +32,19 @@ import timber.log.Timber
 
 
 @AndroidEntryPoint
-class LoginPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneViewModel>() {
+class LoginPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneViewModel>(FragmentLoginPhoneBinding::inflate) {
 
     //private val viewModel: LoginPhoneViewModel by viewModels()
     override val viewModel: LoginPhoneViewModel by viewModels()
 
-    private var _binding: FragmentLoginPhoneBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+//    private var _binding: FragmentLoginPhoneBinding? = null
+//    // This property is only valid between onCreateView and
+//    // onDestroyView.
+//    private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentLoginPhoneBinding.inflate(inflater, container, false)
+    override fun setUpViews() {
+        super.setUpViews()
+
         val root: View = binding.root
         progressView = binding.progressView.root
 
@@ -102,13 +100,75 @@ class LoginPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneVie
                 }
             }
         }
-
-        return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//        _binding = FragmentLoginPhoneBinding.inflate(inflater, container, false)
+//        val root: View = binding.root
+//        progressView = binding.progressView.root
+//
+//        binding.phone.inputType = InputType.TYPE_CLASS_NUMBER
+//        binding.phone.keyListener = DigitsKeyListener.getInstance("1234567890+-() ")
+//        val phoneNumberValueListener = object : MaskedTextChangedListener.ValueListener {
+//            var rawValue = ""
+//            override fun onTextChanged(
+//                maskFilled: Boolean,
+//                extractedValue: String,
+//                formattedValue: String
+//            ) {
+////                Log.d("TAG_extr", extractedValue)
+////                Log.d("TAG_filled", maskFilled.toString())
+////                Log.d("TAG_formatted", formattedValue)
+//                rawValue = Regex("[^0-9]").replace(formattedValue, "")
+//                Timber.i("phone: $rawValue")
+//            }
+//        }
+//        val listener: MaskedTextChangedListener = MaskedTextChangedListener.installOn(
+//            binding.phone,
+//            "+7 ([000]) [000]-[00]-[00]",
+//            phoneNumberValueListener
+//        )
+//        binding.phone.setHint(listener.placeholder())
+//
+//        binding.phone.apply {
+//            doAfterTextChanged {
+//                if (phoneNumberValueListener.rawValue.length > 10) {
+//                    val phone = phoneNumberValueListener.rawValue
+//                    //viewModel.postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(it.toString()))
+//                    binding.phone.setText("")
+//                    //viewModel.loginWithPhone(phone)
+//                    viewModel.loginWithPhone(phone)
+//                }
+//            }
+//        }
+//
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                viewModel.navigationEvent.collect {
+//                    Timber.i("collecting navigation event ${it}")
+//                    findNavController().safeNavigate(it)
+//                }
+//            }
+//        }
+//
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                viewModel.progressViewVisible.collect {
+//                    //Timber.i("collecting navigation event ${it}")
+//                    setProgressViewEnabled(it)
+//                }
+//            }
+//        }
+//
+//        return root
+//    }
+
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        _binding = null
+//    }
 
 }
