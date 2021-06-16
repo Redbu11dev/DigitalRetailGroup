@@ -26,23 +26,13 @@ class LoginCodeFragment : BaseFragment<FragmentLoginCodeBinding, LoginCodeViewMo
 
     override val viewModel: LoginCodeViewModel by viewModels()
 
-    //override fun getViewModelClass() = LoginCodeViewModel::class.java
-    //override fun getViewBinding() = FragmentLoginCodeBinding.inflate(layoutInflater)
-
-    //override var viewModel: LoginCodeViewModel by viewModels()
-
     private val args: LoginCodeFragmentArgs by navArgs()
-
-//    private var _binding: FragmentLoginCodeBinding? = null
-//    // This property is only valid between onCreateView and
-//    // onDestroyView.
-//    private val binding get() = _binding!!
 
     override fun setUpViews() {
         super.setUpViews()
 
         val root: View = binding.root
-        progressView = binding.progressView.root
+//        progressView = binding.progressView.root
 
         val navController = findNavController()
         binding.customToolbar.toolbar.setupWithNavController(navController)
@@ -76,53 +66,5 @@ class LoginCodeFragment : BaseFragment<FragmentLoginCodeBinding, LoginCodeViewMo
             }
         }
     }
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        _binding = FragmentLoginCodeBinding.inflate(inflater, container, false)
-//        val root: View = binding.root
-//        progressView = binding.progressView.root
-//
-//        val navController = findNavController()
-//        binding.customToolbar.toolbar.setupWithNavController(navController)
-//
-//        val phoneStringFakeSpaces = args.phoneString.replace(" ", " ")
-//        binding.text2.text = String.format(getString(R.string.login_code_description), phoneStringFakeSpaces)
-//
-//        binding.phone.apply {
-//            doAfterTextChanged {
-//                if (it.toString().length > 3) {
-//                    viewModel.confirmCode(args.phoneString, it.toString())
-//                }
-//            }
-//        }
-//
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                viewModel.progressViewVisible.collect {
-//                    //Timber.i("collecting navigation event ${it}")
-//                    setProgressViewEnabled(it)
-//                }
-//            }
-//        }
-//
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                viewModel.navigationEvent.collect {
-//                    Timber.i("collecting navigation event ${it}")
-//                    findNavController().safeNavigate(it)
-//                }
-//            }
-//        }
-//
-//        return root
-//    }
-
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        _binding = null
-//    }
 
 }

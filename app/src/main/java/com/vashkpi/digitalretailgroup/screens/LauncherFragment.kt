@@ -24,28 +24,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class LauncherFragment : BaseFragment<FragmentLauncherBinding, LauncherViewModel>(FragmentLauncherBinding::inflate) {
 
-    //private val viewModel: LauncherViewModel by viewModels()
     override val viewModel: LauncherViewModel by viewModels()
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        _binding = FragmentLauncherBinding.inflate(inflater, container, false)
-//        val root: View = binding.root
-//
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                viewModel.navigationEvent.collect {
-//                    Timber.i("collecting navigation event ${it}")
-//                    findNavController().navigate(it)
-//                }
-//            }
-//            cancel()
-//        }
-//
-//        return root
-//    }
 
     override fun setUpViews() {
         super.setUpViews()
@@ -65,13 +44,7 @@ class LauncherFragment : BaseFragment<FragmentLauncherBinding, LauncherViewModel
 
     override fun onResume() {
         super.onResume()
-
         viewModel.checkIfHasToken()
     }
-
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        _binding = null
-//    }
 
 }

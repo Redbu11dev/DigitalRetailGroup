@@ -90,7 +90,7 @@
     </RelativeLayout>
 
     <include
-        android:id="@+id/progress_view"
+        android:id="@+id/progress_view_incl"
         layout="@layout/item_progress"
         android:visibility="gone"
         tools:visibility="visible"
