@@ -28,7 +28,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
 
     protected open var bottomNavigationViewVisibility = View.GONE
     protected open var orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    protected var progressView: View? = null
+
+    protected var progressView: View? = null //progress view should be included inside layout xml
 
     protected abstract val viewModel: BaseViewModel
 
@@ -65,7 +66,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.navigationEvent.collect {
-                    Timber.i("collecting navigation event ${it}")
+                    Timber.d("collecting navigation event: $it")
                     findNavController().safeNavigate(it)
                 }
             }
@@ -75,7 +76,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
             viewLifecycleOwner.lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.progressViewVisible.collect {
-                        //Timber.i("collecting navigation event ${it}")
+                        Timber.d("changing progress view visibility: $it")
                         setProgressViewEnabled(it)
                     }
                 }

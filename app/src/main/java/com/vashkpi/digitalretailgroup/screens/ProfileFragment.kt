@@ -29,18 +29,23 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, NotificationsViewMo
 
         val root: View = binding.root
 
+        val toolbar = binding.customToolbar.toolbar
+
         val navController = findNavController()
-        binding.customToolbar.toolbar.setupWithNavController(navController)
-        //binding.customToolbar.toolbar.setNavigationIcon(R.drawable.ic_bell)
-        //binding.customToolbar.toolbar.nav
+        toolbar.setupWithNavController(navController)
+        //toolbar.setNavigationIcon(R.drawable.ic_bell)
+        //toolbar.nav
 
         if (args.isRegistration) {
             binding.saveBtn.setText(R.string.profile_btn_1_save_data)
             binding.logoutBtn.setText(R.string.profile_btn_2_later)
+            toolbar.setTitle(R.string.profile_title)
+
         }
         else {
             binding.saveBtn.setText(R.string.profile_btn_1_save)
             binding.logoutBtn.setText(R.string.profile_btn_2_logout)
+            toolbar.setTitle(R.string.profile_title)
         }
 
         binding.saveBtn.setOnClickListener {

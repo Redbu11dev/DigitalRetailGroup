@@ -24,8 +24,6 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
     override fun setUpViews() {
         super.setUpViews()
 
-        val root: View = binding.root
-
         val toolbar = binding.customToolbar.toolbar
 
         toolbar.inflateMenu(R.menu.toolbar_main_menu)

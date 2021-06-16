@@ -86,7 +86,7 @@
     <fragment
         android:id="@+id/loginCodeFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.LoginCodeFragment"
-        android:label="fragment_login_code"
+        android:label=""
         tools:layout="@layout/fragment_login_code" >
         <action
             android:id="@+id/action_loginCodeFragment_to_profileFragment"

@@ -25,21 +25,21 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
             apiRepository.registerPhone(RegisterPhone(phone)).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        Timber.i("it's loading")
+                        Timber.d("it's loading")
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
                         val message = it.error?.message
-                        Timber.i("it's error: ${message}")
+                        Timber.d("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false)
                         postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
-                        Timber.i("it's success")
+                        Timber.d("it's success")
                         //check if empty?!
                         it.data?.let {
-                            Timber.i("here is the data: $it")
+                            Timber.d("here is the data: $it")
                         }
                         postProgressViewVisibility(false)
                         postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(phone))

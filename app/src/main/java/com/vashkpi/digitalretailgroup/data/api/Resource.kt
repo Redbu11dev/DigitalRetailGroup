@@ -16,11 +16,11 @@ sealed class Resource<T>(
 inline fun <T> networkBoundResource(
     crossinline fetch : suspend () -> ApiResponse<T>
 ) = flow {
-    //Timber.i("loading")
+    //Timber.d("loading")
     emit(Resource.Loading(null))
 
     try {
-        //Timber.i("emit1")
+        //Timber.d("emit1")
         //TODO here check if cached and cache if needed
         val fetchResult: ApiResponse<T> = fetch()
 
@@ -35,16 +35,9 @@ inline fun <T> networkBoundResource(
                 emit(Resource.Error(throwable = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"), null))
             }
         }
-
-//        if (fetchResult.isSuccessful) {
-//            emit(Resource.Success(fetchResult.body()))
-//        }
-//        else {
-//            emit(Resource.Error(throwable = Throwable("hggh"), null))
-//        }
     }
     catch(throwable : Throwable){
-        //Timber.i("in here")
+        //Timber.d("in here")
         emit(Resource.Error(throwable, null))
     }
 }

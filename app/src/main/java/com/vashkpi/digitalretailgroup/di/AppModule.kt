@@ -83,8 +83,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideApiRepository(@ApplicationContext appContext: Context, apiService: ApiService): ApiRepository {
-        return ApiRepository(appContext, apiService)
+    fun provideApiRepository(apiService: ApiService): ApiRepository {
+        return ApiRepository(apiService)
     }
 
 //    @Singleton

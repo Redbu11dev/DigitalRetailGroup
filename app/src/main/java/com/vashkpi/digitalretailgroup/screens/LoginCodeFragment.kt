@@ -31,11 +31,10 @@ class LoginCodeFragment : BaseFragment<FragmentLoginCodeBinding, LoginCodeViewMo
     override fun setUpViews() {
         super.setUpViews()
 
-        val root: View = binding.root
-//        progressView = binding.progressView.root
+        val toolbar = binding.customToolbar.toolbar
 
         val navController = findNavController()
-        binding.customToolbar.toolbar.setupWithNavController(navController)
+        toolbar.setupWithNavController(navController)
 
         val phoneStringFakeSpaces = args.phoneString.replace(" ", " ")
         binding.text2.text = String.format(getString(R.string.login_code_description), phoneStringFakeSpaces)

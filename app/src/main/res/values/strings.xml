@@ -51,6 +51,7 @@
 
     <!--    Profile-->
     <string name="profile_title">Профиль</string>
+    <string name="profile_title_is_registration">Заполните свой профиль</string>
 
     <string name="profile_btn_1_save">Сохранить изменения</string>
     <string name="profile_btn_2_logout">Выйти</string>

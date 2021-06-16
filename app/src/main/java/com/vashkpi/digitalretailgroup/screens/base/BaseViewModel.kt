@@ -22,6 +22,7 @@ abstract class BaseViewModel: ViewModel() {
         _errorText.value = errorText
     }
 
+    //show or hide progress view
     private val _progressViewVisible = MutableStateFlow<Boolean>(false)
     val progressViewVisible: StateFlow<Boolean> = _progressViewVisible
 
