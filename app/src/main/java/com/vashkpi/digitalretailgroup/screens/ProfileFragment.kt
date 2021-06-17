@@ -67,14 +67,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         }
 
         binding.saveBtn.setOnClickListener {
-            //findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment())
             if (isRegistration) {
                 //save directly and navigate to barcode
                 viewModel.saveProfileData(getUserInfoFromFields(), true)
             }
             else {
                 //show dialog
-                //viewModel.saveProfileData(getUserInfoFromFields())
                 findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment(false))
             }
         }
