@@ -164,7 +164,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:button="@drawable/selector_radio_button_male"
-                    android:checked="true"
+                    android:checked="false"
+                    tools:checked="true"
 
                     android:text="@string/radio_btn_male" />
                 <!--                android:button="@drawable/selector_radio_btn_icon_female"-->

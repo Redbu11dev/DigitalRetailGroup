@@ -203,7 +203,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 
         //
 
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.name.collect {
                 if (binding.firstNameText.text.toString() != it) {
                     Timber.d("firstNameText changed to: $it")
@@ -215,7 +215,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.surname.collect {
                 if (binding.surnameText.text.toString() != it) {
                     Timber.d("surname changed to: $it")
@@ -227,7 +227,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.middleName.collect {
                 if (binding.middleNameText.text.toString() != it) {
                     Timber.d("middleNameText changed to: $it")
@@ -239,7 +239,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.birthDate.collect {
                 if (binding.birthDateText.text.toString() != it) {
                     Timber.d("birthDateText changed to: $it")
@@ -251,7 +251,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.genderRadioId.collect {
                 if (binding.radioGroup.checkedRadioButtonId != it) {
                     Timber.d("checkedRadioButtonId changed to: $it")
@@ -309,8 +309,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             R.id.radio_male -> {
                 AppConstants.GenderValues.MALE.value
             }
-            else -> {
+            R.id.radio_female -> {
                 AppConstants.GenderValues.FEMALE.value
+            }
+            else -> {
+                ""
             }
         }
 

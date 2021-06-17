@@ -24,60 +24,49 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
     //- compare it to values in the text fields
     //- if some of them do not match -> let the user save it (both locally and remote)
 
-    //var isRegistration = false
-
     val name = MutableStateFlow("")
     val surname = MutableStateFlow("")
     val middleName = MutableStateFlow("")
     val birthDate = MutableStateFlow("")
-    val genderRadioId = MutableStateFlow(R.id.radio_male)
+    val genderRadioId = MutableStateFlow(-1)
+
+    private lateinit var _localUserInfo: UserInfo
 
     init {
-        setViewsFromLocalValues()
-    }
-
-    fun setViewsFromLocalValues() {
         viewModelScope.launch {
             dataStoreRepository.getUserInfo.collect { localUserInfo ->
-                Timber.d("userinfo: ${localUserInfo}")
-
-                val nameToSet = localUserInfo.name
-                val surnameToSet = localUserInfo.name
-                val middleNameToSet = localUserInfo.name
-                val birthDateToSet = localUserInfo.name
-                val genderRadioIdToSet = when (localUserInfo.gender) {
-                    AppConstants.GenderValues.FEMALE.value -> {
-                        R.id.radio_female
-                    }
-                    else -> {
-                        R.id.radio_male
-                    }
-                }
-
-                name.value = nameToSet
-                //delay(100)
-                surname.value = surnameToSet
-                //delay(100)
-                middleName.value = middleNameToSet
-                //delay(100)
-                birthDate.value = birthDateToSet
-                //delay(100)
-                genderRadioId.value = genderRadioIdToSet
-
-//                compareLocalValuesToActual(
-//                    localUserInfo,
-//                    UserInfo(
-//                        nameToSet,
-//                        surnameToSet,
-//                        middleNameToSet,
-//                        birthDateToSet,
-//                        localUserInfo.gender
-//                    )
-//                )
-
+                _localUserInfo = localUserInfo
+                setViewsFromLocalValues()
                 this@launch.cancel()
             }
         }
+    }
+
+    fun setViewsFromLocalValues() {
+        Timber.d("userinfo: ${_localUserInfo}")
+
+        val nameToSet = _localUserInfo.name
+        val surnameToSet = _localUserInfo.name
+        val middleNameToSet = _localUserInfo.name
+        val birthDateToSet = _localUserInfo.name
+        val genderRadioIdToSet = when (_localUserInfo.gender) {
+            AppConstants.GenderValues.FEMALE.value -> {
+                R.id.radio_female
+            }
+            AppConstants.GenderValues.MALE.value -> {
+                R.id.radio_male
+            }
+            else -> {
+                -1
+            }
+        }
+
+        name.value = nameToSet
+        surname.value = surnameToSet
+        middleName.value = middleNameToSet
+        birthDate.value = birthDateToSet
+        genderRadioId.value = genderRadioIdToSet
+
     }
 
     private fun compareLocalValuesToActual(localUserInfo: UserInfo, actualUserInfo: UserInfo) {
@@ -107,8 +96,11 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
             AppConstants.GenderValues.FEMALE.value -> {
                 genderRadioId.value = R.id.radio_female
             }
-            else -> {
+            AppConstants.GenderValues.MALE.value -> {
                 genderRadioId.value = R.id.radio_male
+            }
+            else -> {
+                genderRadioId.value = -1
             }
         }
 
