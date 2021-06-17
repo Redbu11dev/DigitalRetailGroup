@@ -125,6 +125,8 @@
 
         <item name="android:textSize">12dp</item>
         <item name="android:textColor">@color/selector_color_radio_btn_text</item>
+
+<!--        <item name="android:background">?selectableItemBackground</item>-->
     </style>
 
     <style name="Widget.DigitalRetailGroup.IconImageButton" parent="Widget.AppCompat.ImageButton">
