@@ -201,7 +201,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
                 }
             }.launchIn(lifecycleScope)
 
-//        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+        //
+
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
 //            viewModel.name.collect {
 //                if (binding.firstNameText.text.toString() != it) {
 //                    Timber.d("firstNameText changed to: $it")
@@ -213,9 +215,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 //            }
 //        }
 //
-//        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
 //            viewModel.surname.collect {
-//                //Timber.d("surname changed to: $it")
 //                if (binding.surnameText.text.toString() != it) {
 //                    Timber.d("surname changed to: $it")
 //                    binding.surnameText.setText(it)
@@ -226,9 +227,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 //            }
 //        }
 //
-//        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
 //            viewModel.middleName.collect {
-//                //Timber.d("middleName changed to: $it")
 //                if (binding.middleNameText.text.toString() != it) {
 //                    Timber.d("middleNameText changed to: $it")
 //                    binding.middleNameText.setText(it)
@@ -239,9 +239,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 //            }
 //        }
 //
-//        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
 //            viewModel.birthDate.collect {
-//                //Timber.d("birthDate changed to: $it")
 //                if (binding.birthDateText.text.toString() != it) {
 //                    Timber.d("birthDateText changed to: $it")
 //                    binding.birthDateText.setText(it)
@@ -252,18 +251,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 //            }
 //        }
 //
-//        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
-//            viewModel.genderRadioId.collect {
-//                //Timber.d("checkedRadioButtonId changed to: $it")
-//                if (binding.radioGroup.checkedRadioButtonId != it) {
-//                    Timber.d("checkedRadioButtonId changed to: $it")
-//                    binding.birthDateText.setText(it)
-//                }
-//                else {
-//                    Timber.d("checkedRadioButtonId changed observed, but was the same: $it")
-//                }
-//            }
-//        }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.genderRadioId.collect {
+                if (binding.radioGroup.checkedRadioButtonId != it) {
+                    Timber.d("checkedRadioButtonId changed to: $it")
+                    binding.radioGroup.check(it)
+                }
+                else {
+                    Timber.d("checkedRadioButtonId changed observed, but was the same: $it")
+                }
+            }
+        }
+
+        //
 
         viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             viewModel.profileDataHasChanges.collect {
