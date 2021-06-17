@@ -68,26 +68,33 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
      * Observe view model
      */
     open fun observeViewModel() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.navigationEvent.collect {
-                    Timber.d("collecting navigation event: $it")
-                    findNavController().safeNavigate(it)
-                    //findNavController().navigate(it)
-                }
+        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+            viewModel.navigationEvent.collect {
+                Timber.d("collecting navigation event: $it")
+                findNavController().safeNavigate(it)
+                //findNavController().navigate(it)
             }
         }
 
         progressView?.let {
-            viewLifecycleOwner.lifecycleScope.launch {
-                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.progressViewVisible.collect {
-                        Timber.d("changing progress view visibility: $it")
-                        setProgressViewEnabled(it)
-                    }
+            viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+                viewModel.progressViewVisible.collect {
+                    Timber.d("changing progress view visibility: $it")
+                    setProgressViewEnabled(it)
                 }
             }
         }
+
+//        progressView?.let {
+//            viewLifecycleOwner.lifecycleScope.launch {
+//                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                    viewModel.progressViewVisible.collect {
+//                        Timber.d("changing progress view visibility: $it")
+//                        setProgressViewEnabled(it)
+//                    }
+//                }
+//            }
+//        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

@@ -20,6 +20,7 @@ import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
 import com.vashkpi.digitalretailgroup.screens.dialogs.SaveProfileDataDialogFragment
+import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
@@ -139,6 +140,37 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             picker.show(parentFragmentManager, picker.toString())
         }
 
+        setViewsFromLocalValues()
+
+        //Listen for fragment results
+        setFragmentResultListener(SaveProfileDataDialogFragment.REQUEST_KEY) { key, bundle ->
+            // read from the bundle
+            Timber.d("Received fragment result: $bundle")
+            if (bundle["data"] == SaveProfileDataDialogFragment.RESULT_SAVE) {
+                if (isRegistration) {
+                    //as if "save" button was pressed
+                    viewModel.saveProfileData(getUserInfoFromFields(), true)
+                }
+                else {
+                    viewModel.saveProfileData(getUserInfoFromFields(), false)
+                }
+            }
+            else if (bundle["data"] == SaveProfileDataDialogFragment.RESULT_DO_NOT_SAVE) {
+                if (isRegistration) {
+                    //navigate to barcode directly
+                    binding.root.post {
+                        viewModel.postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
+                    }
+                }
+                else {
+                    setViewsFromLocalValues()
+                }
+            }
+        }
+
+    }
+
+    private fun setViewsFromLocalValues() {
         lifecycleScope.launch {
             dataStoreRepository.getUserInfo.collect {
                 binding.surnameText.setText(it.surname)
@@ -156,33 +188,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
                 this@launch.cancel()
             }
         }
-
-        //Listen for fragment results
-        setFragmentResultListener(SaveProfileDataDialogFragment.REQUEST_KEY) { key, bundle ->
-            // read from the bundle
-            Timber.d("Received fragment result: $bundle")
-            if (bundle["data"] == SaveProfileDataDialogFragment.RESULT_SAVE) {
-                if (isRegistration) {
-                    //as if "save" button was pressed
-                    viewModel.saveProfileData(getUserInfoFromFields(), true)
-                }
-                else {
-
-                }
-            }
-            else if (bundle["data"] == SaveProfileDataDialogFragment.RESULT_DO_NOT_SAVE) {
-                if (isRegistration) {
-                    //navigate to barcode directly
-                    binding.root.post {
-                        viewModel.postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
-                    }
-                }
-                else {
-
-                }
-            }
-        }
-
     }
 
     override fun observeViewModel() {
@@ -197,6 +202,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
                 else {
                     binding.saveBtn.visibility = View.GONE
                 }
+            }
+        }
+
+        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+            viewModel.resetViewsEvent.collect {
+                Timber.d("collecting reset views event: $it")
+                setViewsFromLocalValues()
             }
         }
 

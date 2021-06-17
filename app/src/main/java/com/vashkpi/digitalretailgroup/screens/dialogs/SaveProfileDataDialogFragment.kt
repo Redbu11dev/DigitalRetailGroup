@@ -33,25 +33,14 @@ class SaveProfileDataDialogFragment : DialogFragmentBase() {
         _binding = DialogSaveProfileDataBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        if (args.isRegistration) {
-            binding.btnNegative.setOnClickListener {
-                dismiss()
-                setFragmentResult(REQUEST_KEY, bundleOf("data" to RESULT_DO_NOT_SAVE))
-            }
-
-            binding.btnPositive.setOnClickListener {
-                dismiss()
-                setFragmentResult(REQUEST_KEY, bundleOf("data" to RESULT_SAVE))
-            }
+        binding.btnNegative.setOnClickListener {
+            dismiss()
+            setFragmentResult(REQUEST_KEY, bundleOf("data" to RESULT_DO_NOT_SAVE))
         }
-        else {
-            binding.btnNegative.setOnClickListener {
-                dismiss()
-            }
 
-            binding.btnPositive.setOnClickListener {
-                dismiss()
-            }
+        binding.btnPositive.setOnClickListener {
+            dismiss()
+            setFragmentResult(REQUEST_KEY, bundleOf("data" to RESULT_SAVE))
         }
 
         binding.crossBtn.setOnClickListener {

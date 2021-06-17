@@ -1,6 +1,7 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavDirections
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
@@ -10,9 +11,7 @@ import com.vashkpi.digitalretailgroup.data.models.outgoing.Accounts
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -23,6 +22,16 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
     //- obtain locally saved profile info
     //- compare it to values in the text fields
     //- if some of them do not match -> let the user save it (both locally and remote)
+
+    private val _resetViewsEvent = MutableSharedFlow<Boolean>(replay = 0)
+    val resetViewsEvent: SharedFlow<Boolean> = _resetViewsEvent
+
+    fun postResetViewsEvent() {
+        viewModelScope.launch {
+            _resetViewsEvent.emit(true)
+            cancel()
+        }
+    }
 
     private val _profileDataChanged = MutableStateFlow<Boolean>(false)
     val profileDataChanged: StateFlow<Boolean> = _profileDataChanged
@@ -38,6 +47,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                 if (localUserInfo == generatedUserInfo) {
                     Timber.d("UserInfo is equal")
                     //do nothing
+                    _profileDataChanged.value = false
                 }
                 else {
                     Timber.d("UserInfo is not equal")
@@ -83,6 +93,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                                 }
                                 else {
                                     //clear the views
+                                    postResetViewsEvent()
                                 }
                                 this@launch.cancel()
                             } ?: kotlin.run {
