@@ -146,6 +146,11 @@
         <!--        <action-->
         <!--            android:id="@+id/myaction"-->
         <!--            app:destination="@+id/another_destination"/>-->
+
+        <argument
+            android:name="isRegistration"
+            app:argType="boolean" />
+
     </dialog>
 
     <dialog

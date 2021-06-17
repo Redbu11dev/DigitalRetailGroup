@@ -3,6 +3,7 @@ package com.vashkpi.digitalretailgroup.screens
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.addRepeatingJob
@@ -18,6 +19,7 @@ import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
 import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
+import com.vashkpi.digitalretailgroup.screens.dialogs.SaveProfileDataDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
@@ -76,6 +78,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         }
 
         binding.logoutBtn.setOnClickListener {
+            if (isRegistration) {
+                //show dialog
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment(true))
+            }
+            else {
+                //log out
+            }
+
 //            showMessage(
 //                R.string.snackbar_msg_message_removed,
 //                R.string.snackbar_btn_cancel,
@@ -139,6 +149,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
                 }
                 this@launch.cancel()
             }
+        }
+
+        //Listen for fragment results
+        setFragmentResultListener(SaveProfileDataDialogFragment.REQUEST_KEY) { key, bundle ->
+            // read from the bundle
+            Timber.d("Received fragment result: $bundle")
         }
 
     }
