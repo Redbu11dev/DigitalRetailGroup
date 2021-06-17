@@ -1,8 +1,6 @@
 package com.vashkpi.digitalretailgroup.data.api
 
 import kotlinx.coroutines.flow.flow
-import retrofit2.Response
-import timber.log.Timber
 
 sealed class Resource<T>(
     val data: T? = null,
@@ -13,7 +11,7 @@ sealed class Resource<T>(
     class Error<T>(throwable: Throwable, data: T? = null) : Resource<T>(data, throwable)
 }
 
-inline fun <T> networkBoundResource(
+inline fun <T> simpleNetworkResource(
     crossinline fetch : suspend () -> ApiResponse<T>
 ) = flow {
     //Timber.d("loading")
@@ -32,11 +30,15 @@ inline fun <T> networkBoundResource(
                 emit(Resource.Success(null))
             }
             is ApiErrorResponse -> {
-                emit(Resource.Error(throwable = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"), null))
+                emit(
+                    Resource.Error(
+                        throwable = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"),
+                        null
+                    )
+                )
             }
         }
-    }
-    catch(throwable : Throwable){
+    } catch (throwable: Throwable) {
         //Timber.d("in here")
         emit(Resource.Error(throwable, null))
     }

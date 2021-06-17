@@ -1,6 +1,5 @@
 package com.vashkpi.digitalretailgroup.data.api
 
-import android.content.Context
 import com.vashkpi.digitalretailgroup.data.models.incoming.ApiGenericAnswer
 import com.vashkpi.digitalretailgroup.data.models.outgoing.ConfirmCode
 import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
@@ -12,7 +11,7 @@ class ApiRepository @Inject constructor(private val  apiService: ApiService) {
 
     suspend fun registerPhone(registerPhone: RegisterPhone): Flow<Resource<out ApiGenericAnswer?>> {
         Timber.d("trying")
-        return networkBoundResource(
+        return simpleNetworkResource(
             fetch = {
                 ApiResponse.create(apiService.registerPhone(registerPhone))
             }
@@ -21,7 +20,7 @@ class ApiRepository @Inject constructor(private val  apiService: ApiService) {
 
     suspend fun confirmCode(confirmCode: ConfirmCode): Flow<Resource<out ApiGenericAnswer?>> {
         Timber.d("trying")
-        return networkBoundResource(
+        return simpleNetworkResource(
             fetch = {
                 ApiResponse.create(apiService.confirmCode(confirmCode))
             }

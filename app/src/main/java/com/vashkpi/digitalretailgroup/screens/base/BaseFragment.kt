@@ -49,7 +49,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpViews()
-        observeViews()
+        //observeViews()
         observeViewModel()
     }
 
@@ -60,9 +60,9 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
         //dummy
     }
 
-    open fun observeViews() {
-        //dummy
-    }
+//    open fun observeViews() {
+//        //dummy
+//    }
 
     /**
      * Observe view model

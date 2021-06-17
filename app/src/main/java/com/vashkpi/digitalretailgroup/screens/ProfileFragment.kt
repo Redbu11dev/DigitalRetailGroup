@@ -85,6 +85,26 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 //                2000)
         }
 
+        binding.surnameText.doAfterTextChanged {
+            notifyProfileDataChanged()
+        }
+
+        binding.firstNameText.doAfterTextChanged {
+            notifyProfileDataChanged()
+        }
+
+        binding.middleNameText.doAfterTextChanged {
+            notifyProfileDataChanged()
+        }
+
+        binding.birthDateText.doAfterTextChanged {
+            notifyProfileDataChanged()
+        }
+
+        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            notifyProfileDataChanged()
+        }
+
         //TODO move date picker to a separate nav component fragment
         val builder = MaterialDatePicker.Builder.datePicker()
         val picker = builder.build()
@@ -118,30 +138,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             }
         }
 
-    }
-
-    override fun observeViews() {
-        super.observeViews()
-
-        binding.surnameText.doAfterTextChanged {
-            notifyProfileDataChanged()
-        }
-
-        binding.firstNameText.doAfterTextChanged {
-            notifyProfileDataChanged()
-        }
-
-        binding.middleNameText.doAfterTextChanged {
-            notifyProfileDataChanged()
-        }
-
-        binding.birthDateText.doAfterTextChanged {
-            notifyProfileDataChanged()
-        }
-
-        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            notifyProfileDataChanged()
-        }
     }
 
     override fun observeViewModel() {
