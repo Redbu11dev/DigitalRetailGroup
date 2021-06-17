@@ -65,11 +65,12 @@ class LoginPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneVie
         binding.phone.apply {
             doAfterTextChanged {
                 if (phoneNumberValueListener.rawValue.length > 10) {
-                    val phone = phoneNumberValueListener.rawValue
+                    val phoneRaw = phoneNumberValueListener.rawValue
+                    val phoneFormatted = binding.phone.text.toString()
                     //viewModel.postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(it.toString()))
                     binding.phone.setText("")
                     //viewModel.loginWithPhone(phone)
-                    viewModel.loginWithPhone(phone)
+                    viewModel.loginWithPhone(phoneRaw, phoneFormatted)
                 }
             }
         }

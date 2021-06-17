@@ -20,9 +20,9 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepository): BaseViewModel() {
 
-    fun loginWithPhone(phone: String) {
+    fun loginWithPhone(phoneRaw: String, phoneFormatted: String) {
         viewModelScope.launch {
-            apiRepository.registerPhone(RegisterPhone(phone)).collect {
+            apiRepository.registerPhone(RegisterPhone(phoneRaw)).collect {
                 when (it) {
                     is Resource.Loading -> {
                         Timber.d("it's loading")
@@ -46,7 +46,7 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
                             Timber.d("here is the data: $it")
                         }
                         postProgressViewVisibility(false)
-                        postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(phone))
+                        postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(phoneRaw, phoneFormatted))
 
                     }
                 }

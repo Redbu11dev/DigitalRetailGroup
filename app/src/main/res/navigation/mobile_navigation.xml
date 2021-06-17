@@ -103,7 +103,10 @@
             app:popUpTo="@id/loginCodeFragment"
             app:popUpToInclusive="true" />
         <argument
-            android:name="phoneString"
+            android:name="phoneStringRaw"
+            app:argType="string" />
+        <argument
+            android:name="phoneStringFormatted"
             app:argType="string" />
     </fragment>
     <fragment

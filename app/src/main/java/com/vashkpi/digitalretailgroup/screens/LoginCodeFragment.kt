@@ -36,13 +36,15 @@ class LoginCodeFragment : BaseFragment<FragmentLoginCodeBinding, LoginCodeViewMo
         val navController = findNavController()
         toolbar.setupWithNavController(navController)
 
-        val phoneStringFakeSpaces = args.phoneString.replace(" ", " ")
-        binding.text2.text = String.format(getString(R.string.login_code_description), phoneStringFakeSpaces)
+        val phoneStringRaw = args.phoneStringRaw
+        val phoneStringFormattedFakeSpaces = args.phoneStringFormatted.replace(" ", " ")
+
+        binding.text2.text = String.format(getString(R.string.login_code_description), phoneStringFormattedFakeSpaces)
 
         binding.phone.apply {
             doAfterTextChanged {
                 if (it.toString().length > 3) {
-                    viewModel.confirmCode(args.phoneString, it.toString())
+                    viewModel.confirmCode(phoneStringRaw, it.toString())
                 }
             }
         }
