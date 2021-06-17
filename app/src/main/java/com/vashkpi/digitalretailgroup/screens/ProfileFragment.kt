@@ -2,40 +2,28 @@ package com.vashkpi.digitalretailgroup.screens
 
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.addRepeatingJob
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R
-import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
 import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
 import com.vashkpi.digitalretailgroup.screens.dialogs.SaveProfileDataDialogFragment
-import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(FragmentProfileBinding::inflate) {
-
-    @Inject
-    lateinit var dataStoreRepository: DataStoreRepository
 
     override val viewModel: ProfileViewModel by viewModels()
 
@@ -67,31 +55,46 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         }
 
         binding.saveBtn.setOnClickListener {
-
+            if (isRegistration) {
+                //save directly and navigate to barcode
+                viewModel.saveProfileData(getUserInfoFromFields(), true)
+            }
+            else {
+                //show dialog
+                viewModel.postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment(false))
+            }
         }
 
         binding.logoutBtn.setOnClickListener {
-
+            if (isRegistration) {
+                //show dialog
+                viewModel.postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment(true))
+            }
+            else {
+                //log out
+                //clear datastore and move to launcher fragment
+                viewModel.logout()
+            }
         }
 
         binding.surnameText.doAfterTextChanged {
-
+            notifyProfileDataChanged()
         }
 
         binding.firstNameText.doAfterTextChanged {
-            viewModel.name.value = it.toString()
+            notifyProfileDataChanged()
         }
 
         binding.middleNameText.doAfterTextChanged {
-
+            notifyProfileDataChanged()
         }
 
         binding.birthDateText.doAfterTextChanged {
-
+            notifyProfileDataChanged()
         }
 
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
-
+            notifyProfileDataChanged()
         }
 
         //TODO move date picker to a separate nav component fragment
@@ -119,21 +122,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             if (bundle["data"] == SaveProfileDataDialogFragment.RESULT_SAVE) {
                 if (isRegistration) {
                     //as if "save" button was pressed
-                    //viewModel.saveProfileData(getUserInfoFromFields(), true)
+                    viewModel.saveProfileData(getUserInfoFromFields(), true)
                 }
                 else {
-                    //viewModel.saveProfileData(getUserInfoFromFields(), false)
+                    viewModel.saveProfileData(getUserInfoFromFields(), false)
                 }
             }
             else if (bundle["data"] == SaveProfileDataDialogFragment.RESULT_DO_NOT_SAVE) {
                 if (isRegistration) {
                     //navigate to barcode directly
-//                    binding.root.post {
-//                        viewModel.postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
-//                    }
+                    viewModel.postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
                 }
                 else {
-                    //setViewsFromLocalValues()
+                    viewModel.setViewsFromLocalValues()
                 }
             }
         }
@@ -146,33 +147,76 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             viewModel.name.collect {
                 if (binding.firstNameText.text.toString() != it) {
-                    Timber.d("name changed to: $it")
+                    Timber.d("firstNameText changed to: $it")
                     binding.firstNameText.setText(it)
                 }
                 else {
-                    Timber.d("name changed observed, but was the same: $it")
+                    Timber.d("firstNameText changed observed, but was the same: $it")
                 }
             }
         }
 
         viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             viewModel.surname.collect {
-                Timber.d("surname changed to: $it")
-                binding.surnameText.setText(it)
+                //Timber.d("surname changed to: $it")
+                if (binding.surnameText.text.toString() != it) {
+                    Timber.d("surname changed to: $it")
+                    binding.surnameText.setText(it)
+                }
+                else {
+                    Timber.d("surname changed observed, but was the same: $it")
+                }
             }
         }
 
         viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             viewModel.middleName.collect {
-                Timber.d("middleName changed to: $it")
-                binding.middleNameText.setText(it)
+                //Timber.d("middleName changed to: $it")
+                if (binding.middleNameText.text.toString() != it) {
+                    Timber.d("middleNameText changed to: $it")
+                    binding.middleNameText.setText(it)
+                }
+                else {
+                    Timber.d("middleNameText changed observed, but was the same: $it")
+                }
             }
         }
 
         viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
             viewModel.birthDate.collect {
-                Timber.d("birthDate changed to: $it")
-                binding.birthDateText.setText(it)
+                //Timber.d("birthDate changed to: $it")
+                if (binding.birthDateText.text.toString() != it) {
+                    Timber.d("birthDateText changed to: $it")
+                    binding.birthDateText.setText(it)
+                }
+                else {
+                    Timber.d("birthDateText changed observed, but was the same: $it")
+                }
+            }
+        }
+
+        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+            viewModel.genderRadioId.collect {
+                //Timber.d("checkedRadioButtonId changed to: $it")
+                if (binding.radioGroup.checkedRadioButtonId != it) {
+                    Timber.d("checkedRadioButtonId changed to: $it")
+                    binding.birthDateText.setText(it)
+                }
+                else {
+                    Timber.d("checkedRadioButtonId changed observed, but was the same: $it")
+                }
+            }
+        }
+
+        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+            viewModel.profileDataHasChanges.collect {
+                //Timber.d("checkedRadioButtonId changed to: $it")
+                if (it) {
+                    binding.saveBtn.visibility = View.VISIBLE
+                }
+                else {
+                    binding.saveBtn.visibility = View.GONE
+                }
             }
         }
 
@@ -195,6 +239,30 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 //            }
 //        }
 
+    }
+
+    private fun notifyProfileDataChanged() {
+        viewModel.profileDataChanged(
+            getUserInfoFromFields()
+        )
+    }
+
+    private fun getUserInfoFromFields(): UserInfo {
+        val gender = when (binding.radioGroup.checkedRadioButtonId) {
+            R.id.radio_male -> {
+                AppConstants.GenderValues.MALE.value
+            }
+            else -> {
+                AppConstants.GenderValues.FEMALE.value
+            }
+        }
+
+        return UserInfo(
+            binding.firstNameText.text.toString(),
+            binding.surnameText.text.toString(),
+            binding.middleNameText.text.toString(),
+            binding.birthDateText.text.toString(),
+            gender)
     }
 
 }
