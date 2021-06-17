@@ -146,65 +146,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
     override fun observeViewModel() {
         super.observeViewModel()
 
-        viewModel.name.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .onEach {
-                if (binding.firstNameText.text.toString() != it) {
-                    Timber.d("firstNameText changed to: $it")
-                    binding.firstNameText.setText(it)
-                }
-                else {
-                    Timber.d("firstNameText changed observed, but was the same: $it")
-                }
-            }.launchIn(lifecycleScope)
-
-        viewModel.surname.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .onEach {
-                if (binding.surnameText.text.toString() != it) {
-                    Timber.d("surname changed to: $it")
-                    binding.surnameText.setText(it)
-                }
-                else {
-                    Timber.d("surname changed observed, but was the same: $it")
-                }
-            }.launchIn(lifecycleScope)
-
-        viewModel.middleName.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .onEach {
-                if (binding.middleNameText.text.toString() != it) {
-                    Timber.d("middleNameText changed to: $it")
-                    binding.middleNameText.setText(it)
-                }
-                else {
-                    Timber.d("middleNameText changed observed, but was the same: $it")
-                }
-            }.launchIn(lifecycleScope)
-
-        viewModel.birthDate.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .onEach {
-                if (binding.birthDateText.text.toString() != it) {
-                    Timber.d("birthDateText changed to: $it")
-                    binding.birthDateText.setText(it)
-                }
-                else {
-                    Timber.d("birthDateText changed observed, but was the same: $it")
-                }
-            }.launchIn(lifecycleScope)
-
-        viewModel.genderRadioId.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .onEach {
-                if (binding.radioGroup.checkedRadioButtonId != it) {
-                    Timber.d("checkedRadioButtonId changed to: $it")
-                    binding.radioGroup.check(it)
-                }
-                else {
-                    Timber.d("checkedRadioButtonId changed observed, but was the same: $it")
-                }
-            }.launchIn(lifecycleScope)
-
-        //
-
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.name.collect {
+//        viewModel.name.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+//            .onEach {
 //                if (binding.firstNameText.text.toString() != it) {
 //                    Timber.d("firstNameText changed to: $it")
 //                    binding.firstNameText.setText(it)
@@ -212,11 +155,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 //                else {
 //                    Timber.d("firstNameText changed observed, but was the same: $it")
 //                }
-//            }
-//        }
+//            }.launchIn(lifecycleScope)
 //
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.surname.collect {
+//        viewModel.surname.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+//            .onEach {
 //                if (binding.surnameText.text.toString() != it) {
 //                    Timber.d("surname changed to: $it")
 //                    binding.surnameText.setText(it)
@@ -224,11 +166,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 //                else {
 //                    Timber.d("surname changed observed, but was the same: $it")
 //                }
-//            }
-//        }
+//            }.launchIn(lifecycleScope)
 //
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.middleName.collect {
+//        viewModel.middleName.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+//            .onEach {
 //                if (binding.middleNameText.text.toString() != it) {
 //                    Timber.d("middleNameText changed to: $it")
 //                    binding.middleNameText.setText(it)
@@ -236,11 +177,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 //                else {
 //                    Timber.d("middleNameText changed observed, but was the same: $it")
 //                }
-//            }
-//        }
+//            }.launchIn(lifecycleScope)
 //
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.birthDate.collect {
+//        viewModel.birthDate.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+//            .onEach {
 //                if (binding.birthDateText.text.toString() != it) {
 //                    Timber.d("birthDateText changed to: $it")
 //                    binding.birthDateText.setText(it)
@@ -248,10 +188,70 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 //                else {
 //                    Timber.d("birthDateText changed observed, but was the same: $it")
 //                }
-//            }
-//        }
+//            }.launchIn(lifecycleScope)
 //
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//        viewModel.genderRadioId.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+//            .onEach {
+//                if (binding.radioGroup.checkedRadioButtonId != it) {
+//                    Timber.d("checkedRadioButtonId changed to: $it")
+//                    binding.radioGroup.check(it)
+//                }
+//                else {
+//                    Timber.d("checkedRadioButtonId changed observed, but was the same: $it")
+//                }
+//            }.launchIn(lifecycleScope)
+
+        //
+
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            viewModel.name.collect {
+                if (binding.firstNameText.text.toString() != it) {
+                    Timber.d("firstNameText changed to: $it")
+                    binding.firstNameText.setText(it)
+                }
+                else {
+                    Timber.d("firstNameText changed observed, but was the same: $it")
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            viewModel.surname.collect {
+                if (binding.surnameText.text.toString() != it) {
+                    Timber.d("surname changed to: $it")
+                    binding.surnameText.setText(it)
+                }
+                else {
+                    Timber.d("surname changed observed, but was the same: $it")
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            viewModel.middleName.collect {
+                if (binding.middleNameText.text.toString() != it) {
+                    Timber.d("middleNameText changed to: $it")
+                    binding.middleNameText.setText(it)
+                }
+                else {
+                    Timber.d("middleNameText changed observed, but was the same: $it")
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            viewModel.birthDate.collect {
+                if (binding.birthDateText.text.toString() != it) {
+                    Timber.d("birthDateText changed to: $it")
+                    binding.birthDateText.setText(it)
+                }
+                else {
+                    Timber.d("birthDateText changed observed, but was the same: $it")
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
             viewModel.genderRadioId.collect {
                 if (binding.radioGroup.checkedRadioButtonId != it) {
                     Timber.d("checkedRadioButtonId changed to: $it")
