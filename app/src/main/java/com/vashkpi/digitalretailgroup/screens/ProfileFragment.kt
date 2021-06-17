@@ -170,26 +170,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 
     }
 
-    private fun setViewsFromLocalValues() {
-        lifecycleScope.launch {
-            dataStoreRepository.getUserInfo.collect {
-                binding.surnameText.setText(it.surname)
-                binding.firstNameText.setText(it.name)
-                binding.middleNameText.setText(it.middle_name)
-                binding.birthDateText.setText(it.date_of_birth)
-                when (it.gender) {
-                    AppConstants.GenderValues.FEMALE.value -> {
-                        binding.radioGroup.check(R.id.radio_female)
-                    }
-                    else -> {
-                        binding.radioGroup.check(R.id.radio_male)
-                    }
-                }
-                this@launch.cancel()
-            }
-        }
-    }
-
     override fun observeViewModel() {
         super.observeViewModel()
 
@@ -212,6 +192,26 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             }
         }
 
+    }
+
+    private fun setViewsFromLocalValues() {
+        lifecycleScope.launch {
+            dataStoreRepository.getUserInfo.collect {
+                binding.surnameText.setText(it.surname)
+                binding.firstNameText.setText(it.name)
+                binding.middleNameText.setText(it.middle_name)
+                binding.birthDateText.setText(it.date_of_birth)
+                when (it.gender) {
+                    AppConstants.GenderValues.FEMALE.value -> {
+                        binding.radioGroup.check(R.id.radio_female)
+                    }
+                    else -> {
+                        binding.radioGroup.check(R.id.radio_male)
+                    }
+                }
+                this@launch.cancel()
+            }
+        }
     }
 
     private fun getUserInfoFromFields(): UserInfo {
