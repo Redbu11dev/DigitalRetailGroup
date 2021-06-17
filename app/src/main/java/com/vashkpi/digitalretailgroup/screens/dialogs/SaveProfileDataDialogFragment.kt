@@ -35,12 +35,12 @@ class SaveProfileDataDialogFragment : DialogFragmentBase() {
 
         binding.btnNegative.setOnClickListener {
             dismiss()
-            setFragmentResult(REQUEST_KEY, bundleOf("data" to RESULT_DO_NOT_SAVE))
+            setFragmentResult(REQUEST_KEY, bundleOf(REQUEST_KEY to RESULT_DO_NOT_SAVE))
         }
 
         binding.btnPositive.setOnClickListener {
             dismiss()
-            setFragmentResult(REQUEST_KEY, bundleOf("data" to RESULT_SAVE))
+            setFragmentResult(REQUEST_KEY, bundleOf(REQUEST_KEY to RESULT_SAVE))
         }
 
         binding.crossBtn.setOnClickListener {

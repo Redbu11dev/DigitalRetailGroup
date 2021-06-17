@@ -17,7 +17,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(FragmentBarcodeBinding::inflate) {
 
-    override var bottomNavigationViewVisibility = View.VISIBLE
+    override var _bottomNavigationViewVisibility = View.VISIBLE
 
     override val viewModel: BarcodeViewModel by viewModels()
 

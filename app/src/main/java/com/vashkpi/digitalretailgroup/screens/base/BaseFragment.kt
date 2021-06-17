@@ -13,7 +13,6 @@ import androidx.viewbinding.ViewBinding
 import com.vashkpi.digitalretailgroup.MainActivity
 import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -26,10 +25,10 @@ typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
  */
 abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val inflate: Inflate<VB>) : Fragment(), LifecycleObserver {
 
-    protected open var bottomNavigationViewVisibility = View.GONE
-    protected open var orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    protected open var _bottomNavigationViewVisibility = View.GONE
+    protected open var _orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
-    protected var progressView: View? = null //progress view should be included inside layout xml
+    private var _progressView: View? = null //progress view should be included inside layout xml
 
     protected abstract val viewModel: BaseViewModel
 
@@ -41,7 +40,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = inflate.invoke(inflater, container, false)
         binding.root.findViewWithTag<ViewGroup>("progressViewRoot")?.let {
-            progressView = it
+            _progressView = it
         }
         return binding.root
     }
@@ -76,7 +75,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
             }
         }
 
-        progressView?.let {
+        _progressView?.let {
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.progressViewVisible.collect {
                     Timber.d("changing progress view visibility: $it")
@@ -112,8 +111,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
     fun onCreated() {
         if (activity is MainActivity) {
             var  mainActivity = activity as MainActivity
-            mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
-            mainActivity.requestedOrientation = orientation
+            mainActivity.setBottomNavigationVisibility(_bottomNavigationViewVisibility)
+            mainActivity.requestedOrientation = _orientation
         }
         activity?.lifecycle?.removeObserver(this)
     }
@@ -127,8 +126,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
         super.onResume()
         if (activity is MainActivity) {
             val mainActivity = activity as MainActivity
-            mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
-            mainActivity.requestedOrientation = orientation
+            mainActivity.setBottomNavigationVisibility(_bottomNavigationViewVisibility)
+            mainActivity.requestedOrientation = _orientation
         }
     }
 
@@ -138,7 +137,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
     }
 
     fun BaseFragment<VB, VM>.setProgressViewEnabled(enabled: Boolean) {
-        this@BaseFragment.progressView?.apply { visibility = if (enabled) View.VISIBLE else View.GONE }
+        this@BaseFragment._progressView?.apply { visibility = if (enabled) View.VISIBLE else View.GONE }
     }
 
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

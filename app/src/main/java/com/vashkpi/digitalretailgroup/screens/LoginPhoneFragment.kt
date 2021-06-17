@@ -48,11 +48,12 @@ class LoginPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneVie
                 extractedValue: String,
                 formattedValue: String
             ) {
-//                Log.d("TAG_extr", extractedValue)
-//                Log.d("TAG_filled", maskFilled.toString())
-//                Log.d("TAG_formatted", formattedValue)
+
                 rawValue = Regex("[^0-9]").replace(formattedValue, "")
                 Timber.i("phone: $rawValue")
+
+//                Timber.i("extractedValue: $extractedValue")
+//                Timber.i("formattedValue: $formattedValue")
             }
         }
         val listener: MaskedTextChangedListener = MaskedTextChangedListener.installOn(
@@ -60,7 +61,7 @@ class LoginPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneVie
             "+7 ([000]) [000]-[00]-[00]",
             phoneNumberValueListener
         )
-        binding.phone.setHint(listener.placeholder())
+        binding.phone.hint = listener.placeholder()
 
         binding.phone.apply {
             doAfterTextChanged {
@@ -74,6 +75,12 @@ class LoginPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneVie
                 }
             }
         }
+    }
+
+    override fun observeViewModel() {
+        super.observeViewModel()
+
+
     }
 
 }

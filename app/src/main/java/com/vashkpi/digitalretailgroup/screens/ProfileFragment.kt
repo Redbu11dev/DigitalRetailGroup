@@ -12,6 +12,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
+import com.vashkpi.digitalretailgroup.data.models.datastore.convertGenderRadioGroupIdToString
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
 import com.vashkpi.digitalretailgroup.screens.dialogs.SaveProfileDataDialogFragment
@@ -122,7 +123,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         setFragmentResultListener(SaveProfileDataDialogFragment.REQUEST_KEY) { key, bundle ->
             // read from the bundle
             Timber.d("Received fragment result: $bundle")
-            if (bundle["data"] == SaveProfileDataDialogFragment.RESULT_SAVE) {
+            if (bundle[SaveProfileDataDialogFragment.REQUEST_KEY] == SaveProfileDataDialogFragment.RESULT_SAVE) {
                 if (isRegistration) {
                     //as if "save" button was pressed
                     viewModel.saveProfileData(getUserInfoFromFields(), true)
@@ -131,7 +132,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
                     viewModel.saveProfileData(getUserInfoFromFields(), false)
                 }
             }
-            else if (bundle["data"] == SaveProfileDataDialogFragment.RESULT_DO_NOT_SAVE) {
+            else if (bundle[SaveProfileDataDialogFragment.REQUEST_KEY] == SaveProfileDataDialogFragment.RESULT_DO_NOT_SAVE) {
                 if (isRegistration) {
                     //navigate to barcode directly
                     viewModel.postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
@@ -230,24 +231,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
     }
 
     private fun getUserInfoFromFields(): UserInfo {
-        val gender = when (binding.radioGroup.checkedRadioButtonId) {
-            R.id.radio_male -> {
-                AppConstants.GenderValues.MALE.value
-            }
-            R.id.radio_female -> {
-                AppConstants.GenderValues.FEMALE.value
-            }
-            else -> {
-                ""
-            }
-        }
-
         return UserInfo(
             binding.firstNameText.text.toString(),
             binding.surnameText.text.toString(),
             binding.middleNameText.text.toString(),
             binding.birthDateText.text.toString(),
-            gender)
+            binding.radioGroup.checkedRadioButtonId.convertGenderRadioGroupIdToString())
     }
 
 }

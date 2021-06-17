@@ -7,6 +7,7 @@ import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
 import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
+import com.vashkpi.digitalretailgroup.data.models.datastore.convertGenderStringToRadioGroupId
 import com.vashkpi.digitalretailgroup.data.models.outgoing.Accounts
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -59,17 +60,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
         val surnameToSet = _localUserInfo.name
         val middleNameToSet = _localUserInfo.name
         val birthDateToSet = _localUserInfo.name
-        val genderRadioIdToSet = when (_localUserInfo.gender) {
-            AppConstants.GenderValues.FEMALE.value -> {
-                R.id.radio_female
-            }
-            AppConstants.GenderValues.MALE.value -> {
-                R.id.radio_male
-            }
-            else -> {
-                -1
-            }
-        }
+        val genderRadioIdToSet = _localUserInfo.gender.convertGenderStringToRadioGroupId()
 
         _name.value = nameToSet
         _surname.value = surnameToSet
@@ -102,17 +93,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
         _surname.value = actualUserInfo.surname
         _middleName.value = actualUserInfo.middle_name
         _birthDate.value = actualUserInfo.date_of_birth
-        when (actualUserInfo.gender) {
-            AppConstants.GenderValues.FEMALE.value -> {
-                _genderRadioId.value = R.id.radio_female
-            }
-            AppConstants.GenderValues.MALE.value -> {
-                _genderRadioId.value = R.id.radio_male
-            }
-            else -> {
-                _genderRadioId.value = -1
-            }
-        }
+        _genderRadioId.value = actualUserInfo.gender.convertGenderStringToRadioGroupId()
 
         //compare to local
         compareLocalValuesToActual(_localUserInfo, actualUserInfo)

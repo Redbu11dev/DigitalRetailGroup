@@ -20,7 +20,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMainBinding::inflate) {
 
-    override var bottomNavigationViewVisibility = View.VISIBLE
+    override var _bottomNavigationViewVisibility = View.VISIBLE
 
     override val viewModel: MainViewModel by viewModels()
 
