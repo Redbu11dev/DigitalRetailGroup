@@ -11,6 +11,7 @@ import com.vashkpi.digitalretailgroup.data.models.outgoing.Accounts
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -54,9 +55,13 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                 }
 
                 name.value = nameToSet
+                //delay(100)
                 surname.value = surnameToSet
+                //delay(100)
                 middleName.value = middleNameToSet
+                //delay(100)
                 birthDate.value = birthDateToSet
+                //delay(100)
                 genderRadioId.value = genderRadioIdToSet
 
 //                compareLocalValuesToActual(
