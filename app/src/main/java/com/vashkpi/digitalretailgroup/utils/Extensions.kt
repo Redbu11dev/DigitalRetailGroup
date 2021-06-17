@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.provider.Settings
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -19,11 +20,16 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.*
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import java.lang.reflect.Type
+
+fun Context.getDeviceId(): String {
+    return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
+}
 
 fun Fragment.showMessage(messageResId: Int, btnTextResId: Int, btnListener: View.OnClickListener, duration: Int) {
     view?.let { v ->

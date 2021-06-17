@@ -1,7 +1,10 @@
 package com.vashkpi.digitalretailgroup.data.api
 
 import com.google.gson.JsonElement
+import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
 import com.vashkpi.digitalretailgroup.data.models.incoming.ApiGenericAnswer
+import com.vashkpi.digitalretailgroup.data.models.incoming.ConfirmCodeResponse
+import com.vashkpi.digitalretailgroup.data.models.outgoing.Accounts
 import com.vashkpi.digitalretailgroup.data.models.outgoing.ConfirmCode
 import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
 import retrofit2.Response
@@ -22,5 +25,10 @@ interface ApiService {
     @POST("hs/bss/v1/confirm")
     suspend fun confirmCode(
         @Body confirmCode: ConfirmCode
+    ): Response<ConfirmCodeResponse>
+
+    @POST("hs/bss/v1/accounts")
+    suspend fun saveProfileInfo(
+        @Body accounts: Accounts
     ): Response<ApiGenericAnswer>
 }

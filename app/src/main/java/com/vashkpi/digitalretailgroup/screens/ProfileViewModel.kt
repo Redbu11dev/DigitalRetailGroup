@@ -1,9 +1,12 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
+import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
+import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
 import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
+import com.vashkpi.digitalretailgroup.data.models.outgoing.Accounts
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
@@ -48,7 +51,42 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
 
     fun saveProfileData(userInfo: UserInfo) {
         viewModelScope.launch {
-            dataStoreRepository.saveUserInfo(userInfo)
+            dataStoreRepository.getUserId().collect { userId ->
+                apiRepository.saveProfileInfo(Accounts(userId, userInfo)).collect {
+                    when (it) {
+                        is Resource.Loading -> {
+                            //TODO()
+                            Timber.i("it's loading")
+                            postProgressViewVisibility(true)
+                        }
+                        is Resource.Error -> {
+                            //TODO()
+                            this@launch.cancel()
+                            val message = it.error?.message
+                            Timber.i("it's error: ${message}")
+                            //it.error.
+                            postProgressViewVisibility(false)
+                            postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                        }
+                        is Resource.Success -> {
+                            //TODO()
+                            Timber.i("it's success")
+                            //check if empty?!
+                            it.data?.let { data ->
+                                Timber.i("here is the data: $data")
+
+                                dataStoreRepository.saveUserInfo(userInfo)
+
+                                postProgressViewVisibility(false)
+                                postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
+                                this@launch.cancel()
+                            } ?: kotlin.run {
+                                this@launch.cancel()
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

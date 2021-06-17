@@ -1,8 +1,11 @@
 package com.vashkpi.digitalretailgroup
 
 import android.app.Application
+import android.provider.Settings
+import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
+import javax.inject.Inject
 
 //Icon conversion (55dp x 55dp)
 //dp	px	sp	mm	in	pt
@@ -16,10 +19,17 @@ import timber.log.Timber
 
 
 @HiltAndroidApp
-class Application: Application() {
+class DrgApplication: Application() {
+
+    companion object {
+        private var _deviceId = "not_obtained"
+        val DEVICE_ID = _deviceId
+    }
 
     override fun onCreate() {
         super.onCreate()
+
+        _deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

@@ -1,11 +1,17 @@
 package com.vashkpi.digitalretailgroup.screens
 
+import android.app.Application
 import androidx.lifecycle.viewModelScope
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.vashkpi.digitalretailgroup.AppConstants
+import com.vashkpi.digitalretailgroup.DrgApplication
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
+import com.vashkpi.digitalretailgroup.data.models.incoming.ApiGenericAnswer
+import com.vashkpi.digitalretailgroup.data.models.incoming.ConfirmCodeResponse
 import com.vashkpi.digitalretailgroup.data.models.outgoing.ConfirmCode
 import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
@@ -21,35 +27,39 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
 
     fun confirmCode(phone: String, code: String) {
         viewModelScope.launch {
-            dataStoreRepository.getFcmToken().collect { fcmToken ->
-                apiRepository.confirmCode(ConfirmCode(phone, code, fcmToken, AppConstants.DEVICE_PLATFORM)).collect {
-                    when (it) {
-                        is Resource.Loading -> {
-                            Timber.i("it's loading")
-                            postProgressViewVisibility(true)
-                        }
-                        is Resource.Error -> {
-                            this@launch.cancel()
-                            val message = it.error?.message
-                            Timber.i("it's error: ${message}")
-                            //it.error.
+            apiRepository.confirmCode(ConfirmCode(phone, code, DrgApplication.DEVICE_ID, AppConstants.DEVICE_PLATFORM)).collect {
+                when (it) {
+                    is Resource.Loading -> {
+                        Timber.i("it's loading")
+                        postProgressViewVisibility(true)
+                    }
+                    is Resource.Error -> {
+                        this@launch.cancel()
+                        val message = it.error?.message
+                        Timber.i("it's error: ${message}")
+                        //it.error.
+                        postProgressViewVisibility(false)
+                        postNavigationEvent(LoginCodeFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                    }
+                    is Resource.Success -> {
+                        Timber.i("it's success")
+                        //check if empty?!
+                        it.data?.let { data ->
+                            Timber.i("here is the data: $data")
+
+                            //obtain user id from data
+                            val userId = data.user_id
+                            //save it
+                            dataStoreRepository.saveUserId(userId)
+
                             postProgressViewVisibility(false)
-                            //postErrorMessageOneShot(message.toString())
-                            postNavigationEvent(LoginCodeFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
-                        }
-                        is Resource.Success -> {
+                            postNavigationEvent(LoginCodeFragmentDirections.actionLoginCodeFragmentToProfileFragment(true, userId))
                             this@launch.cancel()
-                            Timber.i("it's success")
-                            //check if empty?!
-                            it.data?.let {
-                                Timber.i("here is the data: $it")
-                            }
-                            postProgressViewVisibility(false)
-                            postNavigationEvent(LoginCodeFragmentDirections.actionLoginCodeFragmentToProfileFragment(true))
+                        } ?: kotlin.run {
+                            this@launch.cancel()
                         }
                     }
                 }
-                this@launch.cancel()
             }
             //cancel()
         }

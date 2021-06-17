@@ -108,7 +108,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         //TODO move date picker to a separate nav component fragment
         val builder = MaterialDatePicker.Builder.datePicker()
         val picker = builder.build()
-        val outputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).apply {
+//        val outputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).apply {
+//            timeZone = TimeZone.getTimeZone("UTC")
+//        }
+        val outputDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).apply {
             timeZone = TimeZone.getTimeZone("UTC")
         }
 

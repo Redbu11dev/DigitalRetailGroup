@@ -12,6 +12,7 @@ import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository.Preferences
 import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository.PreferencesKeys.MIDDLE_NAME
 import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository.PreferencesKeys.NAME
 import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository.PreferencesKeys.SURNAME
+import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository.PreferencesKeys.USER_ID
 import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -38,6 +39,8 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
     private object PreferencesKeys {
         val FCM_TOKEN = stringPreferencesKey("FCM_TOKEN")
         val AUTH_TOKEN = stringPreferencesKey("AUTH_TOKEN")
+
+        val USER_ID = stringPreferencesKey("USER_ID")
 
         val NAME = stringPreferencesKey("NAME")
         val MIDDLE_NAME = stringPreferencesKey("MIDDLE_NAME")
@@ -85,6 +88,27 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
             }
             .map { preference ->
                 preference[AUTH_TOKEN] ?: ""
+            }
+    }
+
+    suspend fun saveUserId(userId: String) {
+        dataStore.edit { preference ->
+            preference[USER_ID] = userId
+        }
+    }
+
+    fun getUserId(): Flow<String> {
+        return dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    //Log.e(TAG, "Error reading preferences: ", exception)
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preference ->
+                preference[USER_ID] ?: ""
             }
     }
 

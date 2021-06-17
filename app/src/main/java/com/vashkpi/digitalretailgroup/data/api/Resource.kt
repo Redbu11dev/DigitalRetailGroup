@@ -12,11 +12,11 @@ sealed class Resource<T>(
 }
 
 inline fun <T> simpleNetworkResource(
-    crossinline fetch : suspend () -> ApiResponse<T>
+    crossinline fetch : suspend () -> ApiResponse<T>,
+    canBeEmptyResponse: Boolean = false
 ) = flow {
     //Timber.d("loading")
     emit(Resource.Loading(null))
-
     try {
         //Timber.d("emit1")
         //TODO here check if cached and cache if needed
@@ -27,7 +27,17 @@ inline fun <T> simpleNetworkResource(
                 emit(Resource.Success(fetchResult.body))
             }
             is ApiEmptyResponse -> {
-                emit(Resource.Success(null))
+                if (canBeEmptyResponse) {
+                    emit(Resource.Success(null))
+                }
+                else {
+                    emit(
+                        Resource.Error(
+                            throwable = Throwable("Response is empty"),
+                            null
+                        )
+                    )
+                }
             }
             is ApiErrorResponse -> {
                 emit(

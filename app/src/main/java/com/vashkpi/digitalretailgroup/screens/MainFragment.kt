@@ -39,7 +39,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
                     true
                 }
                 R.id.profile -> {
-                    viewModel.postNavigationEvent(MainFragmentDirections.actionNavigationMainToProfileFragment(false))
+                    viewModel.postNavigationEvent(MainFragmentDirections.actionNavigationMainToProfileFragment(false, ""))
                     true
                 }
                 else -> false

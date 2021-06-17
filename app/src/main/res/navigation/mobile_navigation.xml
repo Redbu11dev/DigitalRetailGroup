@@ -57,6 +57,14 @@
         <argument
             android:name="isRegistration"
             app:argType="boolean" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_profileFragment_to_navigation_barcode"
+            app:destination="@id/navigation_barcode"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/launcherFragment"
