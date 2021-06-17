@@ -15,23 +15,23 @@ import kotlinx.coroutines.launch
  */
 abstract class BaseViewModel: ViewModel() {
 
-    private val _errorText = MutableStateFlow<String>("")
-    val errorText: StateFlow<String> = _errorText
+    private val _errorText = MutableStateFlow("")
+    val errorText: StateFlow<String> get() = _errorText
 
     fun postErrorText(errorText: String) {
         _errorText.value = errorText
     }
 
     //show or hide progress view
-    private val _progressViewVisible = MutableStateFlow<Boolean>(false)
-    val progressViewVisible: StateFlow<Boolean> = _progressViewVisible
+    private val _progressViewVisible = MutableStateFlow(false)
+    val progressViewVisible: StateFlow<Boolean> get() = _progressViewVisible
 
     fun postProgressViewVisibility(visible: Boolean) {
         _progressViewVisible.value = visible
     }
 
     private val _navigationEvent = MutableSharedFlow<NavDirections>(replay = 0)
-    val navigationEvent: SharedFlow<NavDirections> = _navigationEvent
+    val navigationEvent: SharedFlow<NavDirections> get() = _navigationEvent
 
     fun postNavigationEvent(action: NavDirections) {
         viewModelScope.launch {

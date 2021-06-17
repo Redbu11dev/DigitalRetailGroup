@@ -96,7 +96,7 @@ dependencies {
     //datastore
 //    implementation "androidx.datastore:datastore:1.0.0-beta01"
 //    implementation "androidx.datastore:datastore-preferences-core:1.0.0-beta01"
-    implementation "androidx.datastore:datastore-preferences:1.0.0-beta01"
+    implementation "androidx.datastore:datastore-preferences:1.0.0-beta02"
 
     //custom
     //cool phone formatting lib (also available for iOS)

@@ -68,7 +68,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
      * Observe view model
      */
     open fun observeViewModel() {
-        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.navigationEvent.collect {
                 Timber.d("collecting navigation event: $it")
                 findNavController().safeNavigate(it)
@@ -77,7 +77,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
         }
 
         progressView?.let {
-            viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.progressViewVisible.collect {
                     Timber.d("changing progress view visibility: $it")
                     setProgressViewEnabled(it)
@@ -85,16 +85,27 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
             }
         }
 
-//        progressView?.let {
-//            viewLifecycleOwner.lifecycleScope.launch {
-//                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                    viewModel.progressViewVisible.collect {
-//                        Timber.d("changing progress view visibility: $it")
-//                        setProgressViewEnabled(it)
-//                    }
-//                }
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.someFlowValue.collect {
+//                //do something
 //            }
 //        }
+//
+//        OR
+//
+//        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+//            viewModel.someFlowValue.collect {
+//                //do something
+//            }
+//        }
+//
+//        OR/specific
+//
+//        viewModel.someFlowValue.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+//            .onEach {
+//                //do something
+//            }.launchIn(lifecycleScope)
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

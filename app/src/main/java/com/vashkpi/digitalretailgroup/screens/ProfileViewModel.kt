@@ -41,10 +41,12 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
     private lateinit var _localUserInfo: UserInfo
 
     init {
+        postProgressViewVisibility(true)
         viewModelScope.launch {
             dataStoreRepository.getUserInfo.collect { localUserInfo ->
                 _localUserInfo = localUserInfo
                 setViewsFromLocalValues()
+                postProgressViewVisibility(false)
                 this@launch.cancel()
             }
         }
