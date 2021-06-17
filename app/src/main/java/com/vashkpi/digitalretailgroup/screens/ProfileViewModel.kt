@@ -49,7 +49,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
         }
     }
 
-    fun saveProfileData(userInfo: UserInfo) {
+    fun saveProfileData(userInfo: UserInfo, isRegistration: Boolean) {
         viewModelScope.launch {
             dataStoreRepository.getUserId().collect { userId ->
                 apiRepository.saveProfileInfo(Accounts(userId, userInfo)).collect {
@@ -78,7 +78,12 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                                 dataStoreRepository.saveUserInfo(userInfo)
 
                                 postProgressViewVisibility(false)
-                                postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
+                                if (isRegistration) {
+                                    postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
+                                }
+                                else {
+                                    //clear the views
+                                }
                                 this@launch.cancel()
                             } ?: kotlin.run {
                                 this@launch.cancel()

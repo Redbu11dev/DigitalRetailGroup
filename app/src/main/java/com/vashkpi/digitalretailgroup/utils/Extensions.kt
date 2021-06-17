@@ -25,6 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import org.json.JSONObject
+import timber.log.Timber
 import java.lang.reflect.Type
 
 fun Context.getDeviceId(): String {
@@ -78,7 +79,11 @@ suspend fun ResponseBody.stringSuspending(): String =
  * Safely navigate to destinations, avoiding possible errors
  */
 fun NavController.safeNavigate(direction: NavDirections) {
-    currentDestination?.getAction(direction.actionId)?.run { navigate(direction) }
+    currentDestination?.getAction(direction.actionId)?.run {
+        navigate(direction)
+    } ?: kotlin.run{
+        Timber.d("Unable to navigate")
+    }
 }
 
 /**

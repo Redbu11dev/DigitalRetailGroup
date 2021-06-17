@@ -69,11 +69,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             //findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment())
             if (isRegistration) {
                 //save directly and navigate to barcode
-                viewModel.saveProfileData(getUserInfoFromFields())
+                viewModel.saveProfileData(getUserInfoFromFields(), true)
             }
             else {
                 //show dialog
-                viewModel.saveProfileData(getUserInfoFromFields())
+                //viewModel.saveProfileData(getUserInfoFromFields())
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment(false))
             }
         }
 
@@ -84,6 +85,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             }
             else {
                 //log out
+                //clear datastore and move to launcher fragment
+                lifecycleScope.launch {
+                    dataStoreRepository.clearDataStore()
+                    viewModel.postNavigationEvent(ProfileFragmentDirections.actionGlobalLogoutToLauncher())
+                }
             }
 
 //            showMessage(
@@ -155,6 +161,26 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         setFragmentResultListener(SaveProfileDataDialogFragment.REQUEST_KEY) { key, bundle ->
             // read from the bundle
             Timber.d("Received fragment result: $bundle")
+            if (bundle["data"] == SaveProfileDataDialogFragment.RESULT_SAVE) {
+                if (isRegistration) {
+                    //as if "save" button was pressed
+                    viewModel.saveProfileData(getUserInfoFromFields(), true)
+                }
+                else {
+
+                }
+            }
+            else if (bundle["data"] == SaveProfileDataDialogFragment.RESULT_DO_NOT_SAVE) {
+                if (isRegistration) {
+                    //navigate to barcode directly
+                    binding.root.post {
+                        viewModel.postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
+                    }
+                }
+                else {
+
+                }
+            }
         }
 
     }

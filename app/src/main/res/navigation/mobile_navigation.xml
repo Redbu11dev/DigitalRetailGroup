@@ -64,7 +64,8 @@
             android:id="@+id/action_profileFragment_to_navigation_barcode"
             app:destination="@id/navigation_barcode"
             app:popUpTo="@id/profileFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            />
     </fragment>
     <fragment
         android:id="@+id/launcherFragment"
@@ -170,6 +171,17 @@
             />
     </dialog>
 
-    <action android:id="@+id/action_global_messageDialog" app:destination="@id/messageDialogFragment"/>
+    <action
+        android:id="@+id/action_global_messageDialog"
+        app:destination="@id/messageDialogFragment"
+        />
+
+    <action
+        android:id="@+id/action_global_logout_to_launcher"
+        app:destination="@id/launcherFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/mobile_navigation"
+        app:popUpToInclusive="true"
+        />
 
 </navigation>

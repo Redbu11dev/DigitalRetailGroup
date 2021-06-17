@@ -15,11 +15,11 @@ class LauncherViewModel @Inject constructor(private val dataStoreRepository: Dat
 
     fun checkIfHasToken() {
         viewModelScope.launch {
-            dataStoreRepository.getAuthToken().collect { authToken ->
+            dataStoreRepository.getUserId().collect { userId ->
                 this@launch.cancel()
-                Timber.i("saved token: ${authToken}")
+                Timber.i("saved user_id: ${userId}")
 
-                if (authToken.isNotBlank()) {
+                if (userId.isNotBlank()) {
                     //go directly to home screen
                     postNavigationEvent(LauncherFragmentDirections.actionLauncherFragmentToNavigationBarcode())
                 }

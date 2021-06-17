@@ -14,7 +14,9 @@ import com.vashkpi.digitalretailgroup.screens.base.DialogFragmentBase
 class SaveProfileDataDialogFragment : DialogFragmentBase() {
 
     companion object {
-        val REQUEST_KEY = "SAVE_PROFILE_DIALOG_REQUEST_KEY"
+        const val REQUEST_KEY = "SAVE_PROFILE_DIALOG_REQUEST_KEY"
+        const val RESULT_SAVE = "RESULT_SAVE"
+        const val RESULT_DO_NOT_SAVE = "RESULT_DO_NOT_SAVE"
     }
 
     private val args: SaveProfileDataDialogFragmentArgs by navArgs()
@@ -33,13 +35,13 @@ class SaveProfileDataDialogFragment : DialogFragmentBase() {
 
         if (args.isRegistration) {
             binding.btnNegative.setOnClickListener {
-                setFragmentResult(REQUEST_KEY, bundleOf("data" to "btnNegative clicked"))
                 dismiss()
+                setFragmentResult(REQUEST_KEY, bundleOf("data" to RESULT_DO_NOT_SAVE))
             }
 
             binding.btnPositive.setOnClickListener {
-                setFragmentResult(REQUEST_KEY, bundleOf("data" to "btnPositive clicked"))
                 dismiss()
+                setFragmentResult(REQUEST_KEY, bundleOf("data" to RESULT_SAVE))
             }
         }
         else {

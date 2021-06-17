@@ -73,6 +73,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
                 viewModel.navigationEvent.collect {
                     Timber.d("collecting navigation event: $it")
                     findNavController().safeNavigate(it)
+                    //findNavController().navigate(it)
                 }
             }
         }
