@@ -7,6 +7,7 @@ import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
 import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
+import com.vashkpi.digitalretailgroup.data.models.datastore.convertGenderRadioGroupIdToString
 import com.vashkpi.digitalretailgroup.data.models.datastore.convertGenderStringToRadioGroupId
 import com.vashkpi.digitalretailgroup.data.models.outgoing.Accounts
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
@@ -146,6 +147,64 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
     fun logout() {
         dataStoreRepository.clearDataStore()
         postNavigationEvent(ProfileFragmentDirections.actionGlobalLogoutToLauncher())
+    }
+
+    private fun createUserInfoFromFields(): UserInfo {
+        val userInfo = UserInfo(
+            _name.value,
+            _surname.value,
+            _middleName.value,
+            _birthDate.value,
+            _genderRadioId.value.convertGenderRadioGroupIdToString())
+        Timber.d("viewmodel generated UserInfo: $userInfo")
+        return userInfo
+    }
+
+    fun onSaveButtonClick(isRegistration: Boolean) {
+        if (isRegistration) {
+            //save directly and navigate to barcode
+            saveProfileData(
+                createUserInfoFromFields(),
+                isRegistration)
+        }
+        else {
+            //show dialog
+            postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment(isRegistration))
+        }
+    }
+
+    fun onSecondaryButtonClick(isRegistration: Boolean) {
+        if (isRegistration) {
+            //show dialog
+            postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment(true))
+        }
+        else {
+            //log out
+            //clear datastore and move to launcher fragment
+            logout()
+        }
+    }
+
+    fun onSaveInfoDialogPositiveButtonClick(isRegistration: Boolean) {
+        if (isRegistration) {
+            //as if "save" button was pressed
+            saveProfileData(createUserInfoFromFields(), true)
+        }
+        else {
+            saveProfileData(createUserInfoFromFields(), false)
+        }
+    }
+
+    fun onSaveInfoDialogNegativeButtonClick(isRegistration: Boolean) {
+        if (isRegistration) {
+            //navigate to barcode directly
+            postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
+            //navigation
+            //Navigation.findNavController(requireView()).navigate(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
+        }
+        else {
+            setViewsFromLocalValues()
+        }
     }
 
 }

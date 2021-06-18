@@ -4,7 +4,9 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withStateAtLeast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
@@ -54,47 +56,41 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         }
 
         binding.saveBtn.setOnClickListener {
-            if (isRegistration) {
-                //save directly and navigate to barcode
-                viewModel.saveProfileData(createUserInfoFromFields(), true)
-            }
-            else {
-                //show dialog
-                viewModel.postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment(false))
-            }
+            viewModel.onSaveButtonClick(isRegistration)
         }
 
         binding.logoutBtn.setOnClickListener {
-            if (isRegistration) {
-                //show dialog
-                viewModel.postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToSaveProfileDataDialogFragment(true))
-            }
-            else {
-                //log out
-                //clear datastore and move to launcher fragment
-                viewModel.logout()
-            }
+            viewModel.onSecondaryButtonClick(isRegistration)
         }
 
         binding.surnameText.doAfterTextChanged {
-            Timber.d("surname changed to: ${it.toString()}")
-            notifyProfileDataChanged()
+            if (lifecycle.currentState >= Lifecycle.State.RESUMED) {
+                notifyProfileDataChanged()
+            }
         }
 
         binding.firstNameText.doAfterTextChanged {
-            notifyProfileDataChanged()
+            if (lifecycle.currentState >= Lifecycle.State.RESUMED) {
+                notifyProfileDataChanged()
+            }
         }
 
         binding.middleNameText.doAfterTextChanged {
-            notifyProfileDataChanged()
+            if (lifecycle.currentState >= Lifecycle.State.RESUMED) {
+                notifyProfileDataChanged()
+            }
         }
 
         binding.birthDateText.doAfterTextChanged {
-            notifyProfileDataChanged()
+            if (lifecycle.currentState >= Lifecycle.State.RESUMED) {
+                notifyProfileDataChanged()
+            }
         }
 
         binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            notifyProfileDataChanged()
+            if (lifecycle.currentState >= Lifecycle.State.RESUMED) {
+                notifyProfileDataChanged()
+            }
         }
 
         //TODO move date picker to a separate nav component fragment
@@ -121,24 +117,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             // read from the bundle
             Timber.d("Received fragment result: $bundle")
             if (bundle[SaveProfileDataDialogFragment.REQUEST_KEY] == SaveProfileDataDialogFragment.RESULT_SAVE) {
-                if (isRegistration) {
-                    //as if "save" button was pressed
-                    viewModel.saveProfileData(createUserInfoFromFields(), true)
-                }
-                else {
-                    viewModel.saveProfileData(createUserInfoFromFields(), false)
-                }
+                viewModel.onSaveInfoDialogPositiveButtonClick(isRegistration)
             }
             else if (bundle[SaveProfileDataDialogFragment.REQUEST_KEY] == SaveProfileDataDialogFragment.RESULT_DO_NOT_SAVE) {
-                if (isRegistration) {
-                    //navigate to barcode directly
-                    viewModel.postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
-                    //navigation
-                    //Navigation.findNavController(requireView()).navigate(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
-                }
-                else {
-                    viewModel.setViewsFromLocalValues()
-                }
+                viewModel.onSaveInfoDialogNegativeButtonClick(isRegistration)
             }
         }
 
@@ -203,23 +185,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     private fun notifyProfileDataChanged() {
         viewModel.profileDataChanged(
-            createUserInfoFromFields()
+            UserInfo(
+                binding.firstNameText.text.toString(),
+                binding.surnameText.text.toString(),
+                binding.middleNameText.text.toString(),
+                binding.birthDateText.text.toString(),
+                binding.radioGroup.checkedRadioButtonId.convertGenderRadioGroupIdToString())
         )
-    }
-
-    private fun createUserInfoFromFields(): UserInfo {
-        return UserInfo(
-            binding.firstNameText.text.toString(),
-            binding.surnameText.text.toString(),
-            binding.middleNameText.text.toString(),
-            binding.birthDateText.text.toString(),
-            binding.radioGroup.checkedRadioButtonId.convertGenderRadioGroupIdToString())
     }
 
 }
