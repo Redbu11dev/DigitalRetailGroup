@@ -1,11 +1,13 @@
 package com.vashkpi.digitalretailgroup.screens.dialogs
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.vashkpi.digitalretailgroup.databinding.DialogSaveProfileDataBinding
 import com.vashkpi.digitalretailgroup.screens.ProfileFragmentArgs
@@ -34,17 +36,20 @@ class SaveProfileDataDialogFragment : DialogFragmentBase() {
         val view = binding.root
 
         binding.btnNegative.setOnClickListener {
-            dismiss()
+            //dismiss()
+            findNavController().navigateUp()
             setFragmentResult(REQUEST_KEY, bundleOf(REQUEST_KEY to RESULT_DO_NOT_SAVE))
         }
 
         binding.btnPositive.setOnClickListener {
-            dismiss()
+            //dismiss()
+            findNavController().navigateUp()
             setFragmentResult(REQUEST_KEY, bundleOf(REQUEST_KEY to RESULT_SAVE))
         }
 
         binding.crossBtn.setOnClickListener {
-            dismiss()
+            //dismiss()
+            findNavController().navigateUp()
         }
 
         return view

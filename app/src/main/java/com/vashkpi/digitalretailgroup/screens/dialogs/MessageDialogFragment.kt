@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.vashkpi.digitalretailgroup.databinding.DialogMessageBinding
 import com.vashkpi.digitalretailgroup.databinding.DialogSaveProfileDataBinding
@@ -38,11 +39,13 @@ class MessageDialogFragment : DialogFragmentBase() {
         binding.message.text = args.message
 
         binding.crossBtn.setOnClickListener {
-            dismiss()
+            //dismiss()
+            findNavController().navigateUp()
         }
 
         binding.btnNegative.setOnClickListener {
-            dismiss()
+            //dismiss()
+            findNavController().navigateUp()
         }
 
         return view
