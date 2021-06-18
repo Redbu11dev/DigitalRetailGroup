@@ -4,10 +4,7 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.addRepeatingJob
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
@@ -59,7 +56,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         binding.saveBtn.setOnClickListener {
             if (isRegistration) {
                 //save directly and navigate to barcode
-                viewModel.saveProfileData(getUserInfoFromFields(), true)
+                viewModel.saveProfileData(createUserInfoFromFields(), true)
             }
             else {
                 //show dialog
@@ -80,7 +77,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         }
 
         binding.surnameText.doAfterTextChanged {
-            notifyProfileDataChanged()
+           notifyProfileDataChanged()
         }
 
         binding.firstNameText.doAfterTextChanged {
@@ -125,10 +122,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             if (bundle[SaveProfileDataDialogFragment.REQUEST_KEY] == SaveProfileDataDialogFragment.RESULT_SAVE) {
                 if (isRegistration) {
                     //as if "save" button was pressed
-                    viewModel.saveProfileData(getUserInfoFromFields(), true)
+                    viewModel.saveProfileData(createUserInfoFromFields(), true)
                 }
                 else {
-                    viewModel.saveProfileData(getUserInfoFromFields(), false)
+                    viewModel.saveProfileData(createUserInfoFromFields(), false)
                 }
             }
             else if (bundle[SaveProfileDataDialogFragment.REQUEST_KEY] == SaveProfileDataDialogFragment.RESULT_DO_NOT_SAVE) {
@@ -211,7 +208,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 
         //
 
-        viewLifecycleOwner.addRepeatingJob(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.profileDataHasChanges.collect {
                 //Timber.d("checkedRadioButtonId changed to: $it")
                 if (it) {
@@ -227,11 +224,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 
     private fun notifyProfileDataChanged() {
         viewModel.profileDataChanged(
-            getUserInfoFromFields()
+            createUserInfoFromFields()
         )
     }
 
-    private fun getUserInfoFromFields(): UserInfo {
+    private fun createUserInfoFromFields(): UserInfo {
         return UserInfo(
             binding.firstNameText.text.toString(),
             binding.surnameText.text.toString(),

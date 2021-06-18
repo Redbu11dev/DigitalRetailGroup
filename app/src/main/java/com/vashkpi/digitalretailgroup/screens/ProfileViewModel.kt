@@ -12,6 +12,7 @@ import com.vashkpi.digitalretailgroup.data.models.outgoing.Accounts
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -43,15 +44,17 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
 
     init {
         _localUserInfo = dataStoreRepository.userInfo
+        Timber.d("obtaining user info: $_localUserInfo")
+        setViewsFromLocalValues()
     }
 
     fun setViewsFromLocalValues() {
         Timber.d("userinfo: ${_localUserInfo}")
 
         val nameToSet = _localUserInfo.name
-        val surnameToSet = _localUserInfo.name
-        val middleNameToSet = _localUserInfo.name
-        val birthDateToSet = _localUserInfo.name
+        val surnameToSet = _localUserInfo.surname
+        val middleNameToSet = _localUserInfo.middle_name
+        val birthDateToSet = _localUserInfo.date_of_birth
         val genderRadioIdToSet = _localUserInfo.gender.convertGenderStringToRadioGroupId()
 
         _name.value = nameToSet
