@@ -38,14 +38,19 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
     }
 
     private fun <T> readValue(key: Preferences.Key<T>): T? = runBlocking {
-        dataStore.data.catch { exception ->
-            if (exception is IOException) {
-                //Log.e(TAG, "Error reading preferences: ", exception)
-                emit(emptyPreferences())
-            } else {
-                throw exception
-            }
-        }.map { preference -> preference[key] }.firstOrNull()
+        return@runBlocking try {
+            dataStore.data.catch { exception ->
+                if (exception is IOException) {
+                    //Log.e(TAG, "Error reading preferences: ", exception)
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }.map { preference -> preference[key] }.firstOrNull()
+        }
+        catch (t: Throwable) {
+            null
+        }
     }
 
     private fun <T> saveValue(key: Preferences.Key<T>, value: T) = runBlocking {
@@ -157,7 +162,7 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
 //                }
 //            }
 //            .map { preference ->
-//                preference[FCM_TOKEN] ?: "" //TODO if empty - try obtaining the token in here(?) directly somehow
+//                preference[FCM_TOKEN] ?: ""
 //            }
 //    }
 
