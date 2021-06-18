@@ -1,12 +1,11 @@
 package com.vashkpi.digitalretailgroup.data.api
 
-import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
-import com.vashkpi.digitalretailgroup.data.models.incoming.ApiGenericAnswer
-import com.vashkpi.digitalretailgroup.data.models.incoming.ConfirmCodeResponse
+import com.vashkpi.digitalretailgroup.data.models.response.ApiGenericAnswer
+import com.vashkpi.digitalretailgroup.data.models.response.BrandsResponse
+import com.vashkpi.digitalretailgroup.data.models.response.ConfirmCodeResponse
 import com.vashkpi.digitalretailgroup.data.models.outgoing.Accounts
 import com.vashkpi.digitalretailgroup.data.models.outgoing.ConfirmCode
 import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 import javax.inject.Inject
@@ -37,6 +36,16 @@ class ApiRepository @Inject constructor(private val  apiService: ApiService) {
             fetch = {
                 ApiResponse.create(apiService.saveProfileInfo(accounts))
             }
+        )
+    }
+
+    suspend fun getBrands(): Flow<Resource<out BrandsResponse?>> {
+        Timber.d("trying")
+        return simpleNetworkResource(
+            fetch = {
+                ApiResponse.create(apiService.getBrands())
+            },
+            true
         )
     }
 

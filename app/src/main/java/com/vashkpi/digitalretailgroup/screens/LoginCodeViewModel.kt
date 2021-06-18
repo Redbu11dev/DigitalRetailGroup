@@ -1,19 +1,13 @@
 package com.vashkpi.digitalretailgroup.screens
 
-import android.app.Application
 import androidx.lifecycle.viewModelScope
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.DrgApplication
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
-import com.vashkpi.digitalretailgroup.data.models.incoming.ApiGenericAnswer
-import com.vashkpi.digitalretailgroup.data.models.incoming.ConfirmCodeResponse
 import com.vashkpi.digitalretailgroup.data.models.outgoing.ConfirmCode
-import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
