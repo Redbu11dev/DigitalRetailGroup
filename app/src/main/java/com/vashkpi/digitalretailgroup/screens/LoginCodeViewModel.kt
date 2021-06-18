@@ -50,7 +50,7 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
                             //obtain user id from data
                             val userId = data.user_id
                             //save it
-                            dataStoreRepository.saveUserId(userId)
+                            dataStoreRepository.userId = userId
 
                             postProgressViewVisibility(false)
                             postNavigationEvent(LoginCodeFragmentDirections.actionLoginCodeFragmentToProfileFragment(true, userId))

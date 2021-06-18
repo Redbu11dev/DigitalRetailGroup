@@ -21,9 +21,7 @@ class MyFirebaseService : FirebaseMessagingService() {
     override fun onNewToken(newToken: String) {
         super.onNewToken(newToken)
 
-        runBlocking {
-            dataStoreRepository.saveFcmToken(newToken)
-        }
+        dataStoreRepository.fcmToken = newToken
         Timber.i("new FCM token obtained: $newToken")
 
         //not very safe, probably should also obtain token in pref init somewhere

@@ -42,15 +42,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
     private lateinit var _localUserInfo: UserInfo
 
     init {
-        postProgressViewVisibility(true)
-        viewModelScope.launch {
-            dataStoreRepository.getUserInfo.collect { localUserInfo ->
-                _localUserInfo = localUserInfo
-                setViewsFromLocalValues()
-                postProgressViewVisibility(false)
-                this@launch.cancel()
-            }
-        }
+        _localUserInfo = dataStoreRepository.userInfo
     }
 
     fun setViewsFromLocalValues() {
@@ -105,44 +97,42 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
 
     fun saveProfileData(userInfo: UserInfo, isRegistration: Boolean) {
         viewModelScope.launch {
-            dataStoreRepository.getUserId().collect { userId ->
-                apiRepository.saveProfileInfo(Accounts(userId, userInfo)).collect {
-                    when (it) {
-                        is Resource.Loading -> {
-                            //TODO()
-                            Timber.i("it's loading")
-                            postProgressViewVisibility(true)
-                        }
-                        is Resource.Error -> {
-                            //TODO()
-                            this@launch.cancel()
-                            val message = it.error?.message
-                            Timber.i("it's error: ${message}")
-                            //it.error.
+            apiRepository.saveProfileInfo(Accounts(dataStoreRepository.userId, userInfo)).collect {
+                when (it) {
+                    is Resource.Loading -> {
+                        //TODO()
+                        Timber.i("it's loading")
+                        postProgressViewVisibility(true)
+                    }
+                    is Resource.Error -> {
+                        //TODO()
+                        this@launch.cancel()
+                        val message = it.error?.message
+                        Timber.i("it's error: ${message}")
+                        //it.error.
+                        postProgressViewVisibility(false)
+                        postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                    }
+                    is Resource.Success -> {
+                        //TODO()
+                        Timber.i("it's success")
+                        //check if empty?!
+                        it.data?.let { data ->
+                            Timber.i("here is the data: $data")
+
+                            dataStoreRepository.userInfo = userInfo
+
                             postProgressViewVisibility(false)
-                            postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
-                        }
-                        is Resource.Success -> {
-                            //TODO()
-                            Timber.i("it's success")
-                            //check if empty?!
-                            it.data?.let { data ->
-                                Timber.i("here is the data: $data")
-
-                                dataStoreRepository.saveUserInfo(userInfo)
-
-                                postProgressViewVisibility(false)
-                                if (isRegistration) {
-                                    postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
-                                }
-                                else {
-                                    //clear the views
-                                    setViewsFromLocalValues()
-                                }
-                                this@launch.cancel()
-                            } ?: kotlin.run {
-                                this@launch.cancel()
+                            if (isRegistration) {
+                                postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
                             }
+                            else {
+                                //clear the views
+                                setViewsFromLocalValues()
+                            }
+                            this@launch.cancel()
+                        } ?: kotlin.run {
+                            this@launch.cancel()
                         }
                     }
                 }
@@ -151,11 +141,8 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
     }
 
     fun logout() {
-        viewModelScope.launch {
-            dataStoreRepository.clearDataStore()
-            postNavigationEvent(ProfileFragmentDirections.actionGlobalLogoutToLauncher())
-            cancel()
-        }
+        dataStoreRepository.clearDataStore()
+        postNavigationEvent(ProfileFragmentDirections.actionGlobalLogoutToLauncher())
     }
 
 }
