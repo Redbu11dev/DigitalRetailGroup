@@ -19,6 +19,7 @@ import com.vashkpi.digitalretailgroup.databinding.FragmentBrandInfoBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentViewNotificationBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
+import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -49,6 +50,16 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
 
         binding.infoList.adapter = adapter
 
+        binding.inclItemBradInfoWebsite.root.changeAlphaOnTouch()
+        binding.inclItemBradInfoWebsite.root.setOnClickListener {
+
+        }
+
+        binding.inclItemBradInfoContact.root.changeAlphaOnTouch()
+        binding.inclItemBradInfoContact.root.setOnClickListener {
+
+        }
+
         viewModel.getBrandInfo(brand)
     }
 
@@ -58,6 +69,24 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.name.collect {
                 binding.customToolbar.toolbar.title = it
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.website.collect {
+                binding.inclItemBradInfoWebsite.text.text = it
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.telephone.collect {
+                binding.inclItemBradInfoContact.phone.text = it
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.timeOfWork.collect {
+                binding.inclItemBradInfoContact.workHours.text = it
             }
         }
 
