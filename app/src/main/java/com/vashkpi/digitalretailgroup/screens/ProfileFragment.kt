@@ -77,7 +77,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         }
 
         binding.surnameText.doAfterTextChanged {
-           notifyProfileDataChanged()
+            Timber.d("surname changed to: ${it.toString()}")
+            notifyProfileDataChanged()
         }
 
         binding.firstNameText.doAfterTextChanged {
@@ -149,11 +150,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.name.collect {
                 if (binding.firstNameText.text.toString() != it) {
-                    Timber.d("firstNameText changed to: $it")
                     binding.firstNameText.setText(it)
-                }
-                else {
-                    Timber.d("firstNameText change observed, but was the same: $it")
                 }
             }
         }
@@ -161,11 +158,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.surname.collect {
                 if (binding.surnameText.text.toString() != it) {
-                    Timber.d("surname changed to: $it")
                     binding.surnameText.setText(it)
-                }
-                else {
-                    Timber.d("surname changed observe, but was the same: $it")
                 }
             }
         }
@@ -173,11 +166,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.middleName.collect {
                 if (binding.middleNameText.text.toString() != it) {
-                    Timber.d("middleNameText changed to: $it")
                     binding.middleNameText.setText(it)
-                }
-                else {
-                    Timber.d("middleNameText changed observe, but was the same: $it")
                 }
             }
         }
@@ -185,11 +174,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.birthDate.collect {
                 if (binding.birthDateText.text.toString() != it) {
-                    Timber.d("birthDateText changed to: $it")
                     binding.birthDateText.setText(it)
-                }
-                else {
-                    Timber.d("birthDateText changed observe, but was the same: $it")
                 }
             }
         }
@@ -197,11 +182,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.genderRadioId.collect {
                 if (binding.radioGroup.checkedRadioButtonId != it) {
-                    Timber.d("checkedRadioButtonId change to: $it")
                     binding.radioGroup.check(it)
-                }
-                else {
-                    Timber.d("checkedRadioButtonId change observed, but was the same: $it")
                 }
             }
         }
@@ -220,6 +201,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     private fun notifyProfileDataChanged() {
