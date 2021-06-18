@@ -81,4 +81,8 @@
 
     </RelativeLayout>
 
+    <include
+        layout="@layout/item_progress"
+        />
+
 </RelativeLayout>

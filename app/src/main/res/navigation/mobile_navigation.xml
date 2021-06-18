@@ -122,6 +122,9 @@
         <action
             android:id="@+id/action_brandInfoFragment_to_storesFragment"
             app:destination="@id/storesFragment" />
+        <argument
+            android:name="brand"
+            app:argType="com.vashkpi.digitalretailgroup.data.models.incoming.Brand" />
     </fragment>
     <fragment
         android:id="@+id/storesFragment"

@@ -32,7 +32,7 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
     }
 
     fun onBrandsListItemClick(brand: Brand) {
-        postNavigationEvent(MainFragmentDirections.actionNavigationMainToBrandInfoFragment())
+        postNavigationEvent(MainFragmentDirections.actionNavigationMainToBrandInfoFragment(brand))
     }
 
     fun obtainBrands() {

@@ -35,4 +35,8 @@ interface ApiService {
     @GET("hs/bss/v1/brands")
     suspend fun getBrands(
     ): Response<BrandsResponse>
+
+    @GET("hs/bss/v1/brand")
+    suspend fun getBrandInfo(
+    ): Response<BrandsResponse>
 }
