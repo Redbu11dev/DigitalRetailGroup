@@ -14,20 +14,25 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.adapters.BrandInfoAdapter
+import com.vashkpi.digitalretailgroup.adapters.BrandsAdapter
 import com.vashkpi.digitalretailgroup.databinding.FragmentBrandInfoBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentViewNotificationBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import com.vashkpi.digitalretailgroup.utils.safeNavigate
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+@AndroidEntryPoint
 class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewModel>(FragmentBrandInfoBinding::inflate) {
 
     override val viewModel: BrandInfoViewModel by viewModels()
 
     private val args: BrandInfoFragmentArgs by navArgs()
+
+    private lateinit var adapter: BrandInfoAdapter
 
     override fun setUpViews() {
         super.setUpViews()
@@ -36,18 +41,32 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
         val navController = findNavController()
         toolbar.setupWithNavController(navController)
 
-        val adapter = BrandInfoAdapter { view, data ->
+        val brand = args.brand
+
+        adapter = BrandInfoAdapter { view, data ->
             findNavController().navigate(BrandInfoFragmentDirections.actionBrandInfoFragmentToStoresFragment())
         }
 
         binding.infoList.adapter = adapter
 
-        adapter.setList(arrayListOf("1", "2", "3", "4", "5"))
-        adapter.notifyDataSetChanged()
+        viewModel.getBrandInfo(brand)
     }
 
     override fun observeViewModel() {
         super.observeViewModel()
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.name.collect {
+                binding.customToolbar.toolbar.title = it
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.brandRegionsList.collect {
+                adapter.setList(it)
+                adapter.notifyDataSetChanged()
+            }
+        }
     }
 
 }

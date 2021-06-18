@@ -11,7 +11,7 @@ sealed class Resource<T>(
     class Error<T>(throwable: Throwable, data: T? = null) : Resource<T>(data, throwable)
 }
 
-inline fun <T> simpleNetworkResource(
+inline fun <T> simpleNetworkResponse(
     crossinline fetch : suspend () -> ApiResponse<T>,
     canBeEmptyResponse: Boolean = false
 ) = flow {

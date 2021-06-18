@@ -6,10 +6,9 @@ import com.vashkpi.digitalretailgroup.data.models.response.ConfirmCodeResponse
 import com.vashkpi.digitalretailgroup.data.models.outgoing.Accounts
 import com.vashkpi.digitalretailgroup.data.models.outgoing.ConfirmCode
 import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
+import com.vashkpi.digitalretailgroup.data.models.response.BrandInfoResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
 //    @POST("hs/bss/v1/register")
@@ -36,7 +35,9 @@ interface ApiService {
     suspend fun getBrands(
     ): Response<BrandsResponse>
 
-    @GET("hs/bss/v1/brand")
+    @GET("hs/bss/v1/brands/{brand_id}")
     suspend fun getBrandInfo(
-    ): Response<BrandsResponse>
+        //@Header("brand_id") brandIdHeader: String,
+        @Path(value = "brand_id") brandId: String
+    ): Response<BrandInfoResponse>
 }
