@@ -1,6 +1,5 @@
 package com.vashkpi.digitalretailgroup.data.api
 
-import com.vashkpi.digitalretailgroup.data.mappers.Mapper
 import com.vashkpi.digitalretailgroup.data.models.domain.*
 import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
 import com.vashkpi.digitalretailgroup.data.models.network.*
@@ -69,29 +68,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
                 ApiResponse.create(apiService.getBrandInfo(brandId))
             },
             mapper = {
-                object : Mapper<BrandInfoResponse, BrandInfo> {
-                    override fun map(input: BrandInfoResponse): BrandInfo {
-
-                        val brandsRegionsArray = ArrayList<BrandInfoRegion>()
-                        input.regions.forEach {
-                            brandsRegionsArray.add(
-                                BrandInfoRegion(
-                                    it.name,
-                                    it.region_id,
-                                    it.order,
-                                )
-                            )
-                        }
-
-                        return BrandInfo(
-                            input.name,
-                            input.website,
-                            input.telephone,
-                            input.time_of_work,
-                            brandsRegionsArray
-                        )
-                    }
-                }.map(it)
+                it.asDatabaseModel()
             }
         )
     }

@@ -31,8 +31,8 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
     private val _timeOfWork = MutableStateFlow("")
     val timeOfWork: StateFlow<String> get() = _timeOfWork
 
-    private val _brandRegionsList = MutableStateFlow(arrayListOf<BrandInfoRegion>())
-    val brandRegionsList: StateFlow<ArrayList<BrandInfoRegion>> get() = _brandRegionsList
+    private val _brandRegionsList = MutableStateFlow(mutableListOf<BrandInfoRegion>())
+    val brandRegionsList: StateFlow<List<BrandInfoRegion>> get() = _brandRegionsList
 
     fun getBrandInfo(brand: Brand) {
         viewModelScope.launch {
@@ -63,7 +63,7 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
                             _website.value = data.website
                             _telephone.value = data.telephone
                             _timeOfWork.value = data.time_of_work
-                            _brandRegionsList.value = data.regions
+                            _brandRegionsList.value = data.regions.toMutableList()
 
                             postProgressViewVisibility(false)
 

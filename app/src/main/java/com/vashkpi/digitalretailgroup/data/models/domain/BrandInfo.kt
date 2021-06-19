@@ -5,5 +5,5 @@ data class BrandInfo(
     val website: String,
     val telephone: String,
     val time_of_work: String,
-    val regions: ArrayList<BrandInfoRegion>
+    val regions: List<BrandInfoRegion>
 )

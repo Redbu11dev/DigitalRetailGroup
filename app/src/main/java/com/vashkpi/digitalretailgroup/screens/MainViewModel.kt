@@ -39,12 +39,10 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
             apiRepository.getBrands().collect {
                 when (it) {
                     is Resource.Loading -> {
-                        //TODO()
                         Timber.i("it's loading")
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
-                        //TODO()
                         this@launch.cancel()
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
@@ -53,15 +51,12 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
-                        //TODO()
                         Timber.i("it's success")
                         //check if empty?!
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
 
-                            _brandsList.value = data.map {
-                                it.asDomainModel()
-                            }.toMutableList()
+                            _brandsList.value = data.map { it.asDomainModel() }.toMutableList()
 
                             postProgressViewVisibility(false)
 

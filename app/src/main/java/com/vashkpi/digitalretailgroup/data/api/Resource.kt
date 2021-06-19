@@ -61,7 +61,6 @@ inline fun <NetworkType, DatabaseType> networkBoundResource(
     crossinline query: () -> Flow<DatabaseType>,
     crossinline fetch : suspend () -> ApiResponse<NetworkType>,
     //shouldFetch / boolean
-    //saveFetchResult?!
     crossinline mapper: (NetworkType) -> DatabaseType
 ) = flow<Resource<DatabaseType>> {
     //Timber.d("loading")
