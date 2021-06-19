@@ -13,8 +13,8 @@ sealed class Resource<T>(
     class Error<T>(throwable: Throwable, data: T? = null) : Resource<T>(data, throwable)
 }
 
-inline fun <RequestType> networkResponse(
-    crossinline fetch : suspend () -> ApiResponse<RequestType>,
+inline fun <NetworkType> networkResponse(
+    crossinline fetch : suspend () -> ApiResponse<NetworkType>,
     canBeEmptyResponse: Boolean = false
 ) = flow {
     //Timber.d("loading")
@@ -22,7 +22,7 @@ inline fun <RequestType> networkResponse(
     try {
         //Timber.d("emit1")
         //TODO here check if cached and cache if needed
-        val fetchResult: ApiResponse<RequestType> = fetch()
+        val fetchResult: ApiResponse<NetworkType> = fetch()
 
         when (fetchResult) {
             is ApiSuccessResponse -> {
@@ -56,20 +56,20 @@ inline fun <RequestType> networkResponse(
     }
 }
 
-inline fun <RequestType, ResultType> networkBoundResource(
+inline fun <NetworkType, DatabaseType> networkBoundResource(
     //query
-    crossinline query: () -> Flow<ResultType>,
-    crossinline fetch : suspend () -> ApiResponse<RequestType>,
+    crossinline query: () -> Flow<DatabaseType>,
+    crossinline fetch : suspend () -> ApiResponse<NetworkType>,
     //shouldFetch / boolean
     //saveFetchResult?!
-    crossinline mapper: (RequestType) -> ResultType
-) = flow<Resource<ResultType>> {
+    crossinline mapper: (NetworkType) -> DatabaseType
+) = flow<Resource<DatabaseType>> {
     //Timber.d("loading")
     emit(Resource.Loading(null))
     try {
         //Timber.d("emit1")
         //TODO here check if cached and cache if needed
-        val fetchResult: ApiResponse<RequestType> = fetch()
+        val fetchResult: ApiResponse<NetworkType> = fetch()
 
         when (fetchResult) {
             is ApiSuccessResponse -> {
