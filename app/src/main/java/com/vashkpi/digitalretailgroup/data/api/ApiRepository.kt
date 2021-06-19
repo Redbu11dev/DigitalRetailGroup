@@ -18,7 +18,8 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.registerPhone(registerPhoneDto))
-            }
+            },
+            false
         )
     }
 
@@ -27,7 +28,8 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.confirmCode(confirmCodeDto))
-            }
+            },
+            false
         )
     }
 
@@ -36,7 +38,8 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.saveProfileInfo(accountsDto))
-            }
+            },
+            false
         )
     }
 

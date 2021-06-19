@@ -15,7 +15,7 @@ sealed class Resource<T>(
 
 inline fun <NetworkType> networkResponse(
     crossinline fetch : suspend () -> ApiResponse<NetworkType>,
-    canBeEmptyResponse: Boolean = false
+    canBeEmptyResponse: Boolean
 ) = flow {
     //Timber.d("loading")
     emit(Resource.Loading(null))
