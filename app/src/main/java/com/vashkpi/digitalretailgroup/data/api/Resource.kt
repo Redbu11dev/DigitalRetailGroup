@@ -1,6 +1,8 @@
 package com.vashkpi.digitalretailgroup.data.api
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 sealed class Resource<T>(
     val data: T? = null,
@@ -54,13 +56,14 @@ inline fun <RequestType> networkResponse(
     }
 }
 
-inline fun <RequestType> networkBoundResource(
+inline fun <RequestType, ResultType> networkBoundResource(
     //query
+    crossinline query: () -> Flow<ResultType>,
     crossinline fetch : suspend () -> ApiResponse<RequestType>,
     //shouldFetch / boolean
     //saveFetchResult?!
-    canBeEmptyResponse: Boolean = false
-) = flow {
+    crossinline mapper: (RequestType) -> ResultType
+) = flow<Resource<ResultType>> {
     //Timber.d("loading")
     emit(Resource.Loading(null))
     try {
@@ -70,20 +73,15 @@ inline fun <RequestType> networkBoundResource(
 
         when (fetchResult) {
             is ApiSuccessResponse -> {
-                emit(Resource.Success(fetchResult.body))
+                emit(Resource.Success(mapper.invoke(fetchResult.body)))
             }
             is ApiEmptyResponse -> {
-                if (canBeEmptyResponse) {
-                    emit(Resource.Success(null))
-                }
-                else {
-                    emit(
-                        Resource.Error(
-                            throwable = Throwable("Response is empty"),
-                            null
-                        )
+                emit(
+                    Resource.Error(
+                        throwable = Throwable("Response is empty"),
+                        null
                     )
-                }
+                )
             }
             is ApiErrorResponse -> {
                 emit(

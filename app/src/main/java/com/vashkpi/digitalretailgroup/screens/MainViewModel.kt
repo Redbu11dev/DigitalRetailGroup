@@ -58,7 +58,7 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
 
-                            _brandsList.value = data.elements
+                            _brandsList.value = data
 
                             postProgressViewVisibility(false)
 
