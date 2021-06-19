@@ -2,7 +2,7 @@ package com.vashkpi.digitalretailgroup.data.models.domain
 
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R
-import com.vashkpi.digitalretailgroup.data.models.network.dto.UserInfoDto
+import com.vashkpi.digitalretailgroup.data.models.network.UserInfoDto
 
 fun UserInfo.asNetworkModel(): UserInfoDto {
     return UserInfoDto(

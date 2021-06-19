@@ -3,9 +3,9 @@ package com.vashkpi.digitalretailgroup.data.api
 import com.vashkpi.digitalretailgroup.data.models.network.GenericResponse
 import com.vashkpi.digitalretailgroup.data.models.network.BrandsResponse
 import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeResponse
-import com.vashkpi.digitalretailgroup.data.models.network.dto.AccountsDto
-import com.vashkpi.digitalretailgroup.data.models.network.dto.ConfirmCodeDto
-import com.vashkpi.digitalretailgroup.data.models.network.dto.RegisterPhoneDto
+import com.vashkpi.digitalretailgroup.data.models.network.AccountsDto
+import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeDto
+import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
 import com.vashkpi.digitalretailgroup.data.models.network.BrandInfoResponse
 import retrofit2.Response
 import retrofit2.http.*

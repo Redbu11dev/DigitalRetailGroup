@@ -3,9 +3,9 @@ package com.vashkpi.digitalretailgroup.data.api
 import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
 import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoEntity
 import com.vashkpi.digitalretailgroup.data.models.network.*
-import com.vashkpi.digitalretailgroup.data.models.network.dto.AccountsDto
-import com.vashkpi.digitalretailgroup.data.models.network.dto.ConfirmCodeDto
-import com.vashkpi.digitalretailgroup.data.models.network.dto.RegisterPhoneDto
+import com.vashkpi.digitalretailgroup.data.models.network.AccountsDto
+import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeDto
+import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber

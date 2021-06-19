@@ -1,7 +1,6 @@
 package com.vashkpi.digitalretailgroup.data.models.network
 
 import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
-import com.vashkpi.digitalretailgroup.data.models.network.dto.BrandDto
 
 fun BrandsResponse.asDatabaseModel(): List<BrandEntity> {
     return elements.map {

@@ -1,4 +1,4 @@
-package com.vashkpi.digitalretailgroup.data.models.network.dto
+package com.vashkpi.digitalretailgroup.data.models.network
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
