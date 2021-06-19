@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class ApiRepository @Inject constructor(private val apiService: ApiService, private val appDatabase: AppDatabase) {
 
-    suspend fun registerPhone(registerPhoneDto: RegisterPhoneDto): Flow<Resource<out GenericResponse?>> {
+    suspend fun registerPhone(registerPhoneDto: RegisterPhoneDto): Flow<Resource<out GenericResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
@@ -24,7 +24,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun confirmCode(confirmCodeDto: ConfirmCodeDto): Flow<Resource<out ConfirmCodeResponse?>> {
+    suspend fun confirmCode(confirmCodeDto: ConfirmCodeDto): Flow<Resource<out ConfirmCodeResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
@@ -34,7 +34,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun saveProfileInfo(accountsDto: AccountsDto): Flow<Resource<out GenericResponse?>> {
+    suspend fun saveProfileInfo(accountsDto: AccountsDto): Flow<Resource<out GenericResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {

@@ -1,7 +1,6 @@
 package com.vashkpi.digitalretailgroup.data.models.database
 
 import com.vashkpi.digitalretailgroup.data.models.domain.BrandInfoRegion
-import com.vashkpi.digitalretailgroup.data.models.network.BrandInfoResponse
 
 fun BrandInfoRegionEntity.asDomainModel(): BrandInfoRegion {
     return BrandInfoRegion(

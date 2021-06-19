@@ -3,7 +3,7 @@ package com.vashkpi.digitalretailgroup.data.models.network
 import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoEntity
 import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoRegionEntity
 
-fun BrandInfoResponse.asDatabaseModel(): BrandInfoEntity {
+fun BrandInfoResponseDto.asDatabaseModel(): BrandInfoEntity {
     return BrandInfoEntity(
         name,
         website,
@@ -19,7 +19,7 @@ fun BrandInfoResponse.asDatabaseModel(): BrandInfoEntity {
     )
 }
 
-data class BrandInfoResponse(
+data class BrandInfoResponseDto(
     val name: String,
     val website: String,
     val telephone: String,

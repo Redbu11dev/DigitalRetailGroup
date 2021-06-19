@@ -2,7 +2,7 @@ package com.vashkpi.digitalretailgroup.data.models.network
 
 import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
 
-fun BrandsResponse.asDatabaseModel(): List<BrandEntity> {
+fun BrandsResponseDto.asDatabaseModel(): List<BrandEntity> {
     return elements.map {
         BrandEntity(
             it.name,
@@ -13,6 +13,6 @@ fun BrandsResponse.asDatabaseModel(): List<BrandEntity> {
     }
 }
 
-data class BrandsResponse (
+data class BrandsResponseDto (
     val elements: List<BrandDto>
 )
