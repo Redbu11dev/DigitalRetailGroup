@@ -3,10 +3,7 @@ package com.vashkpi.digitalretailgroup.data.api
 import com.vashkpi.digitalretailgroup.data.mappers.Mapper
 import com.vashkpi.digitalretailgroup.data.models.domain.*
 import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
-import com.vashkpi.digitalretailgroup.data.models.network.GenericResponse
-import com.vashkpi.digitalretailgroup.data.models.network.BrandsResponse
-import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeResponse
-import com.vashkpi.digitalretailgroup.data.models.network.BrandInfoResponse
+import com.vashkpi.digitalretailgroup.data.models.network.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -41,35 +38,20 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
         )
     }
 
-    suspend fun getBrands(): Flow<Resource<ArrayList<BrandEntity>?>> {
+    suspend fun getBrands(): Flow<Resource<List<BrandEntity>?>> {
         Timber.d("trying")
         return networkBoundResource(
             query = {
                 //dummy for now
-                flow<ArrayList<BrandEntity>> {
-                    emit(ArrayList<BrandEntity>())
+                flow<List<BrandEntity>> {
+                    emit(mutableListOf<BrandEntity>())
                 }
             },
             fetch = {
                 ApiResponse.create(apiService.getBrands())
             },
             mapper = {
-                object : Mapper<BrandsResponse, ArrayList<BrandEntity>> {
-                    override fun map(input: BrandsResponse): ArrayList<BrandEntity> {
-                        val brandsArray = ArrayList<BrandEntity>()
-                        input.elements.forEach {
-                            brandsArray.add(
-                                BrandEntity(
-                                it.name,
-                                it.brand_id,
-                                it.image_parth,
-                                it.order,
-                            )
-                            )
-                        }
-                        return brandsArray
-                    }
-                }.map(it)
+                it.asDatabaseModel()
             }
         )
     }

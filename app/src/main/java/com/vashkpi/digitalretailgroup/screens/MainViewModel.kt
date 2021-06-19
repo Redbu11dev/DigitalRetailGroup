@@ -4,9 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
-import com.vashkpi.digitalretailgroup.data.mappers.Mapper
 import com.vashkpi.digitalretailgroup.data.models.domain.Brand
-import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
+import com.vashkpi.digitalretailgroup.data.models.database.asDomainModel
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
@@ -20,8 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val apiRepository: ApiRepository): BaseViewModel() {
 
-    private val _brandsList = MutableStateFlow(arrayListOf<Brand>())
-    val brandsList: StateFlow<ArrayList<Brand>> get() = _brandsList
+    private val _brandsList = MutableStateFlow(mutableListOf<Brand>())
+    val brandsList: StateFlow<List<Brand>> get() = _brandsList
 
     fun onMenuNotificationsItemClick() {
         postNavigationEvent(MainFragmentDirections.actionNavigationMainToNotificationsFragment())
@@ -60,22 +59,9 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
 
-                            _brandsList.value = object : Mapper<ArrayList<BrandEntity>, ArrayList<Brand>> {
-                                override fun map(input: ArrayList<BrandEntity>): ArrayList<Brand> {
-                                    val brandsArray = ArrayList<Brand>()
-                                    input.forEach {
-                                        brandsArray.add(
-                                            Brand(
-                                                it.name,
-                                                it.brand_id,
-                                                it.image_parth,
-                                                it.order,
-                                            )
-                                        )
-                                    }
-                                    return brandsArray
-                                }
-                            }.map(data)
+                            _brandsList.value = data.map {
+                                it.asDomainModel()
+                            }.toMutableList()
 
                             postProgressViewVisibility(false)
 
