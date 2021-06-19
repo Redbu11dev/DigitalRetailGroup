@@ -2,10 +2,11 @@ package com.vashkpi.digitalretailgroup.data.api
 
 import com.vashkpi.digitalretailgroup.data.mappers.Mapper
 import com.vashkpi.digitalretailgroup.data.models.domain.*
-import com.vashkpi.digitalretailgroup.data.models.response.GenericResponse
-import com.vashkpi.digitalretailgroup.data.models.response.BrandsResponse
-import com.vashkpi.digitalretailgroup.data.models.response.ConfirmCodeResponse
-import com.vashkpi.digitalretailgroup.data.models.response.BrandInfoResponse
+import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
+import com.vashkpi.digitalretailgroup.data.models.network.GenericResponse
+import com.vashkpi.digitalretailgroup.data.models.network.BrandsResponse
+import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeResponse
+import com.vashkpi.digitalretailgroup.data.models.network.BrandInfoResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -40,25 +41,25 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
         )
     }
 
-    suspend fun getBrands(): Flow<Resource<ArrayList<Brand>?>> {
+    suspend fun getBrands(): Flow<Resource<ArrayList<BrandEntity>?>> {
         Timber.d("trying")
         return networkBoundResource(
             query = {
                 //dummy for now
-                flow<ArrayList<Brand>> {
-                    emit(ArrayList<Brand>())
+                flow<ArrayList<BrandEntity>> {
+                    emit(ArrayList<BrandEntity>())
                 }
             },
             fetch = {
                 ApiResponse.create(apiService.getBrands())
             },
             mapper = {
-                object : Mapper<BrandsResponse, ArrayList<Brand>> {
-                    override fun map(input: BrandsResponse): ArrayList<Brand> {
-                        val brandsArray = ArrayList<Brand>()
+                object : Mapper<BrandsResponse, ArrayList<BrandEntity>> {
+                    override fun map(input: BrandsResponse): ArrayList<BrandEntity> {
+                        val brandsArray = ArrayList<BrandEntity>()
                         input.elements.forEach {
                             brandsArray.add(
-                                Brand(
+                                BrandEntity(
                                 it.name,
                                 it.brand_id,
                                 it.image_parth,

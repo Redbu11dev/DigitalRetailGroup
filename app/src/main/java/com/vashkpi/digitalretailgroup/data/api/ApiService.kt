@@ -1,12 +1,12 @@
 package com.vashkpi.digitalretailgroup.data.api
 
-import com.vashkpi.digitalretailgroup.data.models.response.GenericResponse
-import com.vashkpi.digitalretailgroup.data.models.response.BrandsResponse
-import com.vashkpi.digitalretailgroup.data.models.response.ConfirmCodeResponse
+import com.vashkpi.digitalretailgroup.data.models.network.GenericResponse
+import com.vashkpi.digitalretailgroup.data.models.network.BrandsResponse
+import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeResponse
 import com.vashkpi.digitalretailgroup.data.models.domain.Accounts
 import com.vashkpi.digitalretailgroup.data.models.domain.ConfirmCode
 import com.vashkpi.digitalretailgroup.data.models.domain.RegisterPhone
-import com.vashkpi.digitalretailgroup.data.models.response.BrandInfoResponse
+import com.vashkpi.digitalretailgroup.data.models.network.BrandInfoResponse
 import retrofit2.Response
 import retrofit2.http.*
 

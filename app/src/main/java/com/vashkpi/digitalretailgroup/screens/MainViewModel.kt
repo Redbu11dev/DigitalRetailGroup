@@ -4,7 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
+import com.vashkpi.digitalretailgroup.data.mappers.Mapper
 import com.vashkpi.digitalretailgroup.data.models.domain.Brand
+import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
@@ -58,7 +60,22 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
 
-                            _brandsList.value = data
+                            _brandsList.value = object : Mapper<ArrayList<BrandEntity>, ArrayList<Brand>> {
+                                override fun map(input: ArrayList<BrandEntity>): ArrayList<Brand> {
+                                    val brandsArray = ArrayList<Brand>()
+                                    input.forEach {
+                                        brandsArray.add(
+                                            Brand(
+                                                it.name,
+                                                it.brand_id,
+                                                it.image_parth,
+                                                it.order,
+                                            )
+                                        )
+                                    }
+                                    return brandsArray
+                                }
+                            }.map(data)
 
                             postProgressViewVisibility(false)
 

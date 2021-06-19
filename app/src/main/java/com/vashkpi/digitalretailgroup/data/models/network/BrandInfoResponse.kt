@@ -1,6 +1,6 @@
-package com.vashkpi.digitalretailgroup.data.models.response
+package com.vashkpi.digitalretailgroup.data.models.network
 
-import com.vashkpi.digitalretailgroup.data.models.response.dto.BrandInfoRegionDto
+import com.vashkpi.digitalretailgroup.data.models.network.dto.BrandInfoRegionDto
 
 data class BrandInfoResponse(
     val name: String,

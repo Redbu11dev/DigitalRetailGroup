@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.*
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R
+import com.vashkpi.digitalretailgroup.data.mappers.Mapper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
