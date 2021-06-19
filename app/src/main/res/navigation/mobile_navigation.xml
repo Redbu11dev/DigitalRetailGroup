@@ -124,7 +124,7 @@
             app:destination="@id/storesFragment" />
         <argument
             android:name="brand"
-            app:argType="com.vashkpi.digitalretailgroup.data.models.Brand" />
+            app:argType="com.vashkpi.digitalretailgroup.data.models.domain.Brand" />
     </fragment>
     <fragment
         android:id="@+id/storesFragment"

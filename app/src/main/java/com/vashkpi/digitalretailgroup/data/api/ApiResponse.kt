@@ -19,7 +19,6 @@ sealed class ApiResponse<T> {
                     ApiSuccessResponse(body)
                 }
             } else {
-                //TODO maybe wrap into a data class?
                 ApiErrorResponse(response.code(), response.errorBody()?.string()?:response.message())
             }
         }

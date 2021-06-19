@@ -1,4 +1,4 @@
-package com.vashkpi.digitalretailgroup.data.models
+package com.vashkpi.digitalretailgroup.data.models.domain
 
 data class BrandInfoRegion(
     val name: String,

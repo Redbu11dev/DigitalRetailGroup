@@ -12,7 +12,7 @@ import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.Prefe
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.NAME
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.SURNAME
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.USER_ID
-import com.vashkpi.digitalretailgroup.data.models.UserInfo
+import com.vashkpi.digitalretailgroup.data.models.domain.UserInfo
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import java.io.IOException

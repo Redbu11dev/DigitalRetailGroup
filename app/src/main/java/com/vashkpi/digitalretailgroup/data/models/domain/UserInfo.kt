@@ -1,4 +1,4 @@
-package com.vashkpi.digitalretailgroup.data.models
+package com.vashkpi.digitalretailgroup.data.models.domain
 
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R

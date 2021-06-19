@@ -5,10 +5,10 @@ import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
-import com.vashkpi.digitalretailgroup.data.models.UserInfo
-import com.vashkpi.digitalretailgroup.data.models.convertGenderRadioGroupIdToString
-import com.vashkpi.digitalretailgroup.data.models.convertGenderStringToRadioGroupId
-import com.vashkpi.digitalretailgroup.data.models.Accounts
+import com.vashkpi.digitalretailgroup.data.models.domain.UserInfo
+import com.vashkpi.digitalretailgroup.data.models.domain.convertGenderRadioGroupIdToString
+import com.vashkpi.digitalretailgroup.data.models.domain.convertGenderStringToRadioGroupId
+import com.vashkpi.digitalretailgroup.data.models.domain.Accounts
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
