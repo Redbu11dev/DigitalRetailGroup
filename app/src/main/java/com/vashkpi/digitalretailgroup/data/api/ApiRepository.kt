@@ -43,7 +43,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
         )
     }
 
-    suspend fun getBrands(): Flow<Resource<List<BrandEntity>?>> {
+    suspend fun getBrands(): Flow<Resource<List<BrandEntity>>> {
         Timber.d("trying")
         return networkBoundResource(
             query = {
@@ -54,6 +54,12 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
             },
             fetch = {
                 ApiResponse.create(apiService.getBrands())
+            },
+            shouldFetch = {
+                true
+            },
+            saveFetchResult = {
+
             },
             mapper = {
                 it.asDatabaseModel()
@@ -72,6 +78,12 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
             },
             fetch = {
                 ApiResponse.create(apiService.getBrandInfo(brandId))
+            },
+            shouldFetch = {
+                true
+            },
+            saveFetchResult = {
+
             },
             mapper = {
                 it.asDatabaseModel()

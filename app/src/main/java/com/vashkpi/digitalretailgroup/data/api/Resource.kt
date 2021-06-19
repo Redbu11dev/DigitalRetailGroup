@@ -1,8 +1,6 @@
 package com.vashkpi.digitalretailgroup.data.api
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 
 sealed class Resource<T>(
     val data: T? = null,
@@ -20,8 +18,6 @@ inline fun <NetworkType> networkResponse(
     //Timber.d("loading")
     emit(Resource.Loading(null))
     try {
-        //Timber.d("emit1")
-        //TODO here check if cached and cache if needed
         val fetchResult: ApiResponse<NetworkType> = fetch()
 
         when (fetchResult) {
@@ -60,39 +56,51 @@ inline fun <NetworkType, DatabaseType> networkBoundResource(
     //query
     crossinline query: () -> Flow<DatabaseType>,
     crossinline fetch : suspend () -> ApiResponse<NetworkType>,
-    //shouldFetch / boolean
+    crossinline shouldFetch: (DatabaseType) -> Boolean,
+    crossinline saveFetchResult: suspend (NetworkType) -> Unit,
     crossinline mapper: (NetworkType) -> DatabaseType
 ) = flow<Resource<DatabaseType>> {
     //Timber.d("loading")
-    emit(Resource.Loading(null))
-    try {
-        //Timber.d("emit1")
-        //TODO here check if cached and cache if needed
-        val fetchResult: ApiResponse<NetworkType> = fetch()
+    //emit(Resource.Loading(null))
 
-        when (fetchResult) {
-            is ApiSuccessResponse -> {
-                emit(Resource.Success(mapper.invoke(fetchResult.body)))
-            }
-            is ApiEmptyResponse -> {
-                emit(
-                    Resource.Error(
-                        throwable = Throwable("Response is empty"),
-                        null
+    val data = query().first()
+
+    if (shouldFetch(data)) {
+        emit(Resource.Loading(data))
+
+        try {
+            //Timber.d("emit1")
+            val fetchResult: ApiResponse<NetworkType> = fetch()
+
+            when (fetchResult) {
+                is ApiSuccessResponse -> {
+                    saveFetchResult(fetchResult.body)
+                    emit(Resource.Success(mapper.invoke(fetchResult.body)))
+                }
+                is ApiEmptyResponse -> {
+                    emit(
+                        Resource.Error(
+                            throwable = Throwable("Response is empty"),
+                            null
+                        )
                     )
-                )
-            }
-            is ApiErrorResponse -> {
-                emit(
-                    Resource.Error(
-                        throwable = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"),
-                        null
+                }
+                is ApiErrorResponse -> {
+                    emit(
+                        Resource.Error(
+                            throwable = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"),
+                            null
+                        )
                     )
-                )
+                }
             }
+        } catch (throwable: Throwable) {
+            //Timber.d("in here")
+            emit(Resource.Error(throwable, null))
         }
-    } catch (throwable: Throwable) {
-        //Timber.d("in here")
-        emit(Resource.Error(throwable, null))
+
+    }
+    else {
+        emit(Resource.Success(data))
     }
 }
