@@ -48,10 +48,6 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         Timber.d("trying")
         return networkBoundResource(
             query = {
-//                //dummy for now
-//                flow<List<BrandEntity>> {
-//                    emit(mutableListOf<BrandEntity>())
-//                }
                 appDatabase.brandDao().getBrands()
             },
             fetch = {
