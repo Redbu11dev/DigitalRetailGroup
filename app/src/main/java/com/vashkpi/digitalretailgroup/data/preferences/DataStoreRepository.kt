@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.vashkpi.digitalretailgroup.AppConstants
+import com.vashkpi.digitalretailgroup.data.models.domain.UserInfo
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.DATE_OF_BIRTH
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.FCM_TOKEN
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.GENDER
@@ -12,7 +13,6 @@ import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.Prefe
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.NAME
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.SURNAME
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.USER_ID
-import com.vashkpi.digitalretailgroup.data.models.domain.UserInfo
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import java.io.IOException

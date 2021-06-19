@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
+import com.vashkpi.digitalretailgroup.data.models.database.asDomainModel
 import com.vashkpi.digitalretailgroup.data.models.domain.Brand
 import com.vashkpi.digitalretailgroup.data.models.domain.BrandInfoRegion
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
@@ -63,7 +64,9 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
                             _website.value = data.website
                             _telephone.value = data.telephone
                             _timeOfWork.value = data.time_of_work
-                            _brandRegionsList.value = data.regions.toMutableList()
+                            _brandRegionsList.value = data.regions.map {
+                                it.asDomainModel()
+                            }.toMutableList()
 
                             postProgressViewVisibility(false)
 

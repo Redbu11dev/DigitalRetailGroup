@@ -1,6 +1,6 @@
-package com.vashkpi.digitalretailgroup.data.models.domain
+package com.vashkpi.digitalretailgroup.data.models.network.dto
 
-data class ConfirmCode(
+data class ConfirmCodeDto(
     val phone: String,
     val code: String,
     val device_id: String,

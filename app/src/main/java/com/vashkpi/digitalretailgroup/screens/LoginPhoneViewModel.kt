@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
-import com.vashkpi.digitalretailgroup.data.models.domain.RegisterPhone
+import com.vashkpi.digitalretailgroup.data.models.network.dto.RegisterPhoneDto
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
@@ -18,7 +18,7 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
 
     fun loginWithPhone(phoneRaw: String, phoneFormatted: String) {
         viewModelScope.launch {
-            apiRepository.registerPhone(RegisterPhone(phoneRaw)).collect {
+            apiRepository.registerPhone(RegisterPhoneDto(phoneRaw)).collect {
                 when (it) {
                     is Resource.Loading -> {
                         Timber.d("it's loading")

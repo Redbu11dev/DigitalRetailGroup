@@ -3,9 +3,9 @@ package com.vashkpi.digitalretailgroup.data.api
 import com.vashkpi.digitalretailgroup.data.models.network.GenericResponse
 import com.vashkpi.digitalretailgroup.data.models.network.BrandsResponse
 import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeResponse
-import com.vashkpi.digitalretailgroup.data.models.domain.Accounts
-import com.vashkpi.digitalretailgroup.data.models.domain.ConfirmCode
-import com.vashkpi.digitalretailgroup.data.models.domain.RegisterPhone
+import com.vashkpi.digitalretailgroup.data.models.network.dto.AccountsDto
+import com.vashkpi.digitalretailgroup.data.models.network.dto.ConfirmCodeDto
+import com.vashkpi.digitalretailgroup.data.models.network.dto.RegisterPhoneDto
 import com.vashkpi.digitalretailgroup.data.models.network.BrandInfoResponse
 import retrofit2.Response
 import retrofit2.http.*
@@ -18,17 +18,17 @@ interface ApiService {
 
     @POST("hs/bss/v1/register")
     suspend fun registerPhone(
-        @Body registerPhone: RegisterPhone
+        @Body registerPhoneDto: RegisterPhoneDto
     ): Response<GenericResponse>
 
     @POST("hs/bss/v1/confirm")
     suspend fun confirmCode(
-        @Body confirmCode: ConfirmCode
+        @Body confirmCodeDto: ConfirmCodeDto
     ): Response<ConfirmCodeResponse>
 
     @POST("hs/bss/v1/accounts")
     suspend fun saveProfileInfo(
-        @Body accounts: Accounts
+        @Body accountsDto: AccountsDto
     ): Response<GenericResponse>
 
     @GET("hs/bss/v1/brands")

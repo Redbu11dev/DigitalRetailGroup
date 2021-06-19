@@ -1,8 +1,11 @@
 package com.vashkpi.digitalretailgroup.data.api
 
-import com.vashkpi.digitalretailgroup.data.models.domain.*
 import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
+import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoEntity
 import com.vashkpi.digitalretailgroup.data.models.network.*
+import com.vashkpi.digitalretailgroup.data.models.network.dto.AccountsDto
+import com.vashkpi.digitalretailgroup.data.models.network.dto.ConfirmCodeDto
+import com.vashkpi.digitalretailgroup.data.models.network.dto.RegisterPhoneDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -10,29 +13,29 @@ import javax.inject.Inject
 
 class ApiRepository @Inject constructor(private val apiService: ApiService) {
 
-    suspend fun registerPhone(registerPhone: RegisterPhone): Flow<Resource<out GenericResponse?>> {
+    suspend fun registerPhone(registerPhoneDto: RegisterPhoneDto): Flow<Resource<out GenericResponse?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
-                ApiResponse.create(apiService.registerPhone(registerPhone))
+                ApiResponse.create(apiService.registerPhone(registerPhoneDto))
             }
         )
     }
 
-    suspend fun confirmCode(confirmCode: ConfirmCode): Flow<Resource<out ConfirmCodeResponse?>> {
+    suspend fun confirmCode(confirmCodeDto: ConfirmCodeDto): Flow<Resource<out ConfirmCodeResponse?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
-                ApiResponse.create(apiService.confirmCode(confirmCode))
+                ApiResponse.create(apiService.confirmCode(confirmCodeDto))
             }
         )
     }
 
-    suspend fun saveProfileInfo(accounts: Accounts): Flow<Resource<out GenericResponse?>> {
+    suspend fun saveProfileInfo(accountsDto: AccountsDto): Flow<Resource<out GenericResponse?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
-                ApiResponse.create(apiService.saveProfileInfo(accounts))
+                ApiResponse.create(apiService.saveProfileInfo(accountsDto))
             }
         )
     }
@@ -55,12 +58,12 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
         )
     }
 
-    suspend fun getBrandInfo(brandId: String): Flow<Resource<out BrandInfo?>> {
+    suspend fun getBrandInfo(brandId: String): Flow<Resource<BrandInfoEntity?>> {
         Timber.d("trying")
         return networkBoundResource(
             query = {
                 //dummy for now
-                flow<BrandInfo?> {
+                flow<BrandInfoEntity?> {
                     emit(null)
                 }
             },

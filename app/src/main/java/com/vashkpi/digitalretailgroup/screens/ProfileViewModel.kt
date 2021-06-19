@@ -4,11 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
+import com.vashkpi.digitalretailgroup.data.models.domain.*
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
-import com.vashkpi.digitalretailgroup.data.models.domain.UserInfo
-import com.vashkpi.digitalretailgroup.data.models.domain.convertGenderRadioGroupIdToString
-import com.vashkpi.digitalretailgroup.data.models.domain.convertGenderStringToRadioGroupId
-import com.vashkpi.digitalretailgroup.data.models.domain.Accounts
+import com.vashkpi.digitalretailgroup.data.models.network.dto.AccountsDto
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
@@ -99,7 +97,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
 
     fun saveProfileData(userInfo: UserInfo, isRegistration: Boolean) {
         viewModelScope.launch {
-            apiRepository.saveProfileInfo(Accounts(dataStoreRepository.userId, userInfo)).collect {
+            apiRepository.saveProfileInfo(AccountsDto(dataStoreRepository.userId, userInfo.asNetworkModel())).collect {
                 when (it) {
                     is Resource.Loading -> {
                         //TODO()

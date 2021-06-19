@@ -7,7 +7,7 @@ import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
-import com.vashkpi.digitalretailgroup.data.models.domain.ConfirmCode
+import com.vashkpi.digitalretailgroup.data.models.network.dto.ConfirmCodeDto
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
@@ -21,7 +21,7 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
 
     fun confirmCode(phone: String, code: String) {
         viewModelScope.launch {
-            apiRepository.confirmCode(ConfirmCode(phone, code, DrgApplication.DEVICE_ID, AppConstants.DEVICE_PLATFORM)).collect {
+            apiRepository.confirmCode(ConfirmCodeDto(phone, code, DrgApplication.DEVICE_ID, AppConstants.DEVICE_PLATFORM)).collect {
                 when (it) {
                     is Resource.Loading -> {
                         Timber.i("it's loading")

@@ -2,6 +2,17 @@ package com.vashkpi.digitalretailgroup.data.models.domain
 
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R
+import com.vashkpi.digitalretailgroup.data.models.network.dto.UserInfoDto
+
+fun UserInfo.asNetworkModel(): UserInfoDto {
+    return UserInfoDto(
+        name,
+        surname,
+        middle_name,
+        date_of_birth,
+        gender
+    )
+}
 
 data class UserInfo(
     val name: String,
