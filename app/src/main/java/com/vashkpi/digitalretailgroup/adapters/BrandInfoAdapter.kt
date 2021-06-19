@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.vashkpi.digitalretailgroup.data.models.response.BrandInfoRegion
+import com.vashkpi.digitalretailgroup.data.models.BrandInfoRegion
 import com.vashkpi.digitalretailgroup.databinding.ItemBradInfoRegionBinding
-import com.vashkpi.digitalretailgroup.databinding.ItemOptionBinding
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 
 class BrandInfoAdapter(

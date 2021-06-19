@@ -1,5 +1,7 @@
 package com.vashkpi.digitalretailgroup.data.models.response
 
+import com.vashkpi.digitalretailgroup.data.models.BrandInfoRegion
+
 data class BrandInfoResponse(
     val name: String,
     val website: String,

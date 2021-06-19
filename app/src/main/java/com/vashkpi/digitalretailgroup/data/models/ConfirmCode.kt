@@ -1,4 +1,4 @@
-package com.vashkpi.digitalretailgroup.data.models.outgoing
+package com.vashkpi.digitalretailgroup.data.models
 
 data class ConfirmCode(
     val phone: String,

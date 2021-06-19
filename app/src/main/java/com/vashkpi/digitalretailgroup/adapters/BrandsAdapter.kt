@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vashkpi.digitalretailgroup.R
-import com.vashkpi.digitalretailgroup.data.models.incoming.Brand
+import com.vashkpi.digitalretailgroup.data.models.Brand
 import com.vashkpi.digitalretailgroup.databinding.ItemBrandBinding
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 

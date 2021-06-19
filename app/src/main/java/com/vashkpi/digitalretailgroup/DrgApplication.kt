@@ -2,10 +2,8 @@ package com.vashkpi.digitalretailgroup
 
 import android.app.Application
 import android.provider.Settings
-import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
-import javax.inject.Inject
 
 //Icon conversion (55dp x 55dp)
 //dp	px	sp	mm	in	pt

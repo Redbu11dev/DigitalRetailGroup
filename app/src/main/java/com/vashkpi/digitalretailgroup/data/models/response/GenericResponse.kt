@@ -1,5 +1,5 @@
 package com.vashkpi.digitalretailgroup.data.models.response
 
-data class ApiGenericAnswer(
+data class GenericResponse(
     val message: String
 )

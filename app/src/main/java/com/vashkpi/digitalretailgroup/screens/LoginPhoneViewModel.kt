@@ -1,20 +1,14 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
-import com.vashkpi.digitalretailgroup.data.models.outgoing.RegisterPhone
+import com.vashkpi.digitalretailgroup.data.models.RegisterPhone
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
-import com.vashkpi.digitalretailgroup.utils.stringSuspending
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject

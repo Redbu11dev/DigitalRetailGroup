@@ -6,8 +6,8 @@ import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.AppConstants.DEFAULT_API_BASE_URL
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.ApiService
-import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
-import com.vashkpi.digitalretailgroup.data.local.dataStore
+import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
+import com.vashkpi.digitalretailgroup.data.preferences.dataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

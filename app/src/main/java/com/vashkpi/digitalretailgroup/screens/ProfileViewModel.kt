@@ -1,19 +1,17 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
-import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
-import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
-import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
-import com.vashkpi.digitalretailgroup.data.models.datastore.convertGenderRadioGroupIdToString
-import com.vashkpi.digitalretailgroup.data.models.datastore.convertGenderStringToRadioGroupId
-import com.vashkpi.digitalretailgroup.data.models.outgoing.Accounts
+import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
+import com.vashkpi.digitalretailgroup.data.models.UserInfo
+import com.vashkpi.digitalretailgroup.data.models.convertGenderRadioGroupIdToString
+import com.vashkpi.digitalretailgroup.data.models.convertGenderStringToRadioGroupId
+import com.vashkpi.digitalretailgroup.data.models.Accounts
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber

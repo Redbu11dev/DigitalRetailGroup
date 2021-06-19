@@ -6,14 +6,13 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.withStateAtLeast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.vashkpi.digitalretailgroup.R
-import com.vashkpi.digitalretailgroup.data.models.datastore.UserInfo
-import com.vashkpi.digitalretailgroup.data.models.datastore.convertGenderRadioGroupIdToString
+import com.vashkpi.digitalretailgroup.data.models.UserInfo
+import com.vashkpi.digitalretailgroup.data.models.convertGenderRadioGroupIdToString
 import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.screens.dialogs.SaveProfileDataDialogFragment

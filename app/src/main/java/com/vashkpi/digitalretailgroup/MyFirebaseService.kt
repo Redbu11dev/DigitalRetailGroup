@@ -2,9 +2,8 @@ package com.vashkpi.digitalretailgroup
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.vashkpi.digitalretailgroup.data.local.DataStoreRepository
+import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import javax.inject.Inject
 
