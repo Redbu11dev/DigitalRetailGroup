@@ -1,5 +1,6 @@
 package com.vashkpi.digitalretailgroup.data.api
 
+import com.vashkpi.digitalretailgroup.data.database.AppDatabase
 import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
 import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoEntity
 import com.vashkpi.digitalretailgroup.data.models.network.*
@@ -11,7 +12,7 @@ import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import javax.inject.Inject
 
-class ApiRepository @Inject constructor(private val apiService: ApiService) {
+class ApiRepository @Inject constructor(private val apiService: ApiService, private val appDatabase: AppDatabase) {
 
     suspend fun registerPhone(registerPhoneDto: RegisterPhoneDto): Flow<Resource<out GenericResponse?>> {
         Timber.d("trying")
@@ -47,18 +48,20 @@ class ApiRepository @Inject constructor(private val apiService: ApiService) {
         Timber.d("trying")
         return networkBoundResource(
             query = {
-                //dummy for now
-                flow<List<BrandEntity>> {
-                    emit(mutableListOf<BrandEntity>())
-                }
+//                //dummy for now
+//                flow<List<BrandEntity>> {
+//                    emit(mutableListOf<BrandEntity>())
+//                }
+                appDatabase.brandDao().getBrands()
             },
             fetch = {
                 ApiResponse.create(apiService.getBrands())
             },
             shouldFetch = {
-                true
+                it.isEmpty()
             },
             saveFetchResult = {
+                appDatabase.brandDao().insertBrands(it.asDatabaseModel())
 
             },
             mapper = {

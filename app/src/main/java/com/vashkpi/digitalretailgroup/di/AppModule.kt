@@ -1,11 +1,14 @@
 package com.vashkpi.digitalretailgroup.di
 
+import android.app.Application
 import android.content.Context
+import androidx.room.Room
 import com.google.gson.Gson
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.AppConstants.DEFAULT_API_BASE_URL
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.ApiService
+import com.vashkpi.digitalretailgroup.data.database.AppDatabase
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.data.preferences.dataStore
 import dagger.Module
@@ -83,9 +86,22 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideApiRepository(apiService: ApiService): ApiRepository {
-        return ApiRepository(apiService)
+    fun provideApiRepository(apiService: ApiService, appDatabase: AppDatabase): ApiRepository {
+        return ApiRepository(apiService, appDatabase)
     }
+
+    @Singleton
+    @Provides
+    fun provideDataStore(@ApplicationContext context: Context): DataStoreRepository {
+        return DataStoreRepository(context.dataStore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
+        Room.databaseBuilder(context, AppDatabase::class.java, "drg_database")
+            .fallbackToDestructiveMigration()
+            .build()
 
 //    @Singleton
 //    @Provides
@@ -99,15 +115,9 @@ object AppModule {
 //        return PreferencesRepository(sharedPreferences, gson)
 //    }
 
-    @Provides
-    fun provideGson(): Gson {
-        return Gson()
-    }
-
-    @Singleton
-    @Provides
-    fun provideDataStore(@ApplicationContext context: Context): DataStoreRepository {
-        return DataStoreRepository(context.dataStore)
-    }
+//    @Provides
+//    fun provideGson(): Gson {
+//        return Gson()
+//    }
 
 }
