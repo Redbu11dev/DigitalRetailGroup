@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <layer-list>
-            <item android:drawable="@drawable/img_icon_background_active" android:gravity="center"/>
+            <item android:drawable="@drawable/img_icon_background_pressed" android:gravity="center"/>
             <item android:drawable="@drawable/ic_female" android:gravity="center"
                 android:top="16dp"
                 android:bottom="16dp"
@@ -14,7 +14,7 @@
 
     <item>
         <layer-list>
-            <item android:drawable="@drawable/img_icon_background" android:gravity="center"/>
+            <item android:drawable="@drawable/img_icon_background_normal" android:gravity="center"/>
             <item android:drawable="@drawable/ic_female" android:gravity="center"
                 android:top="16dp"
                 android:bottom="16dp"

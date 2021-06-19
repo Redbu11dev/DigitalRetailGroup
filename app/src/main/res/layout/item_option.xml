@@ -12,7 +12,7 @@
         android:id="@+id/icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@drawable/img_icon_background"
+        android:background="@drawable/img_icon_background_normal"
         app:srcCompat="@drawable/ic_save"
         android:padding="12dp"
         android:layout_centerVertical="true"
