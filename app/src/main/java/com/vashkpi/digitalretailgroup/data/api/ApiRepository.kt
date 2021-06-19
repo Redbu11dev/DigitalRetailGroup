@@ -43,10 +43,11 @@ class ApiRepository @Inject constructor(private val  apiService: ApiService) {
         )
     }
 
-    suspend fun getBrands(): Flow<Resource<out ArrayList<Brand>?>> {
+    suspend fun getBrands(): Flow<Resource<ArrayList<Brand>?>> {
         Timber.d("trying")
         return networkBoundResource(
             query = {
+                //dummy for now
                 flow<ArrayList<Brand>> {
                     emit(ArrayList<Brand>())
                 }
