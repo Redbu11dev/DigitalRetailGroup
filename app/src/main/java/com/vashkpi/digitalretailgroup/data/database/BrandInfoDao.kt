@@ -13,8 +13,8 @@ interface BrandInfoDao {
     @Query("SELECT * FROM brand_info WHERE brand_id = :brand_id")
     fun getOne(brand_id: String): Flow<BrandInfoEntityFull>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertBrandInfoEntity(item: BrandInfoEntity, items: List<BrandInfoRegionEntity>)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insertBrandInfoEntity(entity: BrandInfoEntity, regions: List<BrandInfoRegionEntity>)
 
 //    @Insert(onConflict = OnConflictStrategy.REPLACE)
 //    suspend fun insertBrandInfoRegionEntities()

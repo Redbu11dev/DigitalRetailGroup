@@ -18,11 +18,6 @@ fun BrandInfoEntityFull.asDomainModel(): BrandInfo {
 }
 
 data class BrandInfoEntityFull(
-//    val name: String,
-//    val website: String,
-//    val telephone: String,
-//    val time_of_work: String,
-//    val regions: List<BrandInfoRegionEntity>
     @Embedded val brandInfoEntity: BrandInfoEntity,
     @Relation(
         parentColumn = "brand_id",

@@ -83,7 +83,6 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                 it == null
             },
             saveFetchResult = {
-                //appDatabase.brandInfoDao().insertOne(it.asDatabaseModel())
                 appDatabase.brandInfoDao().insertBrandInfoEntity(
                     it.asDatabaseModel(brandId).brandInfoEntity,
                     it.asDatabaseModel(brandId).regions
