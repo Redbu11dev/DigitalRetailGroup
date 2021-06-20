@@ -15,5 +15,5 @@ interface NotificationDao {
     fun getAll(): Flow<List<NotificationEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOne(brands: List<NotificationEntity>)
+    suspend fun insertMany(brands: List<NotificationEntity>)
 }

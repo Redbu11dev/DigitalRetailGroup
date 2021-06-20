@@ -9,7 +9,6 @@ import com.vashkpi.digitalretailgroup.data.models.network.AccountsDto
 import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeDto
 import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -58,7 +57,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                 it.isEmpty()
             },
             saveFetchResult = {
-                appDatabase.brandDao().insertOne(it.elements.map {
+                appDatabase.brandDao().insertMany(it.elements.map {
                     it.asDatabaseModel()
                 })
 
@@ -75,19 +74,16 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         Timber.d("trying")
         return networkBoundResource(
             query = {
-                //dummy for now
-                flow<BrandInfoEntity?> {
-                    emit(null)
-                }
+                appDatabase.brandInfoDao().getOne()
             },
             fetch = {
                 ApiResponse.create(apiService.getBrandInfo(brandId))
             },
             shouldFetch = {
-                true
+                it == null
             },
             saveFetchResult = {
-
+                appDatabase.brandInfoDao().insertOne(it.asDatabaseModel())
             },
             mapper = {
                 it.asDatabaseModel()
@@ -108,7 +104,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                 it.isEmpty()
             },
             saveFetchResult = {
-                appDatabase.notificationDao().insertOne(it.notifications.map {
+                appDatabase.notificationDao().insertMany(it.notifications.map {
                     it.asDatabaseModel()
                 })
             },

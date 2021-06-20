@@ -5,14 +5,15 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
+import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface BrandDao {
+interface BrandInfoDao {
 
-    @Query("SELECT * FROM brands")
-    fun getAll(): Flow<List<BrandEntity>>
+    @Query("SELECT * FROM brand_info")
+    fun getOne(): Flow<BrandInfoEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMany(items: List<BrandEntity>)
+    suspend fun insertOne(item: BrandInfoEntity)
 }
