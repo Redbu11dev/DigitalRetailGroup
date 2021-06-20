@@ -1,22 +1,21 @@
 package com.vashkpi.digitalretailgroup.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
 import com.vashkpi.digitalretailgroup.R
+import com.vashkpi.digitalretailgroup.data.models.domain.Notification
 import com.vashkpi.digitalretailgroup.databinding.ItemNotificationBinding
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 
 class NotificationsAdapter(
-    private val clickListener: (View, String) -> Unit
+    private val clickListener: (View, Notification) -> Unit
 ) : RecyclerSwipeAdapter<NotificationsViewHolder>() {
 
-    private val list = ArrayList<String>()
+    private val list = ArrayList<Notification>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -34,7 +33,6 @@ class NotificationsAdapter(
     }
 
     override fun getSwipeLayoutResourceId(position: Int): Int {
-        //TODO("Not yet implemented")
         return R.id.swipe
     }
 
@@ -42,9 +40,9 @@ class NotificationsAdapter(
         holder.bind(list[position], clickListener)
     }
 
-    fun setList(phrases: List<String>) {
+    fun setList(items: List<Notification>) {
         list.clear()
-        list.addAll(phrases)
+        list.addAll(items)
         //clubsList.reverse()
     }
 
@@ -53,35 +51,36 @@ class NotificationsAdapter(
 class NotificationsViewHolder(val binding: ItemNotificationBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(data: String, clickListener: (view: View, String) -> Unit) {
+    fun bind(data: Notification, clickListener: (view: View, Notification) -> Unit) {
+
+        binding.title.text = data.title
+        binding.text.text = data.text
+        binding.date.text = data.date
 
         binding.swipe.showMode = SwipeLayout.ShowMode.LayDown
         binding.swipe.addSwipeListener(object: SwipeLayout.SwipeListener{
             override fun onStartOpen(layout: SwipeLayout?) {
-                //TODO("Not yet implemented")
                 binding.visiblePart.isClickable = false
             }
 
             override fun onOpen(layout: SwipeLayout?) {
-                //TODO("Not yet implemented")
+
             }
 
             override fun onStartClose(layout: SwipeLayout?) {
-                //TODO("Not yet implemented")
+
             }
 
             override fun onClose(layout: SwipeLayout?) {
-                //TODO("Not yet implemented")
+
             }
 
             override fun onUpdate(layout: SwipeLayout?, leftOffset: Int, topOffset: Int) {
                 //mLeftOffset = leftOffset
                 println("left offset: $leftOffset")
-                //TODO("Not yet implemented")
             }
 
             override fun onHandRelease(layout: SwipeLayout?, xvel: Float, yvel: Float) {
-                //TODO("Not yet implemented")
                 binding.visiblePart.isClickable = true
             }
 

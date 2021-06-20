@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -16,11 +17,14 @@ import com.vashkpi.digitalretailgroup.adapters.helpers.SwipeToDeleteCallback
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, NotificationsViewModel>(FragmentNotificationsBinding::inflate) {
 
     override val viewModel: NotificationsViewModel by viewModels()
+
+    lateinit var adapter: NotificationsAdapter
 
     override fun setUpViews() {
         super.setUpViews()
@@ -29,14 +33,36 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
         val navController = findNavController()
         toolbar.setupWithNavController(navController)
 
-        val adapter = NotificationsAdapter { view, data ->
+        adapter = NotificationsAdapter { view, data ->
             findNavController().navigate(NotificationsFragmentDirections.actionNotificationsFragmentToViewNotificationFragment())
         }
 
         binding.notificationsList.adapter = adapter
-        (binding.notificationsList.adapter as NotificationsAdapter).setMode(Attributes.Mode.Single)
-        adapter.setList(arrayListOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"))
-        adapter.notifyDataSetChanged()
+        (binding.notificationsList.adapter as NotificationsAdapter).mode = Attributes.Mode.Single
+
+        viewModel.obtainNotifications()
+    }
+
+    override fun observeViewModel() {
+        super.observeViewModel()
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.notificationsList.collect {
+                adapter.setList(it)
+                adapter.notifyDataSetChanged()
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.emptyContainerVisible.collect {
+                if (it) {
+                    binding.emptyContainer.visibility = View.VISIBLE
+                }
+                else {
+                    binding.emptyContainer.visibility = View.GONE
+                }
+            }
+        }
     }
 
 }

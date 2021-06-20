@@ -2,7 +2,18 @@ package com.vashkpi.digitalretailgroup.data.models.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.vashkpi.digitalretailgroup.data.models.domain.Brand
+import com.vashkpi.digitalretailgroup.data.models.domain.Notification
 
+fun NotificationEntity.asDomainModel(): Notification {
+    return Notification(
+        notification_id,
+        date,
+        title,
+        text,
+        read
+    )
+}
 
 @Entity(tableName = "notifications")
 data class NotificationEntity (
