@@ -1,19 +1,25 @@
 package com.vashkpi.digitalretailgroup.data.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
+import androidx.room.*
 import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoEntity
+import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoEntityFull
+import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoRegionEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BrandInfoDao {
 
-    @Query("SELECT * FROM brand_info")
-    fun getOne(): Flow<BrandInfoEntity>
+    @Transaction
+    @Query("SELECT * FROM brand_info WHERE brand_id = :brand_id")
+    fun getOne(brand_id: String): Flow<BrandInfoEntityFull>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOne(item: BrandInfoEntity)
+    suspend fun insertBrandInfoEntity(item: BrandInfoEntity, items: List<BrandInfoRegionEntity>)
+
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insertBrandInfoRegionEntities()
+
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insertOne(item: BrandInfoEntity)
+
 }

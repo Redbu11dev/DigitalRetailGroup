@@ -1,19 +1,26 @@
 package com.vashkpi.digitalretailgroup.data.models.network
 
 import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoEntity
+import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoEntityFull
 import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoRegionEntity
 
-fun BrandInfoResponseDto.asDatabaseModel(): BrandInfoEntity {
-    return BrandInfoEntity(
-        name,
-        website,
-        telephone,
-        time_of_work,
-        regions.map {
+fun BrandInfoResponseDto.asDatabaseModel(brand_id: String): BrandInfoEntityFull {
+    return BrandInfoEntityFull(
+        BrandInfoEntity(
+            brand_id,//custom
+
+            name,
+            website,
+            telephone,
+            time_of_work
+        ),
+        regions.map { regionDto ->
             BrandInfoRegionEntity(
-                it.name,
-                it.region_id,
-                it.order,
+                brand_id,//custom
+
+                regionDto.name,
+                regionDto.region_id,
+                regionDto.order,
             )
         }
     )

@@ -2,12 +2,10 @@ package com.vashkpi.digitalretailgroup.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
-import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoEntity
-import com.vashkpi.digitalretailgroup.data.models.database.NotificationEntity
+import com.vashkpi.digitalretailgroup.data.models.database.*
 
 @Database(
-    entities = [BrandEntity::class, BrandInfoEntity::class, NotificationEntity::class],
+    entities = [BrandEntity::class, BrandInfoEntity::class, BrandInfoRegionEntity::class, NotificationEntity::class],
     version = 1
 )
 abstract class AppDatabase: RoomDatabase() {

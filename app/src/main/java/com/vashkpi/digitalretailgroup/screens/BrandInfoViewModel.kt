@@ -60,13 +60,13 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
 
-                            _name.value = data.name
-                            _website.value = data.website
-                            _telephone.value = data.telephone
-                            _timeOfWork.value = data.time_of_work
-                            _brandRegionsList.value = data.regions.map {
-                                it.asDomainModel()
-                            }.toMutableList()
+                            val domainModel = data.asDomainModel()
+
+                            _name.value = domainModel.name
+                            _website.value = domainModel.website
+                            _telephone.value = domainModel.telephone
+                            _timeOfWork.value = domainModel.time_of_work
+                            _brandRegionsList.value = domainModel.regions.toMutableList()
 
                             postProgressViewVisibility(false)
 

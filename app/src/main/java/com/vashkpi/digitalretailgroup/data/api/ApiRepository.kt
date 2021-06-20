@@ -1,14 +1,13 @@
 package com.vashkpi.digitalretailgroup.data.api
 
 import com.vashkpi.digitalretailgroup.data.database.AppDatabase
-import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
-import com.vashkpi.digitalretailgroup.data.models.database.BrandInfoEntity
-import com.vashkpi.digitalretailgroup.data.models.database.NotificationEntity
+import com.vashkpi.digitalretailgroup.data.models.database.*
 import com.vashkpi.digitalretailgroup.data.models.network.*
 import com.vashkpi.digitalretailgroup.data.models.network.AccountsDto
 import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeDto
 import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -70,11 +69,12 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun getBrandInfo(brandId: String): Flow<Resource<BrandInfoEntity?>> {
+    suspend fun getBrandInfo(brandId: String): Flow<Resource<BrandInfoEntityFull?>> {
         Timber.d("trying")
         return networkBoundResource(
             query = {
-                appDatabase.brandInfoDao().getOne()
+                    //flowOf<BrandInfoEntityFull?>(null)
+                appDatabase.brandInfoDao().getOne(brandId)
             },
             fetch = {
                 ApiResponse.create(apiService.getBrandInfo(brandId))
@@ -83,10 +83,14 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                 it == null
             },
             saveFetchResult = {
-                appDatabase.brandInfoDao().insertOne(it.asDatabaseModel())
+                //appDatabase.brandInfoDao().insertOne(it.asDatabaseModel())
+                appDatabase.brandInfoDao().insertBrandInfoEntity(
+                    it.asDatabaseModel(brandId).brandInfoEntity,
+                    it.asDatabaseModel(brandId).regions
+                )
             },
             mapper = {
-                it.asDatabaseModel()
+                it.asDatabaseModel(brandId)
             }
         )
     }
