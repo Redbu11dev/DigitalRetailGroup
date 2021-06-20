@@ -53,10 +53,12 @@ fun BrandInfoRegionEntity.asDomainModel(): BrandInfoRegion {
 //)])
 @Entity(tableName = "brand_info_region")
 data class BrandInfoRegionEntity(
-    val brand_id: String,//custom
+    @PrimaryKey(autoGenerate = true)
+    val entity_id: Long = 0,//since it has no primary key in dto
+
+    val brand_id: String,//custom (for relations)
 
     val name: String,
-    @PrimaryKey
     val region_id: String,
     val order: Int
 )
