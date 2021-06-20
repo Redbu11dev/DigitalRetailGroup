@@ -16,7 +16,7 @@ fun BrandInfoResponseDto.asDatabaseModel(brand_id: String): BrandInfoEntityFull 
         ),
         regions.map { regionDto ->
             BrandInfoRegionEntity(
-                0,
+                0,//custom
 
                 brand_id,//custom
 
