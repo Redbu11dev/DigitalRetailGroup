@@ -1,12 +1,6 @@
 package com.vashkpi.digitalretailgroup.data.api
 
-import com.vashkpi.digitalretailgroup.data.models.network.GenericResponseDto
-import com.vashkpi.digitalretailgroup.data.models.network.BrandsResponseDto
-import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeResponseDto
-import com.vashkpi.digitalretailgroup.data.models.network.AccountsDto
-import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeDto
-import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
-import com.vashkpi.digitalretailgroup.data.models.network.BrandInfoResponseDto
+import com.vashkpi.digitalretailgroup.data.models.network.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -40,4 +34,10 @@ interface ApiService {
         //@Header("brand_id") brandIdHeader: String,
         @Path(value = "brand_id") brandId: String
     ): Response<BrandInfoResponseDto>
+
+    @GET("hs/bss/v1/notifications")
+    suspend fun getNotifications(
+        @Header("user_id") userId: String,
+        @Header("page") page: Int
+    ): Response<NotificationsResponseDto>
 }
