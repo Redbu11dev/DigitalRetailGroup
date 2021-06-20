@@ -10,32 +10,43 @@ interface ApiService {
 //        @Body registerPhone: RegisterPhone
 //    ): Response<JsonElement>
 
-    @POST("hs/bss/v1/register")
+    @POST("register")
     suspend fun registerPhone(
         @Body registerPhoneDto: RegisterPhoneDto
     ): Response<GenericResponseDto>
 
-    @POST("hs/bss/v1/confirm")
+    @POST("confirm")
     suspend fun confirmCode(
         @Body confirmCodeDto: ConfirmCodeDto
     ): Response<ConfirmCodeResponseDto>
 
-    @POST("hs/bss/v1/accounts")
+    @POST("accounts")
     suspend fun saveProfileInfo(
         @Body accountsDto: AccountsDto
     ): Response<GenericResponseDto>
 
-    @GET("hs/bss/v1/brands")
+    @GET("brands")
     suspend fun getBrands(
     ): Response<BrandsResponseDto>
 
-    @GET("hs/bss/v1/brands/{brand_id}")
+    @GET("brands/{brand_id}")
     suspend fun getBrandInfo(
         //@Header("brand_id") brandIdHeader: String,
         @Path(value = "brand_id") brandId: String
     ): Response<BrandInfoResponseDto>
 
-    @GET("hs/bss/v1/notifications")
+    @GET("stores")
+    suspend fun getRegionStores(
+        @Header("brand_id") brandId: String,
+        @Header("region_id") regionId: String
+    ): Response<StoresResponseDto>
+
+    @GET("stores/{store_id}")
+    suspend fun getRegionStoreInfo(
+        @Path("store_id") storeId: String
+    ): Response<StoreInfoResponseDto>
+
+    @GET("notifications")
     suspend fun getNotifications(
         @Header("user_id") userId: String,
         @Header("page") page: Int

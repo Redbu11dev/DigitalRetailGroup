@@ -94,6 +94,32 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
+    suspend fun getRegionStores(brandId: String, regionId: String): Flow<Resource<List<StoreEntity>>> {
+        Timber.d("trying")
+        return networkBoundResource(
+            query = {
+                appDatabase.storeDao().getAll(brandId, regionId)
+            },
+            fetch = {
+                ApiResponse.create(apiService.getRegionStores(brandId, regionId))
+            },
+            shouldFetch = {
+                it.isEmpty()
+            },
+            saveFetchResult = {
+                appDatabase.storeDao().insertMany(it.elements.map {
+                    it.asDatabaseModel(brandId, regionId)
+                })
+
+            },
+            mapper = {
+                it.elements.map {
+                    it.asDatabaseModel(brandId, regionId)
+                }
+            }
+        )
+    }
+
     suspend fun getNotifications(userId: String, page: Int): Flow<Resource<List<NotificationEntity>>> {
         Timber.d("trying")
         return networkBoundResource(

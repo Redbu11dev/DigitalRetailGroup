@@ -15,7 +15,7 @@ object AppConstants {
     //API
     //const val DEFAULT_API_BASE_URL = "http://192.168.88.66:8080/sbs/"
 //    const val DEFAULT_API_BASE_URL = "http://109.226.211.209:59301/sbs/"
-    const val DEFAULT_API_BASE_URL = "http://cp.vashkpi.ru:59301/sbs/"
+    const val DEFAULT_API_BASE_URL = "http://cp.vashkpi.ru:59301/sbs/hs/bss/v1/"
 
     //const val DEFAULT_API_BASE_URL = "http://akpoker.vashkpi.ru/sbs/"
 
