@@ -56,8 +56,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
         binding.item2.root.changeAlphaOnTouch()
 
         binding.item1.root.setOnClickListener {
-            viewModel.obtainBrands()
+
         }
+
+        viewModel.obtainBrands()
     }
 
     override fun observeViewModel() {
