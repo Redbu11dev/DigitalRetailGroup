@@ -23,6 +23,7 @@ import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(FragmentBarcodeBinding::inflate) {
@@ -66,21 +67,19 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
             viewModel.getNewCode()
         }
 
-        displayBitmap(binding.barcodeImage, "bullshit")
-
         viewModel.getBalance()
 
     }
 
     private fun displayBitmap(imageView: ImageView, value: String) {
-        val widthPixels = (imageView.width * 0.8f).toInt()
-        val heightPixels = 400
+        val widthPixels = (resources.displayMetrics.widthPixels * 0.9f).toInt()
+        val heightPixels = (widthPixels * 0.4f).toInt()
 
         imageView.setImageBitmap(
             createBarcodeBitmap(
                 barcodeValue = value,
-                barcodeColor = Color.YELLOW,
-                backgroundColor = Color.WHITE,
+                barcodeColor = getColor(requireContext(), R.color.one_layer_end),
+                backgroundColor = getColor(requireContext(), R.color.white),
                 widthPixels = widthPixels,
                 heightPixels = heightPixels
             )
@@ -129,6 +128,12 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
 
     override fun observeViewModel() {
         super.observeViewModel()
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.barcodeValue.collect {
+                displayBitmap(binding.barcodeImage, it)
+            }
+        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.balance.collect {
