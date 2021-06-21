@@ -6,6 +6,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
@@ -35,7 +36,27 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         val toolbar = binding.customToolbar.toolbar
 
         val navController = findNavController()
+
         toolbar.setupWithNavController(navController)
+        //NavigationUI.setupWithNavController(toolbar, navController, AppBarConfiguration(navController.graph))
+
+//        val configuration = AppBarConfiguration(navController.graph)
+//        navController.addOnDestinationChangedListener(
+//            //ToolbarOnDestinationChangedListener(toolbar, configuration)
+//            NavController.OnDestinationChangedListener { controller, destination, arguments ->  }
+//        )
+////        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+////
+////        }
+//        toolbar.setNavigationOnClickListener {
+//            NavigationUI.navigateUp(
+//                navController,
+//                configuration
+//            )
+//        }
+
+        //toolbar.nav
+
         //toolbar.setNavigationIcon(R.drawable.ic_bell)
         //toolbar.nav
 
