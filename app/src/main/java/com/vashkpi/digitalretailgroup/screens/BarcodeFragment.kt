@@ -103,17 +103,30 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.code.collect {
                 binding.code.text = it.toString()
+
+                if (it == 0) {
+                    binding.code.visibility = View.GONE
+                    binding.codeDescription.visibility = View.GONE
+                }
+                else {
+                    binding.code.visibility = View.VISIBLE
+                    binding.codeDescription.visibility = View.VISIBLE
+                }
             }
+        }
+
+        val outputDateFormat = SimpleDateFormat("mm:ss", Locale.getDefault()).apply {
+            timeZone = TimeZone.getTimeZone("UTC")
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.countDown.collect {
-                //val minutes = TimeUnit.MILLISECONDS.toMinutes(it)
-                val outputDateFormat = SimpleDateFormat("mm:ss", Locale.getDefault()).apply {
-                    timeZone = TimeZone.getTimeZone("UTC")
-                }
+                binding.codeTimerTime.text = outputDateFormat.format(it)
 
-                binding.codeTimerTime.text = "${outputDateFormat.format(it)}"
+//                val minutes = TimeUnit.MILLISECONDS.toMinutes(it)
+//                val seconds = TimeUnit.MILLISECONDS.toSeconds(it)-minutes
+//
+//                binding.codeTimerTime.text = "$minutes:$seconds"
             }
         }
 

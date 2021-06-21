@@ -24,31 +24,47 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
     private val _code = MutableStateFlow(0)
     val code: StateFlow<Int> get() = _code
 
-    private val _newCodeObtainedAtDateMillis = MutableStateFlow(0L)
-    val newCodeObtainedAtDateMillis: StateFlow<Long> get() = _newCodeObtainedAtDateMillis
+    private val newCodeWaitTime: Long = 10000L//TimeUnit.MINUTES.toMillis(1)
+    private var newCodeObtainedAtDateMillis: Long = 0
 
     val countDown: Flow<Long> get() = flow {
         delay(1000)
         while (true) {
-//            val minuteInMillis = TimeUnit.MINUTES.toMillis(1)
-//            val differenceMillis = minuteInMillis - (System.currentTimeMillis() - _newCodeObtainedAtDateMillis.value)
-//
-//            val result = if (differenceMillis <= minuteInMillis) {
-//                if (differenceMillis > - 0) {
-//                    differenceMillis
-//                }
-//                else {
-//                    TimeUnit.MINUTES.toMillis(0)
-//                }
-//            }
-//            else {
-//                minuteInMillis
-//            }
+            val difference = System.currentTimeMillis() - newCodeObtainedAtDateMillis
 
-            val result = TimeUnit.MINUTES.toMillis(1) - (System.currentTimeMillis() - _newCodeObtainedAtDateMillis.value)
+            val result = when {
+                (difference >= newCodeWaitTime) -> {
+                    //time is up
+                    if (_viewState.value == ViewState.NEW_CODE_MUST_WAIT) {
+                        _viewState.value = ViewState.NEW_CODE_AVAILABLE
+                    }
+                    0L
+                }
+                else -> {
+                    //less than a minute left
+                    newCodeWaitTime - difference
+                }
+            }
 
             emit(result)
             delay(1000)
+        }
+    }
+
+    fun refreshViewState() {
+        when (_balance.value) {
+            0 -> {
+                _viewState.value = ViewState.ZERO_BALANCE
+                //_viewState.value = ViewState.NEW_CODE_AVAILABLE
+            }
+            else -> {
+                if (newCodeObtainedAtDateMillis < (System.currentTimeMillis() - newCodeWaitTime )) {
+                    _viewState.value = ViewState.NEW_CODE_AVAILABLE
+                }
+                else {
+                    _viewState.value = ViewState.NEW_CODE_MUST_WAIT
+                }
+            }
         }
     }
 
@@ -93,23 +109,6 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
         }
     }
 
-    fun refreshViewState() {
-        when (_balance.value) {
-            0 -> {
-                _viewState.value = ViewState.ZERO_BALANCE
-                //_viewState.value = ViewState.NEW_CODE_AVAILABLE
-            }
-            else -> {
-                if (_newCodeObtainedAtDateMillis.value < (System.currentTimeMillis() - TimeUnit.MINUTES.toMillis(1) )) {
-                    _viewState.value = ViewState.NEW_CODE_AVAILABLE
-                }
-                else {
-                    _viewState.value = ViewState.NEW_CODE_MUST_WAIT
-                }
-            }
-        }
-    }
-
     fun getNewCode() {
         viewModelScope.launch {
             apiRepository.getCode(dataStoreRepository.userId).collect {
@@ -135,7 +134,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                             val code = data.code
                             _code.value = code
 
-                            _newCodeObtainedAtDateMillis.value = System.currentTimeMillis()
+                            newCodeObtainedAtDateMillis = System.currentTimeMillis()
                             refreshViewState()
 
                             postProgressViewVisibility(false)
