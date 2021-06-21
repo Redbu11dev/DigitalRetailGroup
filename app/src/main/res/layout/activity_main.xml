@@ -42,6 +42,7 @@
 
         app:itemBackground="@drawable/bgr_navbar_item"
         app:itemIconTint="@color/selector_color_nav_view_icon_tint"
+
         />
 
 <!--    app:itemBackground="@drawable/selector_bgr_navbar_item"-->

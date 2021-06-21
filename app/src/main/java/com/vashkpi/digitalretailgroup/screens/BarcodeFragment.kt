@@ -48,5 +48,17 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
             viewModel.getPromotionRules()
         }
 
+        viewModel.getBalance()
+
+    }
+
+    override fun observeViewModel() {
+        super.observeViewModel()
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.balance.collect {
+                binding.balanceAmount.text = it.toString()
+            }
+        }
     }
 }

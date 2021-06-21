@@ -9,7 +9,8 @@
         android:id="@+id/navigation_barcode"
         android:name="com.vashkpi.digitalretailgroup.screens.BarcodeFragment"
         android:label="@string/title_barcode"
-        tools:layout="@layout/fragment_barcode" >
+        tools:layout="@layout/fragment_barcode"
+        >
         <action
             android:id="@+id/action_navigation_barcode_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />

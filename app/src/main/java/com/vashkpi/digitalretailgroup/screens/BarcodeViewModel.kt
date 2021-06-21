@@ -8,6 +8,8 @@ import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -15,6 +17,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BarcodeViewModel @Inject constructor(private val apiRepository: ApiRepository, private val dataStoreRepository: DataStoreRepository): BaseViewModel() {
+
+    private val _balance = MutableStateFlow(0)
+    val balance: StateFlow<Int> get() = _balance
 
     fun getPromotionRules() {
         viewModelScope.launch {
@@ -39,6 +44,42 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                             Timber.i("here is the data: $data")
 
                             postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToDetailsFragment(R.string.barcode_offer_rules, data.rule_text))
+
+                            postProgressViewVisibility(false)
+
+                            this@launch.cancel()
+                        } ?: kotlin.run {
+                            this@launch.cancel()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun getBalance() {
+        viewModelScope.launch {
+            apiRepository.getBalance(dataStoreRepository.userId).collect {
+                when (it) {
+                    is Resource.Loading -> {
+                        Timber.i("it's loading")
+                        postProgressViewVisibility(true)
+                    }
+                    is Resource.Error -> {
+                        this@launch.cancel()
+                        val message = it.error?.message
+                        Timber.i("it's error: ${message}")
+                        //it.error.
+                        postProgressViewVisibility(false)
+                        postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                    }
+                    is Resource.Success -> {
+                        Timber.i("it's success")
+                        //check if empty?!
+                        it.data?.let { data ->
+                            Timber.i("here is the data: $data")
+
+                            _balance.value = data.balance
 
                             postProgressViewVisibility(false)
 

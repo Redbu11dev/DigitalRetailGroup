@@ -1,5 +1,6 @@
 package com.vashkpi.digitalretailgroup.screens
 
+import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
@@ -64,6 +65,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
         binding.item2.text.setText(R.string.main_how_to_spend_points)
 
         viewModel.obtainBrands()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        //viewModel.obtainBrands()
     }
 
     override fun observeViewModel() {
