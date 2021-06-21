@@ -42,6 +42,9 @@ class MainActivity : AppCompatActivity() {
         //toolbar.setupWithNavController(navController, appBarConfiguration)
 
         navView.setupWithNavController(navController)
+
+//        R.animator.nav_default_pop_enter_anim
+//        R.animator.nav_default_pop_exit_anim
     }
 
     /**
