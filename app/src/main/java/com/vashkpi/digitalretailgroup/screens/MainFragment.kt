@@ -49,15 +49,19 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
 
         binding.partnersList.adapter = adapter
 
-//        adapter.setList(arrayListOf("1", "2", "3", "4", "5"))
-//        adapter.notifyDataSetChanged()
-
         binding.item1.root.changeAlphaOnTouch()
-        binding.item2.root.changeAlphaOnTouch()
-
         binding.item1.root.setOnClickListener {
 
         }
+        binding.item1.icon.setImageResource(R.drawable.ic_save)
+        binding.item1.text.setText(R.string.main_how_to_save_points)
+
+        binding.item2.root.changeAlphaOnTouch()
+        binding.item2.root.setOnClickListener {
+
+        }
+        binding.item2.icon.setImageResource(R.drawable.ic_spend)
+        binding.item2.text.setText(R.string.main_how_to_spend_points)
 
         viewModel.obtainBrands()
     }

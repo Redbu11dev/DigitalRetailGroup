@@ -32,6 +32,8 @@
 
     <!--    Main-->
     <string name="main_description">Бренды-партнёры, в чьих магазинах вы можете использвать баллы при оплате.</string>
+    <string name="main_how_to_save_points">Как копить баллы</string>
+    <string name="main_how_to_spend_points">Как тратить баллы</string>
 
     <!--    Barcode-->
     <string name="barcode_balance_title">Ваш баланс</string>

@@ -25,31 +25,16 @@
     <include
         android:id="@+id/item1"
         layout="@layout/item_option"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/item_option_height"
         android:layout_width="match_parent" />
-
-    <View
-        android:id="@+id/divider1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#1C2722"
-        android:layout_below="@id/item1"
         />
 
     <include
         android:id="@+id/item2"
         layout="@layout/item_option"
-        android:layout_below="@id/divider1"
-        android:layout_height="60dp"
+        android:layout_below="@id/item1"
+        android:layout_height="@dimen/item_option_height"
         android:layout_width="match_parent"
-        />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#1C2722"
-        android:layout_below="@id/item2"
         />
 
     <com.google.android.material.textview.MaterialTextView
@@ -57,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/main_description"
-        android:layout_below="@+id/divider2"
+        android:layout_below="@+id/item2"
         android:layout_marginTop="12dp"
 
         android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Secondary"
