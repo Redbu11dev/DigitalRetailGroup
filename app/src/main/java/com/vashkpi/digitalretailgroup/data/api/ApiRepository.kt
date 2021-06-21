@@ -7,7 +7,6 @@ import com.vashkpi.digitalretailgroup.data.models.network.AccountsDto
 import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeDto
 import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -38,6 +37,36 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.saveProfileInfo(accountsDto))
+            },
+            false
+        )
+    }
+
+    suspend fun getSavePointsRules(userId: String): Flow<Resource<out RulesResponseDto?>> {
+        Timber.d("trying")
+        return networkResponse(
+            fetch = {
+                ApiResponse.create(apiService.getSavePointsRules(userId))
+            },
+            false
+        )
+    }
+
+    suspend fun getSpendPointsRules(userId: String): Flow<Resource<out RulesResponseDto?>> {
+        Timber.d("trying")
+        return networkResponse(
+            fetch = {
+                ApiResponse.create(apiService.getSpendPointsRules(userId))
+            },
+            false
+        )
+    }
+
+    suspend fun getPromotionRules(userId: String): Flow<Resource<out RulesResponseDto?>> {
+        Timber.d("trying")
+        return networkResponse(
+            fetch = {
+                ApiResponse.create(apiService.getPromotionRules(userId))
             },
             false
         )

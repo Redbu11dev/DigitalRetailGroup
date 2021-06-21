@@ -222,4 +222,8 @@
 
     </ScrollView>
 
+    <include
+        layout="@layout/item_progress"
+        />
+
 </RelativeLayout>

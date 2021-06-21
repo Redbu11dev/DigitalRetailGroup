@@ -73,7 +73,7 @@
     <string name="profile_birth_date_title">Дата рождения</string>
     <string name="profile_birth_date_hint">Введите дату</string>
 
-<!--    Dialogs-->
+    <!--    Dialogs-->
     <string name="dialog_save_profile_data_title">Сохранить данные?</string>
     <string name="dialog_save_profile_data_message">Вы внесли новые данные в профиль. Хотите сохранить изменения?</string>
     <string name="dialog_save_profile_data_btn_positive">Сохранить</string>

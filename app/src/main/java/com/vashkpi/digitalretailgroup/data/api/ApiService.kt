@@ -25,6 +25,21 @@ interface ApiService {
         @Body accountsDto: AccountsDto
     ): Response<GenericResponseDto>
 
+    @GET("rules/increase")
+    suspend fun getSavePointsRules(
+        @Header("user_id") userId: String
+    ): Response<RulesResponseDto>
+
+    @GET("rules/decrease")
+    suspend fun getSpendPointsRules(
+        @Header("user_id") userId: String
+    ): Response<RulesResponseDto>
+
+    @GET("rules/promotion")
+    suspend fun getPromotionRules(
+        @Header("user_id") userId: String
+    ): Response<RulesResponseDto>
+
     @GET("brands")
     suspend fun getBrands(
     ): Response<BrandsResponseDto>

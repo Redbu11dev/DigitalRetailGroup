@@ -44,5 +44,9 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
         binding.customToolbar.logo.visibility = View.VISIBLE
         toolbar.title = ""
 
+        binding.contactUs.setOnClickListener {
+            viewModel.getPromotionRules()
+        }
+
     }
 }

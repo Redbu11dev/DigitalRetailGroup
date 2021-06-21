@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navigation_barcode_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_navigation_barcode_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
 
     <fragment
@@ -33,6 +36,9 @@
         <action
             android:id="@+id/action_navigation_main_to_brandInfoFragment"
             app:destination="@id/brandInfoFragment" />
+        <action
+            android:id="@+id/action_navigation_main_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
 
@@ -202,5 +208,20 @@
         app:popUpTo="@+id/mobile_navigation"
         app:popUpToInclusive="true"
         />
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.vashkpi.digitalretailgroup.screens.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="title"
+            app:argType="reference"
+            />
+        <argument
+            android:name="text"
+            app:argType="string"
+            />
+    </fragment>
 
 </navigation>

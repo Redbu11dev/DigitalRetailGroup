@@ -7,7 +7,9 @@
     android:background="#80000000"
     android:tag="progressViewRoot"
     android:visibility="gone"
-    tools:visibility="visible">
+    tools:visibility="visible"
+    android:elevation="10dp"
+    >
 
     <ProgressBar
         android:id="@+id/progress_view_progress_bar"
