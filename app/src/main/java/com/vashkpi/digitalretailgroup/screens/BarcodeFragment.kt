@@ -13,6 +13,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(FragmentBarcodeBinding::inflate) {
@@ -46,6 +49,14 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
 
         binding.contactUs.setOnClickListener {
             viewModel.getPromotionRules()
+        }
+
+        binding.howToGetPointsBtn.setOnClickListener {
+
+        }
+
+        binding.newCodeBtn.setOnClickListener {
+            viewModel.getNewCode()
         }
 
         viewModel.getBalance()
@@ -88,5 +99,24 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
                 }
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.code.collect {
+                binding.code.text = it.toString()
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.countDown.collect {
+                //val minutes = TimeUnit.MILLISECONDS.toMinutes(it)
+                val outputDateFormat = SimpleDateFormat("mm:ss", Locale.getDefault()).apply {
+                    timeZone = TimeZone.getTimeZone("UTC")
+                }
+
+                binding.codeTimerTime.text = "${outputDateFormat.format(it)}"
+            }
+        }
+
+
     }
 }

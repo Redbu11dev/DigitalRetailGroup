@@ -134,6 +134,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:visibility="visible"
                 style="@style/Widget.DigitalRetailGroup.Button.Main"
+
+                tools:visibility="gone"
                 />
 
             <com.google.android.material.button.MaterialButton
@@ -146,6 +148,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:visibility="gone"
                 style="@style/Widget.DigitalRetailGroup.Button.Main"
+
+                tools:visibility="gone"
                 />
 
             <RelativeLayout
@@ -153,9 +157,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/barcode_container"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="14dp"
                 android:orientation="vertical"
                 android:visibility="gone"
+                tools:visibility="visible"
                 >
 
                 <com.google.android.material.textview.MaterialTextView
@@ -164,7 +169,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="4657"
-                    android:textSize="48dp" />
+
+                    android:textAppearance="@style/TextAppearance.DigitalRetailGroup.BigNumbers"
+                    android:textSize="48dp"
+                    />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/code_description"

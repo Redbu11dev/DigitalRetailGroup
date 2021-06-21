@@ -30,6 +30,11 @@ interface ApiService {
         @Header("user_id") userId: String
     ): Response<BalanceResponseDto>
 
+    @GET("code")
+    suspend fun getCode(
+        @Header("user_id") userId: String
+    ): Response<CodeResponseDto>
+
     @GET("rules/increase")
     suspend fun getSavePointsRules(
         @Header("user_id") userId: String
