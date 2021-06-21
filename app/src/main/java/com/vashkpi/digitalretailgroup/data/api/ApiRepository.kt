@@ -120,6 +120,27 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
+    suspend fun getStoreInfo(storeId: String): Flow<Resource<StoreInfoEntity?>> {
+        Timber.d("trying")
+        return networkBoundResource(
+            query = {
+                appDatabase.storeInfoDao().getOne(storeId)
+            },
+            fetch = {
+                ApiResponse.create(apiService.getRegionStoreInfo(storeId))
+            },
+            shouldFetch = {
+                it == null
+            },
+            saveFetchResult = {
+                appDatabase.storeInfoDao().insertOne(it.asDatabaseModel(storeId))
+            },
+            mapper = {
+                it.asDatabaseModel(storeId)
+            }
+        )
+    }
+
     suspend fun getNotifications(userId: String, page: Int): Flow<Resource<List<NotificationEntity>>> {
         Timber.d("trying")
         return networkBoundResource(

@@ -38,8 +38,8 @@ class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(Frag
         val brand = args.brand
         val brandInfoRegion = args.brandInfoRegion
 
-        adapter = StoresAdapter { view, data ->
-            findNavController().navigate(StoresFragmentDirections.actionStoresFragmentToStoreInfoFragment())
+        adapter = StoresAdapter { view, store ->
+            findNavController().navigate(StoresFragmentDirections.actionStoresFragmentToStoreInfoFragment(store.store_id))
         }
 
         binding.infoList.adapter = adapter

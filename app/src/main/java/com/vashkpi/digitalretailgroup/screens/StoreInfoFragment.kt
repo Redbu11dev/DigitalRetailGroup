@@ -1,51 +1,50 @@
 package com.vashkpi.digitalretailgroup.screens
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.vashkpi.digitalretailgroup.R
-import com.vashkpi.digitalretailgroup.adapters.BrandInfoAdapter
-import com.vashkpi.digitalretailgroup.adapters.StoreInfoAdapter
-import com.vashkpi.digitalretailgroup.adapters.StoresAdapter
-import com.vashkpi.digitalretailgroup.databinding.FragmentBrandInfoBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentStoreInfoBinding
+import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
-class StoreInfoFragment : Fragment() {
+@AndroidEntryPoint
+class StoreInfoFragment : BaseFragment<FragmentStoreInfoBinding, StoreInfoViewModel>(FragmentStoreInfoBinding::inflate) {
 
-    private var _binding: FragmentStoreInfoBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    override val viewModel: StoreInfoViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentStoreInfoBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+    private val args: StoreInfoFragmentArgs by navArgs()
+
+    override fun setUpViews() {
+        super.setUpViews()
 
         val toolbar = binding.customToolbar.toolbar
         val navController = findNavController()
         toolbar.setupWithNavController(navController)
 
-        val adapter = StoreInfoAdapter { view, data ->
-
-        }
-
-        binding.infoList.adapter = adapter
-
-        adapter.setList(arrayListOf("1", "2", "3", "4", "5"))
-        adapter.notifyDataSetChanged()
-
-        return root
+        viewModel.obtainStoreInfo(args.storeId)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun observeViewModel() {
+        super.observeViewModel()
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.storeInfo.collect {
+                it?.let {
+
+                    Glide
+                        .with(binding.image)
+                        .load(it.image_parth)
+                        .placeholder(R.drawable.img_dummy_store_image)
+                        .into(binding.image)
+
+                    binding.description.text = it.description
+                }
+            }
+        }
     }
 }

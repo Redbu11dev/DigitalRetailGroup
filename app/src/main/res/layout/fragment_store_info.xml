@@ -34,28 +34,28 @@
         >
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/address"
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Фирменный магазин Xiaomi. Здесь доступны такие услуги как демонстрация устройств и консультация."
+            tools:text="Фирменный магазин Xiaomi. Здесь доступны такие услуги как демонстрация устройств и консультация."
 
             android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Generic"
             android:textSize="14dp"
             />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/info_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:splitMotionEvents="false"
-            android:elevation="10dp"
-            tools:listitem="@layout/item_option"
-            tools:itemCount="4"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_below="@id/address"
-            android:layout_marginTop="31dp"
-            />
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/info_list"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:scrollbars="vertical"-->
+<!--            android:splitMotionEvents="false"-->
+<!--            android:elevation="10dp"-->
+<!--            tools:listitem="@layout/item_option"-->
+<!--            tools:itemCount="4"-->
+<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--            android:layout_below="@id/address"-->
+<!--            android:layout_marginTop="31dp"-->
+<!--            />-->
 
     </RelativeLayout>
 

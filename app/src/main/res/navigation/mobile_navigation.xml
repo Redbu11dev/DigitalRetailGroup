@@ -146,7 +146,13 @@
         android:id="@+id/storeInfoFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.StoreInfoFragment"
         android:label="fragment_store_info"
-        tools:layout="@layout/fragment_store_info" />
+        tools:layout="@layout/fragment_store_info">
+
+        <argument
+            android:name="storeId"
+            app:argType="string" />
+
+    </fragment>
 
     <dialog
         android:id="@+id/saveProfileDataDialogFragment"
