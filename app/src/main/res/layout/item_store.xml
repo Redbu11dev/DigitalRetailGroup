@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="8dp"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="8dp">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mi Store, Красноярье"
+                tools:text="Mi Store, Красноярье"
                 app:layout_constraintTop_toBottomOf="@+id/logo"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
@@ -50,7 +50,7 @@
                 app:layout_constraintTop_toBottomOf="@id/name"
                 android:layout_marginTop="11dp"
                 android:layout_marginHorizontal="24dp"
-                android:text="г. Красноярск, ул. Проспект им. Газеты Красноярский Рабочий, д. 120"
+                tools:text="г. Красноярск, ул. Проспект им. Газеты Красноярский Рабочий, д. 120"
 
                 android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Secondary"
                 android:textSize="12dp"

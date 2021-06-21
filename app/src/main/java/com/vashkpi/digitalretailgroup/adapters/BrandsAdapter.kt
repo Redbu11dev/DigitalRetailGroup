@@ -55,8 +55,8 @@ class BrandsViewHolder(val binding: ItemBrandBinding) :
         val logo = binding.logo
 
         Glide
-            .with(logo.context)
-            .load("http://goo.gl/gEgYUd")
+            .with(logo)
+            .load(data.image_parth)
             .placeholder(R.drawable.img_dummy_store_image)
             .into(logo)
 

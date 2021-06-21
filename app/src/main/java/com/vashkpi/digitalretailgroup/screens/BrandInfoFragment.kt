@@ -44,8 +44,8 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
 
         val brand = args.brand
 
-        adapter = BrandInfoAdapter { view, data ->
-            findNavController().navigate(BrandInfoFragmentDirections.actionBrandInfoFragmentToStoresFragment())
+        adapter = BrandInfoAdapter { view, brandInfoRegion ->
+            findNavController().navigate(BrandInfoFragmentDirections.actionBrandInfoFragmentToStoresFragment(brand, brandInfoRegion))
         }
 
         binding.infoList.adapter = adapter

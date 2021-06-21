@@ -134,6 +134,13 @@
         <action
             android:id="@+id/action_storesFragment_to_storeInfoFragment"
             app:destination="@id/storeInfoFragment" />
+        <argument
+            android:name="brand"
+            app:argType="com.vashkpi.digitalretailgroup.data.models.domain.Brand" />
+        <argument
+            android:name="brandInfoRegion"
+            app:argType="com.vashkpi.digitalretailgroup.data.models.domain.BrandInfoRegion" />
+
     </fragment>
     <fragment
         android:id="@+id/storeInfoFragment"

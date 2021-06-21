@@ -5,46 +5,56 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.adapters.BrandInfoAdapter
 import com.vashkpi.digitalretailgroup.adapters.StoresAdapter
 import com.vashkpi.digitalretailgroup.databinding.FragmentStoreInfoBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentStoresBinding
+import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
-class StoresFragment : Fragment() {
+@AndroidEntryPoint
+class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(FragmentStoresBinding::inflate) {
 
-    private var _binding: FragmentStoresBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    override val viewModel: StoresViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentStoresBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+    private val args: StoresFragmentArgs by navArgs()
+
+    private lateinit var adapter: StoresAdapter
+
+    override fun setUpViews() {
+        super.setUpViews()
 
         val toolbar = binding.customToolbar.toolbar
         val navController = findNavController()
         toolbar.setupWithNavController(navController)
 
-        val adapter = StoresAdapter { view, data ->
+        val brand = args.brand
+        val brandInfoRegion = args.brandInfoRegion
+
+        adapter = StoresAdapter { view, data ->
             findNavController().navigate(StoresFragmentDirections.actionStoresFragmentToStoreInfoFragment())
         }
 
         binding.infoList.adapter = adapter
 
-        adapter.setList(arrayListOf("1", "2", "3", "4", "5"))
-        adapter.notifyDataSetChanged()
-
-        return root
+        viewModel.obtainRegionStores(brand.brand_id, brandInfoRegion.region_id)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun observeViewModel() {
+        super.observeViewModel()
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.storesList.collect {
+                adapter.setList(it)
+                adapter.notifyDataSetChanged()
+            }
+        }
     }
 }
