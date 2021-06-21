@@ -131,7 +131,7 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.barcodeValue.collect {
-                displayBitmap(binding.barcodeImage, it)
+                //displayBitmap(binding.barcodeImage, it)
             }
         }
 
