@@ -26,6 +26,7 @@
         app:maxButtonHeight="@dimen/toolbar_icon_background_height"
         android:paddingVertical="0dp"
         tools:title=""
+
         >
 
         <androidx.appcompat.widget.AppCompatImageView
