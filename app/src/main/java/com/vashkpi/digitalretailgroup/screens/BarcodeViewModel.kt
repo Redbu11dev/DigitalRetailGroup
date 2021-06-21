@@ -75,7 +75,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
 
     fun getPromotionRules() {
         viewModelScope.launch {
-            apiRepository.getPromotionRules(dataStoreRepository.userId).collect {
+            apiRepository.getSavePointsRules(dataStoreRepository.userId).collect {
                 when (it) {
                     is Resource.Loading -> {
                         Timber.i("it's loading")
@@ -95,7 +95,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
 
-                            postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToDetailsFragment(R.string.barcode_offer_rules, data.rule_text))
+                            postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToDetailsFragment(R.string.barcode_btn_how_to_get_points, data.rule_text))
 
                             postProgressViewVisibility(false)
 
@@ -171,8 +171,8 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
 
-                            //val balance = data.balance
-                            val balance = 1 //fixme temp
+                            val balance = data.balance
+                            //val balance = 1 //fixme mock
                             _balance.value = balance
                             refreshViewState()
 
@@ -187,5 +187,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
             }
         }
     }
+
+
 
 }

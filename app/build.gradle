@@ -104,6 +104,9 @@ dependencies {
 //    implementation "androidx.datastore:datastore:1.0.0-beta01"
     implementation "androidx.datastore:datastore-preferences:1.0.0-beta02"
 
+    //barcode
+    implementation 'com.google.zxing:core:3.4.0'
+
     //custom
     //cool phone formatting lib (also available for iOS)
     //implementation 'com.redmadrobot:input-mask-android:6.0.0'
