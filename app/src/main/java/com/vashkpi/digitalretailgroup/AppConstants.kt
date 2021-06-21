@@ -20,7 +20,7 @@ object AppConstants {
     //const val DEFAULT_API_BASE_URL = "http://akpoker.vashkpi.ru/sbs/"
 
     const val API_TIMEOUT_CONNECTION_SECONDS = 15L
-    const val API_TIMEOUT_READ_SECONDS = 45L
+    const val API_TIMEOUT_READ_SECONDS = 15L //
     const val API_TIMEOUT_WRITE_SECONDS = 15L
 
     //other

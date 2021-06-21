@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,28 +10,45 @@
 
     <include
         android:id="@+id/custom_toolbar"
-        layout="@layout/custom_toolbar" />
+        layout="@layout/custom_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/content_layout"
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintGuide_begin="12dp"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        android:id="@+id/guideline_left"-->
+<!--        />-->
+
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintGuide_end="12dp"-->
+<!--        android:id="@+id/guideline_right"-->
+<!--        />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/info_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/custom_toolbar"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        android:splitMotionEvents="false"
+        tools:listitem="@layout/item_store"
+        tools:itemCount="4"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/custom_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+
         android:paddingHorizontal="12dp"
         android:layout_marginTop="25dp"
-        >
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/info_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:splitMotionEvents="false"
-            tools:listitem="@layout/item_store"
-            tools:itemCount="4"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            />
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
