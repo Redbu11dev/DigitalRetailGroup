@@ -6,6 +6,7 @@
     tools:context="screens.DetailsFragment"
     android:orientation="vertical"
     android:background="@color/bg"
+    android:animateLayoutChanges="true"
     >
 
     <include
@@ -16,7 +17,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="12dp"
+        android:layout_margin="12dp"
         >
 
         <TextView

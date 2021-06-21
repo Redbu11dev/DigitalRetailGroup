@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".screens.LoginCodeFragment"
-    android:background="@color/bg">
+    android:background="@color/bg"
+    android:animateLayoutChanges="true"
+    >
 
     <include android:id="@+id/custom_toolbar" layout="@layout/custom_toolbar"/>
 

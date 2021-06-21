@@ -52,6 +52,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
         }
 
         binding.partnersList.adapter = adapter
+        //binding.partnersList.itemAnimator = null
+        binding.partnersList.visibility = View.GONE
 
         binding.item1.root.changeAlphaOnTouch()
         binding.item1.root.setOnClickListener {
@@ -66,6 +68,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
         }
         binding.item2.icon.setImageResource(R.drawable.ic_spend)
         binding.item2.text.setText(R.string.main_how_to_spend_points)
+
 
         viewModel.obtainBrands()
     }
@@ -83,6 +86,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
             viewModel.brandsList.collect {
                 adapter.setList(it)
                 adapter.notifyDataSetChanged()
+                //binding.partnersList.scheduleLayoutAnimation()
+                binding.partnersList.visibility = View.VISIBLE
             }
         }
     }

@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".screens.MainFragment"
     android:background="@color/bg"
+    android:animateLayoutChanges="true"
     >
 
     <include
@@ -67,6 +68,9 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         />
+
+<!--    android:layoutAnimation="@anim/layout_animation"-->
+<!--    app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
 
     <include
         layout="@layout/item_progress"

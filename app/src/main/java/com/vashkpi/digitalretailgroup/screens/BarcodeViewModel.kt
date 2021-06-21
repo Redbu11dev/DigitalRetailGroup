@@ -158,7 +158,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                 when (it) {
                     is Resource.Loading -> {
                         Timber.i("it's loading")
-                        postProgressViewVisibility(true)
+                        //postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
                         this@launch.cancel()

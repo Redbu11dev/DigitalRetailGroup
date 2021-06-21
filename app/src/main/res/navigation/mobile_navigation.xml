@@ -124,7 +124,7 @@
     <fragment
         android:id="@+id/brandInfoFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.BrandInfoFragment"
-        android:label="fragment_brand_info"
+        android:label=""
         tools:layout="@layout/fragment_brand_info" >
         <action
             android:id="@+id/action_brandInfoFragment_to_storesFragment"
