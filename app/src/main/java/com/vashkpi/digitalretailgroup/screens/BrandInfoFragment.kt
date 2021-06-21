@@ -50,13 +50,13 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
 
         binding.infoList.adapter = adapter
 
-        binding.inclItemBradInfoWebsite.root.changeAlphaOnTouch()
-        binding.inclItemBradInfoWebsite.root.setOnClickListener {
+        binding.inclItemBrandInfoWebsite.root.changeAlphaOnTouch()
+        binding.inclItemBrandInfoWebsite.root.setOnClickListener {
 
         }
 
-        binding.inclItemBradInfoContact.root.changeAlphaOnTouch()
-        binding.inclItemBradInfoContact.root.setOnClickListener {
+        binding.inclItemBrandInfoContact.root.changeAlphaOnTouch()
+        binding.inclItemBrandInfoContact.root.setOnClickListener {
 
         }
 
@@ -67,35 +67,53 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
         super.observeViewModel()
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.name.collect {
-                binding.customToolbar.toolbar.title = it
+            viewModel.brandInfo.collect {
+                it?.let {
+
+                    binding.customToolbar.toolbar.title = it.name
+
+                    binding.inclItemBrandInfoWebsite.text.text = it.website
+
+                    binding.inclItemBrandInfoContact.phone.text = it.telephone
+
+                    binding.inclItemBrandInfoContact.workHours.text = it.time_of_work
+
+                    adapter.setList(it.regions.toMutableList())
+                    adapter.notifyDataSetChanged()
+                }
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.website.collect {
-                binding.inclItemBradInfoWebsite.text.text = it
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.telephone.collect {
-                binding.inclItemBradInfoContact.phone.text = it
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.timeOfWork.collect {
-                binding.inclItemBradInfoContact.workHours.text = it
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.brandRegionsList.collect {
-                adapter.setList(it)
-                adapter.notifyDataSetChanged()
-            }
-        }
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.name.collect {
+//                binding.customToolbar.toolbar.title = it
+//            }
+//        }
+//
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.website.collect {
+//                binding.inclItemBrandInfoWebsite.text.text = it
+//            }
+//        }
+//
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.telephone.collect {
+//                binding.inclItemBrandInfoContact.phone.text = it
+//            }
+//        }
+//
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.timeOfWork.collect {
+//                binding.inclItemBrandInfoContact.workHours.text = it
+//            }
+//        }
+//
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.brandRegionsList.collect {
+//                adapter.setList(it)
+//                adapter.notifyDataSetChanged()
+//            }
+//        }
     }
 
 }

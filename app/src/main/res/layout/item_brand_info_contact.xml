@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_option_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:focusable="true"
+    >
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/img_icon_background_normal"
+        app:srcCompat="@drawable/ic_phone"
+        android:padding="15dp"
+        android:layout_centerVertical="true"
+        />
+
+    <View
+        android:id="@+id/anchor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true" />
+
+    <com.vashkpi.digitalretailgroup.view.GradientTextView
+        android:id="@+id/phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="8-800-775-66-15"
+        android:layout_toRightOf="@id/icon"
+        android:layout_above="@id/anchor"
+        android:layout_marginHorizontal="18dp"
+        android:textColor="@color/button_start"
+        app:gtvSecondaryColor="@color/button_end"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="14dp"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/work_hours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="с 9:00 до 20:00 МСК, Пн – Пт"
+        android:layout_toRightOf="@id/icon"
+        android:layout_below="@id/anchor"
+        android:paddingHorizontal="18dp"
+        android:textSize="10dp"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        android:ellipsize="end"
+        />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#1C2722"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>

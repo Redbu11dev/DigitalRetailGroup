@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vashkpi.digitalretailgroup.data.models.domain.BrandInfoRegion
-import com.vashkpi.digitalretailgroup.databinding.ItemBradInfoRegionBinding
+import com.vashkpi.digitalretailgroup.databinding.ItemBrandInfoRegionBinding
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 
 class BrandInfoAdapter(
@@ -17,7 +17,7 @@ class BrandInfoAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandInfoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding =
-            ItemBradInfoRegionBinding.inflate(
+            ItemBrandInfoRegionBinding.inflate(
                 layoutInflater,
                 parent,
                 false
@@ -41,7 +41,7 @@ class BrandInfoAdapter(
 
 }
 
-class BrandInfoViewHolder(val binding: ItemBradInfoRegionBinding) :
+class BrandInfoViewHolder(val binding: ItemBrandInfoRegionBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(data: BrandInfoRegion, clickListener: (view: View, BrandInfoRegion) -> Unit) {
 

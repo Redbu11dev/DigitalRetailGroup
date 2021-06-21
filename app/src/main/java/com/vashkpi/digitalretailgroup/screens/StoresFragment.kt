@@ -44,6 +44,8 @@ class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(Frag
 
         binding.infoList.adapter = adapter
 
+        binding.customToolbar.toolbar.title = brandInfoRegion.name
+
         viewModel.obtainRegionStores(brand.brand_id, brandInfoRegion.region_id)
     }
 

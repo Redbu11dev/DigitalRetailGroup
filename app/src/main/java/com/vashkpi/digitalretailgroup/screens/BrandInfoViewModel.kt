@@ -6,6 +6,7 @@ import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.models.database.asDomainModel
 import com.vashkpi.digitalretailgroup.data.models.domain.Brand
+import com.vashkpi.digitalretailgroup.data.models.domain.BrandInfo
 import com.vashkpi.digitalretailgroup.data.models.domain.BrandInfoRegion
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,20 +21,23 @@ import javax.inject.Inject
 @HiltViewModel
 class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepository): BaseViewModel() {
 
-    private val _name = MutableStateFlow("")
-    val name: StateFlow<String> get() = _name
+//    private val _name = MutableStateFlow("")
+//    val name: StateFlow<String> get() = _name
+//
+//    private val _website = MutableStateFlow("")
+//    val website: StateFlow<String> get() = _website
+//
+//    private val _telephone = MutableStateFlow("")
+//    val telephone: StateFlow<String> get() = _telephone
+//
+//    private val _timeOfWork = MutableStateFlow("")
+//    val timeOfWork: StateFlow<String> get() = _timeOfWork
+//
+//    private val _brandRegionsList = MutableStateFlow(mutableListOf<BrandInfoRegion>())
+//    val brandRegionsList: StateFlow<List<BrandInfoRegion>> get() = _brandRegionsList
 
-    private val _website = MutableStateFlow("")
-    val website: StateFlow<String> get() = _website
-
-    private val _telephone = MutableStateFlow("")
-    val telephone: StateFlow<String> get() = _telephone
-
-    private val _timeOfWork = MutableStateFlow("")
-    val timeOfWork: StateFlow<String> get() = _timeOfWork
-
-    private val _brandRegionsList = MutableStateFlow(mutableListOf<BrandInfoRegion>())
-    val brandRegionsList: StateFlow<List<BrandInfoRegion>> get() = _brandRegionsList
+    private val _brandInfo = MutableStateFlow<BrandInfo?>(null)
+    val brandInfo: StateFlow<BrandInfo?> get() = _brandInfo
 
     fun getBrandInfo(brand: Brand) {
         viewModelScope.launch {
@@ -60,13 +64,13 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
 
-                            val domainModel = data.asDomainModel()
+                            _brandInfo.value = data.asDomainModel()
 
-                            _name.value = domainModel.name
-                            _website.value = domainModel.website
-                            _telephone.value = domainModel.telephone
-                            _timeOfWork.value = domainModel.time_of_work
-                            _brandRegionsList.value = domainModel.regions.toMutableList()
+//                            _name.value = domainModel.name
+//                            _website.value = domainModel.website
+//                            _telephone.value = domainModel.telephone
+//                            _timeOfWork.value = domainModel.time_of_work
+//                            _brandRegionsList.value = domainModel.regions.toMutableList()
 
                             postProgressViewVisibility(false)
 

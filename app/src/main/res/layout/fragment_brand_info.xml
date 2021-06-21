@@ -21,19 +21,19 @@
         >
 
         <include
-            android:id="@+id/incl_item_brad_info_website"
-            layout="@layout/item_brad_info_website"
+            android:id="@+id/incl_item_brand_info_website"
+            layout="@layout/item_brand_info_website"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="72dp"
             />
 
         <include
-            android:id="@+id/incl_item_brad_info_contact"
-            layout="@layout/item_brad_info_contact"
+            android:id="@+id/incl_item_brand_info_contact"
+            layout="@layout/item_brand_info_contact"
             android:layout_width="match_parent"
             android:layout_height="72dp"
-            app:layout_constraintTop_toBottomOf="@+id/incl_item_brad_info_website"
+            app:layout_constraintTop_toBottomOf="@+id/incl_item_brand_info_website"
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/incl_item_brad_info_contact"
+            app:layout_constraintTop_toBottomOf="@+id/incl_item_brand_info_contact"
             android:scrollbars="vertical"
             android:splitMotionEvents="false"
             android:elevation="10dp"

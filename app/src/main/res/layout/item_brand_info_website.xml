@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_option_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:focusable="true"
+    >
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/img_icon_background_normal"
+        app:srcCompat="@drawable/ic_web"
+        android:padding="15dp"
+        android:layout_centerVertical="true"
+        />
+
+    <com.vashkpi.digitalretailgroup.view.GradientTextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="www.something.com asdasdasdadadadadadadadadadadadadasdasdadadasdasdaddsfsdfsfsfsdfdsfsfsfsfsdfsdfsdfsdfsdsdfdsfdsdfssdfsfsfsfsfsdsdfsfsdfsdfsdfsfsdfsdfdsfsd"
+        android:layout_toRightOf="@id/icon"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="18dp"
+        android:textColor="@color/button_start"
+        app:gtvSecondaryColor="@color/button_end"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:textSize="14dp"
+        />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#1C2722"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>

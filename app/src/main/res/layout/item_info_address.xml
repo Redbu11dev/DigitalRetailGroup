@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="@dimen/item_option_height"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:clickable="true"
@@ -22,24 +22,14 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Название региона"
+        tools:text="г. Красноярск, ул. Проспект им. Газеты Красноярский Рабочий, д. 120"
         android:layout_toRightOf="@id/icon"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/icon_end"
-        android:paddingHorizontal="18dp"
+        android:layout_marginHorizontal="18dp"
         android:textSize="14dp"
         android:textColor="@color/white"
         android:maxLines="3"
         android:ellipsize="end"
-        />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/icon_end"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/ic_arrow_right"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
         />
 
     <View

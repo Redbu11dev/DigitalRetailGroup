@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="@dimen/item_option_height"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:clickable="true"
@@ -13,24 +13,23 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:background="@drawable/img_icon_background_normal"
-        app:srcCompat="@drawable/ic_web"
+        app:srcCompat="@drawable/ic_clock"
         android:padding="15dp"
         android:layout_centerVertical="true"
         />
 
-    <com.vashkpi.digitalretailgroup.view.GradientTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="www.something.com asdasdasdadadadadadadadadadadadadasdasdadadasdasdaddsfsdfsfsfsdfdsfsfsfsfsdfsdfsdfsdfsdsdfdsfdsdfssdfsfsfsfsfsdsdfsfsdfsdfsdfsfsdfsdfdsfsd"
+        tools:text="10:00-20:00"
         android:layout_toRightOf="@id/icon"
         android:layout_centerVertical="true"
         android:layout_marginHorizontal="18dp"
-        android:textColor="@color/button_start"
-        app:gtvSecondaryColor="@color/button_end"
+        android:textSize="14dp"
+        android:textColor="@color/white"
         android:maxLines="3"
         android:ellipsize="end"
-        android:textSize="14dp"
         />
 
     <View
