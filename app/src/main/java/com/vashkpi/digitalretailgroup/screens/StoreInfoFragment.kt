@@ -11,6 +11,8 @@ import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.databinding.FragmentStoreInfoBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
+import com.vashkpi.digitalretailgroup.utils.safeOpenCallDialer
+import com.vashkpi.digitalretailgroup.utils.safeOpenUrlInBrowser
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -31,7 +33,15 @@ class StoreInfoFragment : BaseFragment<FragmentStoreInfoBinding, StoreInfoViewMo
         viewModel.obtainStoreInfo(args.storeId)
 
         binding.inclItemWebsite.root.changeAlphaOnTouch()
+        binding.inclItemWebsite.root.setOnClickListener {
+            safeOpenUrlInBrowser(binding.inclItemWebsite.text.text.toString())
+        }
+
         binding.inclItemContact.root.changeAlphaOnTouch()
+        binding.inclItemContact.root.setOnClickListener {
+            safeOpenCallDialer(binding.inclItemContact.phone.text.toString())
+        }
+
         binding.inclItemInfoWorkhours.root.changeAlphaOnTouch()
         binding.inclItemInfoAddress.root.changeAlphaOnTouch()
     }
@@ -57,6 +67,7 @@ class StoreInfoFragment : BaseFragment<FragmentStoreInfoBinding, StoreInfoViewMo
 
                     binding.inclItemContact.workHours.visibility = View.GONE
                     binding.inclItemContact.phone.text = it.telephone
+                    //binding.inclItemContact.phone.text = "2-234-242" //mock
 
                     binding.inclItemInfoWorkhours.text.text = it.time_of_work
 

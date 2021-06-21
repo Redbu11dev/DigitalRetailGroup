@@ -136,7 +136,7 @@
     <fragment
         android:id="@+id/storesFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.StoresFragment"
-        android:label="fragment_stores"
+        android:label=""
         tools:layout="@layout/fragment_stores" >
         <action
             android:id="@+id/action_storesFragment_to_storeInfoFragment"
@@ -152,7 +152,7 @@
     <fragment
         android:id="@+id/storeInfoFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.StoreInfoFragment"
-        android:label="fragment_store_info"
+        android:label=""
         tools:layout="@layout/fragment_store_info">
 
         <argument

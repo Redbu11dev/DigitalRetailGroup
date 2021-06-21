@@ -21,6 +21,8 @@ import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 import com.vashkpi.digitalretailgroup.utils.safeNavigate
+import com.vashkpi.digitalretailgroup.utils.safeOpenCallDialer
+import com.vashkpi.digitalretailgroup.utils.safeOpenUrlInBrowser
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -52,12 +54,12 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
 
         binding.inclItemBrandInfoWebsite.root.changeAlphaOnTouch()
         binding.inclItemBrandInfoWebsite.root.setOnClickListener {
-
+            safeOpenUrlInBrowser(binding.inclItemBrandInfoWebsite.text.text.toString())
         }
 
         binding.inclItemBrandInfoContact.root.changeAlphaOnTouch()
         binding.inclItemBrandInfoContact.root.setOnClickListener {
-
+            safeOpenCallDialer(binding.inclItemBrandInfoContact.phone.text.toString())
         }
 
         viewModel.getBrandInfo(brand)
