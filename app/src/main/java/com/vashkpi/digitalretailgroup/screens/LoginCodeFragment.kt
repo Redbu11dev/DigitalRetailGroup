@@ -49,6 +49,10 @@ class LoginCodeFragment : BaseFragment<FragmentLoginCodeBinding, LoginCodeViewMo
             }
         }
 
+        binding.sendSmsAgain.setOnClickListener {
+            viewModel.sendSmsAgain(phoneStringRaw)
+        }
+
     }
 
 }

@@ -25,6 +25,11 @@ interface ApiService {
         @Body accountsDto: AccountsDto
     ): Response<GenericResponseDto>
 
+    @GET("accounts")
+    suspend fun getProfileInfo(
+        @Header("user_id") userId: String
+    ): Response<AccountsGetResponseDto>
+
     @GET("balance")
     suspend fun getBalance(
         @Header("user_id") userId: String

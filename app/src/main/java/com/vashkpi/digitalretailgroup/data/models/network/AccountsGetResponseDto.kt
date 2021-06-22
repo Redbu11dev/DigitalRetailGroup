@@ -1,6 +1,5 @@
 package com.vashkpi.digitalretailgroup.data.models.network
 
-data class AccountsDto (
-    val user_id: String,
+data class AccountsGetResponseDto (
     val user_info: UserInfoDto
 )

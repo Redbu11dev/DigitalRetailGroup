@@ -7,6 +7,7 @@ import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.models.domain.*
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.data.models.network.AccountsDto
+import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
@@ -137,6 +138,44 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                     }
                 }
             }
+        }
+    }
+
+    fun getProfileInfoFromServer(userId: String) {
+        viewModelScope.launch {
+            apiRepository.getProfileInfo(userId).collect {
+                when (it) {
+                    is Resource.Loading -> {
+                        Timber.d("it's loading")
+                        postProgressViewVisibility(true)
+                        //this@launch.cancel()
+                    }
+                    is Resource.Error -> {
+                        this@launch.cancel()
+                        val message = it.error?.message
+                        Timber.d("it's error: ${message}")
+                        //it.error.
+                        postProgressViewVisibility(false)
+                        postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+
+                        //if error message is "message": "Отсутствует параметр user_id" then user does not exist in the db
+
+                    }
+                    is Resource.Success -> {
+                        this@launch.cancel()
+                        Timber.d("it's success")
+                        //check if empty?!
+                        it.data?.let {
+                            Timber.d("here is the data: $it")
+
+                            postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = 0, message = it.message))
+                        }
+                        postProgressViewVisibility(false)
+
+                    }
+                }
+            }
+            //cancel()
         }
     }
 
