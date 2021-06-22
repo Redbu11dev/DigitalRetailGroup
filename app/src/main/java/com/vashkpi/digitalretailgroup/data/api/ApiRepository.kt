@@ -146,7 +146,8 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                 ApiResponse.create(apiService.getBrands())
             },
             shouldFetch = {
-                it.isEmpty()
+                //it.isEmpty()
+                true
             },
             saveFetchResult = {
                 appDatabase.brandDao().insertMany(it.elements.map {

@@ -43,6 +43,11 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                     is Resource.Loading -> {
                         Timber.i("it's loading")
                         postProgressViewVisibility(true)
+                        it.data?.let { data ->
+                            Timber.d("here is the old data: $data")
+
+                            _brandsList.value = data.map { it.asDomainModel() }.toMutableList()
+                        }
                     }
                     is Resource.Error -> {
                         this@launch.cancel()
@@ -50,7 +55,9 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                         Timber.i("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false)
-                        postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                        if (it.error !is java.net.UnknownHostException) {
+                            postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                        }
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
