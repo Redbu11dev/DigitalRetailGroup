@@ -2,9 +2,20 @@ package com.vashkpi.digitalretailgroup.data.models.network
 
 import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
 import com.vashkpi.digitalretailgroup.data.models.database.NotificationEntity
+import com.vashkpi.digitalretailgroup.data.models.domain.Notification
 
 fun NotificationDto.asDatabaseModel(): NotificationEntity {
     return NotificationEntity(
+        notification_id,
+        date,
+        title,
+        text,
+        read
+    )
+}
+
+fun NotificationDto.asDomainModel(): Notification {
+    return Notification(
         notification_id,
         date,
         title,

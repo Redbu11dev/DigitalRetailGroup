@@ -18,6 +18,7 @@ import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, NotificationsViewModel>(FragmentNotificationsBinding::inflate) {
@@ -39,7 +40,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
         }
 
         binding.notificationsList.adapter = adapter
-        (binding.notificationsList.adapter as NotificationsAdapter).mode = Attributes.Mode.Single
+        //(binding.notificationsList.adapter as NotificationsAdapter).mode = Attributes.Mode.Single
 
         viewModel.obtainNotifications()
     }
@@ -47,10 +48,16 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
     override fun observeViewModel() {
         super.observeViewModel()
 
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.notificationsList.collect {
+//                adapter.setList(it)
+//                adapter.notifyDataSetChanged()
+//            }
+//        }
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.notificationsList.collect {
-                adapter.setList(it)
-                adapter.notifyDataSetChanged()
+            viewModel.obtainNotifications().collectLatest { movies ->
+                adapter.submitData(movies)
             }
         }
 

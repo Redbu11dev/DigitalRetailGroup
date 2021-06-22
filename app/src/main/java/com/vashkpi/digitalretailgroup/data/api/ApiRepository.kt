@@ -1,7 +1,11 @@
 package com.vashkpi.digitalretailgroup.data.api
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.vashkpi.digitalretailgroup.data.database.AppDatabase
 import com.vashkpi.digitalretailgroup.data.models.database.*
+import com.vashkpi.digitalretailgroup.data.models.domain.Notification
 import com.vashkpi.digitalretailgroup.data.models.domain.UserInfo
 import com.vashkpi.digitalretailgroup.data.models.network.*
 import com.vashkpi.digitalretailgroup.data.models.network.AccountsDto
@@ -235,30 +239,43 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun getNotifications(userId: String, page: Int): Flow<Resource<List<NotificationEntity>>> {
+//    suspend fun getNotifications(userId: String, page: Int): Flow<Resource<List<NotificationEntity>>> {
+//        Timber.d("trying")
+//        return networkBoundResource(
+//            query = {
+//                appDatabase.notificationDao().getAll()
+//            },
+//            fetch = {
+//                ApiResponse.create(apiService.getNotifications(userId, page))
+//            },
+//            shouldFetch = {
+//                //it.isEmpty()
+//                true
+//            },
+//            saveFetchResult = {
+//                appDatabase.notificationDao().insertMany(it.notifications.map {
+//                    it.asDatabaseModel()
+//                })
+//            },
+//            mapper = {
+//                it.notifications.map {
+//                    it.asDatabaseModel()
+//                }
+//            }
+//        )
+//    }
+
+    fun getNotifications(): Flow<PagingData<NotificationDto>> {
         Timber.d("trying")
-        return networkBoundResource(
-            query = {
-                appDatabase.notificationDao().getAll()
-            },
-            fetch = {
-                ApiResponse.create(apiService.getNotifications(userId, page))
-            },
-            shouldFetch = {
-                //it.isEmpty()
-                true
-            },
-            saveFetchResult = {
-                appDatabase.notificationDao().insertMany(it.notifications.map {
-                    it.asDatabaseModel()
-                })
-            },
-            mapper = {
-                it.notifications.map {
-                    it.asDatabaseModel()
-                }
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                NotificationsPagingSource(apiService, dataStoreRepository)
             }
-        )
+        ).flow
     }
 
     suspend fun markNotificationRead(notificationPostDto: NotificationPostDto): Flow<Resource<out GenericResponseDto?>> {
