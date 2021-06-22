@@ -8,7 +8,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 private const val STARTING_PAGE_INDEX = 1
-const val NETWORK_PAGE_SIZE = 10
+//const val NETWORK_PAGE_SIZE = 10
 
 class NotificationsPagingSource(
     private val apiService: ApiService,
@@ -22,7 +22,7 @@ class NotificationsPagingSource(
                 userId = dataStoreRepository.userId,
                 page = pageIndex
             )
-            val notifications = response.body()!!.notifications
+            val notifications = response.body()!!.notifications.reversed()
             val nextKey =
                 if (notifications.isEmpty()) {
                     null
