@@ -22,7 +22,7 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
 
     fun confirmCode(phone: String, code: String) {
         viewModelScope.launch {
-            apiRepository.confirmCode(ConfirmCodeDto(phone, code, DrgApplication.DEVICE_ID, AppConstants.DEVICE_PLATFORM)).collect {
+            apiRepository.confirmCode(ConfirmCodeDto(phone, code, dataStoreRepository.deviceId, AppConstants.DEVICE_OS)).collect {
                 when (it) {
                     is Resource.Loading -> {
                         Timber.i("it's loading")

@@ -98,7 +98,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideDataStore(@ApplicationContext context: Context): DataStoreRepository {
-        return DataStoreRepository(context.dataStore)
+        return DataStoreRepository(context, context.dataStore)
     }
 
     @Provides

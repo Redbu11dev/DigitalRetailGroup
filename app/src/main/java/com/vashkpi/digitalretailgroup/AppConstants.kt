@@ -4,7 +4,7 @@ import android.provider.Settings
 
 object AppConstants {
     const val DEVICE_TYPE = "phone"
-    const val DEVICE_PLATFORM = "android"
+    const val DEVICE_OS = "android"
 
     //const val DEVICE_ID = Settings.Secure.getString(appContext.contentResolver, Settings.Secure.ANDROID_ID)
 

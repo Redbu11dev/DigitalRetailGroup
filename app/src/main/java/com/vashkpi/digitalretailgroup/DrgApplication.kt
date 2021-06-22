@@ -19,15 +19,15 @@ import timber.log.Timber
 @HiltAndroidApp
 class DrgApplication: Application() {
 
-    companion object {
-        private var _deviceId = "not_obtained"
-        val DEVICE_ID = _deviceId
-    }
+//    companion object {
+//        private var _deviceId = "not_obtained"
+//        val DEVICE_ID = _deviceId
+//    }
 
     override fun onCreate() {
         super.onCreate()
 
-        _deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+//        _deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

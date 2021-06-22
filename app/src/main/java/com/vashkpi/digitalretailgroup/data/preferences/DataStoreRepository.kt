@@ -1,20 +1,31 @@
 package com.vashkpi.digitalretailgroup.data.preferences
 
 import android.content.Context
+import android.provider.Settings
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
+import com.google.firebase.FirebaseApp
+import com.google.firebase.installations.FirebaseInstallations
 import com.vashkpi.digitalretailgroup.AppConstants
+import com.vashkpi.digitalretailgroup.data.models.domain.DeviceInfo
 import com.vashkpi.digitalretailgroup.data.models.domain.UserInfo
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.DATE_OF_BIRTH
+import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.DEVICE_ID
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.FCM_TOKEN
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.GENDER
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.MIDDLE_NAME
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.NAME
+import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.SAVED_DEVICE_INFO_DEVICE_ID
+import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.SAVED_DEVICE_INFO_OS
+import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.SAVED_DEVICE_INFO_TOKEN
+import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.SAVED_DEVICE_INFO_USER_ID
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.SURNAME
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.USER_ID
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
+import timber.log.Timber
 import java.io.IOException
 
 //data class UserPreferences(
@@ -26,7 +37,7 @@ val Context.dataStore by preferencesDataStore(
     name = AppConstants.DATA_STORE_PREFERENCES_NAME
 )
 
-class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
+class DataStoreRepository(private val context: Context, private val dataStore: DataStore<Preferences>) {
 
     fun clearDataStore() {
         runBlocking {
@@ -63,11 +74,18 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
 
         val USER_ID = stringPreferencesKey("USER_ID")
 
+        val DEVICE_ID = stringPreferencesKey("DEVICE_ID")
+
         val NAME = stringPreferencesKey("NAME")
         val MIDDLE_NAME = stringPreferencesKey("MIDDLE_NAME")
         val SURNAME = stringPreferencesKey("SURNAME")
         val DATE_OF_BIRTH = stringPreferencesKey("DATE_OF_BIRTH")
         val GENDER = stringPreferencesKey("GENDER")
+
+        val SAVED_DEVICE_INFO_USER_ID = stringPreferencesKey("SAVED_DEVICE_INFO_USER_ID")
+        val SAVED_DEVICE_INFO_TOKEN = stringPreferencesKey("SAVED_DEVICE_INFO_TOKEN")
+        val SAVED_DEVICE_INFO_DEVICE_ID = stringPreferencesKey("SAVED_DEVICE_INFO_DEVICE_ID")
+        val SAVED_DEVICE_INFO_OS = stringPreferencesKey("SAVED_DEVICE_INFO_OS")
     }
 
     init {
@@ -76,11 +94,26 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
 //        if (fcmToken.isEmpty()) {
 //            //fcmToken = //TODO if empty - try obtaining the token in here(?) directly somehow
 //        }
+
+        updateFcmTokenInternal()
+    }
+
+    /**
+     * Update FCM token
+     */
+    private fun updateFcmTokenInternal() {
+        FirebaseInstallations.getInstance().getToken(false).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                task.result?.let { result ->
+                    fcmToken = result.token
+                }
+            }
+        }
     }
 
     var fcmToken: String
         get() {
-            return readValue(FCM_TOKEN) ?: ""
+            return readValue(FCM_TOKEN) ?: "not_obtained"
         }
         set(value) {
             saveValue(FCM_TOKEN, value)
@@ -92,6 +125,22 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
         }
         set(value) {
             saveValue(USER_ID, value)
+        }
+
+    private fun getDeviceIdInternal(): String {
+        return try {
+            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID) ?: "not_obtained"
+        } catch (t: Throwable) {
+            "not_obtained"
+        }
+    }
+
+    var deviceId: String
+        get() {
+            return readValue(DEVICE_ID) ?: getDeviceIdInternal()
+        }
+        set(value) {
+            saveValue(DEVICE_ID, value)
         }
 
     var userInfo: UserInfo
@@ -110,6 +159,22 @@ class DataStoreRepository(private val dataStore: DataStore<Preferences>) {
             saveValue(MIDDLE_NAME, value.middle_name)
             saveValue(DATE_OF_BIRTH, value.date_of_birth)
             saveValue(GENDER, value.gender)
+        }
+
+    var savedDeviceInfo: DeviceInfo
+        get() {
+            return DeviceInfo(
+                readValue(SAVED_DEVICE_INFO_USER_ID) ?: "",
+                readValue(SAVED_DEVICE_INFO_TOKEN) ?: "",
+                readValue(SAVED_DEVICE_INFO_DEVICE_ID) ?: "",
+                readValue(SAVED_DEVICE_INFO_OS) ?: ""
+            )
+        }
+        set(value) {
+            saveValue(SAVED_DEVICE_INFO_USER_ID, value.user_id)
+            saveValue(SAVED_DEVICE_INFO_TOKEN, value.token)
+            saveValue(SAVED_DEVICE_INFO_DEVICE_ID, value.device_id)
+            saveValue(SAVED_DEVICE_INFO_OS, value.os)
         }
 
 //    val getUserInfo: Flow<UserInfo> = dataStore.data

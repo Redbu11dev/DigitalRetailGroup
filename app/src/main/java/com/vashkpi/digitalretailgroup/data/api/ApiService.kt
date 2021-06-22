@@ -30,6 +30,11 @@ interface ApiService {
         @Header("user_id") userId: String
     ): Response<AccountsGetResponseDto>
 
+    @POST("devices")
+    suspend fun saveDeviceInfo(
+        @Body devicesDto: DevicesDto
+    ): Response<GenericResponseDto>
+
     @GET("balance")
     suspend fun getBalance(
         @Header("user_id") userId: String

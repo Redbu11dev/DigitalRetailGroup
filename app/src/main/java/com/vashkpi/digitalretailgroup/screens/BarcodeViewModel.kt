@@ -1,9 +1,13 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
+import com.vashkpi.digitalretailgroup.AppConstants
+import com.vashkpi.digitalretailgroup.DrgApplication
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
+import com.vashkpi.digitalretailgroup.data.models.domain.DeviceInfo
+import com.vashkpi.digitalretailgroup.data.models.domain.asDtoModel
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +16,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -52,6 +55,10 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
             emit(result)
             delay(1000)
         }
+    }
+
+    init {
+        trySaveDeviceInfoOnServer()
     }
 
     fun refreshViewState() {
@@ -129,7 +136,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
-                        postProgressViewVisibility(false)
+                        //postProgressViewVisibility(false)
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
@@ -143,7 +150,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                             _balance.value = balance
                             refreshViewState()
 
-                            postProgressViewVisibility(false)
+                            //postProgressViewVisibility(false)
 
                             this@launch.cancel()
                         } ?: kotlin.run {
@@ -161,6 +168,51 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
 
     fun onPromotionRulesClick() {
         postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToDetailsFragment(2))
+    }
+
+    fun trySaveDeviceInfoOnServer() {
+
+        val lastSavedDeviceInfo = dataStoreRepository.savedDeviceInfo
+        val currentDeviceInfo = DeviceInfo(
+            dataStoreRepository.userId,
+            dataStoreRepository.fcmToken,
+            dataStoreRepository.deviceId,
+            AppConstants.DEVICE_OS
+        )
+
+        if (lastSavedDeviceInfo != currentDeviceInfo) {
+            //attempt to save new device info on the server
+            viewModelScope.launch {
+                apiRepository.saveDeviceInfo(currentDeviceInfo.asDtoModel()).collect {
+                    when (it) {
+                        is Resource.Loading -> {
+                            Timber.d("attempting to store new device info")
+                        }
+                        is Resource.Error -> {
+                            this@launch.cancel()
+                            val message = it.error?.message
+                            Timber.d("Unable to store new device info: ${message}")
+                        }
+                        is Resource.Success -> {
+                            Timber.d("it's success")
+
+                            dataStoreRepository.savedDeviceInfo = currentDeviceInfo
+
+                            //check if empty
+                            it.data?.let { data ->
+                                Timber.d("here is the data: $data")
+                                this@launch.cancel()
+                            } ?: kotlin.run {
+                                this@launch.cancel()
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+
     }
 
 }

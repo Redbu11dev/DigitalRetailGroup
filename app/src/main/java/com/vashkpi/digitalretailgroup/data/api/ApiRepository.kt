@@ -76,6 +76,16 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
 //        )
     }
 
+    suspend fun saveDeviceInfo(devicesDto: DevicesDto): Flow<Resource<out GenericResponseDto?>> {
+        Timber.d("trying")
+        return networkResponse(
+            fetch = {
+                ApiResponse.create(apiService.saveDeviceInfo(devicesDto))
+            },
+            true
+        )
+    }
+
     suspend fun getBalance(userId: String): Flow<Resource<out BalanceResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
