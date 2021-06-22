@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.util.Attributes
@@ -54,6 +55,22 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 //                adapter.notifyDataSetChanged()
 //            }
 //        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            adapter.loadStateFlow.collectLatest { loadStates ->
+                when (loadStates.refresh) {
+                    is LoadState.NotLoading -> {
+                        viewModel.onListStoppedLoading(adapter.itemCount)
+                    }
+                    is LoadState.Loading -> {
+                        viewModel.onListLoading()
+                    }
+                    is LoadState.Error -> {
+                        viewModel.onListErrorLoading((loadStates.refresh as LoadState.Error).error)
+                    }
+                }
+            }
+        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.obtainNotifications().collectLatest { notifications ->

@@ -1,6 +1,7 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
@@ -51,6 +52,24 @@ class NotificationsViewModel @Inject constructor(private val dataStoreRepository
                 }
             }
             //.cachedIn(viewModelScope)
+    }
+
+    fun onListStoppedLoading(itemCount: Int) {
+        postProgressViewVisibility(false)
+        _emptyContainerVisible.value = itemCount < 1
+    }
+
+    fun onListErrorLoading(throwable: Throwable) {
+        postProgressViewVisibility(false)
+        //show error
+        postNavigationEvent(NotificationsFragmentDirections.actionGlobalMessageDialog(
+            title = R.string.dialog_error_title,
+            message = throwable.message.toString()
+        ))
+    }
+
+    fun onListLoading() {
+        postProgressViewVisibility(true)
     }
 
 //    fun obtainNotifications() {

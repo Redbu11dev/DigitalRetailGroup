@@ -17,6 +17,15 @@ class NotificationsPagingSource(
             // Start refresh at page 1 if undefined.
             val nextPageNumber = params.key ?: 1
             val response = apiService.getNotifications(userId, nextPageNumber)
+
+            //TODO go with networkResponse ext
+//            val response = networkResponse(
+//                fetch = {
+//                    ApiResponse.create(apiService.markNotificationRead(notificationPostDto))
+//                },
+//                true
+//            )
+
             return LoadResult.Page(
                 data = response.body()!!.notifications,
                 prevKey = null, // Only paging forward.
