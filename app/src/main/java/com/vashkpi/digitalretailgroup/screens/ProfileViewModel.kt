@@ -42,8 +42,8 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
     private lateinit var _localUserInfo: UserInfo
 
     init {
-        _localUserInfo = dataStoreRepository.userInfo
-        Timber.d("obtaining user info: $_localUserInfo")
+        //_localUserInfo = dataStoreRepository.userInfo
+        //Timber.d("obtaining user info: $_localUserInfo")
         //setViewsFromValues(_localUserInfo)
         getProfileInfoFromServer(dataStoreRepository.userId)
     }
@@ -81,6 +81,18 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
         }
     }
 
+    fun saveLocalUserInfoFromValues() {
+        val temp =  UserInfo(
+            _name.value,
+            _surname.value,
+            _middleName.value,
+            _birthDate.value,
+            _genderRadioId.value.convertGenderRadioGroupIdToString()
+        )
+        dataStoreRepository.userInfo = temp
+        _localUserInfo = temp
+    }
+
     fun profileDataChanged(actualUserInfo: UserInfo) {
         //val generatedUserInfo = UserInfo(name, surname, middleName, birthDate, gender)
 
@@ -91,9 +103,10 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
         _genderRadioId.value = actualUserInfo.gender.convertGenderStringToRadioGroupId()
 
         //compare to local
-        compareLocalValuesToActual(_localUserInfo, actualUserInfo)
+        if (::_localUserInfo.isInitialized) {
+            compareLocalValuesToActual(_localUserInfo, actualUserInfo)
+        }
     }
-
 
     private val _profileDataHasChanges = MutableStateFlow<Boolean>(false)
     val profileDataHasChanges: StateFlow<Boolean> = _profileDataHasChanges
@@ -123,7 +136,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
 
-                            dataStoreRepository.userInfo = userInfo
+                            saveLocalUserInfoFromValues()
 
                             postProgressViewVisibility(false)
                             if (isRegistration) {
@@ -131,7 +144,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                             }
                             else {
                                 //clear the views
-                                setViewsFromValues(_localUserInfo)
+                                setViewsFromValues(dataStoreRepository.userInfo)
                             }
                             this@launch.cancel()
                         } ?: kotlin.run {
@@ -172,7 +185,8 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
 
                             //postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = 0, message = it.message))
                             //set from this info
-                            setViewsFromValues(it.user_info.asDomainModel())
+                            _localUserInfo = it
+                            setViewsFromValues(it)
                         }
                         postProgressViewVisibility(false)
 

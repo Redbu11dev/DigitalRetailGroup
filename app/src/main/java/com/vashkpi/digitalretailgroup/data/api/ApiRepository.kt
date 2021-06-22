@@ -2,15 +2,18 @@ package com.vashkpi.digitalretailgroup.data.api
 
 import com.vashkpi.digitalretailgroup.data.database.AppDatabase
 import com.vashkpi.digitalretailgroup.data.models.database.*
+import com.vashkpi.digitalretailgroup.data.models.domain.UserInfo
 import com.vashkpi.digitalretailgroup.data.models.network.*
 import com.vashkpi.digitalretailgroup.data.models.network.AccountsDto
 import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeDto
 import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
+import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import javax.inject.Inject
 
-class ApiRepository @Inject constructor(private val apiService: ApiService, private val appDatabase: AppDatabase) {
+class ApiRepository @Inject constructor(private val apiService: ApiService, private val appDatabase: AppDatabase, private val dataStoreRepository: DataStoreRepository) {
 
     suspend fun registerPhone(registerPhoneDto: RegisterPhoneDto): Flow<Resource<out GenericResponseDto?>> {
         Timber.d("trying")
@@ -42,13 +45,34 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun getProfileInfo(userId: String): Flow<Resource<out AccountsGetResponseDto?>> {
+    suspend fun getProfileInfo(userId: String): Flow<Resource<out UserInfo>> {
         Timber.d("trying")
-        return networkResponse(
+//        return networkResponse(
+//            fetch = {
+//                ApiResponse.create(apiService.getProfileInfo(userId))
+//            },
+//            false
+//        )
+        return networkBoundResource(
+            query = {
+                //appDatabase.brandDao().getAll()
+                    flow {
+                        emit(dataStoreRepository.userInfo)
+                    }
+            },
             fetch = {
                 ApiResponse.create(apiService.getProfileInfo(userId))
             },
-            false
+            shouldFetch = {
+                //it == null
+                true
+            },
+            saveFetchResult = {
+                dataStoreRepository.userInfo = it.user_info.asDomainModel()
+            },
+            mapper = {
+                it.user_info.asDomainModel()
+            }
         )
     }
 

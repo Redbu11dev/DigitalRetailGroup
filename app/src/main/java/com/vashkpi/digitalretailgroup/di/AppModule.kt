@@ -91,8 +91,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideApiRepository(apiService: ApiService, appDatabase: AppDatabase): ApiRepository {
-        return ApiRepository(apiService, appDatabase)
+    fun provideApiRepository(apiService: ApiService, appDatabase: AppDatabase, dataStoreRepository: DataStoreRepository): ApiRepository {
+        return ApiRepository(apiService, appDatabase, dataStoreRepository)
     }
 
     @Singleton
