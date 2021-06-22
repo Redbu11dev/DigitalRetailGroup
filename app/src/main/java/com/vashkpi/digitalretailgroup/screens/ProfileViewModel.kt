@@ -8,6 +8,7 @@ import com.vashkpi.digitalretailgroup.data.models.domain.*
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.data.models.network.AccountsDto
 import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
+import com.vashkpi.digitalretailgroup.data.models.network.asDomainModel
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
@@ -43,17 +44,18 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
     init {
         _localUserInfo = dataStoreRepository.userInfo
         Timber.d("obtaining user info: $_localUserInfo")
-        setViewsFromLocalValues()
+        //setViewsFromValues(_localUserInfo)
+        getProfileInfoFromServer(dataStoreRepository.userId)
     }
 
-    fun setViewsFromLocalValues() {
-        Timber.d("userinfo: ${_localUserInfo}")
+    fun setViewsFromValues(userInfo: UserInfo) {
+        Timber.d("userinfo: ${userInfo}")
 
-        val nameToSet = _localUserInfo.name
-        val surnameToSet = _localUserInfo.surname
-        val middleNameToSet = _localUserInfo.middle_name
-        val birthDateToSet = _localUserInfo.date_of_birth
-        val genderRadioIdToSet = _localUserInfo.gender.convertGenderStringToRadioGroupId()
+        val nameToSet = userInfo.name
+        val surnameToSet = userInfo.surname
+        val middleNameToSet = userInfo.middle_name
+        val birthDateToSet = userInfo.date_of_birth
+        val genderRadioIdToSet = userInfo.gender.convertGenderStringToRadioGroupId()
 
         _name.value = nameToSet
         _surname.value = surnameToSet
@@ -129,7 +131,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                             }
                             else {
                                 //clear the views
-                                setViewsFromLocalValues()
+                                setViewsFromValues(_localUserInfo)
                             }
                             this@launch.cancel()
                         } ?: kotlin.run {
@@ -168,7 +170,9 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                         it.data?.let {
                             Timber.d("here is the data: $it")
 
-                            postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = 0, message = it.message))
+                            //postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = 0, message = it.message))
+                            //set from this info
+                            setViewsFromValues(it.user_info.asDomainModel())
                         }
                         postProgressViewVisibility(false)
 
@@ -238,7 +242,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
             //Navigation.findNavController(requireView()).navigate(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
         }
         else {
-            setViewsFromLocalValues()
+            setViewsFromValues(_localUserInfo)
         }
     }
 

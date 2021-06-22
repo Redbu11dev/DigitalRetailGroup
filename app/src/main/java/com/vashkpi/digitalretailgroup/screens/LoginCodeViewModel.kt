@@ -34,6 +34,7 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
                         Timber.i("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false)
+
                         postNavigationEvent(LoginCodeFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {

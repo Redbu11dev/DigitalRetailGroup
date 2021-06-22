@@ -1,5 +1,17 @@
 package com.vashkpi.digitalretailgroup.data.models.network
 
+import com.vashkpi.digitalretailgroup.data.models.database.StoreEntity
+import com.vashkpi.digitalretailgroup.data.models.domain.UserInfo
+
+fun UserInfoDto.asDomainModel(): UserInfo {
+    return UserInfo(
+        name,
+        surname,
+        middle_name,
+        date_of_birth,
+        gender
+    )
+}
 
 data class UserInfoDto(
     val name: String,
