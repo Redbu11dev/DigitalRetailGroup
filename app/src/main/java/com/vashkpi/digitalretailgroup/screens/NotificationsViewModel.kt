@@ -41,7 +41,7 @@ class NotificationsViewModel @Inject constructor(private val dataStoreRepository
                         Timber.i("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false)
-                        postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                        postNavigationEvent(NotificationsFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")

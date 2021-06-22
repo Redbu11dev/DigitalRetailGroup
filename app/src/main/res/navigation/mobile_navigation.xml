@@ -124,10 +124,6 @@
         <argument
             android:name="notification"
             app:argType="com.vashkpi.digitalretailgroup.data.models.domain.Notification" />
-        <argument
-            android:name="page"
-            app:argType="integer"
-            />
     </fragment>
     <fragment
         android:id="@+id/brandInfoFragment"

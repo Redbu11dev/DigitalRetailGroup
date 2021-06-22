@@ -15,8 +15,10 @@ import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentViewNotificationBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
+import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ViewNotificationFragment : BaseFragment<FragmentViewNotificationBinding, ViewNotificationViewModel>(FragmentViewNotificationBinding::inflate) {
@@ -32,23 +34,23 @@ class ViewNotificationFragment : BaseFragment<FragmentViewNotificationBinding, V
         val navController = findNavController()
         toolbar.setupWithNavController(navController)
 
+        val notification = args.notification
+
+        binding.title.text = notification.title
+        binding.text.text = notification.text
+        binding.date.text = notification.date
+
         toolbar.inflateMenu(R.menu.toolbar_menu_notifications)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.delete -> {
                     //viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToNotificationsFragment())
+                    viewModel.delete(notification.notification_id)
                     true
                 }
                 else -> false
             }
         }
-
-        val notification = args.notification
-        val page = args.page
-
-        binding.title.text = notification.title
-        binding.text.text = notification.text
-        binding.date.text = notification.text
 
         viewModel.markRead(notification)
 
@@ -56,6 +58,12 @@ class ViewNotificationFragment : BaseFragment<FragmentViewNotificationBinding, V
 
     override fun observeViewModel() {
         super.observeViewModel()
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.notificationRemovedEvent.collect {
+                findNavController().navigateUp()
+            }
+        }
 
 //        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
 //            viewModel.notification.collect {

@@ -91,4 +91,10 @@ interface ApiService {
     suspend fun markNotificationRead(
         @Body notificationPostDto: NotificationPostDto
     ): Response<GenericResponseDto>
+
+    @DELETE("notifications/{notification_id}")
+    suspend fun deleteNotification(
+        @Header("user_id") userId: String,
+        @Path("notification_id") notification_id: String
+    ): Response<GenericResponseDto>
 }
