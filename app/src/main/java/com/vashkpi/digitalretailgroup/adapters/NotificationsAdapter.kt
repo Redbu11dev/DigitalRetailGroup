@@ -17,6 +17,8 @@ class NotificationsAdapter(
     private val clickListener: (View, Notification) -> Unit
 ) : PagingDataAdapter<Notification, NotificationsViewHolder>(NotificationDiffCallBack()) {
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding =
@@ -29,7 +31,7 @@ class NotificationsAdapter(
     }
 
     override fun onBindViewHolder(holder: NotificationsViewHolder, position: Int) {
-        holder.bind(getItem(position)!!, clickListener)
+        holder.bind(getItem(position), clickListener)
     }
 
 }
@@ -47,55 +49,57 @@ class NotificationDiffCallBack : DiffUtil.ItemCallback<Notification>() {
 class NotificationsViewHolder(val binding: ItemNotificationBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(data: Notification, clickListener: (view: View, Notification) -> Unit) {
+    fun bind(data: Notification?, clickListener: (view: View, Notification) -> Unit) {
 
-        if (data.read) {
-            binding.visiblePart.setBackgroundResource(R.drawable.bgr_card)
-        }
-        else {
-            binding.visiblePart.setBackgroundResource(R.drawable.bgr_card_light)
-        }
-
-        binding.title.text = data.title
-        binding.text.text = data.text
-        binding.date.text = data.date
-
-        binding.swipe.showMode = SwipeLayout.ShowMode.LayDown
-        binding.swipe.addSwipeListener(object: SwipeLayout.SwipeListener{
-            override fun onStartOpen(layout: SwipeLayout?) {
-                binding.visiblePart.isClickable = false
+        data?.let {
+            if (data.read) {
+                binding.visiblePart.setBackgroundResource(R.drawable.bgr_card)
+            }
+            else {
+                binding.visiblePart.setBackgroundResource(R.drawable.bgr_card_light)
             }
 
-            override fun onOpen(layout: SwipeLayout?) {
+            binding.title.text = data.title
+            binding.text.text = data.text
+            binding.date.text = data.date
 
+            binding.swipe.showMode = SwipeLayout.ShowMode.LayDown
+            binding.swipe.addSwipeListener(object: SwipeLayout.SwipeListener{
+                override fun onStartOpen(layout: SwipeLayout?) {
+                    binding.visiblePart.isClickable = false
+                }
+
+                override fun onOpen(layout: SwipeLayout?) {
+
+                }
+
+                override fun onStartClose(layout: SwipeLayout?) {
+
+                }
+
+                override fun onClose(layout: SwipeLayout?) {
+
+                }
+
+                override fun onUpdate(layout: SwipeLayout?, leftOffset: Int, topOffset: Int) {
+                    //mLeftOffset = leftOffset
+                    println("left offset: $leftOffset")
+                }
+
+                override fun onHandRelease(layout: SwipeLayout?, xvel: Float, yvel: Float) {
+                    binding.visiblePart.isClickable = true
+                }
+
+            })
+
+            binding.visiblePart.changeAlphaOnTouch()
+            binding.visiblePart.setOnClickListener {
+                clickListener(it, data)
             }
 
-            override fun onStartClose(layout: SwipeLayout?) {
+            binding.icon.setOnClickListener {
 
             }
-
-            override fun onClose(layout: SwipeLayout?) {
-
-            }
-
-            override fun onUpdate(layout: SwipeLayout?, leftOffset: Int, topOffset: Int) {
-                //mLeftOffset = leftOffset
-                println("left offset: $leftOffset")
-            }
-
-            override fun onHandRelease(layout: SwipeLayout?, xvel: Float, yvel: Float) {
-                binding.visiblePart.isClickable = true
-            }
-
-        })
-
-        binding.visiblePart.changeAlphaOnTouch()
-        binding.visiblePart.setOnClickListener {
-            clickListener(it, data)
-        }
-
-        binding.icon.setOnClickListener {
-
         }
     }
 }

@@ -268,14 +268,12 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
     fun getNotifications(): Flow<PagingData<NotificationDto>> {
         Timber.d("trying")
         return Pager(
-            config = PagingConfig(
-                pageSize = NETWORK_PAGE_SIZE,
-                enablePlaceholders = false
-            ),
-            pagingSourceFactory = {
-                NotificationsPagingSource(apiService, dataStoreRepository)
-            }
-        ).flow
+            // Configure how data is loaded by passing additional properties to
+            // PagingConfig, such as prefetchDistance.
+            PagingConfig(pageSize = 10)
+        ) {
+            NotificationsPagingSource(apiService, dataStoreRepository.userId)
+        }.flow
     }
 
     suspend fun markNotificationRead(notificationPostDto: NotificationPostDto): Flow<Resource<out GenericResponseDto?>> {

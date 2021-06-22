@@ -7,52 +7,49 @@ import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import retrofit2.HttpException
 import java.io.IOException
 
-private const val STARTING_PAGE_INDEX = 1
-//const val NETWORK_PAGE_SIZE = 10
-
 class NotificationsPagingSource(
     private val apiService: ApiService,
-    private val dataStoreRepository: DataStoreRepository
+    private val userId: String
 ) : PagingSource<Int, NotificationDto>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NotificationDto> {
-        val pageIndex = params.key ?: STARTING_PAGE_INDEX
-        return try {
-            val response = apiService.getNotifications(
-                userId = dataStoreRepository.userId,
-                page = pageIndex
+        try {
+            // Start refresh at page 1 if undefined.
+            val nextPageNumber = params.key ?: 1
+            val response = apiService.getNotifications(userId, nextPageNumber)
+            return LoadResult.Page(
+                data = response.body()!!.notifications,
+                prevKey = null, // Only paging forward.
+                nextKey = response.body()!!.page_next.toInt()
             )
-            val notifications = response.body()!!.notifications.reversed()
-            val nextKey =
-                if (notifications.isEmpty()) {
-                    null
-                } else {
-                    // By default, initial load size = 3 * NETWORK PAGE SIZE
-                    // ensure we're not requesting duplicating items at the 2nd request
-                    pageIndex + (params.loadSize / NETWORK_PAGE_SIZE)
-                }
-            LoadResult.Page(
-                data = notifications,
-                prevKey = if (pageIndex == STARTING_PAGE_INDEX) null else pageIndex,
-                nextKey = nextKey
-            )
-        } catch (exception: IOException) {
-            return LoadResult.Error(exception)
-        } catch (exception: HttpException) {
-            return LoadResult.Error(exception)
+        }
+        catch (e: IOException) {
+            // IOException for network failures.
+            return LoadResult.Error(e)
+        }
+        catch (e: HttpException) {
+            // HttpException for any non-2xx HTTP status codes.
+            return LoadResult.Error(e)
+        }
+        catch (t: Throwable) {
+            // Handle errors in this block and return LoadResult.Error if it is an
+            // expected error (such as a network failure).
+            return LoadResult.Error(t)
         }
     }
 
-    /**
-     * The refresh key is used for subsequent calls to PagingSource.Load after the initial load.
-     */
     override fun getRefreshKey(state: PagingState<Int, NotificationDto>): Int? {
-        // We need to get the previous key (or next key if previous is null) of the page
-        // that was closest to the most recently accessed index.
-        // Anchor position is the most recently accessed index.
+        // Try to find the page key of the closest page to anchorPosition, from
+        // either the prevKey or the nextKey, but you need to handle nullability
+        // here:
+        //  * prevKey == null -> anchorPage is the first page.
+        //  * nextKey == null -> anchorPage is the last page.
+        //  * both prevKey and nextKey null -> anchorPage is the initial page, so
+        //    just return null.
         return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
-                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
+
 }

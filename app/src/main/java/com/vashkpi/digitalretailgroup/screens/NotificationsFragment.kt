@@ -56,10 +56,18 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 //        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.obtainNotifications().collectLatest { movies ->
-                adapter.submitData(movies)
+            viewModel.obtainNotifications().collectLatest { notifications ->
+                adapter.submitData(notifications)
             }
         }
+
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.notificationsList.collect { notifications ->
+//                notifications?.let {
+//                    adapter.submitData(notifications)
+//                }
+//            }
+//        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.emptyContainerVisible.collect {

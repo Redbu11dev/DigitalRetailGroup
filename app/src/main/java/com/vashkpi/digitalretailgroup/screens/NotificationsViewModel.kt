@@ -23,13 +23,27 @@ import javax.inject.Inject
 @HiltViewModel
 class NotificationsViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository, private val apiRepository: ApiRepository): BaseViewModel() {
 
-    private val _notificationsList = MutableStateFlow(mutableListOf<Notification>())
-    val notificationsList: StateFlow<List<Notification>> get() = _notificationsList
+//    private val _notificationsList = MutableStateFlow(mutableListOf<Notification>())
+//    val notificationsList: StateFlow<List<Notification>> get() = _notificationsList
+
+    private val _notificationsList = MutableStateFlow<PagingData<Notification>?>(null)
+    val notificationsList: StateFlow<PagingData<Notification>?> get() = _notificationsList
 
     private val _emptyContainerVisible = MutableStateFlow(true)
     val emptyContainerVisible: StateFlow<Boolean> get() = _emptyContainerVisible
 
     fun obtainNotifications(): Flow<PagingData<Notification>> {
+
+//        viewModelScope.launch {
+//            apiRepository.getNotifications()
+//                .map { pagingData ->
+//                    pagingData.map {
+//                        it.asDomainModel()
+//                    }
+//                }
+//        }
+
+
         return apiRepository.getNotifications()
             .map { pagingData ->
                 pagingData.map {
