@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/custom_toolbar"
-        android:paddingHorizontal="12dp"
         android:layout_marginTop="25dp"
         >
 
@@ -72,6 +71,9 @@
             tools:listitem="@layout/item_notification"
             tools:itemCount="4"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:paddingHorizontal="12dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

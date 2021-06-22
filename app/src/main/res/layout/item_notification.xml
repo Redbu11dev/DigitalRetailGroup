@@ -39,13 +39,13 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
+        style="@style/Widget.DigitalRetailGroup.PseudoCard.FreeForm"
         >
 <!--        android:foreground="?attr/selectableItemBackground"-->
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.DigitalRetailGroup.PseudoCard.FreeForm"
             android:paddingHorizontal="16dp"
             android:paddingVertical="21dp"
             app:layout_constraintBottom_toBottomOf="parent"

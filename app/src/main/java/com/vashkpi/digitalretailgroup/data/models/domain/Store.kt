@@ -7,7 +7,7 @@ import com.vashkpi.digitalretailgroup.data.models.domain.Brand
 data class Store (
     val name: String,
     val store_id: String,
-    val image_parth: String, //typo on the server side
+    val image_parth: String?, //typo on the server side
     val order: Int,
     val address: String
 )

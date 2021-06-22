@@ -25,7 +25,7 @@ data class StoreEntity (
 
     val name: String,
     val store_id: String,
-    val image_parth: String, //typo on the server side
+    val image_parth: String?, //typo on the server side
     val order: Int,
     val address: String
 )

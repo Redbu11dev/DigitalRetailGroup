@@ -18,6 +18,6 @@ data class BrandEntity (
     val name: String,
     @PrimaryKey
     val brand_id: String,
-    val image_parth: String, //typo on the server side
+    val image_parth: String?, //typo on the server side
     val order: Int
 )

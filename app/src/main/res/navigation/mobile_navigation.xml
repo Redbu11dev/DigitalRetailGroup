@@ -45,7 +45,7 @@
 
         android:id="@+id/notificationsFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.NotificationsFragment"
-        android:label="fragment_notifications"
+        android:label="@string/notification_title"
         tools:layout="@layout/fragment_notifications" >
         <action
             android:id="@+id/action_notificationsFragment_to_viewNotificationFragment"
@@ -119,8 +119,16 @@
     <fragment
         android:id="@+id/viewNotificationFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.ViewNotificationFragment"
-        android:label="fragment_view_notification"
-        tools:layout="@layout/fragment_view_notification" />
+        android:label=""
+        tools:layout="@layout/fragment_view_notification">
+        <argument
+            android:name="notification"
+            app:argType="com.vashkpi.digitalretailgroup.data.models.domain.Notification" />
+        <argument
+            android:name="page"
+            app:argType="integer"
+            />
+    </fragment>
     <fragment
         android:id="@+id/brandInfoFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.BrandInfoFragment"

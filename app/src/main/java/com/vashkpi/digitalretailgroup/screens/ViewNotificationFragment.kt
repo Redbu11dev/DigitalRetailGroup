@@ -5,29 +5,28 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentViewNotificationBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
+import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class ViewNotificationFragment : Fragment() {
+class ViewNotificationFragment : BaseFragment<FragmentViewNotificationBinding, ViewNotificationViewModel>(FragmentViewNotificationBinding::inflate) {
 
-    private var _binding: FragmentViewNotificationBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    override val viewModel: ViewNotificationViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    private val args: ViewNotificationFragmentArgs by navArgs()
 
-        _binding = FragmentViewNotificationBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+    override fun setUpViews() {
+        super.setUpViews()
 
         val toolbar = binding.customToolbar.toolbar
         val navController = findNavController()
@@ -44,12 +43,24 @@ class ViewNotificationFragment : Fragment() {
             }
         }
 
-        return root
+        viewModel.setNotification(args.notification)
+        val page = args.page
+
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun observeViewModel() {
+        super.observeViewModel()
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.notification.collect {
+                it?.let {
+                    binding.title.text = it.title
+                    binding.text.text = it.text
+                    binding.date.text = it.text
+                }
+            }
+        }
+
     }
 
 }

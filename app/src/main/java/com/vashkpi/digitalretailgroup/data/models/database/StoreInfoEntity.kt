@@ -25,7 +25,7 @@ data class StoreInfoEntity (
     val store_id: String,//custom
 
     val name: String,
-    val image_parth: String, //typo on the server side
+    val image_parth: String?, //typo on the server side
     val website: String,
     val time_of_work: String,
     val telephone: String,

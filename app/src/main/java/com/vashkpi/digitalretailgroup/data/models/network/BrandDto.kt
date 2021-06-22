@@ -17,6 +17,6 @@ fun BrandDto.asDatabaseModel(): BrandEntity {
 data class BrandDto (
     val name: String,
     val brand_id: String,
-    val image_parth: String, //typo on the server side
+    val image_parth: String?, //typo on the server side
     val order: Int,
 ) : Parcelable

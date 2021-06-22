@@ -53,6 +53,13 @@ class NotificationsViewHolder(val binding: ItemNotificationBinding) :
 
     fun bind(data: Notification, clickListener: (view: View, Notification) -> Unit) {
 
+        if (data.read) {
+            binding.visiblePart.setBackgroundResource(R.drawable.bgr_card)
+        }
+        else {
+            binding.visiblePart.setBackgroundResource(R.drawable.bgr_card_light)
+        }
+
         binding.title.text = data.title
         binding.text.text = data.text
         binding.date.text = data.date

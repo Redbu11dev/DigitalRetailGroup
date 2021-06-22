@@ -25,7 +25,7 @@ fun StoreDto.asDatabaseModel(brand_id: String,
 data class StoreDto (
     val name: String,
     val store_id: String,
-    val image_parth: String, //typo on the server side
+    val image_parth: String?, //typo on the server side
     val order: Int,
     val address: String
 ) : Parcelable

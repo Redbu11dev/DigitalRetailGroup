@@ -34,7 +34,8 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
         toolbar.setupWithNavController(navController)
 
         adapter = NotificationsAdapter { view, data ->
-            findNavController().navigate(NotificationsFragmentDirections.actionNotificationsFragmentToViewNotificationFragment())
+            //fixme need pages
+            findNavController().navigate(NotificationsFragmentDirections.actionNotificationsFragmentToViewNotificationFragment(data, 1))
         }
 
         binding.notificationsList.adapter = adapter
