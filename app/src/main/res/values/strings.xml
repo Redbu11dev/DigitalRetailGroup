@@ -30,6 +30,11 @@
     <!--    Login code-->
     <string name="login_code_description">Введите пароль из смс, отправленного на номер %s</string>
 
+<!--    Description titles-->
+    <string name="description_title_save">Как копить баллы</string>
+    <string name="description_title_get">Как тратить баллы</string>
+    <string name="description_title_promotion_rules">Правила акции</string>
+
     <!--    Main-->
     <string name="main_description">Бренды-партнёры, в чьих магазинах вы можете использвать баллы при оплате.</string>
     <string name="main_how_to_save_points">Как копить баллы</string>

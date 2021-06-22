@@ -76,42 +76,6 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
 
     enum class ViewState {ZERO_BALANCE, NEW_CODE_AVAILABLE, NEW_CODE_MUST_WAIT}
 
-    fun getPromotionRules() {
-        viewModelScope.launch {
-            apiRepository.getSavePointsRules(dataStoreRepository.userId).collect {
-                when (it) {
-                    is Resource.Loading -> {
-                        Timber.i("it's loading")
-                        postProgressViewVisibility(true)
-                    }
-                    is Resource.Error -> {
-                        this@launch.cancel()
-                        val message = it.error?.message
-                        Timber.i("it's error: ${message}")
-                        //it.error.
-                        postProgressViewVisibility(false)
-                        postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
-                    }
-                    is Resource.Success -> {
-                        Timber.i("it's success")
-                        //check if empty?!
-                        it.data?.let { data ->
-                            Timber.i("here is the data: $data")
-
-                            postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToDetailsFragment(R.string.barcode_btn_how_to_get_points, data.rule_text))
-
-                            postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     fun getNewCode() {
         viewModelScope.launch {
             apiRepository.getCode(dataStoreRepository.userId).collect {
@@ -191,6 +155,12 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
         }
     }
 
+    fun onHowToGetPointsBtnClick() {
+        postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToDetailsFragment(0))
+    }
 
+    fun onPromotionRulesClick() {
+        postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToDetailsFragment(2))
+    }
 
 }

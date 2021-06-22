@@ -216,12 +216,8 @@
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <argument
-            android:name="title"
-            app:argType="reference"
-            />
-        <argument
-            android:name="text"
-            app:argType="string"
+            android:name="type"
+            app:argType="integer"
             />
     </fragment>
 

@@ -72,76 +72,12 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
         }
     }
 
-    fun getSavePointsRules() {
-        viewModelScope.launch {
-            apiRepository.getSavePointsRules(dataStoreRepository.userId).collect {
-                when (it) {
-                    is Resource.Loading -> {
-                        Timber.i("it's loading")
-                        postProgressViewVisibility(true)
-                    }
-                    is Resource.Error -> {
-                        this@launch.cancel()
-                        val message = it.error?.message
-                        Timber.i("it's error: ${message}")
-                        //it.error.
-                        postProgressViewVisibility(false)
-                        postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
-                    }
-                    is Resource.Success -> {
-                        Timber.i("it's success")
-                        //check if empty?!
-                        it.data?.let { data ->
-                            Timber.i("here is the data: $data")
-
-                            postNavigationEvent(MainFragmentDirections.actionNavigationMainToDetailsFragment(R.string.main_how_to_save_points, data.rule_text))
-
-                            postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
-                        }
-                    }
-                }
-            }
-        }
+    fun onSavePointsOptionClick() {
+        postNavigationEvent(MainFragmentDirections.actionNavigationMainToDetailsFragment(0))
     }
 
-    fun getSpendPointsRules() {
-        viewModelScope.launch {
-            apiRepository.getSpendPointsRules(dataStoreRepository.userId).collect {
-                when (it) {
-                    is Resource.Loading -> {
-                        Timber.i("it's loading")
-                        postProgressViewVisibility(true)
-                    }
-                    is Resource.Error -> {
-                        this@launch.cancel()
-                        val message = it.error?.message
-                        Timber.i("it's error: ${message}")
-                        //it.error.
-                        postProgressViewVisibility(false)
-                        postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
-                    }
-                    is Resource.Success -> {
-                        Timber.i("it's success")
-                        //check if empty?!
-                        it.data?.let { data ->
-                            Timber.i("here is the data: $data")
-
-                            postNavigationEvent(MainFragmentDirections.actionNavigationMainToDetailsFragment(R.string.main_how_to_spend_points, data.rule_text))
-
-                            postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
-                        }
-                    }
-                }
-            }
-        }
+    fun onSpendPointsOptionClick() {
+        postNavigationEvent(MainFragmentDirections.actionNavigationMainToDetailsFragment(1))
     }
 
 }

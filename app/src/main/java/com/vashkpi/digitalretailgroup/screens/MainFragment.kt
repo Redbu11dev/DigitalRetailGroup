@@ -57,14 +57,14 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
 
         binding.item1.root.changeAlphaOnTouch()
         binding.item1.root.setOnClickListener {
-            viewModel.getSavePointsRules()
+            viewModel.onSavePointsOptionClick()
         }
         binding.item1.icon.setImageResource(R.drawable.ic_save)
         binding.item1.text.setText(R.string.main_how_to_save_points)
 
         binding.item2.root.changeAlphaOnTouch()
         binding.item2.root.setOnClickListener {
-            viewModel.getSpendPointsRules()
+            viewModel.onSpendPointsOptionClick()
         }
         binding.item2.icon.setImageResource(R.drawable.ic_spend)
         binding.item2.text.setText(R.string.main_how_to_spend_points)

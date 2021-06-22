@@ -1,29 +1,21 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
-import androidx.navigation.fragment.findNavController
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.oned.Code128Writer
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentBarcodeBinding
-import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(FragmentBarcodeBinding::inflate) {
@@ -56,11 +48,11 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
         toolbar.title = ""
 
         binding.contactUs.setOnClickListener {
-            viewModel.getPromotionRules()
+            viewModel.onPromotionRulesClick()
         }
 
         binding.howToGetPointsBtn.setOnClickListener {
-            viewModel.getPromotionRules()
+            viewModel.onHowToGetPointsBtnClick()
         }
 
         binding.newCodeBtn.setOnClickListener {
