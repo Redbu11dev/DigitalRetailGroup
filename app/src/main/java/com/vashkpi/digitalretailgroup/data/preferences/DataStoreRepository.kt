@@ -90,11 +90,6 @@ class DataStoreRepository(private val context: Context, private val dataStore: D
 
     init {
         //init crucial default values to not to headbutt if they are empty
-
-//        if (fcmToken.isEmpty()) {
-//            //fcmToken = //TODO if empty - try obtaining the token in here(?) directly somehow
-//        }
-
         updateFcmTokenInternal()
     }
 

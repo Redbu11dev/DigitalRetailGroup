@@ -21,7 +21,7 @@ class MyFirebaseService : FirebaseMessagingService() {
         super.onNewToken(newToken)
 
         dataStoreRepository.fcmToken = newToken
-        Timber.i("new FCM token obtained: $newToken")
+        Timber.d("new FCM token obtained: $newToken")
 
         //not very safe, probably should also obtain token in pref init somewhere
     }
