@@ -86,4 +86,9 @@ interface ApiService {
         @Header("user_id") userId: String,
         @Header("page") page: Int
     ): Response<NotificationsResponseDto>
+
+    @POST("notifications")
+    suspend fun markNotificationRead(
+        @Body notificationPostDto: NotificationPostDto
+    ): Response<GenericResponseDto>
 }

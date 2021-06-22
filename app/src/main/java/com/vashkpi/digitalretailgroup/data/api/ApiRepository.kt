@@ -244,7 +244,8 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                 ApiResponse.create(apiService.getNotifications(userId, page))
             },
             shouldFetch = {
-                it.isEmpty()
+                //it.isEmpty()
+                true
             },
             saveFetchResult = {
                 appDatabase.notificationDao().insertMany(it.notifications.map {
@@ -256,6 +257,16 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                     it.asDatabaseModel()
                 }
             }
+        )
+    }
+
+    suspend fun markNotificationRead(notificationPostDto: NotificationPostDto): Flow<Resource<out GenericResponseDto?>> {
+        Timber.d("trying")
+        return networkResponse(
+            fetch = {
+                ApiResponse.create(apiService.markNotificationRead(notificationPostDto))
+            },
+            true
         )
     }
 

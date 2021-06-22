@@ -1,6 +1,7 @@
 package com.vashkpi.digitalretailgroup.data.api
 
 import kotlinx.coroutines.flow.*
+import timber.log.Timber
 
 sealed class Resource<T>(
     val data: T? = null,
@@ -47,8 +48,16 @@ inline fun <NetworkType> networkResponse(
             }
         }
     } catch (throwable: Throwable) {
-        //Timber.d("in here")
-        emit(Resource.Error(throwable, null))
+        Timber.d("some error processing networkResponse: $throwable")
+        when {
+            (canBeEmptyResponse && throwable is java.io.EOFException) -> {
+                //it is made like that on the backend
+                emit(Resource.Success(null))
+            }
+            else -> {
+                emit(Resource.Error(throwable, null))
+            }
+        }
     }
 }
 

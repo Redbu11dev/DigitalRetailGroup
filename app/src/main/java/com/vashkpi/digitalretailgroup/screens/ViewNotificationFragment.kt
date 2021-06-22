@@ -43,23 +43,29 @@ class ViewNotificationFragment : BaseFragment<FragmentViewNotificationBinding, V
             }
         }
 
-        viewModel.setNotification(args.notification)
+        val notification = args.notification
         val page = args.page
+
+        binding.title.text = notification.title
+        binding.text.text = notification.text
+        binding.date.text = notification.text
+
+        viewModel.markRead(notification)
 
     }
 
     override fun observeViewModel() {
         super.observeViewModel()
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.notification.collect {
-                it?.let {
-                    binding.title.text = it.title
-                    binding.text.text = it.text
-                    binding.date.text = it.text
-                }
-            }
-        }
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.notification.collect {
+//                it?.let {
+//                    binding.title.text = it.title
+//                    binding.text.text = it.text
+//                    binding.date.text = it.text
+//                }
+//            }
+//        }
 
     }
 

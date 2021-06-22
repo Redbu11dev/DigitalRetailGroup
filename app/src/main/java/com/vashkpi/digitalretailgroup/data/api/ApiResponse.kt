@@ -2,6 +2,7 @@ package com.vashkpi.digitalretailgroup.data.api
 
 import com.google.gson.JsonElement
 import retrofit2.Response
+import timber.log.Timber
 
 //data class ApiResponse(
 //    val error: Throwable? = Throwable("Unknown error"),
@@ -11,6 +12,7 @@ import retrofit2.Response
 sealed class ApiResponse<T> {
     companion object {
         fun <T> create(response: Response<T>): ApiResponse<T> {
+            Timber.d("body.toString()1: ${response.body().toString()}")
             return if (response.isSuccessful) {
                 val body = response.body()
                 if (body == null || response.code() == 204) {
