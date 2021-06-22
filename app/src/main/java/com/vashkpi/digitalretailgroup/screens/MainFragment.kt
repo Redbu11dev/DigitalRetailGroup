@@ -84,8 +84,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.brandsList.collect {
-                adapter.setList(it)
-                adapter.notifyDataSetChanged()
+                adapter.submitList(it)
+//                adapter.setList(it)
+//                adapter.notifyDataSetChanged()
                 //binding.partnersList.scheduleLayoutAnimation()
                 binding.partnersList.visibility = View.VISIBLE
             }

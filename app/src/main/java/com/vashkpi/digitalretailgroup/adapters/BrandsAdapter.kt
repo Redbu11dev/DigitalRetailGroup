@@ -3,18 +3,19 @@ package com.vashkpi.digitalretailgroup.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.models.domain.Brand
+import com.vashkpi.digitalretailgroup.data.models.domain.Notification
 import com.vashkpi.digitalretailgroup.databinding.ItemBrandBinding
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 
 class BrandsAdapter(
     private val clickListener: (View, Brand) -> Unit
-) : RecyclerView.Adapter<BrandsViewHolder>() {
-
-    private val list = ArrayList<Brand>()
+) : ListAdapter<Brand, BrandsViewHolder>(BrandsAdapterDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -27,20 +28,20 @@ class BrandsAdapter(
         return BrandsViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
     override fun onBindViewHolder(holder: BrandsViewHolder, position: Int) {
-        holder.bind(list[position], clickListener)
+        holder.bind(getItem(position), clickListener)
     }
 
-    fun setList(items: List<Brand>) {
-        list.clear()
-        list.addAll(items)
-        //clubsList.reverse()
+}
+
+class BrandsAdapterDiffCallBack : DiffUtil.ItemCallback<Brand>() {
+    override fun areItemsTheSame(oldItem: Brand, newItem: Brand): Boolean {
+        return oldItem.brand_id == newItem.brand_id
     }
 
+    override fun areContentsTheSame(oldItem: Brand, newItem: Brand): Boolean {
+        return oldItem == newItem
+    }
 }
 
 class BrandsViewHolder(val binding: ItemBrandBinding) :
