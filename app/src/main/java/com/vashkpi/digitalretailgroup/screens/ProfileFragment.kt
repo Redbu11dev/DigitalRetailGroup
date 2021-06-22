@@ -6,7 +6,6 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
@@ -190,7 +189,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
     }
 
     private fun notifyProfileDataChanged() {
-        viewModel.profileDataChanged(
+        viewModel.notifyProfileDataChanged(
             UserInfo(
                 binding.firstNameText.text.toString(),
                 binding.surnameText.text.toString(),

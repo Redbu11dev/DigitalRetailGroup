@@ -48,7 +48,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                         postProgressViewVisibility(false)
                         postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
 
-                        //if error message is "message": "Отсутствует параметр user_id" then user does not exist in the db
+                        //TODO-check: if error message is "message": "Отсутствует параметр user_id" then user does not exist in the db
 
                     }
                     is Resource.Success -> {
@@ -57,8 +57,6 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                         //check if empty?!
                         it.data?.let {
                             Timber.d("here is the data: $it")
-
-                            //postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = 0, message = it.message))
 
                             val obtainedUserInfo = it.user_info.asDomainModel()
 
@@ -77,6 +75,11 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
         }
     }
 
+    fun notifyProfileDataChanged(userInfo: UserInfo) {
+        _localUserInfo.value = userInfo
+        compareLocalValuesToActual()
+    }
+
     private fun compareLocalValuesToActual() {
         val cached = dataStoreRepository.userInfo
         val current = _localUserInfo.value
@@ -93,13 +96,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
             Timber.d("UserInfo is not equal")
             //let the user save it
             _profileDataHasChanges.value = true
-
         }
-    }
-
-    fun profileDataChanged(userInfo: UserInfo) {
-        _localUserInfo.value = userInfo
-        compareLocalValuesToActual()
     }
 
     private val _profileDataHasChanges = MutableStateFlow<Boolean>(false)
