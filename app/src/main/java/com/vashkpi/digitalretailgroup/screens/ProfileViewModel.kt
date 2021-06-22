@@ -46,9 +46,19 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                         Timber.d("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false)
-                        postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
 
-                        //TODO-check: if error message is "message": "Отсутствует параметр user_id" then user does not exist in the db
+                        //TODO-check: if error message is "message": "Отсутствует параметр user_id" then user does not exist in the server db
+
+                        when (it.error) {
+                            is java.net.UnknownHostException -> {
+                                //no internet - serve cache
+                                _localUserInfo.value = dataStoreRepository.userInfo
+                            }
+                            else -> {
+                                //other errors - show message dialog
+                                postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                            }
+                        }
 
                     }
                     is Resource.Success -> {
@@ -134,6 +144,8 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                             else {
                                 //update the cache
                                 dataStoreRepository.userInfo = userInfo
+                                //compare values (to show/hide save button)
+                                compareLocalValuesToActual()
                             }
                             this@launch.cancel()
                         } ?: kotlin.run {
