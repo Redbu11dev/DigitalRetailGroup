@@ -14,6 +14,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.models.domain.UserInfo
 import com.vashkpi.digitalretailgroup.data.models.domain.convertGenderRadioGroupIdToString
+import com.vashkpi.digitalretailgroup.data.models.domain.convertGenderStringToRadioGroupId
 import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.screens.dialogs.SaveProfileDataDialogFragment
@@ -120,7 +121,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 //        val outputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).apply {
 //            timeZone = TimeZone.getTimeZone("UTC")
 //        }
-        val outputDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).apply {
+//        val outputDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).apply {
+//            timeZone = TimeZone.getTimeZone("UTC")
+//        }
+        val outputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).apply {
             timeZone = TimeZone.getTimeZone("UTC")
         }
 
@@ -150,46 +154,26 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         super.observeViewModel()
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.name.collect {
-                if (binding.firstNameText.text.toString() != it) {
-                    binding.firstNameText.setText(it)
+            viewModel.localUserInfo.collect {
+                it?.let {
+                    if (binding.firstNameText.text.toString() != it.name) {
+                        binding.firstNameText.setText(it.name)
+                    }
+                    if (binding.surnameText.text.toString() != it.surname) {
+                        binding.surnameText.setText(it.surname)
+                    }
+                    if (binding.middleNameText.text.toString() != it.middle_name) {
+                        binding.middleNameText.setText(it.middle_name)
+                    }
+                    if (binding.birthDateText.text.toString() != it.date_of_birth) {
+                        binding.birthDateText.setText(it.date_of_birth)
+                    }
+                    if (binding.radioGroup.checkedRadioButtonId != it.gender.convertGenderStringToRadioGroupId()) {
+                        binding.radioGroup.check(it.gender.convertGenderStringToRadioGroupId())
+                    }
                 }
             }
         }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.surname.collect {
-                if (binding.surnameText.text.toString() != it) {
-                    binding.surnameText.setText(it)
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.middleName.collect {
-                if (binding.middleNameText.text.toString() != it) {
-                    binding.middleNameText.setText(it)
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.birthDate.collect {
-                if (binding.birthDateText.text.toString() != it) {
-                    binding.birthDateText.setText(it)
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.genderRadioId.collect {
-                if (binding.radioGroup.checkedRadioButtonId != it) {
-                    binding.radioGroup.check(it)
-                }
-            }
-        }
-
-        //
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.profileDataHasChanges.collect {

@@ -24,136 +24,11 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
     //- compare it to values in the text fields
     //- if some of them do not match -> let the user save it (both locally and remote)
 
-    private val _name = MutableStateFlow("")
-    val name: StateFlow<String> get() = _name
-
-    private val _surname = MutableStateFlow("")
-    val surname: StateFlow<String> get() = _surname
-
-    private val _middleName = MutableStateFlow("")
-    val middleName: StateFlow<String> get() = _middleName
-
-    private val _birthDate = MutableStateFlow("")
-    val birthDate: StateFlow<String> get() = _birthDate
-
-    private val _genderRadioId = MutableStateFlow(-1)
-    val genderRadioId: StateFlow<Int> get() = _genderRadioId
-
-    private lateinit var _localUserInfo: UserInfo
+    private val _localUserInfo = MutableStateFlow<UserInfo?>(null)
+    val localUserInfo: StateFlow<UserInfo?> get() = _localUserInfo
 
     init {
-        //_localUserInfo = dataStoreRepository.userInfo
-        //Timber.d("obtaining user info: $_localUserInfo")
-        //setViewsFromValues(_localUserInfo)
         getProfileInfoFromServer(dataStoreRepository.userId)
-    }
-
-    fun setViewsFromValues(userInfo: UserInfo) {
-        Timber.d("userinfo: ${userInfo}")
-
-        val nameToSet = userInfo.name
-        val surnameToSet = userInfo.surname
-        val middleNameToSet = userInfo.middle_name
-        val birthDateToSet = userInfo.date_of_birth
-        val genderRadioIdToSet = userInfo.gender.convertGenderStringToRadioGroupId()
-
-        _name.value = nameToSet
-        _surname.value = surnameToSet
-        _middleName.value = middleNameToSet
-        _birthDate.value = birthDateToSet
-        _genderRadioId.value = genderRadioIdToSet
-
-    }
-
-    private fun compareLocalValuesToActual(localUserInfo: UserInfo, actualUserInfo: UserInfo) {
-        Timber.d("local: ${localUserInfo}")
-        Timber.d("generated: ${actualUserInfo}")
-        if (localUserInfo == actualUserInfo) {
-            Timber.d("UserInfo is equal")
-            //do nothing
-            _profileDataHasChanges.value = false
-        }
-        else {
-            Timber.d("UserInfo is not equal")
-            //let the user save it
-            _profileDataHasChanges.value = true
-
-        }
-    }
-
-    fun saveLocalUserInfoFromValues() {
-        val temp =  UserInfo(
-            _name.value,
-            _surname.value,
-            _middleName.value,
-            _birthDate.value,
-            _genderRadioId.value.convertGenderRadioGroupIdToString()
-        )
-        dataStoreRepository.userInfo = temp
-        _localUserInfo = temp
-    }
-
-    fun profileDataChanged(actualUserInfo: UserInfo) {
-        //val generatedUserInfo = UserInfo(name, surname, middleName, birthDate, gender)
-
-        _name.value = actualUserInfo.name
-        _surname.value = actualUserInfo.surname
-        _middleName.value = actualUserInfo.middle_name
-        _birthDate.value = actualUserInfo.date_of_birth
-        _genderRadioId.value = actualUserInfo.gender.convertGenderStringToRadioGroupId()
-
-        //compare to local
-        if (::_localUserInfo.isInitialized) {
-            compareLocalValuesToActual(_localUserInfo, actualUserInfo)
-        }
-    }
-
-    private val _profileDataHasChanges = MutableStateFlow<Boolean>(false)
-    val profileDataHasChanges: StateFlow<Boolean> = _profileDataHasChanges
-
-    fun saveProfileData(userInfo: UserInfo, isRegistration: Boolean) {
-        viewModelScope.launch {
-            apiRepository.saveProfileInfo(AccountsDto(dataStoreRepository.userId, userInfo.asNetworkModel())).collect {
-                when (it) {
-                    is Resource.Loading -> {
-                        //TODO()
-                        Timber.i("it's loading")
-                        postProgressViewVisibility(true)
-                    }
-                    is Resource.Error -> {
-                        //TODO()
-                        this@launch.cancel()
-                        val message = it.error?.message
-                        Timber.i("it's error: ${message}")
-                        //it.error.
-                        postProgressViewVisibility(false)
-                        postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
-                    }
-                    is Resource.Success -> {
-                        //TODO()
-                        Timber.i("it's success")
-                        //check if empty?!
-                        it.data?.let { data ->
-                            Timber.i("here is the data: $data")
-
-                            saveLocalUserInfoFromValues()
-
-                            postProgressViewVisibility(false)
-                            if (isRegistration) {
-                                postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
-                            }
-                            else {
-                                //clear the views
-                                setViewsFromValues(dataStoreRepository.userInfo)
-                            }
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
-                        }
-                    }
-                }
-            }
-        }
     }
 
     fun getProfileInfoFromServer(userId: String) {
@@ -184,9 +59,14 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                             Timber.d("here is the data: $it")
 
                             //postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = 0, message = it.message))
+
+                            val obtainedUserInfo = it.user_info.asDomainModel()
+
                             //set from this info
-                            _localUserInfo = it
-                            setViewsFromValues(it)
+                            _localUserInfo.value = obtainedUserInfo
+
+                            //cache after get
+                            dataStoreRepository.userInfo = obtainedUserInfo
                         }
                         postProgressViewVisibility(false)
 
@@ -197,28 +77,89 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
         }
     }
 
+    private fun compareLocalValuesToActual() {
+        val cached = dataStoreRepository.userInfo
+        val current = _localUserInfo.value
+
+        Timber.d("cached: ${cached}")
+        Timber.d("current: ${current}")
+
+        if (cached == current) {
+            Timber.d("UserInfo is equal")
+            //do nothing
+            _profileDataHasChanges.value = false
+        }
+        else {
+            Timber.d("UserInfo is not equal")
+            //let the user save it
+            _profileDataHasChanges.value = true
+
+        }
+    }
+
+    fun profileDataChanged(userInfo: UserInfo) {
+        _localUserInfo.value = userInfo
+        compareLocalValuesToActual()
+    }
+
+    private val _profileDataHasChanges = MutableStateFlow<Boolean>(false)
+    val profileDataHasChanges: StateFlow<Boolean> = _profileDataHasChanges
+
+    fun saveProfileData(userInfo: UserInfo, isRegistration: Boolean) {
+        viewModelScope.launch {
+            apiRepository.saveProfileInfo(AccountsDto(dataStoreRepository.userId, userInfo.asNetworkModel())).collect {
+                when (it) {
+                    is Resource.Loading -> {
+                        //TODO()
+                        Timber.i("it's loading")
+                        postProgressViewVisibility(true)
+                    }
+                    is Resource.Error -> {
+                        //TODO()
+                        this@launch.cancel()
+                        val message = it.error?.message
+                        Timber.i("it's error: ${message}")
+                        //it.error.
+                        postProgressViewVisibility(false)
+                        postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                    }
+                    is Resource.Success -> {
+                        //TODO()
+                        Timber.i("it's success")
+                        //check if empty?!
+                        it.data?.let { data ->
+                            Timber.i("here is the data: $data")
+
+                            postProgressViewVisibility(false)
+                            if (isRegistration) {
+                                postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
+                            }
+                            else {
+                                //update the cache
+                                dataStoreRepository.userInfo = userInfo
+                            }
+                            this@launch.cancel()
+                        } ?: kotlin.run {
+                            this@launch.cancel()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     fun logout() {
         dataStoreRepository.clearDataStore()
         postNavigationEvent(ProfileFragmentDirections.actionGlobalLogoutToLauncher())
     }
 
-    private fun createUserInfoFromFields(): UserInfo {
-        val userInfo = UserInfo(
-            _name.value,
-            _surname.value,
-            _middleName.value,
-            _birthDate.value,
-            _genderRadioId.value.convertGenderRadioGroupIdToString())
-        Timber.d("viewmodel generated UserInfo: $userInfo")
-        return userInfo
-    }
-
     fun onSaveButtonClick(isRegistration: Boolean) {
         if (isRegistration) {
             //save directly and navigate to barcode
-            saveProfileData(
-                createUserInfoFromFields(),
-                isRegistration)
+            _localUserInfo.value?.let {
+                saveProfileData(it, isRegistration)
+            }
+
         }
         else {
             //show dialog
@@ -241,22 +182,24 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
     fun onSaveInfoDialogPositiveButtonClick(isRegistration: Boolean) {
         if (isRegistration) {
             //as if "save" button was pressed
-            saveProfileData(createUserInfoFromFields(), true)
+            _localUserInfo.value?.let {
+                saveProfileData(it, true)
+            }
         }
         else {
-            saveProfileData(createUserInfoFromFields(), false)
+            _localUserInfo.value?.let {
+                saveProfileData(it, false)
+            }
         }
     }
 
     fun onSaveInfoDialogNegativeButtonClick(isRegistration: Boolean) {
         if (isRegistration) {
-            //navigate to barcode directly
             postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
-            //navigation
-            //Navigation.findNavController(requireView()).navigate(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
         }
         else {
-            setViewsFromValues(_localUserInfo)
+            //drop changes (reset to local cache)
+            _localUserInfo.value = dataStoreRepository.userInfo
         }
     }
 

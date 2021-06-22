@@ -45,35 +45,35 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun getProfileInfo(userId: String): Flow<Resource<out UserInfo>> {
+    suspend fun getProfileInfo(userId: String): Flow<Resource<out AccountsGetResponseDto?>> {
         Timber.d("trying")
-//        return networkResponse(
-//            fetch = {
-//                ApiResponse.create(apiService.getProfileInfo(userId))
-//            },
-//            false
-//        )
-        return networkBoundResource(
-            query = {
-                //appDatabase.brandDao().getAll()
-                    flow {
-                        emit(dataStoreRepository.userInfo)
-                    }
-            },
+        return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.getProfileInfo(userId))
             },
-            shouldFetch = {
-                //it == null
-                true
-            },
-            saveFetchResult = {
-                dataStoreRepository.userInfo = it.user_info.asDomainModel()
-            },
-            mapper = {
-                it.user_info.asDomainModel()
-            }
+            false
         )
+//        return networkBoundResource(
+//            query = {
+//                //appDatabase.brandDao().getAll()
+//                    flow {
+//                        emit(dataStoreRepository.userInfo)
+//                    }
+//            },
+//            fetch = {
+//                ApiResponse.create(apiService.getProfileInfo(userId))
+//            },
+//            shouldFetch = {
+//                //it == null
+//                true
+//            },
+//            saveFetchResult = {
+//                dataStoreRepository.userInfo = it.user_info.asDomainModel()
+//            },
+//            mapper = {
+//                it.user_info.asDomainModel()
+//            }
+//        )
     }
 
     suspend fun getBalance(userId: String): Flow<Resource<out BalanceResponseDto?>> {
