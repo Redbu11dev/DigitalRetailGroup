@@ -30,7 +30,7 @@ fun Context.getDeviceId(): String {
     return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
 }
 
-fun Fragment.showMessage(messageResId: Int, btnTextResId: Int, btnListener: View.OnClickListener, duration: Int) {
+fun Fragment.showMessage(messageResId: Int, btnTextResId: Int, btnListener: View.OnClickListener, duration: Int, callBack: Snackbar.Callback) {
     view?.let { v ->
         messageResId.let { msg ->
             Snackbar
@@ -41,6 +41,7 @@ fun Fragment.showMessage(messageResId: Int, btnTextResId: Int, btnListener: View
 //                }
                 .setBackgroundTint(Color.parseColor("#4B685A"))
                 .setAction(btnTextResId, btnListener)
+                .addCallback(callBack)
                 .show()
         }
     }

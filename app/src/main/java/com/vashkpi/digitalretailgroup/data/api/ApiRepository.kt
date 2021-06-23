@@ -287,16 +287,24 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         }
     }
 
-    suspend fun deleteNotification(userId: String, notificationId: String): Flow<Resource<out GenericResponseDto?>> {
+    suspend fun deleteNotificationLocally(notificationId: String) {
+        Timber.d("trying")
+        appDatabase.notificationDao().markUserRemoved(notificationId, true)
+    }
+
+    suspend fun restoreNotificationLocally(notificationId: String) {
+        Timber.d("trying")
+        appDatabase.notificationDao().markUserRemoved(notificationId, false)
+    }
+
+    suspend fun deleteNotificationRemotely(userId: String, notificationId: String): Flow<Resource<out GenericResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.deleteNotification(userId, notificationId))
             },
             true
-        ).also {
-            appDatabase.notificationDao().markUserRemoved(notificationId, true)
-        }
+        )
     }
 
 }

@@ -6,16 +6,13 @@ import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.models.database.asDomainModel
-import com.vashkpi.digitalretailgroup.data.models.domain.Brand
 import com.vashkpi.digitalretailgroup.data.models.domain.Notification
-import com.vashkpi.digitalretailgroup.data.models.network.asDomainModel
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -51,6 +48,7 @@ class NotificationsViewModel @Inject constructor(private val dataStoreRepository
                 }
             }
             //.distinctUntilChanged()
+            //.cachedIn(viewModelScope)
             .cachedIn(viewModelScope)
     }
 
@@ -118,9 +116,23 @@ class NotificationsViewModel @Inject constructor(private val dataStoreRepository
 //        }
 //    }
 
-    fun delete(notificationId: String) {
+    fun deleteLocally(notificationId: String) {
         viewModelScope.launch {
-            apiRepository.deleteNotification(dataStoreRepository.userId, notificationId).collect {
+            apiRepository.deleteNotificationLocally(notificationId)
+            cancel()
+        }
+    }
+
+    fun restoreLocally(notificationId: String) {
+        viewModelScope.launch {
+            apiRepository.restoreNotificationLocally(notificationId)
+            cancel()
+        }
+    }
+
+    fun deleteRemotely(notificationId: String) {
+        viewModelScope.launch {
+            apiRepository.deleteNotificationRemotely(dataStoreRepository.userId, notificationId).collect {
                 when (it) {
                     is Resource.Loading -> {
                         Timber.i("it's loading")

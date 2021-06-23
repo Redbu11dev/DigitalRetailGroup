@@ -15,7 +15,7 @@ interface NotificationDao {
     @Query("SELECT * FROM notifications WHERE not local_user_removed")
     fun getAllNotRemoved(): Flow<List<NotificationEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMany(brands: List<NotificationEntity>)
 
     @Query("SELECT * FROM notifications WHERE not local_user_removed")

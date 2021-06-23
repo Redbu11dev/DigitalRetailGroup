@@ -14,6 +14,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.util.Attributes
+import com.google.android.material.snackbar.BaseTransientBottomBar.BaseCallback
 import com.google.android.material.snackbar.Snackbar
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.adapters.NotificationsAdapter
@@ -25,6 +26,7 @@ import com.vashkpi.digitalretailgroup.utils.showMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -52,27 +54,20 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
         },
         { view, data ->
             //delete button click listener
-            viewModel.delete(data.notification_id)
-            showMessage(
-                R.string.snackbar_msg_message_removed,
-                R.string.snackbar_btn_cancel,
-                {
-                    //restore notification when clicked
-                },
-                2000
-            )
+            deleteNotification(data.notification_id)
         })
+        //adapter.setHasStableIds(true)
 
         binding.notificationsList.adapter = adapter
         //(binding.notificationsList.adapter as NotificationsAdapter).mode = Attributes.Mode.Single
 
-        viewModel.obtainNotifications()
+        //viewModel.obtainNotifications()
 
         setFragmentResultListener(ViewNotificationFragment.REQUEST_KEY) { key, bundle ->
             // read from the bundle
             Timber.d("Received fragment result: $bundle")
             if (bundle[ViewNotificationFragment.REQUEST_KEY] == ViewNotificationFragment.RESULT_DELETE) {
-                viewModel.delete(bundle[ViewNotificationFragment.NOTIFICATION_ID].toString())
+                deleteNotification(bundle[ViewNotificationFragment.NOTIFICATION_ID].toString())
             }
         }
 
@@ -101,6 +96,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.obtainNotifications().collectLatest { notifications ->
+                Timber.i("calling submit data")
                 adapter.submitData(notifications)
             }
         }
@@ -115,6 +111,32 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
                 }
             }
         }
+    }
+
+    @ExperimentalPagingApi
+    fun deleteNotification(notificationId: String) {
+        viewModel.deleteLocally(notificationId)
+        showMessage(
+            R.string.snackbar_msg_message_removed,
+            R.string.snackbar_btn_cancel,
+            {
+                //restore notification when clicked
+                viewModel.restoreLocally(notificationId)
+                viewModel.obtainNotifications()
+            },
+            2000,
+            object: Snackbar.Callback() {
+                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                    super.onDismissed(transientBottomBar, event)
+
+                    if (event != BaseCallback.DISMISS_EVENT_ACTION) {
+                        viewModel.deleteRemotely(notificationId)
+                    }
+
+                    transientBottomBar?.removeCallback(this)
+                }
+            }
+        )
     }
 
 }
