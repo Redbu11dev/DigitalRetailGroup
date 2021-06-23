@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
+import com.vashkpi.digitalretailgroup.data.database.AppDatabase
 import com.vashkpi.digitalretailgroup.data.models.domain.*
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.data.models.network.AccountsDto
@@ -11,6 +12,8 @@ import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
 import com.vashkpi.digitalretailgroup.data.models.network.asDomainModel
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -18,7 +21,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository, private val apiRepository: ApiRepository): BaseViewModel() {
+class ProfileViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository, private val apiRepository: ApiRepository, private val appDatabase: AppDatabase): BaseViewModel() {
 
     //- obtain locally saved profile info
     //- compare it to values in the text fields
@@ -158,8 +161,11 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
     }
 
     fun logout() {
-        dataStoreRepository.clearDataStore()
-        postNavigationEvent(ProfileFragmentDirections.actionGlobalLogoutToLauncher())
+        CoroutineScope(Dispatchers.IO).launch {
+            dataStoreRepository.clearDataStore()
+            appDatabase.clearAllTables()
+            postNavigationEvent(ProfileFragmentDirections.actionGlobalLogoutToLauncher())
+        }
     }
 
     fun onSaveButtonClick(isRegistration: Boolean) {
