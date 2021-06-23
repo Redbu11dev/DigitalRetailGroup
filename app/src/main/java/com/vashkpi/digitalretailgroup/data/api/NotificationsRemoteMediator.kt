@@ -46,8 +46,13 @@ class NotificationsRemoteMediator(
                     }
                 }
                 else {
+//                    if (loadType == LoadType.REFRESH && lastPageIndex == 0) {
+//                        lastPageIndex = 1
+//                        return MediatorResult.Success(
+//                            endOfPaginationReached = false
+//                        )
+//                    }
                     lastPageIndex = 1
-                    //networkService.getNotifications(user_id, lastPageIndex)
                     networkResponse(
                         fetch = {
                             ApiResponse.create(networkService.getNotifications(user_id, lastPageIndex))

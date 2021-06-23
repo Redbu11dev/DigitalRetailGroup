@@ -6,23 +6,39 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.paging.ExperimentalPagingApi
-import androidx.paging.LoadState
+import androidx.paging.*
 import com.google.android.material.snackbar.BaseTransientBottomBar.BaseCallback
 import com.google.android.material.snackbar.Snackbar
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.adapters.NotificationsAdapter
+import com.vashkpi.digitalretailgroup.data.api.ApiService
+import com.vashkpi.digitalretailgroup.data.api.NotificationsPagingSource
+import com.vashkpi.digitalretailgroup.data.api.NotificationsRemoteMediator
+import com.vashkpi.digitalretailgroup.data.database.AppDatabase
+import com.vashkpi.digitalretailgroup.data.models.network.asDomainModel
+import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
 import com.vashkpi.digitalretailgroup.utils.showMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
+import javax.inject.Inject
 
+@ExperimentalPagingApi
 @AndroidEntryPoint
 class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, NotificationsViewModel>(FragmentNotificationsBinding::inflate) {
+
+    @Inject
+    lateinit var appDatabase: AppDatabase
+
+    @Inject
+    lateinit var apiService: ApiService
+
+    @Inject
+    lateinit var dataStoreRepository: DataStoreRepository
 
     override val viewModel: NotificationsViewModel by viewModels()
 
@@ -58,6 +74,22 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 
         //viewModel.obtainNotifications()
 
+//        runBlocking {
+//            adapter.submitData(lifecycle,
+//                Pager(
+//                    // Configure how data is loaded by passing additional properties to
+//                    // PagingConfig, such as prefetchDistance.
+//                    PagingConfig(pageSize = 10, initialLoadSize = 10)
+//                    //remoteMediator = NotificationsRemoteMediator(dataStoreRepository.userId, appDatabase, apiService)
+//                ) {
+//                    NotificationsPagingSource(apiService, dataStoreRepository.userId)
+//                    //appDatabase.notificationDao().pagingSourceOfNotRemoved()
+//
+//                }.flow.map { it.map { it.asDomainModel() } }.first())
+//        }
+
+
+
         setFragmentResultListener(ViewNotificationFragment.REQUEST_KEY) { key, bundle ->
             // read from the bundle
             Timber.d("Received fragment result: $bundle")
@@ -68,6 +100,8 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
                 //deleteNotification(bundle[ViewNotificationFragment.NOTIFICATION_ID].toString())
             }
         }
+
+        Timber.d("I am recreated")
 
     }
 
@@ -127,6 +161,15 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
                 adapter.submitData(notifications)
             }
         }
+
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.notifications.collect { notifications ->
+//                notifications?.let {
+//                    Timber.i("calling submit data")
+//                    adapter.submitData(notifications)
+//                }
+//            }
+//        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.emptyContainerVisible.collect {

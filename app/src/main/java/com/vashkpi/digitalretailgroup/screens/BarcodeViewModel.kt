@@ -97,7 +97,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                         Timber.i("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false)
-                        postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                        postNavigationEvent(BarcodeFragmentDirections.actionGlobalMessageDialog(R.string.dialog_error_title, message.toString()))
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")

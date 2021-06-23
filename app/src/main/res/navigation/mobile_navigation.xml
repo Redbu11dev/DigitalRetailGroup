@@ -46,21 +46,30 @@
         android:id="@+id/notificationsFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.NotificationsFragment"
         android:label="@string/notification_title"
-        tools:layout="@layout/fragment_notifications" >
+        tools:layout="@layout/fragment_notifications"
+
+        >
         <action
             android:id="@+id/action_notificationsFragment_to_viewNotificationFragment"
             app:destination="@id/viewNotificationFragment"
+            app:restoreState="true"
+            app:popUpToSaveState="true"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/notificationsFragment"
             />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.vashkpi.digitalretailgroup.screens.ProfileFragment"
         android:label="@string/profile_title"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile"
+
+        >
 
         <action
             android:id="@+id/action_profileFragment_to_saveProfileDataDialogFragment"
-            app:destination="@id/saveProfileDataDialogFragment" />
+            app:destination="@id/saveProfileDataDialogFragment"
+            />
 
         <argument
             android:name="isRegistration"
@@ -205,7 +214,8 @@
     <action
         android:id="@+id/action_global_messageDialog"
         app:destination="@id/messageDialogFragment"
-        />
+        >
+    </action>
 
     <action
         android:id="@+id/action_global_logout_to_launcher"

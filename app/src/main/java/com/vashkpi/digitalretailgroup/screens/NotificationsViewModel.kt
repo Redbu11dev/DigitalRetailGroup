@@ -1,5 +1,6 @@
 package com.vashkpi.digitalretailgroup.screens
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.vashkpi.digitalretailgroup.R
@@ -9,6 +10,7 @@ import com.vashkpi.digitalretailgroup.data.models.database.asDomainModel
 import com.vashkpi.digitalretailgroup.data.models.domain.Notification
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
+import dagger.assisted.Assisted
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
@@ -17,8 +19,13 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+@ExperimentalPagingApi
 @HiltViewModel
-class NotificationsViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository, private val apiRepository: ApiRepository): BaseViewModel() {
+class NotificationsViewModel @Inject constructor(
+    private val dataStoreRepository: DataStoreRepository,
+    private val apiRepository: ApiRepository,
+    savedStateHandle: SavedStateHandle
+    ): BaseViewModel() {
 
 //    private val _notificationsList = MutableStateFlow(mutableListOf<Notification>())
 //    val notificationsList: StateFlow<List<Notification>> get() = _notificationsList
