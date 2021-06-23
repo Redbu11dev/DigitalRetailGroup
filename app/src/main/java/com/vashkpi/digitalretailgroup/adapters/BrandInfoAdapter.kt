@@ -3,16 +3,17 @@ package com.vashkpi.digitalretailgroup.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.vashkpi.digitalretailgroup.data.models.domain.Brand
 import com.vashkpi.digitalretailgroup.data.models.domain.BrandInfoRegion
 import com.vashkpi.digitalretailgroup.databinding.ItemBrandInfoRegionBinding
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 
 class BrandInfoAdapter(
     private val clickListener: (View, BrandInfoRegion) -> Unit
-) : RecyclerView.Adapter<BrandInfoViewHolder>() {
-
-    private val list = ArrayList<BrandInfoRegion>()
+) : ListAdapter<BrandInfoRegion, BrandInfoViewHolder>(BrandInfoAdapterDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrandInfoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -25,20 +26,20 @@ class BrandInfoAdapter(
         return BrandInfoViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
     override fun onBindViewHolder(holder: BrandInfoViewHolder, position: Int) {
-        holder.bind(list[position], clickListener)
+        holder.bind(getItem(position), clickListener)
     }
 
-    fun setList(items: List<BrandInfoRegion>) {
-        list.clear()
-        list.addAll(items)
-        //clubsList.reverse()
+}
+
+class BrandInfoAdapterDiffCallBack : DiffUtil.ItemCallback<BrandInfoRegion>() {
+    override fun areItemsTheSame(oldItem: BrandInfoRegion, newItem: BrandInfoRegion): Boolean {
+        return oldItem.region_id == newItem.region_id
     }
 
+    override fun areContentsTheSame(oldItem: BrandInfoRegion, newItem: BrandInfoRegion): Boolean {
+        return oldItem == newItem
+    }
 }
 
 class BrandInfoViewHolder(val binding: ItemBrandInfoRegionBinding) :

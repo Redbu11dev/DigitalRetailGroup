@@ -80,8 +80,7 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
 
                     binding.inclItemBrandInfoContact.workHours.text = it.time_of_work
 
-                    adapter.setList(it.regions.toMutableList())
-                    adapter.notifyDataSetChanged()
+                    adapter.submitList(it.regions.toMutableList())
                 }
             }
         }

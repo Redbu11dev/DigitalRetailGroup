@@ -54,8 +54,7 @@ class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(Frag
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.storesList.collect {
-                adapter.setList(it)
-                adapter.notifyDataSetChanged()
+                adapter.submitList(it)
             }
         }
     }
