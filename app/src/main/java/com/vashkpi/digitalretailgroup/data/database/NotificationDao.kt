@@ -29,4 +29,5 @@ interface NotificationDao {
 
     @Query("UPDATE notifications SET local_user_removed = :removed WHERE notification_id == :notificationId")
     suspend fun markUserRemoved(notificationId: String, removed: Boolean)
+
 }
