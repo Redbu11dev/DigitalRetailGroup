@@ -22,5 +22,8 @@ data class NotificationEntity (
     val date: String,
     val title: String,
     val text: String,
-    val read: Boolean
+    val read: Boolean,
+
+    val local_user_removed: Boolean, //custom
+    val local_user_read: Boolean //custom
 )

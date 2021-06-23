@@ -65,7 +65,7 @@ class NotificationsViewModel @Inject constructor(private val dataStoreRepository
         postProgressViewVisibility(false)
         //show error
         if (throwable is java.net.UnknownHostException) {
-            //no internet connection
+            //no internet connection - show nothing
         }
         else {
             postNavigationEvent(NotificationsFragmentDirections.actionGlobalMessageDialog(

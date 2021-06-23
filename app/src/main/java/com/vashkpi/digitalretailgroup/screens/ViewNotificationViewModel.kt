@@ -53,7 +53,12 @@ class ViewNotificationViewModel @Inject constructor(private val dataStoreReposit
                         Timber.i("it's error: ${message}")
                         //it.error.
                         //postProgressViewVisibility(false)
-                        postNavigationEvent(ViewNotificationFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                        if (it.error is java.net.UnknownHostException) {
+                            //no internet connection - show nothing
+                        }
+                        else {
+                            postNavigationEvent(ViewNotificationFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                        }
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
@@ -87,16 +92,20 @@ class ViewNotificationViewModel @Inject constructor(private val dataStoreReposit
                         Timber.i("it's error: ${message}")
                         //it.error.
                         //postProgressViewVisibility(false)
-                        postNavigationEvent(ViewNotificationFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+
+                        if (it.error is java.net.UnknownHostException) {
+                            //no internet connection - show nothing, proceed as if success
+                            onDeletionSuccess()
+                        }
+                        else {
+                            postNavigationEvent(ViewNotificationFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                        }
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
                         //check if empty?!
 
-                        viewModelScope.launch {
-                            _notificationRemovedEvent.emit(true)
-                            cancel()
-                        }
+                        onDeletionSuccess()
 
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
@@ -110,6 +119,13 @@ class ViewNotificationViewModel @Inject constructor(private val dataStoreReposit
                     }
                 }
             }
+        }
+    }
+
+    fun onDeletionSuccess() {
+        viewModelScope.launch {
+            _notificationRemovedEvent.emit(true)
+            cancel()
         }
     }
 

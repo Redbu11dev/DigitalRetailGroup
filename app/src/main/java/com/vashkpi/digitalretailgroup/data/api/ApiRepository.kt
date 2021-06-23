@@ -3,15 +3,12 @@ package com.vashkpi.digitalretailgroup.data.api
 import androidx.paging.*
 import com.vashkpi.digitalretailgroup.data.database.AppDatabase
 import com.vashkpi.digitalretailgroup.data.models.database.*
-import com.vashkpi.digitalretailgroup.data.models.domain.Notification
 import com.vashkpi.digitalretailgroup.data.models.network.*
 import com.vashkpi.digitalretailgroup.data.models.network.AccountsDto
 import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeDto
 import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -273,7 +270,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
             remoteMediator = NotificationsRemoteMediator(dataStoreRepository.userId, appDatabase, apiService)
         ) {
             //NotificationsPagingSource(apiService, dataStoreRepository.userId)
-            appDatabase.notificationDao().pagingSource()
+            appDatabase.notificationDao().pagingSourceOfNotRemoved()
 
         }.flow
     }
@@ -297,7 +294,9 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                 ApiResponse.create(apiService.deleteNotification(userId, notificationId))
             },
             true
-        )
+        ).also {
+            appDatabase.notificationDao().markUserRemoved(notificationId, true)
+        }
     }
 
 }
