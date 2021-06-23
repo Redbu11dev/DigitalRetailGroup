@@ -1,5 +1,7 @@
 package com.vashkpi.digitalretailgroup.screens
 
+import android.content.Context
+import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -42,7 +44,17 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 
     override val viewModel: NotificationsViewModel by viewModels()
 
-    lateinit var adapter: NotificationsAdapter
+    var adapter: NotificationsAdapter = NotificationsAdapter({ view, data ->
+        //click item listener
+        findNavController().navigate(NotificationsFragmentDirections.actionNotificationsFragmentToViewNotificationFragment(data))
+    },
+        { view, data ->
+            //delete button click listener
+            //deleteNotification(data.notification_id)
+            lifecycleScope.launchWhenResumed {
+                viewModel.postNotificationDeletionEvent(data.notification_id)
+            }
+        })
 
     @ExperimentalPagingApi
     override fun setUpViews() {
@@ -56,17 +68,17 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 //            //fixme need pages
 //            findNavController().navigate(NotificationsFragmentDirections.actionNotificationsFragmentToViewNotificationFragment(data))
 //        }
-        adapter = NotificationsAdapter({ view, data ->
-            //click item listener
-            findNavController().navigate(NotificationsFragmentDirections.actionNotificationsFragmentToViewNotificationFragment(data))
-        },
-        { view, data ->
-            //delete button click listener
-            //deleteNotification(data.notification_id)
-            lifecycleScope.launchWhenResumed {
-                viewModel.postNotificationDeletionEvent(data.notification_id)
-            }
-        })
+//        adapter = NotificationsAdapter({ view, data ->
+//            //click item listener
+//            findNavController().navigate(NotificationsFragmentDirections.actionNotificationsFragmentToViewNotificationFragment(data))
+//        },
+//        { view, data ->
+//            //delete button click listener
+//            //deleteNotification(data.notification_id)
+//            lifecycleScope.launchWhenResumed {
+//                viewModel.postNotificationDeletionEvent(data.notification_id)
+//            }
+//        })
         //adapter.setHasStableIds(true)
 
         binding.notificationsList.adapter = adapter
@@ -101,7 +113,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
             }
         }
 
-        Timber.d("I am recreated")
+//        Timber.d("I am recreated")
 
     }
 
@@ -155,19 +167,10 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.obtainNotifications().collectLatest { notifications ->
-                Timber.i("calling submit data")
-                adapter.submitData(notifications)
-            }
-        }
-
 //        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.notifications.collect { notifications ->
-//                notifications?.let {
-//                    Timber.i("calling submit data")
-//                    adapter.submitData(notifications)
-//                }
+//            viewModel.obtainNotifications().collectLatest { notifications ->
+//                Timber.i("calling submit data")
+//                adapter.submitData(notifications)
 //            }
 //        }
 
@@ -179,6 +182,32 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
                 else {
                     binding.emptyContainer.visibility = View.GONE
                 }
+            }
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        retainInstance = true
+
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.obtainNotifications().collectLatest { notifications ->
+//                Timber.i("calling submit data")
+//                adapter.submitData(notifications)
+//            }
+//        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.d("I am recreated")
+
+
+        lifecycleScope.launchWhenCreated {
+            viewModel.obtainNotifications().collectLatest { notifications ->
+                Timber.i("calling submit data")
+                adapter.submitData(notifications)
             }
         }
     }

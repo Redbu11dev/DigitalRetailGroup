@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import androidx.navigation.NavOptionsBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -95,6 +96,8 @@ suspend fun ResponseBody.stringSuspending(): String =
  */
 fun NavController.safeNavigate(direction: NavDirections) {
     currentDestination?.getAction(direction.actionId)?.run {
+        //navigate(direction)
+
         navigate(direction)
     } ?: kotlin.run{
         Timber.d("Unable to navigate")
