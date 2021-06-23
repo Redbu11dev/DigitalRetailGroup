@@ -7,6 +7,8 @@ import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,6 +22,12 @@ class DetailsViewModel @Inject constructor(private val apiRepository: ApiReposit
 
     private val _ruleText = MutableStateFlow("_")
     val ruleText: StateFlow<String> get() = _ruleText
+
+    init {
+        CoroutineScope(Dispatchers.IO).launch {
+            apiRepository.syncNotifications()
+        }
+    }
 
     fun getSavePointsRules() {
         viewModelScope.launch {

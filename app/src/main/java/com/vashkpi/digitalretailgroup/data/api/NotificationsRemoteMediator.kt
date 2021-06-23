@@ -7,6 +7,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.vashkpi.digitalretailgroup.data.database.AppDatabase
 import com.vashkpi.digitalretailgroup.data.models.database.NotificationEntity
+import com.vashkpi.digitalretailgroup.data.models.network.NotificationPostDto
 import com.vashkpi.digitalretailgroup.data.models.network.asDatabaseModel
 import kotlinx.coroutines.flow.*
 import retrofit2.HttpException
@@ -46,12 +47,8 @@ class NotificationsRemoteMediator(
                     }
                 }
                 else {
-//                    if (loadType == LoadType.REFRESH && lastPageIndex == 0) {
-//                        lastPageIndex = 1
-//                        return MediatorResult.Success(
-//                            endOfPaginationReached = false
-//                        )
-//                    }
+                    //networkService.syncNotifications()
+
                     lastPageIndex = 1
                     networkResponse(
                         fetch = {

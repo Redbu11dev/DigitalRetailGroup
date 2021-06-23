@@ -9,6 +9,10 @@ import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeDto
 import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -275,6 +279,27 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         }.flow
     }
 
+    suspend fun syncNotifications() {
+        Timber.d("syncNotifications called")
+        //(sync local changes with the server)
+        //try to fan-out deletion requests for locally removed notifications
+        //try to fan-out "read" requests for locally "read" notifications
+        appDatabase.notificationDao().getAllUserModified().first().forEach {
+            if (it.local_user_removed) {
+                Timber.d("syncNotifications called1")
+                deleteNotificationRemotely(dataStoreRepository.userId, it.notification_id).collect {
+
+                }
+            }
+            else if (!it.local_user_removed && it.local_user_read) {
+                Timber.d("syncNotifications called2")
+                markNotificationRead(NotificationPostDto(dataStoreRepository.userId, it.notification_id)).collect {
+
+                }
+            }
+        }
+    }
+
     suspend fun markNotificationRead(notificationPostDto: NotificationPostDto): Flow<Resource<out GenericResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
@@ -303,7 +328,12 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
             fetch = {
                 ApiResponse.create(apiService.deleteNotification(userId, notificationId))
             },
-            true
+            true,
+            onFetchSuccess = {
+                runBlocking {
+                    appDatabase.notificationDao().deleteOne(notificationId)
+                }
+            }
         )
     }
 

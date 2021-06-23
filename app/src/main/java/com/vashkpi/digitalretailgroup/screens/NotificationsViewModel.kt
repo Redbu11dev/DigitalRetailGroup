@@ -6,6 +6,7 @@ import androidx.paging.*
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
+import com.vashkpi.digitalretailgroup.data.database.AppDatabase
 import com.vashkpi.digitalretailgroup.data.models.database.asDomainModel
 import com.vashkpi.digitalretailgroup.data.models.domain.Notification
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
@@ -24,7 +25,7 @@ import javax.inject.Inject
 class NotificationsViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
     private val apiRepository: ApiRepository,
-    savedStateHandle: SavedStateHandle
+    private val appDatabase: AppDatabase
     ): BaseViewModel() {
 
 //    private val _notificationsList = MutableStateFlow(mutableListOf<Notification>())
@@ -46,6 +47,12 @@ class NotificationsViewModel @Inject constructor(
     suspend fun postNotificationDeletionEvent(notificationId: String) {
         _event.emit(Event.DeleteNotification(notificationId))
     }
+
+//    init {
+//        viewModelScope.launch {
+//            apiRepository.syncNotifications()
+//        }
+//    }
 
     @ExperimentalPagingApi
     fun obtainNotifications(): Flow<PagingData<Notification>> {
@@ -181,10 +188,7 @@ class NotificationsViewModel @Inject constructor(
     }
 
     fun onDeletionSuccess() {
-        //viewModelScope.launch {
-            //_notificationRemovedEvent.emit(true)
-        //    cancel()
-        //}
+        //remove from database
     }
 
 }

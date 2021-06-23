@@ -15,6 +15,9 @@ interface NotificationDao {
     @Query("SELECT * FROM notifications WHERE not local_user_removed")
     fun getAllNotRemoved(): Flow<List<NotificationEntity>>
 
+    @Query("SELECT * FROM notifications WHERE local_user_removed or local_user_read")
+    fun getAllUserModified(): Flow<List<NotificationEntity>>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMany(brands: List<NotificationEntity>)
 
@@ -29,5 +32,11 @@ interface NotificationDao {
 
     @Query("UPDATE notifications SET local_user_removed = :removed WHERE notification_id == :notificationId")
     suspend fun markUserRemoved(notificationId: String, removed: Boolean)
+
+    /**
+     * This will completely delete the entry
+     */
+    @Query("DELETE FROM notifications WHERE notification_id == :notificationId")
+    suspend fun deleteOne(notificationId: String)
 
 }

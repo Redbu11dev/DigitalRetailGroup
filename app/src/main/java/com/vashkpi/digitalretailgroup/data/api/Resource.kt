@@ -1,5 +1,6 @@
 package com.vashkpi.digitalretailgroup.data.api
 
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.isActive
@@ -18,7 +19,8 @@ sealed class Resource<T>(
 inline fun <NetworkType> networkResponse(
     crossinline fetch : suspend () -> ApiResponse<NetworkType>,
     canBeEmptyResponse: Boolean,
-    emitLoadingState: Boolean = true
+    emitLoadingState: Boolean = true,
+    crossinline onFetchSuccess: () -> Unit = { }
 ) = flow {
     //Timber.d("loading")
     if (emitLoadingState) {
@@ -29,11 +31,15 @@ inline fun <NetworkType> networkResponse(
 
         when (fetchResult) {
             is ApiSuccessResponse -> {
+                onFetchSuccess()
                 emit(Resource.Success(fetchResult.body))
+                currentCoroutineContext().cancel()
             }
             is ApiEmptyResponse -> {
                 if (canBeEmptyResponse) {
+                    onFetchSuccess()
                     emit(Resource.Success(null))
+                    currentCoroutineContext().cancel()
                 }
                 else {
                     emit(
@@ -42,6 +48,7 @@ inline fun <NetworkType> networkResponse(
                             null
                         )
                     )
+                    currentCoroutineContext().cancel()
                 }
             }
             is ApiErrorResponse -> {
@@ -51,6 +58,7 @@ inline fun <NetworkType> networkResponse(
                         null
                     )
                 )
+                currentCoroutineContext().cancel()
             }
         }
     } catch (throwable: Throwable) {
@@ -58,10 +66,13 @@ inline fun <NetworkType> networkResponse(
         when {
             (canBeEmptyResponse && throwable is java.io.EOFException) -> {
                 //it is made like that on the backend
+                onFetchSuccess()
                 emit(Resource.Success(null))
+                currentCoroutineContext().cancel()
             }
             else -> {
                 emit(Resource.Error(throwable, null))
+                currentCoroutineContext().cancel()
             }
         }
     }
