@@ -56,7 +56,7 @@ class NotificationsRemoteMediator(
                         emitLoadingState = false
                     )
                 }.catch {
-
+                    //catching nothing, just to prevent flow cancellation exception
                 }.first()
 
                 val notifications = when (response) {
