@@ -26,7 +26,19 @@ class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(Frag
 
     private val args: StoresFragmentArgs by navArgs()
 
-    private lateinit var adapter: StoresAdapter
+    private val adapter = StoresAdapter { view, store ->
+        findNavController().navigate(StoresFragmentDirections.actionStoresFragmentToStoreInfoFragment(store.store_id))
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.storesList.collect {
+                adapter.submitList(it)
+            }
+        }
+    }
 
     override fun setUpViews() {
         super.setUpViews()
@@ -38,9 +50,9 @@ class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(Frag
         val brand = args.brand
         val brandInfoRegion = args.brandInfoRegion
 
-        adapter = StoresAdapter { view, store ->
-            findNavController().navigate(StoresFragmentDirections.actionStoresFragmentToStoreInfoFragment(store.store_id))
-        }
+//        adapter = StoresAdapter { view, store ->
+//            findNavController().navigate(StoresFragmentDirections.actionStoresFragmentToStoreInfoFragment(store.store_id))
+//        }
 
         binding.infoList.adapter = adapter
 
@@ -52,10 +64,10 @@ class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(Frag
     override fun observeViewModel() {
         super.observeViewModel()
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.storesList.collect {
-                adapter.submitList(it)
-            }
-        }
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.storesList.collect {
+//                adapter.submitList(it)
+//            }
+//        }
     }
 }

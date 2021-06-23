@@ -35,7 +35,15 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
 
     private val args: BrandInfoFragmentArgs by navArgs()
 
-    private lateinit var adapter: BrandInfoAdapter
+    private val adapter = BrandInfoAdapter { view, brandInfoRegion ->
+        findNavController().navigate(BrandInfoFragmentDirections.actionBrandInfoFragmentToStoresFragment(args.brand, brandInfoRegion))
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.getBrandInfo(args.brand)
+    }
 
     override fun setUpViews() {
         super.setUpViews()
@@ -46,9 +54,9 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
 
         val brand = args.brand
 
-        adapter = BrandInfoAdapter { view, brandInfoRegion ->
-            findNavController().navigate(BrandInfoFragmentDirections.actionBrandInfoFragmentToStoresFragment(brand, brandInfoRegion))
-        }
+//        adapter = BrandInfoAdapter { view, brandInfoRegion ->
+//            findNavController().navigate(BrandInfoFragmentDirections.actionBrandInfoFragmentToStoresFragment(brand, brandInfoRegion))
+//        }
 
         binding.infoList.adapter = adapter
 
@@ -62,7 +70,7 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
             safeOpenCallDialer(binding.inclItemBrandInfoContact.phone.text.toString())
         }
 
-        viewModel.getBrandInfo(brand)
+//        viewModel.getBrandInfo(brand)
     }
 
     override fun observeViewModel() {

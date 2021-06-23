@@ -1,5 +1,6 @@
 package com.vashkpi.digitalretailgroup.screens
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
@@ -13,7 +14,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMainBinding::inflate) {
@@ -22,7 +25,20 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
 
     override val viewModel: MainViewModel by viewModels()
 
-    private lateinit var adapter: BrandsAdapter
+    private val adapter = BrandsAdapter { view, data ->
+        viewModel.onBrandsListItemClick(data)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.d("I am recreated")
+
+        lifecycleScope.launchWhenCreated {
+            viewModel.brandsList.collect {
+                adapter.submitList(it)
+            }
+        }
+    }
 
     override fun setUpViews() {
         super.setUpViews()
@@ -47,13 +63,13 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
         binding.customToolbar.logo.visibility = View.VISIBLE
         toolbar.title = ""
 
-        adapter = BrandsAdapter { view, data ->
-            viewModel.onBrandsListItemClick(data)
-        }
+//        adapter = BrandsAdapter { view, data ->
+//            viewModel.onBrandsListItemClick(data)
+//        }
 
         binding.partnersList.adapter = adapter
         //binding.partnersList.itemAnimator = null
-        binding.partnersList.visibility = View.GONE
+        //binding.partnersList.visibility = View.GONE
 
         binding.item1.root.changeAlphaOnTouch()
         binding.item1.root.setOnClickListener {
@@ -70,7 +86,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
         binding.item2.text.setText(R.string.main_how_to_spend_points)
 
 
-        viewModel.obtainBrands()
+        //viewModel.obtainBrands()
     }
 
     override fun onResume() {
@@ -82,15 +98,15 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
     override fun observeViewModel() {
         super.observeViewModel()
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.brandsList.collect {
-                adapter.submitList(it)
-//                adapter.setList(it)
-//                adapter.notifyDataSetChanged()
-                //binding.partnersList.scheduleLayoutAnimation()
-                binding.partnersList.visibility = View.VISIBLE
-            }
-        }
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.brandsList.collect {
+//                adapter.submitList(it)
+////                adapter.setList(it)
+////                adapter.notifyDataSetChanged()
+//                //binding.partnersList.scheduleLayoutAnimation()
+//                binding.partnersList.visibility = View.VISIBLE
+//            }
+//        }
     }
 
 }

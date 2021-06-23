@@ -33,18 +33,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, NotificationsViewModel>(FragmentNotificationsBinding::inflate) {
 
-    @Inject
-    lateinit var appDatabase: AppDatabase
-
-    @Inject
-    lateinit var apiService: ApiService
-
-    @Inject
-    lateinit var dataStoreRepository: DataStoreRepository
-
     override val viewModel: NotificationsViewModel by viewModels()
 
-    var adapter: NotificationsAdapter = NotificationsAdapter({ view, data ->
+    private val adapter: NotificationsAdapter = NotificationsAdapter({ view, data ->
         //click item listener
         findNavController().navigate(NotificationsFragmentDirections.actionNotificationsFragmentToViewNotificationFragment(data))
     },
@@ -55,6 +46,20 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
                 viewModel.postNotificationDeletionEvent(data.notification_id)
             }
         })
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.d("I am recreated")
+
+
+        lifecycleScope.launchWhenCreated {
+            viewModel.obtainNotifications().collectLatest { notifications ->
+                Timber.d("calling submit data")
+                adapter.submitData(notifications)
+                viewModel.decideEmptyContainerVisibility(adapter.itemCount)
+            }
+        }
+    }
 
     @ExperimentalPagingApi
     override fun setUpViews() {
@@ -79,7 +84,6 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 //                viewModel.postNotificationDeletionEvent(data.notification_id)
 //            }
 //        })
-        //adapter.setHasStableIds(true)
 
         binding.notificationsList.adapter = adapter
         //(binding.notificationsList.adapter as NotificationsAdapter).mode = Attributes.Mode.Single
@@ -99,8 +103,6 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 //
 //                }.flow.map { it.map { it.asDomainModel() } }.first())
 //        }
-
-
 
         setFragmentResultListener(ViewNotificationFragment.REQUEST_KEY) { key, bundle ->
             // read from the bundle
@@ -152,10 +154,11 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             adapter.loadStateFlow.collectLatest { loadStates ->
-                viewModel.decideEmptyContainerVisibility(adapter.itemCount)
+//                viewModel.decideEmptyContainerVisibility(adapter.itemCount)
                 when (loadStates.refresh) {
                     is LoadState.NotLoading -> {
                         viewModel.onListStoppedLoading()
+                        //viewModel.decideEmptyContainerVisibility(adapter.itemCount)
                     }
                     is LoadState.Loading -> {
                         viewModel.onListLoading()
@@ -186,32 +189,6 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        retainInstance = true
-
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.obtainNotifications().collectLatest { notifications ->
-//                Timber.i("calling submit data")
-//                adapter.submitData(notifications)
-//            }
-//        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Timber.d("I am recreated")
-
-
-        lifecycleScope.launchWhenCreated {
-            viewModel.obtainNotifications().collectLatest { notifications ->
-                Timber.i("calling submit data")
-                adapter.submitData(notifications)
-            }
-        }
-    }
-
     private fun deleteNotification(notificationId: String) {
         viewModel.deleteLocally(notificationId)
         showMessage(
@@ -222,7 +199,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
                 viewModel.restoreLocally(notificationId)
                 adapter.refresh()
             },
-            2000,
+            3000,
             object: Snackbar.Callback() {
                 override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                     super.onDismissed(transientBottomBar, event)

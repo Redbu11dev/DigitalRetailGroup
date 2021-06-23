@@ -36,6 +36,10 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
         postNavigationEvent(MainFragmentDirections.actionNavigationMainToBrandInfoFragment(brand))
     }
 
+    init {
+        obtainBrands()
+    }
+
     fun obtainBrands() {
         viewModelScope.launch {
             apiRepository.getBrands().collect {

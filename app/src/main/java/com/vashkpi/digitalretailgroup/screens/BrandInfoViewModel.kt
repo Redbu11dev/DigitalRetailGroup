@@ -39,6 +39,10 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
     private val _brandInfo = MutableStateFlow<BrandInfo?>(null)
     val brandInfo: StateFlow<BrandInfo?> get() = _brandInfo
 
+//    init {
+//        getBrandInfo()
+//    }
+
     fun getBrandInfo(brand: Brand) {
         viewModelScope.launch {
             apiRepository.getBrandInfo(brand.brand_id).collect {
