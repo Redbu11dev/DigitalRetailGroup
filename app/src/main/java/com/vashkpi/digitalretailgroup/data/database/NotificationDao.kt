@@ -1,5 +1,6 @@
 package com.vashkpi.digitalretailgroup.data.database
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,4 +17,10 @@ interface NotificationDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMany(brands: List<NotificationEntity>)
+
+    @Query("SELECT * FROM notifications")
+    fun pagingSource(): PagingSource<Int, NotificationEntity>
+
+    @Query("DELETE FROM notifications")
+    suspend fun clearAll()
 }

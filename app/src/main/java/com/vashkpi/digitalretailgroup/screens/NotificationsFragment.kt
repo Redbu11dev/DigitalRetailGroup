@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 
     lateinit var adapter: NotificationsAdapter
 
+    @ExperimentalPagingApi
     override fun setUpViews() {
         super.setUpViews()
 
@@ -46,15 +48,9 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
         viewModel.obtainNotifications()
     }
 
+    @ExperimentalPagingApi
     override fun observeViewModel() {
         super.observeViewModel()
-
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.notificationsList.collect {
-//                adapter.setList(it)
-//                adapter.notifyDataSetChanged()
-//            }
-//        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             adapter.loadStateFlow.collectLatest { loadStates ->
@@ -77,14 +73,6 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
                 adapter.submitData(notifications)
             }
         }
-
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.notificationsList.collect { notifications ->
-//                notifications?.let {
-//                    adapter.submitData(notifications)
-//                }
-//            }
-//        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.emptyContainerVisible.collect {

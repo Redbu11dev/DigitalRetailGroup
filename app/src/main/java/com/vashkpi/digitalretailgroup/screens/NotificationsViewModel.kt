@@ -1,10 +1,7 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
-import androidx.paging.LoadState
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import androidx.paging.map
+import androidx.paging.*
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
@@ -30,9 +27,10 @@ class NotificationsViewModel @Inject constructor(private val dataStoreRepository
     private val _notificationsList = MutableStateFlow<PagingData<Notification>?>(null)
     val notificationsList: StateFlow<PagingData<Notification>?> get() = _notificationsList
 
-    private val _emptyContainerVisible = MutableStateFlow(true)
+    private val _emptyContainerVisible = MutableStateFlow(false)
     val emptyContainerVisible: StateFlow<Boolean> get() = _emptyContainerVisible
 
+    @ExperimentalPagingApi
     fun obtainNotifications(): Flow<PagingData<Notification>> {
 
 //        viewModelScope.launch {
@@ -46,11 +44,11 @@ class NotificationsViewModel @Inject constructor(private val dataStoreRepository
 
 
         return apiRepository.getNotifications()
-            .map { pagingData ->
-                pagingData.map {
-                    it.asDomainModel()
-                }
-            }
+//            .map { pagingData ->
+//                pagingData.map {
+//                    it.asDomainModel()
+//                }
+//            }
             //.cachedIn(viewModelScope)
     }
 
