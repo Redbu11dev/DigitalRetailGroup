@@ -1,7 +1,10 @@
 package com.vashkpi.digitalretailgroup.data.api
 
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.isActive
 import timber.log.Timber
+import kotlin.coroutines.CoroutineContext
 
 sealed class Resource<T>(
     val data: T? = null,
@@ -14,10 +17,13 @@ sealed class Resource<T>(
 
 inline fun <NetworkType> networkResponse(
     crossinline fetch : suspend () -> ApiResponse<NetworkType>,
-    canBeEmptyResponse: Boolean
+    canBeEmptyResponse: Boolean,
+    emitLoadingState: Boolean = true
 ) = flow {
     //Timber.d("loading")
-    emit(Resource.Loading(null))
+    if (emitLoadingState) {
+        emit(Resource.Loading(null))
+    }
     try {
         val fetchResult: ApiResponse<NetworkType> = fetch()
 
