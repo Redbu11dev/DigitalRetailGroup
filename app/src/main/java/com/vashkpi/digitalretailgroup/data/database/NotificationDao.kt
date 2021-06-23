@@ -23,4 +23,7 @@ interface NotificationDao {
 
     @Query("DELETE FROM notifications")
     suspend fun clearAll()
+
+    @Query("UPDATE notifications set read = :read WHERE notification_id == :notificationId")
+    suspend fun setRead(notificationId: String, read: Boolean)
 }

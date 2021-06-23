@@ -285,7 +285,9 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                 ApiResponse.create(apiService.markNotificationRead(notificationPostDto))
             },
             true
-        )
+        ).also {
+            appDatabase.notificationDao().setRead(notificationPostDto.notification_id, true)
+        }
     }
 
     suspend fun deleteNotification(userId: String, notificationId: String): Flow<Resource<out GenericResponseDto?>> {

@@ -15,6 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -52,18 +53,26 @@ class NotificationsViewModel @Inject constructor(private val dataStoreRepository
             //.cachedIn(viewModelScope)
     }
 
-    fun onListStoppedLoading(itemCount: Int) {
-        postProgressViewVisibility(false)
+    fun decideEmptyContainerVisibility(itemCount: Int) {
         _emptyContainerVisible.value = itemCount < 1
+    }
+
+    fun onListStoppedLoading() {
+        postProgressViewVisibility(false)
     }
 
     fun onListErrorLoading(throwable: Throwable) {
         postProgressViewVisibility(false)
         //show error
-        postNavigationEvent(NotificationsFragmentDirections.actionGlobalMessageDialog(
-            title = R.string.dialog_error_title,
-            message = throwable.message.toString()
-        ))
+        if (throwable is java.net.UnknownHostException) {
+            //no internet connection
+        }
+        else {
+            postNavigationEvent(NotificationsFragmentDirections.actionGlobalMessageDialog(
+                title = R.string.dialog_error_title,
+                message = throwable.message.toString()
+            ))
+        }
     }
 
     fun onListLoading() {

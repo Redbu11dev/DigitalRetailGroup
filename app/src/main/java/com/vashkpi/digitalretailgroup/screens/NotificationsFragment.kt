@@ -54,9 +54,10 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             adapter.loadStateFlow.collectLatest { loadStates ->
+                viewModel.decideEmptyContainerVisibility(adapter.itemCount)
                 when (loadStates.refresh) {
                     is LoadState.NotLoading -> {
-                        viewModel.onListStoppedLoading(adapter.itemCount)
+                        viewModel.onListStoppedLoading()
                     }
                     is LoadState.Loading -> {
                         viewModel.onListLoading()
