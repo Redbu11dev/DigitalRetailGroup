@@ -49,7 +49,8 @@
         tools:layout="@layout/fragment_notifications" >
         <action
             android:id="@+id/action_notificationsFragment_to_viewNotificationFragment"
-            app:destination="@id/viewNotificationFragment" />
+            app:destination="@id/viewNotificationFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

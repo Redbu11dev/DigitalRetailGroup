@@ -14,7 +14,8 @@ import com.vashkpi.digitalretailgroup.databinding.ItemNotificationBinding
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 
 class NotificationsAdapter(
-    private val clickListener: (View, Notification) -> Unit
+    private val clickListener: (View, Notification) -> Unit,
+    private val deleteBtnClickListener: (View, Notification) -> Unit
 ) : PagingDataAdapter<Notification, NotificationsViewHolder>(NotificationDiffCallBack()) {
 
 
@@ -31,7 +32,7 @@ class NotificationsAdapter(
     }
 
     override fun onBindViewHolder(holder: NotificationsViewHolder, position: Int) {
-        holder.bind(getItem(position), clickListener)
+        holder.bind(getItem(position), clickListener, deleteBtnClickListener)
     }
 
 }
@@ -49,7 +50,7 @@ class NotificationDiffCallBack : DiffUtil.ItemCallback<Notification>() {
 class NotificationsViewHolder(val binding: ItemNotificationBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(data: Notification?, clickListener: (view: View, Notification) -> Unit) {
+    fun bind(data: Notification?, clickListener: (view: View, Notification) -> Unit, deleteBtnClickListener: (View, Notification) -> Unit) {
 
         data?.let {
             if (data.read) {
@@ -98,7 +99,7 @@ class NotificationsViewHolder(val binding: ItemNotificationBinding) :
             }
 
             binding.icon.setOnClickListener {
-
+                deleteBtnClickListener(it, data)
             }
         }
     }

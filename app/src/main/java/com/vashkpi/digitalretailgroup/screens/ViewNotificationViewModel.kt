@@ -78,51 +78,9 @@ class ViewNotificationViewModel @Inject constructor(private val dataStoreReposit
         }
     }
 
-    fun delete(notificationId: String) {
-        viewModelScope.launch {
-            apiRepository.deleteNotification(dataStoreRepository.userId, notificationId).collect {
-                when (it) {
-                    is Resource.Loading -> {
-                        Timber.i("it's loading")
-                        //postProgressViewVisibility(true)
-                    }
-                    is Resource.Error -> {
-                        this@launch.cancel()
-                        val message = it.error?.message
-                        Timber.i("it's error: ${message}")
-                        //it.error.
-                        //postProgressViewVisibility(false)
 
-                        if (it.error is java.net.UnknownHostException) {
-                            //no internet connection - show nothing, proceed as if success
-                            onDeletionSuccess()
-                        }
-                        else {
-                            postNavigationEvent(ViewNotificationFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
-                        }
-                    }
-                    is Resource.Success -> {
-                        Timber.i("it's success")
-                        //check if empty?!
 
-                        onDeletionSuccess()
-
-                        it.data?.let { data ->
-                            Timber.i("here is the data: $data")
-
-                            //postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    fun onDeletionSuccess() {
+    fun onDeletePressed() {
         viewModelScope.launch {
             _notificationRemovedEvent.emit(true)
             cancel()
