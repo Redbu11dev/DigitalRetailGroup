@@ -33,18 +33,11 @@ class NotificationsViewModel @Inject constructor(private val dataStoreRepository
         data class DeleteNotification(val notificationId: String) : Event()
     }
 
-//    private val _event = MutableSharedFlow<Event>(replay = 0)
-//    val event get() = _event.asSharedFlow()
+    private val _event = MutableSharedFlow<Event>(replay = 0)
+    val event get() = _event.asSharedFlow()
 
-    private val eventChannel = Channel<Event>()
-    val events = eventChannel.receiveAsFlow()
-
-    fun postNotificationDeletionEvent(notificationId: String) {
-        viewModelScope.launch {
-            //_event.emit(Event.deleteNotification(notificationId))
-            eventChannel.send(Event.DeleteNotification(notificationId))
-            cancel()
-        }
+    suspend fun postNotificationDeletionEvent(notificationId: String) {
+        _event.emit(Event.DeleteNotification(notificationId))
     }
 
     @ExperimentalPagingApi

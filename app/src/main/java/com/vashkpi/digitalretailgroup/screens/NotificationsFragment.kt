@@ -47,7 +47,9 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
         { view, data ->
             //delete button click listener
             //deleteNotification(data.notification_id)
-            viewModel.postNotificationDeletionEvent(data.notification_id)
+            lifecycleScope.launchWhenResumed {
+                viewModel.postNotificationDeletionEvent(data.notification_id)
+            }
         })
         //adapter.setHasStableIds(true)
 
@@ -60,10 +62,10 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
             // read from the bundle
             Timber.d("Received fragment result: $bundle")
             if (bundle[ViewNotificationFragment.REQUEST_KEY] == ViewNotificationFragment.RESULT_DELETE) {
-//                lifecycleScope.launchWhenResumed {
-//                    deleteNotification(bundle[ViewNotificationFragment.NOTIFICATION_ID].toString())
-//                }
-                  viewModel.postNotificationDeletionEvent(bundle[ViewNotificationFragment.NOTIFICATION_ID].toString())
+                lifecycleScope.launchWhenResumed {
+                    viewModel.postNotificationDeletionEvent(bundle[ViewNotificationFragment.NOTIFICATION_ID].toString())
+                }
+                //deleteNotification(bundle[ViewNotificationFragment.NOTIFICATION_ID].toString())
             }
         }
 
@@ -73,18 +75,8 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
     override fun observeViewModel() {
         super.observeViewModel()
 
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.event.collectLatest { event ->
-//                when (event) {
-//                    is NotificationsViewModel.Event.deleteNotification -> {
-//                        deleteNotification(event.notificationId)
-//                    }
-//                }
-//            }
-//        }
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.events.collect { event ->
+            viewModel.event.collectLatest { event ->
                 when (event) {
                     is NotificationsViewModel.Event.DeleteNotification -> {
                         deleteNotification(event.notificationId)
@@ -92,6 +84,16 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
                 }
             }
         }
+
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.events.collect { event ->
+//                when (event) {
+//                    is NotificationsViewModel.Event.DeleteNotification -> {
+//                        deleteNotification(event.notificationId)
+//                    }
+//                }
+//            }
+//        }
 
 //            viewModel.event.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
 //            .onEach { event ->
