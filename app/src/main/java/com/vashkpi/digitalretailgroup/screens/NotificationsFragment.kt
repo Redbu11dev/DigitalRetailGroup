@@ -1,9 +1,6 @@
 package com.vashkpi.digitalretailgroup.screens
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,22 +8,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
-import com.daimajia.swipe.util.Attributes
 import com.google.android.material.snackbar.BaseTransientBottomBar.BaseCallback
 import com.google.android.material.snackbar.Snackbar
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.adapters.NotificationsAdapter
-import com.vashkpi.digitalretailgroup.adapters.helpers.SwipeToDeleteCallback
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
-import com.vashkpi.digitalretailgroup.screens.dialogs.SaveProfileDataDialogFragment
 import com.vashkpi.digitalretailgroup.utils.showMessage
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -54,7 +46,8 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
         },
         { view, data ->
             //delete button click listener
-            deleteNotification(data.notification_id)
+            //deleteNotification(data.notification_id)
+            viewModel.postNotificationDeletionEvent(data.notification_id)
         })
         //adapter.setHasStableIds(true)
 
@@ -67,7 +60,10 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
             // read from the bundle
             Timber.d("Received fragment result: $bundle")
             if (bundle[ViewNotificationFragment.REQUEST_KEY] == ViewNotificationFragment.RESULT_DELETE) {
-                deleteNotification(bundle[ViewNotificationFragment.NOTIFICATION_ID].toString())
+//                lifecycleScope.launchWhenResumed {
+//                    deleteNotification(bundle[ViewNotificationFragment.NOTIFICATION_ID].toString())
+//                }
+                  viewModel.postNotificationDeletionEvent(bundle[ViewNotificationFragment.NOTIFICATION_ID].toString())
             }
         }
 
@@ -76,6 +72,35 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
     @ExperimentalPagingApi
     override fun observeViewModel() {
         super.observeViewModel()
+
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.event.collectLatest { event ->
+//                when (event) {
+//                    is NotificationsViewModel.Event.deleteNotification -> {
+//                        deleteNotification(event.notificationId)
+//                    }
+//                }
+//            }
+//        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.events.collect { event ->
+                when (event) {
+                    is NotificationsViewModel.Event.DeleteNotification -> {
+                        deleteNotification(event.notificationId)
+                    }
+                }
+            }
+        }
+
+//            viewModel.event.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+//            .onEach { event ->
+//                when (event) {
+//                    is NotificationsViewModel.Event.deleteNotification -> {
+//                        deleteNotification(event.notificationId)
+//                    }
+//                }
+//            }.launchIn(lifecycleScope)
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             adapter.loadStateFlow.collectLatest { loadStates ->
@@ -113,8 +138,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
         }
     }
 
-    @ExperimentalPagingApi
-    fun deleteNotification(notificationId: String) {
+    private fun deleteNotification(notificationId: String) {
         viewModel.deleteLocally(notificationId)
         showMessage(
             R.string.snackbar_msg_message_removed,
@@ -122,7 +146,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
             {
                 //restore notification when clicked
                 viewModel.restoreLocally(notificationId)
-                viewModel.obtainNotifications()
+                adapter.refresh()
             },
             2000,
             object: Snackbar.Callback() {

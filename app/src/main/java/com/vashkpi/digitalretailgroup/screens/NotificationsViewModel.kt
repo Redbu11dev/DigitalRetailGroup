@@ -11,6 +11,7 @@ import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -23,32 +24,37 @@ class NotificationsViewModel @Inject constructor(private val dataStoreRepository
 //    val notificationsList: StateFlow<List<Notification>> get() = _notificationsList
 
     private val _notificationsList = MutableStateFlow<PagingData<Notification>?>(null)
-    val notificationsList: StateFlow<PagingData<Notification>?> get() = _notificationsList
+    val notificationsList get() = _notificationsList.asStateFlow()
 
     private val _emptyContainerVisible = MutableStateFlow(false)
-    val emptyContainerVisible: StateFlow<Boolean> get() = _emptyContainerVisible
+    val emptyContainerVisible get() = _emptyContainerVisible.asStateFlow()
+
+    sealed class Event {
+        data class DeleteNotification(val notificationId: String) : Event()
+    }
+
+//    private val _event = MutableSharedFlow<Event>(replay = 0)
+//    val event get() = _event.asSharedFlow()
+
+    private val eventChannel = Channel<Event>()
+    val events = eventChannel.receiveAsFlow()
+
+    fun postNotificationDeletionEvent(notificationId: String) {
+        viewModelScope.launch {
+            //_event.emit(Event.deleteNotification(notificationId))
+            eventChannel.send(Event.DeleteNotification(notificationId))
+            cancel()
+        }
+    }
 
     @ExperimentalPagingApi
     fun obtainNotifications(): Flow<PagingData<Notification>> {
-
-//        viewModelScope.launch {
-//            apiRepository.getNotifications()
-//                .map { pagingData ->
-//                    pagingData.map {
-//                        it.asDomainModel()
-//                    }
-//                }
-//        }
-
-
         return apiRepository.getNotifications()
             .map { pagingData ->
                 pagingData.map {
                     it.asDomainModel()
                 }
             }
-            //.distinctUntilChanged()
-            //.cachedIn(viewModelScope)
             .cachedIn(viewModelScope)
     }
 
