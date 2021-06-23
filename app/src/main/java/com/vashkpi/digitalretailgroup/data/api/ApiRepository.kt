@@ -269,7 +269,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         return Pager(
             // Configure how data is loaded by passing additional properties to
             // PagingConfig, such as prefetchDistance.
-            PagingConfig(pageSize = 10),
+            PagingConfig(pageSize = 10, initialLoadSize = 10),
             remoteMediator = NotificationsRemoteMediator(dataStoreRepository.userId, appDatabase, apiService)
         ) {
             //NotificationsPagingSource(apiService, dataStoreRepository.userId)

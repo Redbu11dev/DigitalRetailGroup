@@ -7,6 +7,9 @@ import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import retrofit2.HttpException
 import java.io.IOException
 
+/**
+ * unused, went with RemoteMediator
+ */
 class NotificationsPagingSource(
     private val apiService: ApiService,
     private val userId: String
@@ -17,14 +20,6 @@ class NotificationsPagingSource(
             // Start refresh at page 1 if undefined.
             val nextPageNumber = params.key ?: 1
             val response = apiService.getNotifications(userId, nextPageNumber)
-
-            //TODO go with networkResponse ext
-//            val response = networkResponse(
-//                fetch = {
-//                    ApiResponse.create(apiService.markNotificationRead(notificationPostDto))
-//                },
-//                true
-//            )
 
             return LoadResult.Page(
                 data = response.body()!!.notifications,
