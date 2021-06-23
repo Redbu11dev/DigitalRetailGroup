@@ -61,7 +61,7 @@ class NotificationsRemoteMediator(
             // be wrapped in a withContext(Dispatcher.IO) { ... } block
             // since Retrofit's Coroutine CallAdapter dispatches on a
             // worker thread.
-            val response = networkService.getNotifications(user_id, 1)
+            val response = networkService.getNotifications(user_id, state.pages.size+1)
 
             // Store loaded data, and next key in transaction, so that
             // they're always consistent.

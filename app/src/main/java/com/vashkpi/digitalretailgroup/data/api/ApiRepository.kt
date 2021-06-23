@@ -264,18 +264,18 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
 //    }
 
     @ExperimentalPagingApi
-    fun getNotifications(): Flow<PagingData<Notification>> {
+    fun getNotifications(): Flow<PagingData<NotificationDto>> {
         Timber.d("trying")
         return Pager(
             // Configure how data is loaded by passing additional properties to
             // PagingConfig, such as prefetchDistance.
-            PagingConfig(pageSize = 10),
-            remoteMediator = NotificationsRemoteMediator(dataStoreRepository.userId, appDatabase, apiService)
+            PagingConfig(pageSize = 10)
+            //remoteMediator = NotificationsRemoteMediator(dataStoreRepository.userId, appDatabase, apiService)
         ) {
-            //NotificationsPagingSource(apiService, dataStoreRepository.userId)
-            appDatabase.notificationDao().pagingSource()
+            NotificationsPagingSource(apiService, dataStoreRepository.userId)
+            //appDatabase.notificationDao().pagingSource()
 
-        }.flow.map { it.map { it.asDomainModel() } }
+        }.flow
     }
 
     suspend fun markNotificationRead(notificationPostDto: NotificationPostDto): Flow<Resource<out GenericResponseDto?>> {

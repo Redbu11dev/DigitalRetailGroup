@@ -44,11 +44,11 @@ class NotificationsViewModel @Inject constructor(private val dataStoreRepository
 
 
         return apiRepository.getNotifications()
-//            .map { pagingData ->
-//                pagingData.map {
-//                    it.asDomainModel()
-//                }
-//            }
+            .map { pagingData ->
+                pagingData.map {
+                    it.asDomainModel()
+                }
+            }
             //.cachedIn(viewModelScope)
     }
 
