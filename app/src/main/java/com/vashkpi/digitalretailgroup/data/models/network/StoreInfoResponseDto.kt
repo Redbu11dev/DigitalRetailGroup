@@ -5,10 +5,7 @@ import com.vashkpi.digitalretailgroup.data.models.database.StoreEntity
 import com.vashkpi.digitalretailgroup.data.models.database.StoreInfoEntity
 
 fun StoreInfoResponseDto.asDatabaseModel(store_id: String): StoreInfoEntity {
-
     return StoreInfoEntity(
-        0,
-
         store_id,
 
         name,

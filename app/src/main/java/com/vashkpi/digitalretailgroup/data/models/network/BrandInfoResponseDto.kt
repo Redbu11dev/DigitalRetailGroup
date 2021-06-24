@@ -16,7 +16,7 @@ fun BrandInfoResponseDto.asDatabaseModel(brand_id: String): BrandInfoEntityFull 
         ),
         regions.mapIndexed { index, regionDto ->
             BrandInfoRegionEntity(
-                0,//custom
+                "${index}_${brand_id}",//custom
 
                 brand_id,//custom
 

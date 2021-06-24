@@ -17,13 +17,11 @@ fun StoreEntity.asDomainModel(): Store {
 
 @Entity(tableName = "stores")
 data class StoreEntity (
-    @PrimaryKey(autoGenerate = true)
-    val entity_id: Long,
-
     val brand_id: String,
     val region_id: String,
 
     val name: String,
+    @PrimaryKey
     val store_id: String,
     val image_parth: String?, //typo on the server side
     val order: Int,

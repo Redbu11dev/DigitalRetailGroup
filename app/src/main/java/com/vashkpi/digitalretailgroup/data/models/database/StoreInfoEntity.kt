@@ -19,9 +19,7 @@ fun StoreInfoEntity.asDomainModel(): StoreInfo {
 
 @Entity(tableName = "store_info")
 data class StoreInfoEntity (
-    @PrimaryKey(autoGenerate = true)
-    val entity_id: Long,//custom
-
+    @PrimaryKey
     val store_id: String,//custom
 
     val name: String,

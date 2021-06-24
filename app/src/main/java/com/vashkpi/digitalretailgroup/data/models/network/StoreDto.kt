@@ -8,8 +8,6 @@ import kotlinx.parcelize.Parcelize
 fun StoreDto.asDatabaseModel(brand_id: String,
                              region_id: String): StoreEntity {
     return StoreEntity(
-        0,
-
         brand_id,
         region_id,
 
