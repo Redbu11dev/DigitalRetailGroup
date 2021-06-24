@@ -7,6 +7,8 @@
     tools:context=".screens.LoginCodeFragment"
     android:background="@color/bg"
     android:animateLayoutChanges="true"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     >
 
     <include android:id="@+id/custom_toolbar" layout="@layout/custom_toolbar"/>
@@ -103,6 +105,23 @@
         android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Generic"
         android:textSize="14dp"
         />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/error_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Какая-то ошибка"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/txt_pin_entry"
+            android:gravity="center"
+            android:layout_marginTop="17dp"
+
+            android:maxLines="4"
+            android:ellipsize="end"
+
+            android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Error"
+            android:textSize="14dp"
+            />
 
     <com.vashkpi.digitalretailgroup.view.GradientTextView
         android:id="@+id/send_sms_again"

@@ -7,6 +7,9 @@
     tools:context=".screens.LoginPhoneFragment"
     android:background="@color/bg"
     android:animateLayoutChanges="true"
+
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     >
 
     <RelativeLayout

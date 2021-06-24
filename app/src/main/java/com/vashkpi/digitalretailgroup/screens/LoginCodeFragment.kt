@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.databinding.FragmentLoginCodeBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
+import com.vashkpi.digitalretailgroup.utils.hideKeyboard
 import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -59,10 +60,26 @@ class LoginCodeFragment :
             }
         }
 
+        binding.txtPinEntry.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                binding.txtPinEntry.hideKeyboard()
+            }
+        }
+
         binding.sendSmsAgain.setOnClickListener {
             viewModel.sendSmsAgain(phoneStringRaw)
         }
 
+    }
+
+    override fun observeViewModel() {
+        super.observeViewModel()
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.errorText.collect {
+                binding.errorText.text = it
+            }
+        }
     }
 
 }

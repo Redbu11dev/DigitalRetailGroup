@@ -6,12 +6,15 @@ import com.vashkpi.digitalretailgroup.DrgApplication
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
+import com.vashkpi.digitalretailgroup.data.models.domain.Brand
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeDto
 import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -30,12 +33,18 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
                     }
                     is Resource.Error -> {
                         this@launch.cancel()
-                        val message = it.error?.message
+
+                        val message = it.error?.message ?: ""
                         Timber.i("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false)
 
-                        postNavigationEvent(LoginCodeFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                        if (message.startsWith("404: ")) {
+                            postErrorText(message.replace("404: ", ""))
+                        }
+                        else {
+                            postNavigationEvent(LoginCodeFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message))
+                        }
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")

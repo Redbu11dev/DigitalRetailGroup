@@ -24,6 +24,7 @@ import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.databinding.FragmentLoginPhoneBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
+import com.vashkpi.digitalretailgroup.utils.hideKeyboard
 import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -73,6 +74,12 @@ class LoginPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneVie
                     //viewModel.loginWithPhone(phone)
                     viewModel.loginWithPhone(phoneRaw, phoneFormatted)
                 }
+            }
+        }
+
+        binding.phone.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                binding.phone.hideKeyboard()
             }
         }
 
