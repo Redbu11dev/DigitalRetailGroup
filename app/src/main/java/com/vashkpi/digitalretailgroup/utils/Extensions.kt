@@ -11,12 +11,11 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.IdRes
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
-import androidx.navigation.NavOptionsBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -140,10 +139,10 @@ fun JsonObject.getFirstElementName(): String {
 
 fun Fragment.safeOpenUrlInBrowser(url: String) {
     try {
-        val defaultBrowser =
+        val intent =
             Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_BROWSER)
-        defaultBrowser.data = Uri.parse(url)
-        startActivity(defaultBrowser)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
     }
     catch (t: Throwable) {
         Timber.e(t)
@@ -155,6 +154,43 @@ fun Fragment.safeOpenCallDialer(phone: String) {
     try {
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse("tel:$phone")
+        startActivity(intent)
+    }
+    catch (t: Throwable) {
+        Timber.e(t)
+        showErrorMessage(t.message.toString())
+    }
+}
+
+fun Fragment.safeOpenAddressInMaps(address: String) {
+    try {
+        val intent =
+            Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_MAPS)
+        intent.data = Uri.parse("geo:0,0?q=$address")
+        startActivity(intent)
+    }
+    catch (t: Throwable) {
+        Timber.e(t)
+        if (t is android.content.ActivityNotFoundException) {
+            this.safeOpenAddressInBrowser(address)
+        }
+        else {
+            showErrorMessage(t.message.toString())
+        }
+    }
+}
+
+fun Fragment.safeOpenAddressInBrowser(address: String) {
+
+    try {
+//        val intent =
+//            Intent.makeMainSelectorActivity(Intent.ACTION_WEB_SEARCH, Intent.CATEGORY_APP_BROWSER)
+//        //intent.data = Uri.parse("geo:0,0?q=$address")
+//        intent.putExtra(SearchManager.QUERY, address)
+//        startActivity(intent)
+
+        val uri = Uri.parse("http://www.google.com/?q=$address")
+        val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }
     catch (t: Throwable) {

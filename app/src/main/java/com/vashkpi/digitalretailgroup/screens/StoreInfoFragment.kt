@@ -11,6 +11,7 @@ import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.databinding.FragmentStoreInfoBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
+import com.vashkpi.digitalretailgroup.utils.safeOpenAddressInMaps
 import com.vashkpi.digitalretailgroup.utils.safeOpenCallDialer
 import com.vashkpi.digitalretailgroup.utils.safeOpenUrlInBrowser
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +45,9 @@ class StoreInfoFragment : BaseFragment<FragmentStoreInfoBinding, StoreInfoViewMo
 
         binding.inclItemInfoWorkhours.root.changeAlphaOnTouch()
         binding.inclItemInfoAddress.root.changeAlphaOnTouch()
+        binding.inclItemInfoAddress.root.setOnClickListener {
+            safeOpenAddressInMaps(binding.inclItemInfoAddress.text.text.toString())
+        }
     }
 
     override fun observeViewModel() {
