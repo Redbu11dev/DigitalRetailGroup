@@ -5,6 +5,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.isActive
 import timber.log.Timber
+import java.net.UnknownHostException
 import kotlin.coroutines.CoroutineContext
 
 sealed class Resource<T>(
@@ -14,6 +15,20 @@ sealed class Resource<T>(
     class Success<T>(data: T) : Resource<T>(data)
     class Loading<T>(data: T? = null) : Resource<T>(data)
     class Error<T>(throwable: Throwable, data: T? = null) : Resource<T>(data, throwable)
+}
+
+/**
+ * Will return the same throwable but with different message
+ */
+fun formatThrowableMessage(throwable: Throwable): Throwable {
+    return when (throwable) {
+        is java.net.UnknownHostException -> {
+            UnknownHostException("Unable to reach server. Check your internet connection.")
+        }
+        else -> {
+            throwable
+        }
+    }
 }
 
 inline fun <NetworkType> networkResponse(
@@ -75,7 +90,10 @@ inline fun <NetworkType> networkResponse(
             }
             else -> {
                 onFetchFailed()
-                emit(Resource.Error(throwable, null))
+
+                val formattedThrowable = formatThrowableMessage(throwable)
+
+                emit(Resource.Error(formattedThrowable, null))
                 //currentCoroutineContext().cancel()
             }
         }
@@ -126,7 +144,8 @@ inline fun <NetworkType, DatabaseType> networkBoundResource(
             }
         } catch (throwable: Throwable) {
             //Timber.d("in here")
-            emit(Resource.Error(throwable, null))
+            val formattedThrowable = formatThrowableMessage(throwable)
+            emit(Resource.Error(formattedThrowable, null))
         }
 
     }

@@ -22,6 +22,7 @@ import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.Prefe
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.SAVED_DEVICE_INFO_USER_ID
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.SURNAME
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.USER_ID
+import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.USER_PHONE
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
@@ -73,6 +74,7 @@ class DataStoreRepository(private val context: Context, private val dataStore: D
         val FCM_TOKEN = stringPreferencesKey("FCM_TOKEN")
 
         val USER_ID = stringPreferencesKey("USER_ID")
+        val USER_PHONE = stringPreferencesKey("USER_PHONE")
 
         val DEVICE_ID = stringPreferencesKey("DEVICE_ID")
 
@@ -120,6 +122,14 @@ class DataStoreRepository(private val context: Context, private val dataStore: D
         }
         set(value) {
             saveValue(USER_ID, value)
+        }
+
+    var userPhone: String
+        get() {
+            return readValue(USER_PHONE) ?: ""
+        }
+        set(value) {
+            saveValue(USER_PHONE, value)
         }
 
     private fun getDeviceIdInternal(): String {

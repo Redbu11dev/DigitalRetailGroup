@@ -1,6 +1,8 @@
 package com.vashkpi.digitalretailgroup.data.api
 
+import com.google.gson.Gson
 import com.google.gson.JsonElement
+import com.vashkpi.digitalretailgroup.data.models.network.GenericResponseDto
 import retrofit2.Response
 import timber.log.Timber
 
@@ -21,7 +23,14 @@ sealed class ApiResponse<T> {
                     ApiSuccessResponse(body)
                 }
             } else {
-                ApiErrorResponse(response.code(), response.errorBody()?.string()?:response.message())
+                val message = try {
+                    Gson().fromJson(response.errorBody()?.string(), GenericResponseDto::class.java).message
+                }
+                catch (t: Throwable) {
+                    response.errorBody()?.string() ?: response.message()
+                }
+                //val message = response.errorBody()?.string() ?: response.message()
+                ApiErrorResponse(response.code(), message)
             }
         }
 

@@ -125,7 +125,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
 
     fun getBalance() {
         viewModelScope.launch {
-            apiRepository.getBalance(dataStoreRepository.userId).collect {
+            apiRepository.getBalance("dataStoreRepository.userId").collect {
                 when (it) {
                     is Resource.Loading -> {
                         Timber.i("it's loading")
