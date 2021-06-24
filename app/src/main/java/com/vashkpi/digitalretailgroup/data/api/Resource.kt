@@ -18,7 +18,7 @@ sealed class Resource<T>(
 }
 
 /**
- * Will return the same throwable but with different message
+ * Will return the same throwable type but with different message
  */
 fun Throwable.formatThrowableMessage(): Throwable {
     return when (this) {
