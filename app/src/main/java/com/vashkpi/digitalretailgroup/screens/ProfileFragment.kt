@@ -151,14 +151,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             }
         }
 
-//        val outputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).apply {
-//            timeZone = TimeZone.getTimeZone("UTC")
-//        }
-//        val outputDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).apply {
-//            timeZone = TimeZone.getTimeZone("UTC")
-//        }
-
-        val outputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).apply {
+        val outputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).apply {
             timeZone = TimeZone.getTimeZone("UTC")
         }
 

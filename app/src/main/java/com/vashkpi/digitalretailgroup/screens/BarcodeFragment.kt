@@ -61,6 +61,8 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
 
         viewModel.getBalance()
 
+        //displayBitmap(binding.barcodeImage, it)
+
     }
 
     private fun displayBitmap(imageView: ImageView, value: String) {
@@ -123,7 +125,7 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.barcodeValue.collect {
-                //displayBitmap(binding.barcodeImage, it)
+                displayBitmap(binding.barcodeImage, it)
             }
         }
 

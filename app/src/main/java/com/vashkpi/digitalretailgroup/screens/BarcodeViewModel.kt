@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class BarcodeViewModel @Inject constructor(private val apiRepository: ApiRepository, private val dataStoreRepository: DataStoreRepository): BaseViewModel() {
 
-    private val _barcodeValue = MutableStateFlow(dataStoreRepository.userId)
+    private val _barcodeValue = MutableStateFlow(dataStoreRepository.userPhone)
     val barcodeValue: StateFlow<String> get() = _barcodeValue
 
     private val _balance = MutableStateFlow(0)

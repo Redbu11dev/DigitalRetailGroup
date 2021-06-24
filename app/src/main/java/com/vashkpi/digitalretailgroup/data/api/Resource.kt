@@ -23,7 +23,10 @@ sealed class Resource<T>(
 fun Throwable.formatThrowableMessage(): Throwable {
     return when (this) {
         is java.net.UnknownHostException -> {
-            UnknownHostException("Unable to reach server. Check your internet connection.")
+            java.net.UnknownHostException("Не удалось запросить данные от сервера (UnknownHost). Проверьте интернет соединение")
+        }
+        is java.net.SocketTimeoutException -> {
+            java.net.SocketTimeoutException("Превышено время ожидания ответа от сервера")
         }
         else -> {
             this

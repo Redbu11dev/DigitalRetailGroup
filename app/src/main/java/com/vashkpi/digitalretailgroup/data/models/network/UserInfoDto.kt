@@ -25,6 +25,6 @@ data class UserInfoDto(
     val name: String,
     val surname: String,
     val middle_name: String,
-    val date_of_birth: String, //formats: local - "30.11.1111" | server - "1111-11-30"
+    val date_of_birth: String, //formats: local - "30.11.1111" | server - bullshit
     val gender: String, //по-русски "Мужской"/"Женский"
 )
