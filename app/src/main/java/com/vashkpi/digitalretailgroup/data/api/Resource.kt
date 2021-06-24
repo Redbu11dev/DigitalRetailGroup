@@ -20,13 +20,13 @@ sealed class Resource<T>(
 /**
  * Will return the same throwable but with different message
  */
-fun formatThrowableMessage(throwable: Throwable): Throwable {
-    return when (throwable) {
+fun Throwable.formatThrowableMessage(): Throwable {
+    return when (this) {
         is java.net.UnknownHostException -> {
             UnknownHostException("Unable to reach server. Check your internet connection.")
         }
         else -> {
-            throwable
+            this
         }
     }
 }
@@ -91,7 +91,7 @@ inline fun <NetworkType> networkResponse(
             else -> {
                 onFetchFailed()
 
-                val formattedThrowable = formatThrowableMessage(throwable)
+                val formattedThrowable = throwable.formatThrowableMessage()
 
                 emit(Resource.Error(formattedThrowable, null))
                 //currentCoroutineContext().cancel()
@@ -144,7 +144,7 @@ inline fun <NetworkType, DatabaseType> networkBoundResource(
             }
         } catch (throwable: Throwable) {
             //Timber.d("in here")
-            val formattedThrowable = formatThrowableMessage(throwable)
+            val formattedThrowable = throwable.formatThrowableMessage()
             emit(Resource.Error(formattedThrowable, null))
         }
 
