@@ -213,6 +213,14 @@ public class PinEditText extends AppCompatEditText {
     }
 
     @Override
+    public void setTextColor(int color) {
+        super.setTextColor(color);
+        mLastCharPaint.setColor(color);
+        mCharPaint.setColor(color);
+        mSingleCharPaint.setColor(color);
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mOriginalTextColors = getTextColors();

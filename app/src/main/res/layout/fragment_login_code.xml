@@ -66,7 +66,7 @@
             android:textStyle="bold"
 
             app:pinAnimationType="popIn"
-            app:pinBackgroundDrawable="@drawable/pin_background"
+            app:pinBackgroundDrawable="@drawable/selector_pin_background"
             app:pinCharacterSpacing="4dp"
             app:pinRepeatedHint="0"
             android:layout_centerInParent="true"

@@ -1,9 +1,11 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -46,14 +48,6 @@ class LoginCodeFragment :
             phoneStringFormattedFakeSpaces
         )
 
-//        binding.phone.apply {
-//            doAfterTextChanged {
-//                if (it.toString().length > 3) {
-//                    viewModel.confirmCode(phoneStringRaw, it.toString())
-//                }
-//            }
-//        }
-
         binding.txtPinEntry.doAfterTextChanged {
             if (it.toString().length > 3) {
                 viewModel.confirmCode(phoneStringRaw, it.toString())
@@ -64,6 +58,7 @@ class LoginCodeFragment :
             if (!hasFocus) {
                 binding.txtPinEntry.hideKeyboard()
             }
+            viewModel.postErrorText("")
         }
 
         binding.sendSmsAgain.setOnClickListener {
@@ -78,6 +73,25 @@ class LoginCodeFragment :
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.errorText.collect {
                 binding.errorText.text = it
+                Timber.d("RECEIVED ID: _$it")
+                if (it != "") {
+                    binding.txtPinEntry.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.orange
+                        )
+                    )
+                    binding.txtPinEntry.setPinBackground(ContextCompat.getDrawable(requireContext(), R.drawable.pin_background_error))
+                }
+                else {
+                    binding.txtPinEntry.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.white
+                        )
+                    )
+                    binding.txtPinEntry.setPinBackground(ContextCompat.getDrawable(requireContext(), R.drawable.selector_pin_background))
+                }
             }
         }
     }
