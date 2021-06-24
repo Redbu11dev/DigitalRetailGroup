@@ -22,7 +22,8 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class LoginCodeFragment : BaseFragment<FragmentLoginCodeBinding, LoginCodeViewModel>(FragmentLoginCodeBinding::inflate) {
+class LoginCodeFragment :
+    BaseFragment<FragmentLoginCodeBinding, LoginCodeViewModel>(FragmentLoginCodeBinding::inflate) {
 
     override val viewModel: LoginCodeViewModel by viewModels()
 
@@ -39,13 +40,22 @@ class LoginCodeFragment : BaseFragment<FragmentLoginCodeBinding, LoginCodeViewMo
         val phoneStringRaw = args.phoneStringRaw
         val phoneStringFormattedFakeSpaces = args.phoneStringFormatted.replace(" ", " ")
 
-        binding.text2.text = String.format(getString(R.string.login_code_description), phoneStringFormattedFakeSpaces)
+        binding.text2.text = String.format(
+            getString(R.string.login_code_description),
+            phoneStringFormattedFakeSpaces
+        )
 
-        binding.phone.apply {
-            doAfterTextChanged {
-                if (it.toString().length > 3) {
-                    viewModel.confirmCode(phoneStringRaw, it.toString())
-                }
+//        binding.phone.apply {
+//            doAfterTextChanged {
+//                if (it.toString().length > 3) {
+//                    viewModel.confirmCode(phoneStringRaw, it.toString())
+//                }
+//            }
+//        }
+
+        binding.txtPinEntry.doAfterTextChanged {
+            if (it.toString().length > 3) {
+                viewModel.confirmCode(phoneStringRaw, it.toString())
             }
         }
 

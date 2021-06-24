@@ -23,20 +23,23 @@ sealed class ApiResponse<T> {
                     ApiSuccessResponse(body)
                 }
             } else {
-                val message = try {
+                var message = try {
                     Gson().fromJson(response.errorBody()?.string(), GenericResponseDto::class.java).message
                 }
                 catch (t: Throwable) {
                     response.errorBody()?.string() ?: response.message()
+                }
+                if (message.isEmpty()) {
+                    message = "Unknown error"
                 }
                 //val message = response.errorBody()?.string() ?: response.message()
                 ApiErrorResponse(response.code(), message)
             }
         }
 
-        fun <T> create(errorCode: Int, error: Throwable): ApiErrorResponse<T> {
-            return ApiErrorResponse(errorCode, error.message ?: "Unknown Error!")
-        }
+//        fun <T> create(errorCode: Int, error: Throwable): ApiErrorResponse<T> {
+//            return ApiErrorResponse(errorCode, error.message ?: "Unknown Error!")
+//        }
     }
 }
 

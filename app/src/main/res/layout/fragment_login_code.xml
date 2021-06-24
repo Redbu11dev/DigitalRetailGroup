@@ -19,27 +19,62 @@
         android:layout_below="@id/custom_toolbar"
         >
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/phone_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:endIconMode="clear_text"
-        android:layout_centerInParent="true"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/phone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="numberSigned|phone"
-            android:selectAllOnFocus="true"
-            android:lines="1"
-            tools:text="+7"
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/phone_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--        app:endIconMode="clear_text"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        >-->
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:id="@+id/phone"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:inputType="numberSigned|phone"-->
+<!--            android:selectAllOnFocus="true"-->
+<!--            android:lines="1"-->
+<!--            tools:text="+7"-->
+<!--            />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+        <com.vashkpi.digitalretailgroup.view.PinEditText
+            android:id="@+id/txt_pin_entry"
+            android:enabled="true"
+            android:layout_width="214dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:digits="1234567890"
+            android:inputType="number"
+            android:maxLength="4"
+            android:paddingStart="0dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="0dp"
+            android:paddingBottom="0dp"
+            android:singleLine="true"
+            tools:text="1234"
+            android:cursorVisible="false"
+            android:textColor="@color/white"
+            android:textColorHint="@color/not_active"
+            android:textIsSelectable="false"
+            android:textSize="38dp"
+            android:textStyle="bold"
+
+            app:pinAnimationType="popIn"
+            app:pinBackgroundDrawable="@drawable/pin_background"
+            app:pinCharacterSpacing="4dp"
+            app:pinRepeatedHint="0"
+            android:layout_centerInParent="true"
             />
-    </com.google.android.material.textfield.TextInputLayout>
+
+<!--        app:fontFamily="@font/montserrat_bold"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/pin_error_text"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/hint"-->
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text1"
@@ -62,7 +97,7 @@
         android:text="@string/login_code_description"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="35dp"
-        android:layout_above="@id/phone_layout"
+        android:layout_above="@id/txt_pin_entry"
         android:gravity="center"
 
         android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Generic"
