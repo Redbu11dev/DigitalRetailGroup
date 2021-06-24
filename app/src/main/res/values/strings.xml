@@ -32,7 +32,7 @@
     <!--    Login code-->
     <string name="login_code_description">Введите пароль из смс, отправленного на номер %s</string>
 
-<!--    Description titles-->
+    <!--    Description titles-->
     <string name="description_title_save">Как копить баллы</string>
     <string name="description_title_get">Как тратить баллы</string>
     <string name="description_title_promotion_rules">Правила акции</string>

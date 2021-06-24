@@ -16,10 +16,12 @@ import com.vashkpi.digitalretailgroup.data.models.domain.convertGenderRadioGroup
 import com.vashkpi.digitalretailgroup.data.models.domain.convertGenderStringToRadioGroupId
 import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
+import com.vashkpi.digitalretailgroup.screens.dialogs.DatePickerDialogFragment
 import com.vashkpi.digitalretailgroup.screens.dialogs.SaveProfileDataDialogFragment
 import com.vashkpi.digitalretailgroup.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
@@ -132,9 +134,22 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             }
         }
 
-        //TODO move date picker to a separate nav component fragment
-        val builder = MaterialDatePicker.Builder.datePicker()
-        val picker = builder.build()
+        binding.birthDateText.setOnClickListener {
+            //picker.show(parentFragmentManager, picker.toString())
+            viewModel.postNavigationEvent(ProfileFragmentDirections.actionGlobalDatePickerDialog())
+        }
+
+        //Listen for fragment results
+        setFragmentResultListener(SaveProfileDataDialogFragment.REQUEST_KEY) { key, bundle ->
+            // read from the bundle
+            Timber.d("Received save dialog fragment result: $bundle")
+            if (bundle[SaveProfileDataDialogFragment.REQUEST_KEY] == SaveProfileDataDialogFragment.RESULT_SAVE) {
+                viewModel.onSaveInfoDialogPositiveButtonClick(isRegistration)
+            }
+            else if (bundle[SaveProfileDataDialogFragment.REQUEST_KEY] == SaveProfileDataDialogFragment.RESULT_DO_NOT_SAVE) {
+                viewModel.onSaveInfoDialogNegativeButtonClick(isRegistration)
+            }
+        }
 
 //        val outputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).apply {
 //            timeZone = TimeZone.getTimeZone("UTC")
@@ -142,27 +157,17 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
 //        val outputDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).apply {
 //            timeZone = TimeZone.getTimeZone("UTC")
 //        }
+
         val outputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).apply {
             timeZone = TimeZone.getTimeZone("UTC")
         }
 
-        picker.addOnPositiveButtonClickListener {
-            binding.birthDateText.setText(outputDateFormat.format(it))
-        }
-
-        binding.birthDateText.setOnClickListener {
-            picker.show(parentFragmentManager, picker.toString())
-        }
-
-        //Listen for fragment results
-        setFragmentResultListener(SaveProfileDataDialogFragment.REQUEST_KEY) { key, bundle ->
+        setFragmentResultListener(DatePickerDialogFragment.REQUEST_KEY) { key, bundle ->
             // read from the bundle
-            Timber.d("Received fragment result: $bundle")
-            if (bundle[SaveProfileDataDialogFragment.REQUEST_KEY] == SaveProfileDataDialogFragment.RESULT_SAVE) {
-                viewModel.onSaveInfoDialogPositiveButtonClick(isRegistration)
-            }
-            else if (bundle[SaveProfileDataDialogFragment.REQUEST_KEY] == SaveProfileDataDialogFragment.RESULT_DO_NOT_SAVE) {
-                viewModel.onSaveInfoDialogNegativeButtonClick(isRegistration)
+            Timber.d("Received date picker dialog fragment result: $bundle")
+            if (bundle[DatePickerDialogFragment.REQUEST_KEY] == DatePickerDialogFragment.RESULT_PICKED) {
+                //viewModel.onSaveInfoDialogPositiveButtonClick(isRegistration)
+                binding.birthDateText.setText(outputDateFormat.format(bundle[DatePickerDialogFragment.PICKED_DATE_LONG]))
             }
         }
 

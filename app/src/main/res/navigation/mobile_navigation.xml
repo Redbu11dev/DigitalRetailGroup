@@ -217,6 +217,19 @@
         >
     </action>
 
+    <dialog
+        android:id="@+id/datePickerDialogFragment"
+        android:name="com.vashkpi.digitalretailgroup.screens.dialogs.DatePickerDialogFragment"
+        android:label="fragment_date_picker_dialog"
+        tools:layout="@layout/dialog_date_picker"
+        />
+
+    <action
+        android:id="@+id/action_global_datePickerDialog"
+        app:destination="@id/datePickerDialogFragment"
+        >
+    </action>
+
     <action
         android:id="@+id/action_global_logout_to_launcher"
         app:destination="@id/launcherFragment"
