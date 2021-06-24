@@ -1,25 +1,23 @@
 package com.vashkpi.digitalretailgroup.data.models.network
 
-import com.vashkpi.digitalretailgroup.data.models.database.StoreEntity
 import com.vashkpi.digitalretailgroup.data.models.domain.UserInfo
+import timber.log.Timber
 
 fun UserInfoDto.asDomainModel(): UserInfo {
     return UserInfo(
         name,
         surname,
         middle_name,
-        date_of_birth,
-        gender.convertGenderToDomainFormat()
+        date_of_birth.convertDateToDomainFormat(),
+        gender
     )
 }
 
-fun String.convertGenderToDomainFormat(): String {
-    val original = this
-    val year = original.subSequence(0,3)
-    val month = original.subSequence(5,6)
-    val day = original.subSequence(8,9)
-
-
+fun String.convertDateToDomainFormat(): String {
+    val original = this.toCharArray()
+    val year = String(charArrayOf(original[0], original[1], original[2], original[3]))
+    val month = String(charArrayOf(original[5], original[6]))
+    val day = String(charArrayOf(original[8], original[9]))
     return "$day.$month.$year"
 }
 

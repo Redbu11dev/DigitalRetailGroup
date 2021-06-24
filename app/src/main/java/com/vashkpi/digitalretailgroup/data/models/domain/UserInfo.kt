@@ -9,9 +9,17 @@ fun UserInfo.asNetworkModel(): UserInfoDto {
         name,
         surname,
         middle_name,
-        date_of_birth,
+        date_of_birth.convertDateToNetworkFormat(),
         gender
     )
+}
+
+fun String.convertDateToNetworkFormat(): String {
+    val original = this.toCharArray()
+    val day = String(charArrayOf(original[0], original[1]))
+    val month = String(charArrayOf(original[3], original[4]))
+    val year = String(charArrayOf(original[6], original[7], original[8], original[9]))
+    return "$year-$day-$month"
 }
 
 data class UserInfo(
