@@ -17,6 +17,7 @@ import com.vashkpi.digitalretailgroup.data.models.domain.convertGenderStringToRa
 import com.vashkpi.digitalretailgroup.databinding.FragmentProfileBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.screens.dialogs.SaveProfileDataDialogFragment
+import com.vashkpi.digitalretailgroup.utils.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
@@ -89,15 +90,33 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
             }
         }
 
+        binding.surnameText.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                v.hideKeyboard()
+            }
+        }
+
         binding.firstNameText.doAfterTextChanged {
             if (lifecycle.currentState >= Lifecycle.State.RESUMED) {
                 notifyProfileDataChanged()
             }
         }
 
+        binding.firstNameText.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                v.hideKeyboard()
+            }
+        }
+
         binding.middleNameText.doAfterTextChanged {
             if (lifecycle.currentState >= Lifecycle.State.RESUMED) {
                 notifyProfileDataChanged()
+            }
+        }
+
+        binding.middleNameText.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                v.hideKeyboard()
             }
         }
 

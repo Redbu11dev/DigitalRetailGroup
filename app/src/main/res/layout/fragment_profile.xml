@@ -7,6 +7,9 @@
     android:background="@color/bg"
     tools:context=".screens.ProfileFragment"
     android:animateLayoutChanges="true"
+
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     >
 
     <include
