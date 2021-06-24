@@ -67,6 +67,36 @@
             android:textSize="14dp"
             />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_agreement_descr"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/phone_layout"
+            android:gravity="center"
+            android:layout_marginTop="39dp"
+
+            android:textAppearance="@style/TextAppearance.DigitalRetailGroup.Secondary"
+            android:textSize="14dp"
+
+
+            />
+
+        <com.vashkpi.digitalretailgroup.view.GradientTextView
+            android:id="@+id/text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_agreement_text_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/text3"
+            android:gravity="center"
+
+            android:textSize="14dp"
+
+            style="@style/Widget.DigitalRetailGroup.ClickableTextView.GradientTextView"
+            />
+
         <com.vashkpi.digitalretailgroup.view.GradientTextView
             android:id="@+id/contact_us"
             android:layout_width="wrap_content"

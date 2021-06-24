@@ -75,6 +75,18 @@ class LoginPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneVie
                 }
             }
         }
+
+        binding.text4.setOnClickListener {
+
+        }
+
+        binding.loginProblems.setOnClickListener {
+
+        }
+
+        binding.contactUs.setOnClickListener {
+
+        }
     }
 
     override fun observeViewModel() {

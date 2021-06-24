@@ -26,6 +26,8 @@
     <!--    Login phone-->
     <string name="login_login_text">Вход</string>
     <string name="login_phone_description">Введите номер телефона. На него будет отправлен код подтверждения.</string>
+    <string name="login_agreement_descr">Авторизируясь, вы соглашаетесь с нашей</string>
+    <string name="login_agreement_text_btn">Политикой конфиденциальности</string>
 
     <!--    Login code-->
     <string name="login_code_description">Введите пароль из смс, отправленного на номер %s</string>
