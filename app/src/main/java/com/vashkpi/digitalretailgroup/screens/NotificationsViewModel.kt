@@ -54,6 +54,12 @@ class NotificationsViewModel @Inject constructor(
 //        }
 //    }
 
+    fun syncNotifications() {
+        viewModelScope.launch {
+            apiRepository.syncNotifications()
+        }
+    }
+
     @ExperimentalPagingApi
     fun obtainNotifications(): Flow<PagingData<Notification>> {
         return apiRepository.getNotifications()

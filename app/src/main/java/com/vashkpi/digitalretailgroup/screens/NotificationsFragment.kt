@@ -51,7 +51,6 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
         super.onCreate(savedInstanceState)
         Timber.d("I am recreated")
 
-
         lifecycleScope.launchWhenCreated {
             viewModel.obtainNotifications().collectLatest { notifications ->
                 Timber.d("calling submit data")
@@ -59,6 +58,13 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
                 viewModel.decideEmptyContainerVisibility(adapter.itemCount)
             }
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.syncNotifications()
     }
 
     @ExperimentalPagingApi

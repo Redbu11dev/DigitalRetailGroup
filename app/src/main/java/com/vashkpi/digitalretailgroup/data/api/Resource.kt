@@ -20,7 +20,8 @@ inline fun <NetworkType> networkResponse(
     crossinline fetch : suspend () -> ApiResponse<NetworkType>,
     canBeEmptyResponse: Boolean,
     emitLoadingState: Boolean = true,
-    crossinline onFetchSuccess: () -> Unit = { }
+    crossinline onFetchSuccess: () -> Unit = { },
+    crossinline onFetchFailed: () -> Unit = { }
 ) = flow {
     //Timber.d("loading")
     if (emitLoadingState) {
@@ -33,32 +34,34 @@ inline fun <NetworkType> networkResponse(
             is ApiSuccessResponse -> {
                 onFetchSuccess()
                 emit(Resource.Success(fetchResult.body))
-                currentCoroutineContext().cancel()
+                //currentCoroutineContext().cancel()
             }
             is ApiEmptyResponse -> {
                 if (canBeEmptyResponse) {
                     onFetchSuccess()
                     emit(Resource.Success(null))
-                    currentCoroutineContext().cancel()
+                    //currentCoroutineContext().cancel()
                 }
                 else {
+                    onFetchFailed()
                     emit(
                         Resource.Error(
                             throwable = Throwable("Response is empty"),
                             null
                         )
                     )
-                    currentCoroutineContext().cancel()
+                    //currentCoroutineContext().cancel()
                 }
             }
             is ApiErrorResponse -> {
+                onFetchFailed()
                 emit(
                     Resource.Error(
                         throwable = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"),
                         null
                     )
                 )
-                currentCoroutineContext().cancel()
+                //currentCoroutineContext().cancel()
             }
         }
     } catch (throwable: Throwable) {
@@ -68,11 +71,12 @@ inline fun <NetworkType> networkResponse(
                 //it is made like that on the backend
                 onFetchSuccess()
                 emit(Resource.Success(null))
-                currentCoroutineContext().cancel()
+                //currentCoroutineContext().cancel()
             }
             else -> {
+                onFetchFailed()
                 emit(Resource.Error(throwable, null))
-                currentCoroutineContext().cancel()
+                //currentCoroutineContext().cancel()
             }
         }
     }

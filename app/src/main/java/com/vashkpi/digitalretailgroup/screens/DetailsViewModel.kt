@@ -23,11 +23,11 @@ class DetailsViewModel @Inject constructor(private val apiRepository: ApiReposit
     private val _ruleText = MutableStateFlow("_")
     val ruleText: StateFlow<String> get() = _ruleText
 
-    init {
-        CoroutineScope(Dispatchers.IO).launch {
-            apiRepository.syncNotifications()
-        }
-    }
+//    init {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            apiRepository.syncNotifications()
+//        }
+//    }
 
     fun getSavePointsRules() {
         viewModelScope.launch {

@@ -24,11 +24,14 @@ interface NotificationDao {
     @Query("SELECT * FROM notifications WHERE not local_user_removed")
     fun pagingSourceOfNotRemoved(): PagingSource<Int, NotificationEntity>
 
-    @Query("DELETE FROM notifications WHERE not local_user_removed")
+    @Query("DELETE FROM notifications WHERE not local_user_removed or not local_user_read")
     suspend fun clearAll()
 
-    @Query("UPDATE notifications SET read = :read, local_user_read = :read WHERE notification_id == :notificationId")
-    suspend fun setRead(notificationId: String, read: Boolean)
+    @Query("UPDATE notifications SET read = :read, local_user_read = :local_user_read WHERE notification_id == :notificationId")
+    suspend fun setRead(notificationId: String, read: Boolean, local_user_read: Boolean)
+
+    @Query("UPDATE notifications SET local_user_read = :local_user_read WHERE notification_id == :notificationId")
+    suspend fun setLocalUserRead(notificationId: String, local_user_read: Boolean)
 
     @Query("UPDATE notifications SET local_user_removed = :removed WHERE notification_id == :notificationId")
     suspend fun markUserRemoved(notificationId: String, removed: Boolean)

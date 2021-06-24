@@ -284,19 +284,30 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         //(sync local changes with the server)
         //try to fan-out deletion requests for locally removed notifications
         //try to fan-out "read" requests for locally "read" notifications
-        appDatabase.notificationDao().getAllUserModified().first().forEach {
-            if (it.local_user_removed) {
-                Timber.d("syncNotifications called1")
-                deleteNotificationRemotely(dataStoreRepository.userId, it.notification_id).collect {
+        val list = appDatabase.notificationDao().getAllUserModified().first()
+        Timber.d("syncNotifications size: ${list.size}")
+        list.forEachIndexed { i: Int, notificationEntity: NotificationEntity ->
+
+            if (notificationEntity.local_user_removed) {
+                Timber.d("syncNotifications called $i - 1")
+                deleteNotificationRemotely(
+                    dataStoreRepository.userId,
+                    notificationEntity.notification_id
+                ).collect {
+
+                }
+            } else if (!notificationEntity.local_user_removed && notificationEntity.local_user_read) {
+                Timber.d("syncNotifications called $i - 2")
+                markNotificationRead(
+                    NotificationPostDto(
+                        dataStoreRepository.userId,
+                        notificationEntity.notification_id
+                    )
+                ).collect {
 
                 }
             }
-            else if (!it.local_user_removed && it.local_user_read) {
-                Timber.d("syncNotifications called2")
-                markNotificationRead(NotificationPostDto(dataStoreRepository.userId, it.notification_id)).collect {
 
-                }
-            }
         }
     }
 
@@ -306,10 +317,25 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
             fetch = {
                 ApiResponse.create(apiService.markNotificationRead(notificationPostDto))
             },
-            true
-        ).also {
-            appDatabase.notificationDao().setRead(notificationPostDto.notification_id, true)
-        }
+            true,
+            onFetchSuccess = {
+                //mark local read as false?
+                runBlocking {
+                    appDatabase.notificationDao().setRead(notificationPostDto.notification_id,
+                        read = true,
+                        local_user_read = false
+                    )
+                }
+            },
+            onFetchFailed = {
+                runBlocking {
+                    appDatabase.notificationDao().setRead(notificationPostDto.notification_id,
+                        read = true,
+                        local_user_read = true
+                    )
+                }
+            }
+        )
     }
 
     suspend fun deleteNotificationLocally(notificationId: String) {
