@@ -62,22 +62,26 @@ interface ApiService {
 
     @GET("brands")
     suspend fun getBrands(
+        @Header("user_id") userId: String
     ): Response<BrandsResponseDto>
 
     @GET("brands/{brand_id}")
     suspend fun getBrandInfo(
         //@Header("brand_id") brandIdHeader: String,
+        @Header("user_id") userId: String,
         @Path(value = "brand_id") brandId: String
     ): Response<BrandInfoResponseDto>
 
     @GET("stores")
     suspend fun getRegionStores(
+        @Header("user_id") userId: String,
         @Header("brand_id") brandId: String,
         @Header("region_id") regionId: String
     ): Response<StoresResponseDto>
 
     @GET("stores/{store_id}")
     suspend fun getRegionStoreInfo(
+        @Header("user_id") userId: String,
         @Path("store_id") storeId: String
     ): Response<StoreInfoResponseDto>
 

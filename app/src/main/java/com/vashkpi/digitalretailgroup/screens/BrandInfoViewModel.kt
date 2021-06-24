@@ -50,6 +50,11 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
                     is Resource.Loading -> {
                         //TODO()
                         Timber.i("it's loading")
+                        it.data?.let { data ->
+                            Timber.d("here is the old data: $data")
+
+                            _brandInfo.value = data.asDomainModel()
+                        }
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {

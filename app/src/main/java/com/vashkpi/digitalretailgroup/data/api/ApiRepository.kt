@@ -146,7 +146,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                 appDatabase.brandDao().getAll()
             },
             fetch = {
-                ApiResponse.create(apiService.getBrands())
+                ApiResponse.create(apiService.getBrands(dataStoreRepository.userId))
             },
             shouldFetch = {
                 //it.isEmpty()
@@ -174,12 +174,14 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                 appDatabase.brandInfoDao().getOne(brandId)
             },
             fetch = {
-                ApiResponse.create(apiService.getBrandInfo(brandId))
+                ApiResponse.create(apiService.getBrandInfo(dataStoreRepository.userId, brandId))
             },
             shouldFetch = {
-                it == null
+                //it == null
+                true
             },
             saveFetchResult = {
+                appDatabase.brandInfoDao().clearAll()
                 appDatabase.brandInfoDao().insertBrandInfoEntity(
                     it.asDatabaseModel(brandId).brandInfoEntity,
                     it.asDatabaseModel(brandId).regions
@@ -198,10 +200,11 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                 appDatabase.storeDao().getAll(brandId, regionId)
             },
             fetch = {
-                ApiResponse.create(apiService.getRegionStores(brandId, regionId))
+                ApiResponse.create(apiService.getRegionStores(dataStoreRepository.userId, brandId, regionId))
             },
             shouldFetch = {
-                it.isEmpty()
+                //it.isEmpty()
+                true
             },
             saveFetchResult = {
                 appDatabase.storeDao().insertMany(it.elements.map {
@@ -224,10 +227,11 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
                 appDatabase.storeInfoDao().getOne(storeId)
             },
             fetch = {
-                ApiResponse.create(apiService.getRegionStoreInfo(storeId))
+                ApiResponse.create(apiService.getRegionStoreInfo(dataStoreRepository.userId, storeId))
             },
             shouldFetch = {
-                it == null
+                //it == null
+                true
             },
             saveFetchResult = {
                 appDatabase.storeInfoDao().insertOne(it.asDatabaseModel(storeId))

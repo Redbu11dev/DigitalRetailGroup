@@ -30,6 +30,11 @@ class StoreInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
                 when (it) {
                     is Resource.Loading -> {
                         Timber.i("it's loading")
+                        it.data?.let { data ->
+                            Timber.d("here is the old data: $data")
+
+                            _storeInfo.value = data.asDomainModel()
+                        }
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {

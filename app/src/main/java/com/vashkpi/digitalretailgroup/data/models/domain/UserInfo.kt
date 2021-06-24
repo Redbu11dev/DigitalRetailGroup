@@ -19,14 +19,14 @@ fun String.convertDateToNetworkFormat(): String {
     val day = String(charArrayOf(original[0], original[1]))
     val month = String(charArrayOf(original[3], original[4]))
     val year = String(charArrayOf(original[6], original[7], original[8], original[9]))
-    return "$year-$month-$day"
+    return "$year.$month.$day"
 }
 
 data class UserInfo(
     val name: String,
     val surname: String,
     val middle_name: String,
-    val date_of_birth: String, //formats: local - "30.11.1111" | server - bullshit
+    val date_of_birth: String, //formats: local - "dd.mm.yyyy" | server - yyyy.mm.dd
     val gender: String, //по-русски "Мужской"/"Женский"
 )
 
