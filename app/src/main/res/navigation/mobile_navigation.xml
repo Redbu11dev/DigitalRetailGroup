@@ -52,10 +52,6 @@
         <action
             android:id="@+id/action_notificationsFragment_to_viewNotificationFragment"
             app:destination="@id/viewNotificationFragment"
-            app:restoreState="true"
-            app:popUpToSaveState="true"
-            app:launchSingleTop="false"
-            app:popUpTo="@id/notificationsFragment"
             />
     </fragment>
     <fragment

@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * This is crucial to support ActionBar's back button
+     * This is crucial to support ActionBar's/toolbar's back button
      */
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
