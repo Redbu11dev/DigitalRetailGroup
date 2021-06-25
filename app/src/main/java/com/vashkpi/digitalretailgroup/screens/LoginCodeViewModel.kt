@@ -1,27 +1,28 @@
 package com.vashkpi.digitalretailgroup.screens
 
+import android.content.Context
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.vashkpi.digitalretailgroup.AppConstants
-import com.vashkpi.digitalretailgroup.DrgApplication
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
-import com.vashkpi.digitalretailgroup.data.models.domain.Brand
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.data.models.network.ConfirmCodeDto
 import com.vashkpi.digitalretailgroup.data.models.network.RegisterPhoneDto
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository, private val apiRepository: ApiRepository): BaseViewModel() {
+class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository,
+                                             private val apiRepository: ApiRepository,
+private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
 
     fun confirmCode(phone: String, code: String) {
         viewModelScope.launch {
@@ -59,6 +60,7 @@ class LoginCodeViewModel @Inject constructor(private val dataStoreRepository: Da
                             dataStoreRepository.userPhone = phone
 
                             postProgressViewVisibility(false)
+                            firebaseAnalytics.logEvent(AppConstants.FirebaseAnalyticsEvents.USER_AUTHORIZED.value, null)
                             postNavigationEvent(LoginCodeFragmentDirections.actionLoginCodeFragmentToProfileFragment(true, userId))
                             this@launch.cancel()
                         } ?: kotlin.run {

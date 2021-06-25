@@ -1,6 +1,8 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
@@ -18,7 +20,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailsViewModel @Inject constructor(private val apiRepository: ApiRepository, private val dataStoreRepository: DataStoreRepository) : BaseViewModel() {
+class DetailsViewModel @Inject constructor(private val apiRepository: ApiRepository, private val dataStoreRepository: DataStoreRepository, private val firebaseAnalytics: FirebaseAnalytics) : BaseViewModel() {
 
     private val _ruleText = MutableStateFlow("_")
     val ruleText: StateFlow<String> get() = _ruleText
@@ -135,6 +137,10 @@ class DetailsViewModel @Inject constructor(private val apiRepository: ApiReposit
                 }
             }
         }
+    }
+
+    fun logOpenedRulesEvent() {
+        firebaseAnalytics.logEvent(AppConstants.FirebaseAnalyticsEvents.OPENED_RULES.value, null)
     }
 
 }

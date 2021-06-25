@@ -1,6 +1,8 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
@@ -21,7 +23,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository, private val apiRepository: ApiRepository, private val appDatabase: AppDatabase): BaseViewModel() {
+class ProfileViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository, private val apiRepository: ApiRepository, private val appDatabase: AppDatabase, private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
 
     //- obtain locally saved profile info
     //- compare it to values in the text fields
@@ -141,6 +143,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                             Timber.i("here is the data: $data")
 
                             postProgressViewVisibility(false)
+                            firebaseAnalytics.logEvent(AppConstants.FirebaseAnalyticsEvents.PROFILE_FILLED.value, null)
                             if (isRegistration) {
                                 postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
                             }

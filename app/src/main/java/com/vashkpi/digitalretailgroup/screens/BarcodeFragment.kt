@@ -1,6 +1,7 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import android.graphics.Bitmap
+import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
 import androidx.annotation.ColorInt
@@ -63,6 +64,12 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
 
         //displayBitmap(binding.barcodeImage, it)
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.logOpenedPurseEvent()
     }
 
     private fun displayBitmap(imageView: ImageView, value: String) {

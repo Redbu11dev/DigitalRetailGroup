@@ -1,6 +1,7 @@
 package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.DrgApplication
 import com.vashkpi.digitalretailgroup.R
@@ -19,7 +20,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class BarcodeViewModel @Inject constructor(private val apiRepository: ApiRepository, private val dataStoreRepository: DataStoreRepository): BaseViewModel() {
+class BarcodeViewModel @Inject constructor(private val apiRepository: ApiRepository, private val dataStoreRepository: DataStoreRepository, private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
 
     private val _barcodeValue = MutableStateFlow(dataStoreRepository.userPhone)
     val barcodeValue: StateFlow<String> get() = _barcodeValue
@@ -213,6 +214,10 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
         }
 
 
+    }
+
+    fun logOpenedPurseEvent() {
+        firebaseAnalytics.logEvent(AppConstants.FirebaseAnalyticsEvents.OPENED_PURSE.value, null)
     }
 
 }

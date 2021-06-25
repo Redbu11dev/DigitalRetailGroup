@@ -2,6 +2,7 @@ package com.vashkpi.digitalretailgroup
 
 import android.app.Application
 import android.provider.Settings
+import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -34,6 +35,10 @@ class DrgApplication: Application() {
         } else {
             //Timber.plant(TimberReleaseTree())
         }
+
+        val firebaseAnalytics = FirebaseAnalytics.getInstance(applicationContext)
+        firebaseAnalytics.setAnalyticsCollectionEnabled(true)
+        firebaseAnalytics.logEvent(AppConstants.FirebaseAnalyticsEvents.LAUNCH.value, null)
     }
 
 }

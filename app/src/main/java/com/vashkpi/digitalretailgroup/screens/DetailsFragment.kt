@@ -59,4 +59,10 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>(F
 
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.logOpenedRulesEvent()
+    }
+
 }
