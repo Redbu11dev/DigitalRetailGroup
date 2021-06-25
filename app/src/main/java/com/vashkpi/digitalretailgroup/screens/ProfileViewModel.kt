@@ -44,6 +44,8 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                         Timber.d("it's loading")
                         postProgressViewVisibility(true)
                         //this@launch.cancel()
+
+                        _localUserInfo.value = dataStoreRepository.userInfo
                     }
                     is Resource.Error -> {
                         this@launch.cancel()

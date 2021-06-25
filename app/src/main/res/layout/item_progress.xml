@@ -9,6 +9,7 @@
     android:visibility="gone"
     tools:visibility="visible"
     android:elevation="10dp"
+    android:clickable="true"
     >
 
     <ProgressBar

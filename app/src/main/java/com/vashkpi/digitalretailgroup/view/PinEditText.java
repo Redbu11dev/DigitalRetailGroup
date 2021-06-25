@@ -217,7 +217,7 @@ public class PinEditText extends AppCompatEditText {
         super.setTextColor(color);
         mLastCharPaint.setColor(color);
         mCharPaint.setColor(color);
-        mSingleCharPaint.setColor(color);
+        //mSingleCharPaint.setColor(color);
     }
 
     @Override

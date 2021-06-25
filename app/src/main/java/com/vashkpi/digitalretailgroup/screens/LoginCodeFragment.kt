@@ -52,13 +52,14 @@ class LoginCodeFragment :
             if (it.toString().length > 3) {
                 viewModel.confirmCode(phoneStringRaw, it.toString())
             }
+            viewModel.postErrorText("")
         }
 
         binding.txtPinEntry.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 binding.txtPinEntry.hideKeyboard()
             }
-            viewModel.postErrorText("")
+            //viewModel.postErrorText("")
         }
 
         binding.sendSmsAgain.setOnClickListener {
