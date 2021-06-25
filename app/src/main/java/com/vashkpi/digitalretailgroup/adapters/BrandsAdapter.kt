@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -62,14 +63,25 @@ class BrandsViewHolder(val binding: ItemBrandBinding) :
 
         //val requestBuilder = Glide.with(logo).load(data.image_parth).us
 
-        GlideApp.with(logo)
-            .`as`(PictureDrawable::class.java)
-            //.placeholder(R.drawable.img_dummy_store_image)
-            //.error(R.drawable.img_dummy_store_image)
-            .transition(withCrossFade())
-            //.listener(SvgSoftwareLayerSetter())
-            .load(Uri.parse(data.image_parth))
+        //if svg
+        if (data.image_parth.toString().endsWith(".svg")) {
+            binding.logo.scaleType = ImageView.ScaleType.FIT_XY
+            GlideApp.with(logo)
+                .`as`(PictureDrawable::class.java)
+                //.placeholder(R.drawable.img_dummy_store_image)
+                .transition(withCrossFade())
+                //.listener(SvgSoftwareLayerSetter())
+                .load(Uri.parse(data.image_parth))
+                .into(logo)
+        }
+        //if .png or .jpg or others
+        else {
+            binding.logo.scaleType = ImageView.ScaleType.FIT_XY
+            Glide.with(logo)
+            .load(data.image_parth)
             .into(logo)
+        }
+
 
 //        Glide
 //            .with(logo)
