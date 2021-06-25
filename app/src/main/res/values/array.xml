@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="main_options_array_names">
+        <item>@string/main_how_to_save_points</item>
+        <item>@string/main_how_to_spend_points</item>
+        <item>@string/main_ask_question</item>
+        <item>@string/main_privacy_policy</item>
+    </array>
+
+    <array name="main_options_array_icons">
+        <item>@drawable/ic_save</item>
+        <item>@drawable/ic_spend</item>
+        <item>@drawable/ic_phone</item>
+        <item>@drawable/ic_shield</item>
+    </array>
+
+
+</resources>

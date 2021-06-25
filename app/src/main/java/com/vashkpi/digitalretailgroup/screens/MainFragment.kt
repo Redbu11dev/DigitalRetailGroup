@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.adapters.BrandsAdapter
+import com.vashkpi.digitalretailgroup.adapters.MainOptionsAdapter
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentMainBinding
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
@@ -27,6 +28,26 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
 
     private val adapter = BrandsAdapter { view, data ->
         viewModel.onBrandsListItemClick(data)
+    }
+
+    private val optionsAdapter = MainOptionsAdapter { view, data ->
+        when (data) {
+            getString(R.string.main_how_to_save_points) -> {
+                viewModel.onSavePointsOptionClick()
+            }
+            getString(R.string.main_how_to_spend_points) -> {
+                viewModel.onSpendPointsOptionClick()
+            }
+            getString(R.string.main_ask_question) -> {
+
+            }
+            getString(R.string.main_privacy_policy) -> {
+
+            }
+            else -> {
+
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,37 +89,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
 //        }
 
         binding.partnersList.adapter = adapter
+
+        optionsAdapter.submitList(resources.getStringArray(R.array.main_options_array_names).toMutableList())
+        binding.optionsList.adapter = optionsAdapter
+
         //binding.partnersList.itemAnimator = null
         //binding.partnersList.visibility = View.GONE
-
-        binding.item1.root.changeAlphaOnTouch()
-        binding.item1.root.setOnClickListener {
-            viewModel.onSavePointsOptionClick()
-        }
-        binding.item1.icon.setImageResource(R.drawable.ic_save)
-        binding.item1.text.setText(R.string.main_how_to_save_points)
-
-        binding.item2.root.changeAlphaOnTouch()
-        binding.item2.root.setOnClickListener {
-            viewModel.onSpendPointsOptionClick()
-        }
-        binding.item2.icon.setImageResource(R.drawable.ic_spend)
-        binding.item2.text.setText(R.string.main_how_to_spend_points)
-
-        binding.item3.root.changeAlphaOnTouch()
-        binding.item3.root.setOnClickListener {
-            //viewModel.onSpendPointsOptionClick()
-        }
-        binding.item3.icon.setImageResource(R.drawable.ic_phone)
-        binding.item3.text.setText(R.string.main_ask_question)
-
-        binding.item4.root.changeAlphaOnTouch()
-        binding.item4.root.setOnClickListener {
-            //viewModel.onSpendPointsOptionClick()
-        }
-        binding.item4.icon.setImageResource(R.drawable.ic_shield)
-        binding.item4.text.setText(R.string.main_privacy_policy)
-
 
         //viewModel.obtainBrands()
     }
@@ -112,15 +108,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
     override fun observeViewModel() {
         super.observeViewModel()
 
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.brandsList.collect {
-//                adapter.submitList(it)
-////                adapter.setList(it)
-////                adapter.notifyDataSetChanged()
-//                //binding.partnersList.scheduleLayoutAnimation()
-//                binding.partnersList.visibility = View.VISIBLE
-//            }
-//        }
+
+
     }
 
 }
