@@ -85,6 +85,20 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
         binding.item2.icon.setImageResource(R.drawable.ic_spend)
         binding.item2.text.setText(R.string.main_how_to_spend_points)
 
+        binding.item3.root.changeAlphaOnTouch()
+        binding.item3.root.setOnClickListener {
+            //viewModel.onSpendPointsOptionClick()
+        }
+        binding.item3.icon.setImageResource(R.drawable.ic_phone)
+        binding.item3.text.setText(R.string.main_ask_question)
+
+        binding.item4.root.changeAlphaOnTouch()
+        binding.item4.root.setOnClickListener {
+            //viewModel.onSpendPointsOptionClick()
+        }
+        binding.item4.icon.setImageResource(R.drawable.ic_shield)
+        binding.item4.text.setText(R.string.main_privacy_policy)
+
 
         //viewModel.obtainBrands()
     }
