@@ -9,6 +9,7 @@
     android:layout_height="wrap_content"
     app:elevation="0dp"
 
+    android:animateLayoutChanges="true"
     >
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -27,6 +28,8 @@
         app:maxButtonHeight="@dimen/toolbar_icon_background_height"
         android:paddingVertical="0dp"
         tools:title=""
+
+        android:animateLayoutChanges="true"
 
         >
 

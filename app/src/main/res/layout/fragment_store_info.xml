@@ -23,7 +23,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            >
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/image"
@@ -65,7 +67,7 @@
                 android:layout_marginTop="22dp"
 
                 tools:visibility="visible"
-                android:visibility="visible"
+                android:visibility="gone"
                 />
 
             <include
@@ -80,7 +82,7 @@
                 android:layout_marginHorizontal="16dp"
 
                 tools:visibility="visible"
-                android:visibility="visible"
+                android:visibility="gone"
                 />
 
             <include
@@ -95,7 +97,7 @@
                 android:layout_marginHorizontal="16dp"
 
                 tools:visibility="visible"
-                android:visibility="visible"
+                android:visibility="gone"
                 />
 
             <include
@@ -110,7 +112,7 @@
                 android:layout_marginHorizontal="16dp"
 
                 tools:visibility="visible"
-                android:visibility="visible"
+                android:visibility="gone"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
