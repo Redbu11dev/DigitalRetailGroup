@@ -38,7 +38,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
     private var newCodeObtainedAtDateMillis: Long = dataStoreRepository.newCodeObtainedAtDateMillis
 
     val countDown: Flow<Long> get() = flow {
-        delay(1000)
+        delay(500)
         while (true) {
             val difference = System.currentTimeMillis() - newCodeObtainedAtDateMillis
 
