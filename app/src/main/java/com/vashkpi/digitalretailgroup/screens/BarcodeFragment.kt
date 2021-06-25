@@ -53,6 +53,7 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
         }
 
         binding.howToGetPointsBtn.setOnClickListener {
+            //throw RuntimeException("Test Crash"); // Force a crash
             viewModel.onHowToGetPointsBtnClick()
         }
 
