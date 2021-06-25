@@ -46,7 +46,7 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                 when (it) {
                     is Resource.Loading -> {
                         Timber.i("it's loading")
-                        postProgressViewVisibility(true)
+                        //postProgressViewVisibility(true)
                         it.data?.let { data ->
                             Timber.d("here is the old data: $data")
 
@@ -58,7 +58,7 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
-                        postProgressViewVisibility(false)
+                        //postProgressViewVisibility(false)
                         if (it.error !is java.net.UnknownHostException) {
                             postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                         }
@@ -71,7 +71,7 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
 
                             _brandsList.value = data.map { it.asDomainModel() }.toMutableList()
 
-                            postProgressViewVisibility(false)
+                            //postProgressViewVisibility(false)
 
                             this@launch.cancel()
                         } ?: kotlin.run {

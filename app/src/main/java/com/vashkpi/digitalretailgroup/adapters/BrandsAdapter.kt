@@ -1,5 +1,7 @@
 package com.vashkpi.digitalretailgroup.adapters
 
+import android.graphics.drawable.PictureDrawable
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,11 +9,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.bumptech.glide.request.target.Target
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.models.domain.Brand
-import com.vashkpi.digitalretailgroup.data.models.domain.Notification
 import com.vashkpi.digitalretailgroup.databinding.ItemBrandBinding
+import com.vashkpi.digitalretailgroup.utils.GlideApp
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
+
 
 class BrandsAdapter(
     private val clickListener: (View, Brand) -> Unit
@@ -55,10 +60,22 @@ class BrandsViewHolder(val binding: ItemBrandBinding) :
 
         val logo = binding.logo
 
+        //val requestBuilder = Glide.with(logo).load(data.image_parth).us
+
+        GlideApp.with(logo)
+            .`as`(PictureDrawable::class.java)
+            //.placeholder(R.drawable.img_dummy_store_image)
+            //.error(R.drawable.img_dummy_store_image)
+            .transition(withCrossFade())
+            //.listener(SvgSoftwareLayerSetter())
+            .load(Uri.parse(data.image_parth))
+            .into(logo)
+
 //        Glide
 //            .with(logo)
+//            .`as`(PictureDrawable::class.java)
 //            .load(data.image_parth)
-//            .placeholder(R.drawable.img_dummy_store_image)
+//            //.placeholder(R.drawable.img_dummy_store_image)
 //            .into(logo)
 
     }

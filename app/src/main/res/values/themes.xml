@@ -18,6 +18,8 @@
 <!--        <item name="colorError">@color/orange</item>-->
 <!--        <item name="colorOnError">@color/color_on_surface</item>-->
 
+        <item name="colorPrimary">@color/bg</item>
+
         <!-- Customize your theme here. -->
 
 <!--        Strict element color definitions-->

@@ -10,6 +10,7 @@ import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.models.domain.Notification
+import com.vashkpi.digitalretailgroup.data.models.domain.formatDateToUserReadable
 import com.vashkpi.digitalretailgroup.databinding.ItemNotificationBinding
 import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
 
@@ -62,7 +63,7 @@ class NotificationsViewHolder(val binding: ItemNotificationBinding) :
 
             binding.title.text = data.title
             binding.text.text = data.text
-            binding.date.text = data.date
+            binding.date.text = data.date.formatDateToUserReadable()
 
             binding.swipe.showMode = SwipeLayout.ShowMode.LayDown
             binding.swipe.addSwipeListener(object: SwipeLayout.SwipeListener{

@@ -34,14 +34,14 @@ class StoresViewModel @Inject constructor(private val apiRepository: ApiReposito
 
                             _storesList.value = data.map { it.asDomainModel() }.toMutableList()
                         }
-                        postProgressViewVisibility(true)
+                        //postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
                         this@launch.cancel()
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
-                        postProgressViewVisibility(false)
+                        //postProgressViewVisibility(false)
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
@@ -52,7 +52,7 @@ class StoresViewModel @Inject constructor(private val apiRepository: ApiReposito
 
                             _storesList.value = data.map { it.asDomainModel() }.toMutableList()
 
-                            postProgressViewVisibility(false)
+                            //postProgressViewVisibility(false)
 
                             this@launch.cancel()
                         } ?: kotlin.run {

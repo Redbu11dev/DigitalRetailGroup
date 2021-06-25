@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
+import com.vashkpi.digitalretailgroup.data.models.domain.formatDateToUserReadable
 import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentViewNotificationBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
@@ -47,7 +48,7 @@ class ViewNotificationFragment : BaseFragment<FragmentViewNotificationBinding, V
 
         binding.title.text = notification.title
         binding.text.text = notification.text
-        binding.date.text = notification.date
+        binding.date.text = notification.date.formatDateToUserReadable()
 
         toolbar.inflateMenu(R.menu.toolbar_menu_notifications)
         toolbar.setOnMenuItemClickListener {

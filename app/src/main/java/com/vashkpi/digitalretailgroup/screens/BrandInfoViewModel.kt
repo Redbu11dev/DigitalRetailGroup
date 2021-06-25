@@ -55,7 +55,7 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
 
                             _brandInfo.value = data.asDomainModel()
                         }
-                        postProgressViewVisibility(true)
+                        //postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
                         //TODO()
@@ -63,7 +63,7 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
-                        postProgressViewVisibility(false)
+                        //postProgressViewVisibility(false)
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
@@ -81,7 +81,7 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
 //                            _timeOfWork.value = domainModel.time_of_work
 //                            _brandRegionsList.value = domainModel.regions.toMutableList()
 
-                            postProgressViewVisibility(false)
+                            //postProgressViewVisibility(false)
 
                             this@launch.cancel()
                         } ?: kotlin.run {

@@ -32,6 +32,9 @@
         <!--        <item name="android:gravity">center</item>-->
         <!--        <item name="android:maxLines">2</item>-->
         <!--        <item name="textAllCaps">@bool/abc_config_actionMenuItemAllCaps</item>-->
+
+
+
     </style>
 
     <style name="Widget.DigitalRetailGroup.Snackbar" parent="Widget.MaterialComponents.Snackbar">
