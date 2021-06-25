@@ -117,36 +117,6 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
             }
         }
 
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.name.collect {
-//                binding.customToolbar.toolbar.title = it
-//            }
-//        }
-//
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.website.collect {
-//                binding.inclItemBrandInfoWebsite.text.text = it
-//            }
-//        }
-//
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.telephone.collect {
-//                binding.inclItemBrandInfoContact.phone.text = it
-//            }
-//        }
-//
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.timeOfWork.collect {
-//                binding.inclItemBrandInfoContact.workHours.text = it
-//            }
-//        }
-//
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.brandRegionsList.collect {
-//                adapter.setList(it)
-//                adapter.notifyDataSetChanged()
-//            }
-//        }
     }
 
 }
