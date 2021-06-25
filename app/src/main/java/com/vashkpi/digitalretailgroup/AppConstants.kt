@@ -3,6 +3,9 @@ package com.vashkpi.digitalretailgroup
 import android.provider.Settings
 
 object AppConstants {
+
+    const val NEW_CODE_TIMEOUT_MILLIS: Long = 1000 * 60
+
     const val DEVICE_TYPE = "phone"
     const val DEVICE_OS = "android"
 

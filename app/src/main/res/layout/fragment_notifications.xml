@@ -74,6 +74,8 @@
             android:paddingHorizontal="12dp"
             android:clipToPadding="false"
             android:clipChildren="false"
+
+            android:scrollbarStyle="outsideOverlay"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

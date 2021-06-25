@@ -17,6 +17,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,8 +32,10 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
     private val _code = MutableStateFlow(0)
     val code: StateFlow<Int> get() = _code
 
-    private val newCodeWaitTime: Long = 10000L//TimeUnit.MINUTES.toMillis(1)
-    private var newCodeObtainedAtDateMillis: Long = 0
+    private val newCodeWaitTime: Long =
+                                        //AppConstants.NEW_CODE_TIMEOUT_MILLIS
+                                        10000L
+    private var newCodeObtainedAtDateMillis: Long = dataStoreRepository.newCodeObtainedAtDateMillis
 
     val countDown: Flow<Long> get() = flow {
         delay(1000)
@@ -110,6 +113,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                             _code.value = code
 
                             newCodeObtainedAtDateMillis = System.currentTimeMillis()
+                            dataStoreRepository.newCodeObtainedAtDateMillis = newCodeObtainedAtDateMillis
                             refreshViewState()
 
                             postProgressViewVisibility(false)
@@ -146,8 +150,8 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
 
-                            val balance = data.balance
-                            //val balance = 1 //fixme mock
+                            //val balance = data.balance
+                            val balance = 1 //mock
                             _balance.value = balance
                             refreshViewState()
 
