@@ -82,11 +82,35 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
 
                     binding.customToolbar.toolbar.title = it.name
 
-                    binding.inclItemBrandInfoWebsite.text.text = it.website
+                    val website = it.website
+                    //val website = "www.mi.com/ru"
+                    binding.inclItemBrandInfoWebsite.text.text = website
+                    if (website.isBlank()) {
+                        binding.inclItemBrandInfoWebsite.root.visibility = View.GONE
+                    }
+                    else {
+                        binding.inclItemBrandInfoWebsite.root.visibility = View.VISIBLE
+                    }
 
-                    binding.inclItemBrandInfoContact.phone.text = it.telephone
+                    val telephone = it.telephone
+                    //val telephone = "8-800-775-66-15"
+                    binding.inclItemBrandInfoContact.phone.text = telephone
+                    if (telephone.isBlank()) {
+                        binding.inclItemBrandInfoContact.root.visibility = View.GONE
+                    }
+                    else {
+                        binding.inclItemBrandInfoContact.root.visibility = View.VISIBLE
+                    }
 
-                    binding.inclItemBrandInfoContact.workHours.text = it.time_of_work
+                    val timeOfWork = it.time_of_work
+                    //val timeOfWork = "с 9:00 до 20:00 МСК, Пн – Пт"
+                    binding.inclItemBrandInfoContact.workHours.text = timeOfWork
+                    if (timeOfWork.isBlank()) {
+                        binding.inclItemBrandInfoContact.workHours.visibility = View.GONE
+                    }
+                    else {
+                        binding.inclItemBrandInfoContact.workHours.visibility = View.VISIBLE
+                    }
 
                     adapter.submitList(it.regions.toMutableList())
                 }

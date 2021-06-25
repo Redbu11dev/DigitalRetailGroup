@@ -49,16 +49,17 @@
 
 <!--        <item name="android:textAppearance">@style/Widget.DigitalRetailGroup.TextGeneric</item>-->
 
-<!--        <item name="materialCalendarTheme">@style/ThemeOverlay.DigitalRetailGroup.DatePicker</item>-->
+        <item name="materialCalendarTheme">@style/ThemeOverlay.DigitalRetailGroup.DatePicker</item>
     </style>
 
-<!--    <style name="ThemeOverlay.DigitalRetailGroup.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">-->
-<!--        <item name="colorPrimary">@color/bg</item>-->
-<!--&lt;!&ndash;        <item name="colorOnPrimary">@color/bg</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        &lt;!&ndash; Customize text field of the text input mode. &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>&ndash;&gt;-->
-<!--    </style>-->
+    <style name="ThemeOverlay.DigitalRetailGroup.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/not_active</item>
+        <item name="colorOnPrimary">@color/white</item>
+<!--        <item name="colorOnPrimary">@color/bg</item>-->
+<!--        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>-->
+<!--        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>-->
+<!--        &lt;!&ndash; Customize text field of the text input mode. &ndash;&gt;-->
+<!--        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>-->
+    </style>
 
 </resources>

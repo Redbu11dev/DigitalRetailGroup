@@ -24,6 +24,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import timber.log.Timber
+import java.util.*
 
 
 fun Context.getDeviceId(): String {
@@ -198,3 +199,6 @@ fun Fragment.safeOpenAddressInBrowser(address: String) {
         showErrorMessage(t.message.toString())
     }
 }
+
+fun String.capitalizeWords(): String = split(" ").map { it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(
+    Locale.getDefault()) else it.toString() } }.joinToString(" ")

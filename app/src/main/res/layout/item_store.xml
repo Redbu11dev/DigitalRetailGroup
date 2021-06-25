@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintDimensionRatio="344:200"
-                app:srcCompat="@drawable/img_dummy_store_image"
+                tools:srcCompat="@drawable/img_dummy_store_image"
                 app:layout_constraintTop_toTopOf="parent"
                 android:scaleType="centerCrop"
                 />

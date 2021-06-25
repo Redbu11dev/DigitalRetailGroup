@@ -61,23 +61,24 @@ class BrandsViewHolder(val binding: ItemBrandBinding) :
 
         val logo = binding.logo
 
-        //val requestBuilder = Glide.with(logo).load(data.image_parth).us
+        val isSvg = data.image_parth.toString().endsWith(".svg")
 
         //if svg
-        if (data.image_parth.toString().endsWith(".svg")) {
-            binding.logo.scaleType = ImageView.ScaleType.FIT_XY
+        if (isSvg) {
+            logo.scaleType = ImageView.ScaleType.FIT_XY
             GlideApp.with(logo)
                 .`as`(PictureDrawable::class.java)
                 //.placeholder(R.drawable.img_dummy_store_image)
-                .transition(withCrossFade())
+                //.transition(withCrossFade())
                 //.listener(SvgSoftwareLayerSetter())
-                .load(Uri.parse(data.image_parth))
+                .load(data.image_parth)
                 .into(logo)
         }
         //if .png or .jpg or others
         else {
-            binding.logo.scaleType = ImageView.ScaleType.FIT_XY
+            logo.scaleType = ImageView.ScaleType.FIT_CENTER
             Glide.with(logo)
+            //.load("https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg")
             .load(data.image_parth)
             .into(logo)
         }
