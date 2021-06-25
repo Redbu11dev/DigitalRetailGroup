@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailsViewModel @Inject constructor(private val apiRepository: ApiRepository, private val dataStoreRepository: DataStoreRepository, private val firebaseAnalytics: FirebaseAnalytics) : BaseViewModel() {
 
-    private val _ruleText = MutableStateFlow("_")
+    private val _ruleText = MutableStateFlow("")
     val ruleText: StateFlow<String> get() = _ruleText
 
 //    init {
