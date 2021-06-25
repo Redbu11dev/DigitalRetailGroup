@@ -10,8 +10,8 @@
     </array>
 
     <string name="app_name">Digital Retail Group</string>
-    <string name="title_barcode">Barcode</string>
-    <string name="title_main">Main</string>
+    <string name="title_barcode">Кошелек</string>
+    <string name="title_main">Главный экран</string>
     <!--    &lt;!&ndash; TODO: Remove or change this placeholder text &ndash;&gt;-->
     <!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
 

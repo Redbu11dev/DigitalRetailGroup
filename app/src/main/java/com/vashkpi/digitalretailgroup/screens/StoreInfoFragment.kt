@@ -60,18 +60,12 @@ class StoreInfoFragment : BaseFragment<FragmentStoreInfoBinding, StoreInfoViewMo
 
                     binding.customToolbar.toolbar.title = it.name
 
-//                    Glide
-//                        .with(binding.image)
-//                        .load(it.image_parth)
-//                        .placeholder(R.drawable.img_dummy_store_image)
-//                        .into(binding.image)
-
                     val imageView = binding.image
                     val isSvg = it.image_parth.toString().endsWith(".svg")
                     //if svg
                     if (isSvg) {
                         imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-                        GlideApp.with(imageView)
+                        Glide.with(imageView)
                             .`as`(PictureDrawable::class.java)
                             //.placeholder(R.drawable.img_dummy_store_image)
                             //.transition(DrawableTransitionOptions.withCrossFade())

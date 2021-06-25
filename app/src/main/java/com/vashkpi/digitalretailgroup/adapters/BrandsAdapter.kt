@@ -66,7 +66,7 @@ class BrandsViewHolder(val binding: ItemBrandBinding) :
         //if svg
         if (isSvg) {
             logo.scaleType = ImageView.ScaleType.FIT_XY
-            GlideApp.with(logo)
+            Glide.with(logo)
                 .`as`(PictureDrawable::class.java)
                 //.placeholder(R.drawable.img_dummy_store_image)
                 //.transition(withCrossFade())
@@ -82,14 +82,6 @@ class BrandsViewHolder(val binding: ItemBrandBinding) :
             .load(data.image_parth)
             .into(logo)
         }
-
-
-//        Glide
-//            .with(logo)
-//            .`as`(PictureDrawable::class.java)
-//            .load(data.image_parth)
-//            //.placeholder(R.drawable.img_dummy_store_image)
-//            .into(logo)
 
     }
 }

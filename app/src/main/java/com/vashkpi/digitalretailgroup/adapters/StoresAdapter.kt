@@ -59,18 +59,12 @@ class StoresViewHolder(val binding: ItemStoreBinding) :
 
         val picture = binding.logo
 
-//        Glide
-//            .with(picture)
-//            .load(data.image_parth)
-//            .placeholder(R.drawable.img_dummy_store_image)
-//            .into(picture)
-
         val isSvg = data.image_parth.toString().endsWith(".svg")
 
         //if svg
         if (isSvg) {
             picture.scaleType = ImageView.ScaleType.CENTER_CROP
-            GlideApp.with(picture)
+            Glide.with(picture)
                 .`as`(PictureDrawable::class.java)
                 //.placeholder(R.drawable.img_dummy_store_image)
                 //.transition(DrawableTransitionOptions.withCrossFade())
