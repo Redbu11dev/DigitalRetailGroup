@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //transparentStatusAndNavigation()
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
         val navView: BottomNavigationView = binding.navView
 
