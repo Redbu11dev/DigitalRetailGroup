@@ -1,5 +1,6 @@
 package com.vashkpi.digitalretailgroup.data.api
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.*
@@ -8,8 +9,8 @@ import timber.log.Timber
 import java.net.UnknownHostException
 import kotlin.coroutines.CoroutineContext
 
-sealed class Resource<T> {
-    data class Success<T>(val data: T?) : Resource<T>()
+sealed class Resource<out T> {
+    data class Success<T>(val data: T? = null) : Resource<T>()
     data class Loading<T>(val data: T? = null) : Resource<T>()
     data class Error<T>(val error: Throwable, val data: T? = null) : Resource<T>()
 }
@@ -37,11 +38,11 @@ inline fun <NetworkType> networkResponse(
     emitLoadingState: Boolean = true,
     crossinline onFetchSuccess: () -> Unit = { },
     crossinline onFetchFailed: () -> Unit = { }
-) = flow {
+): Flow<Resource<NetworkType?>> = flow {
     //Timber.d("loading")
     if (emitLoadingState) {
         Timber.d("it's loading")
-        emit(Resource.Loading(null))
+        emit(Resource.Loading())
     }
         val fetchResult: ApiResponse<NetworkType> = fetch()
 
@@ -53,24 +54,10 @@ inline fun <NetworkType> networkResponse(
                 currentCoroutineContext().cancel()
             }
             is ApiEmptyResponse -> {
-                if (canBeEmptyResponse) {
-                    onFetchSuccess()
-                    Timber.d("it's success")
-                    emit(Resource.Success(null))
-                    currentCoroutineContext().cancel()
-                }
-                else {
-                    onFetchFailed()
-                    val errorMessage = "Response is empty"
-                    Timber.d("it's error: ${errorMessage}")
-                    emit(
-                        Resource.Error(
-                            error = Throwable(errorMessage),
-                            null
-                        )
-                    )
-                    currentCoroutineContext().cancel()
-                }
+                onFetchSuccess()
+                Timber.d("it's success")
+                emit(Resource.Success(null))
+                currentCoroutineContext().cancel()
             }
             is ApiErrorResponse -> {
                 onFetchFailed()
@@ -88,22 +75,11 @@ inline fun <NetworkType> networkResponse(
 }.catch {
     val throwable = it
     Timber.d("some error processing networkResponse: $throwable")
-    when {
-        (canBeEmptyResponse && throwable is java.io.EOFException) -> {
-            //it is made like that on the backend
-            onFetchSuccess()
-            Timber.d("it's success")
-            emit(Resource.Success(null))
-            currentCoroutineContext().cancel()
-        }
-        else -> {
-            onFetchFailed()
-            val formattedThrowable = throwable.formatThrowableMessage()
-            Timber.d("it's error: ${formattedThrowable.message}")
-            emit(Resource.Error(formattedThrowable, null))
-            currentCoroutineContext().cancel()
-        }
-    }
+    onFetchFailed()
+    val formattedThrowable = throwable.formatThrowableMessage()
+    Timber.d("it's error: ${formattedThrowable.message}")
+    emit(Resource.Error(formattedThrowable, null))
+    currentCoroutineContext().cancel()
 }
 
 inline fun <NetworkType, DatabaseType> networkBoundResource(
@@ -113,10 +89,7 @@ inline fun <NetworkType, DatabaseType> networkBoundResource(
     crossinline shouldFetch: (DatabaseType) -> Boolean,
     crossinline saveFetchResult: suspend (NetworkType) -> Unit,
     crossinline mapper: (NetworkType) -> DatabaseType
-) = flow<Resource<DatabaseType>> {
-    //Timber.d("loading")
-    //emit(Resource.Loading(null))
-
+): Flow<Resource<DatabaseType>> = flow {
     val data = query().first()
 
     if (shouldFetch(data)) {

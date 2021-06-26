@@ -94,11 +94,11 @@ interface ApiService {
     @POST("notifications")
     suspend fun markNotificationRead(
         @Body notificationPostDto: NotificationPostDto
-    ): Response<GenericResponseDto>
+    ): Response<Void>
 
     @DELETE("notifications/{notification_id}")
     suspend fun deleteNotification(
         @Header("user_id") userId: String,
         @Path("notification_id") notification_id: String
-    ): Response<GenericResponseDto>
+    ): Response<Void>
 }

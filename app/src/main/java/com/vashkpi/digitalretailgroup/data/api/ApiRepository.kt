@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class ApiRepository @Inject constructor(private val apiService: ApiService, private val appDatabase: AppDatabase, private val dataStoreRepository: DataStoreRepository) {
 
-    suspend fun registerPhone(registerPhoneDto: RegisterPhoneDto): Flow<Resource<out GenericResponseDto?>> {
+    suspend fun registerPhone(registerPhoneDto: RegisterPhoneDto): Flow<Resource<GenericResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
@@ -25,7 +25,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun confirmCode(confirmCodeDto: ConfirmCodeDto): Flow<Resource<out ConfirmCodeResponseDto?>> {
+    suspend fun confirmCode(confirmCodeDto: ConfirmCodeDto): Flow<Resource<ConfirmCodeResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
@@ -35,7 +35,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun saveProfileInfo(accountsDto: AccountsDto): Flow<Resource<out GenericResponseDto?>> {
+    suspend fun saveProfileInfo(accountsDto: AccountsDto): Flow<Resource<GenericResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
@@ -45,7 +45,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun getProfileInfo(userId: String): Flow<Resource<out AccountsGetResponseDto?>> {
+    suspend fun getProfileInfo(userId: String): Flow<Resource<AccountsGetResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
@@ -55,7 +55,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun saveDeviceInfo(devicesDto: DevicesDto): Flow<Resource<out GenericResponseDto?>> {
+    suspend fun saveDeviceInfo(devicesDto: DevicesDto): Flow<Resource<GenericResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
@@ -65,7 +65,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun getBalance(userId: String): Flow<Resource<out BalanceResponseDto?>> {
+    suspend fun getBalance(userId: String): Flow<Resource<BalanceResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
@@ -75,7 +75,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun getCode(userId: String): Flow<Resource<out CodeResponseDto?>> {
+    suspend fun getCode(userId: String): Flow<Resource<CodeResponseDto?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
@@ -291,7 +291,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         }
     }
 
-    suspend fun markNotificationRead(notificationPostDto: NotificationPostDto): Flow<Resource<out GenericResponseDto?>> {
+    suspend fun markNotificationRead(notificationPostDto: NotificationPostDto): Flow<Resource<Void?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
@@ -328,7 +328,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         appDatabase.notificationDao().markUserRemoved(notificationId, false)
     }
 
-    suspend fun deleteNotificationRemotely(userId: String, notificationId: String): Flow<Resource<out GenericResponseDto?>> {
+    suspend fun deleteNotificationRemotely(userId: String, notificationId: String): Flow<Resource<Void?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
