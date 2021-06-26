@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.adapters.BrandsAdapter
 import com.vashkpi.digitalretailgroup.adapters.MainOptionsAdapter

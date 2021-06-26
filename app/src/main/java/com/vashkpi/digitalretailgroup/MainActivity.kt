@@ -6,12 +6,14 @@ import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -37,11 +39,33 @@ class MainActivity : AppCompatActivity() {
 //                R.id.navigation_barcode, R.id.navigation_main
 //            )
 //        )
+        //navController.
+
         //setupActionBarWithNavController(navController, appBarConfiguration)
 
         //toolbar.setupWithNavController(navController, appBarConfiguration)
 
         navView.setupWithNavController(navController)
+        navView.setOnNavigationItemSelectedListener {
+            //Timber.d("navController.previousBackStackEntry.destination.id: ${navController.previousBackStackEntry?.destination?.id}")
+            val options = NavOptions.Builder()
+                .setPopUpTo(it.itemId, true)
+                .setLaunchSingleTop(true)
+                .build()
+            when (it.itemId) {
+                R.id.navigation_barcode -> {
+                    navController.navigate(R.id.navigation_barcode, null, options)
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.navigation_main -> {
+                    navController.navigate(R.id.navigation_main, null, options)
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> {
+                    throw IllegalStateException("unknown destination")
+                }
+            }
+        }
 
 //        R.animator.nav_default_pop_enter_anim
 //        R.animator.nav_default_pop_exit_anim

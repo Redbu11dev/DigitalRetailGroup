@@ -8,6 +8,9 @@ import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.oned.Code128Writer
 import com.vashkpi.digitalretailgroup.R

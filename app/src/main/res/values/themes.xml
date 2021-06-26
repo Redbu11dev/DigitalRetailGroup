@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+    <!--    <style name="Theme.DigitalRetailGroup" parent="Theme.MaterialComponents">-->
     <style name="Theme.DigitalRetailGroup" parent="Theme.MaterialComponents.NoActionBar">
+
 <!--        <item name="colorPrimary">@color/bg</item>-->
 <!--        <item name="colorPrimaryVariant">@color/bg_shadow</item>-->
 <!--        <item name="colorOnPrimary">@color/app_white</item>-->
