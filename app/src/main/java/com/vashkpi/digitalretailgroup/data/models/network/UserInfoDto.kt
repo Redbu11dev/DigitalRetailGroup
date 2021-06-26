@@ -5,11 +5,11 @@ import timber.log.Timber
 
 fun UserInfoDto.asDomainModel(): UserInfo {
     return UserInfo(
-        name,
-        surname,
-        middle_name,
-        date_of_birth?.convertDateToDomainFormat(),
-        gender
+        name ?: "",
+        surname ?: "",
+        middle_name ?: "",
+        date_of_birth?.convertDateToDomainFormat() ?: "",
+        gender ?: ""
     )
 }
 
@@ -22,9 +22,9 @@ fun String.convertDateToDomainFormat(): String {
 }
 
 data class UserInfoDto(
-    val name: String,
-    val surname: String,
-    val middle_name: String,
-    val date_of_birth: String, //formats: local - "dd.mm.yyyy" | server - yyyy.mm.dd
-    val gender: String, //по-русски "Мужской"/"Женский"
+    val name: String?,
+    val surname: String?,
+    val middle_name: String?,
+    val date_of_birth: String?, //formats: local - "dd.mm.yyyy" | server - yyyy.mm.dd
+    val gender: String?, //по-русски "Мужской"/"Женский"
 )
