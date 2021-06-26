@@ -8,7 +8,7 @@ fun UserInfoDto.asDomainModel(): UserInfo {
         name,
         surname,
         middle_name,
-        date_of_birth.convertDateToDomainFormat(),
+        date_of_birth?.convertDateToDomainFormat(),
         gender
     )
 }

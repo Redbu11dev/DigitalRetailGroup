@@ -1,5 +1,7 @@
 package com.vashkpi.digitalretailgroup.data.api
 
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.isActive
 import timber.log.Timber
@@ -43,18 +45,19 @@ inline fun <NetworkType> networkResponse(
     if (emitLoadingState) {
         emit(Resource.Loading(null))
     }
-    try {
         val fetchResult: ApiResponse<NetworkType> = fetch()
 
         when (fetchResult) {
             is ApiSuccessResponse -> {
                 onFetchSuccess()
                 emit(Resource.Success(fetchResult.body))
+                currentCoroutineContext().cancel()
             }
             is ApiEmptyResponse -> {
                 if (canBeEmptyResponse) {
                     onFetchSuccess()
                     emit(Resource.Success(null))
+                    currentCoroutineContext().cancel()
                 }
                 else {
                     onFetchFailed()
@@ -64,6 +67,7 @@ inline fun <NetworkType> networkResponse(
                             null
                         )
                     )
+                    currentCoroutineContext().cancel()
                 }
             }
             is ApiErrorResponse -> {
@@ -74,23 +78,24 @@ inline fun <NetworkType> networkResponse(
                         null
                     )
                 )
+                currentCoroutineContext().cancel()
             }
         }
-    } catch (throwable: Throwable) {
-        Timber.d("some error processing networkResponse: $throwable")
-        when {
-            (canBeEmptyResponse && throwable is java.io.EOFException) -> {
-                //it is made like that on the backend
-                onFetchSuccess()
-                emit(Resource.Success(null))
-            }
-            else -> {
-                onFetchFailed()
-
-                val formattedThrowable = throwable.formatThrowableMessage()
-
-                emit(Resource.Error(formattedThrowable, null))
-            }
+}.catch {
+    val throwable = it
+    Timber.d("some error processing networkResponse: $throwable")
+    when {
+        (canBeEmptyResponse && throwable is java.io.EOFException) -> {
+            //it is made like that on the backend
+            onFetchSuccess()
+            emit(Resource.Success(null))
+            currentCoroutineContext().cancel()
+        }
+        else -> {
+            onFetchFailed()
+            val formattedThrowable = throwable.formatThrowableMessage()
+            emit(Resource.Error(formattedThrowable, null))
+            currentCoroutineContext().cancel()
         }
     }
 }
@@ -111,40 +116,43 @@ inline fun <NetworkType, DatabaseType> networkBoundResource(
     if (shouldFetch(data)) {
         emit(Resource.Loading(data))
 
-        try {
-            //Timber.d("emit1")
-            val fetchResult: ApiResponse<NetworkType> = fetch()
+        //Timber.d("emit1")
+        val fetchResult: ApiResponse<NetworkType> = fetch()
 
-            when (fetchResult) {
-                is ApiSuccessResponse -> {
-                    saveFetchResult(fetchResult.body)
-                    emit(Resource.Success(mapper.invoke(fetchResult.body)))
-                }
-                is ApiEmptyResponse -> {
-                    emit(
-                        Resource.Error(
-                            throwable = Throwable("Response is empty"),
-                            null
-                        )
-                    )
-                }
-                is ApiErrorResponse -> {
-                    emit(
-                        Resource.Error(
-                            throwable = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"),
-                            null
-                        )
-                    )
-                }
+        when (fetchResult) {
+            is ApiSuccessResponse -> {
+                saveFetchResult(fetchResult.body)
+                emit(Resource.Success(mapper.invoke(fetchResult.body)))
+                currentCoroutineContext().cancel()
             }
-        } catch (throwable: Throwable) {
-            //Timber.d("in here")
-            val formattedThrowable = throwable.formatThrowableMessage()
-            emit(Resource.Error(formattedThrowable, null))
+            is ApiEmptyResponse -> {
+                emit(
+                    Resource.Error(
+                        throwable = Throwable("Response is empty"),
+                        null
+                    )
+                )
+                currentCoroutineContext().cancel()
+            }
+            is ApiErrorResponse -> {
+                emit(
+                    Resource.Error(
+                        throwable = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"),
+                        null
+                    )
+                )
+                currentCoroutineContext().cancel()
+            }
         }
 
     }
     else {
         emit(Resource.Success(data))
     }
+}.catch {
+    val throwable = it
+    Timber.d("some error processing networkBoundResource: $throwable")
+    val formattedThrowable = throwable.formatThrowableMessage()
+    emit(Resource.Error(formattedThrowable, null))
+    currentCoroutineContext().cancel()
 }
