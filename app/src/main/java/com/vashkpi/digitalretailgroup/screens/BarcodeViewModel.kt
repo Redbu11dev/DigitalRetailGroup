@@ -155,8 +155,8 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                         Timber.i("here is the data: ${it.data}")
 
                         it.data?.let {
-                            val balance = it.balance
-                            //val balance = 1 //mock
+                            //val balance = it.balance
+                            val balance = 1 //mock
                             _balance.value = balance
 
                             refreshViewState()

@@ -52,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="12dp"
+            android:clipChildren="false"
             android:clipToPadding="false"
             android:animateLayoutChanges="true"
             >
@@ -128,6 +129,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/balance_currency"
                 android:layout_marginTop="16dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingBottom="6dp"
                 >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -136,6 +140,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:elevation="4dp"
                     >
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -160,7 +165,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
                 android:layout_below="@+id/barcode_container"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="26dp"
                 android:text="@string/barcode_btn_confirmation_code"
                 app:layout_constraintBottom_toBottomOf="parent"
                 style="@style/Widget.DigitalRetailGroup.Button.Main"
@@ -174,7 +179,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
                 android:layout_below="@+id/barcode_container"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="26dp"
                 android:text="@string/barcode_btn_how_to_get_points"
                 app:layout_constraintBottom_toBottomOf="parent"
 
@@ -189,7 +194,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/barcode_container"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 android:visibility="gone"
                 tools:visibility="visible"
