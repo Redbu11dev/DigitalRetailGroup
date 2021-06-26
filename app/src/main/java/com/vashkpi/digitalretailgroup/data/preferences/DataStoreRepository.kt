@@ -14,6 +14,7 @@ import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.Prefe
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.DEVICE_ID
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.FCM_TOKEN
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.GENDER
+import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.LAST_OBTAINED_CODE
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.MIDDLE_NAME
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.NAME
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository.PreferencesKeys.NEW_CODE_OBTAINED_MILLIS
@@ -91,6 +92,7 @@ class DataStoreRepository(private val context: Context, private val dataStore: D
         val SAVED_DEVICE_INFO_OS = stringPreferencesKey("SAVED_DEVICE_INFO_OS")
 
         val NEW_CODE_OBTAINED_MILLIS = longPreferencesKey("NEW_CODE_OBTAINED_MILLIS")
+        val LAST_OBTAINED_CODE = intPreferencesKey("LAST_OBTAINED_CODE")
     }
 
     init {
@@ -191,6 +193,14 @@ class DataStoreRepository(private val context: Context, private val dataStore: D
         }
         set(value) {
             saveValue(NEW_CODE_OBTAINED_MILLIS, value)
+        }
+
+    var lastObtainedCode: Int
+        get() {
+            return readValue(LAST_OBTAINED_CODE) ?: 0
+        }
+        set(value) {
+            saveValue(LAST_OBTAINED_CODE, value)
         }
 
 //    val getUserInfo: Flow<UserInfo> = dataStore.data

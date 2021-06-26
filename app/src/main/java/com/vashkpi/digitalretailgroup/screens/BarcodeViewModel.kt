@@ -28,7 +28,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
     private val _balance = MutableStateFlow(0)
     val balance: StateFlow<Int> get() = _balance
 
-    private val _code = MutableStateFlow(0)
+    private val _code = MutableStateFlow(dataStoreRepository.lastObtainedCode)
     val code: StateFlow<Int> get() = _code
 
     private val newCodeWaitTime: Long =
@@ -112,6 +112,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
 
                             newCodeObtainedAtDateMillis = System.currentTimeMillis()
                             dataStoreRepository.newCodeObtainedAtDateMillis = newCodeObtainedAtDateMillis
+                            dataStoreRepository.lastObtainedCode = data.code
                             refreshViewState()
 
                             postProgressViewVisibility(false)
