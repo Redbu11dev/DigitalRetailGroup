@@ -96,21 +96,7 @@ class DataStoreRepository(private val context: Context, private val dataStore: D
     }
 
     init {
-        //init crucial default values to not to headbutt if they are empty
-        updateFcmTokenInternal()
-    }
 
-    /**
-     * Update FCM token
-     */
-    private fun updateFcmTokenInternal() {
-        FirebaseInstallations.getInstance().getToken(false).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                task.result?.let { result ->
-                    fcmToken = result.token
-                }
-            }
-        }
     }
 
     var fcmToken: String

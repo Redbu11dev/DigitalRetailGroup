@@ -9,18 +9,48 @@ import com.google.zxing.oned.Code128Writer
 import com.vashkpi.digitalretailgroup.R
 
 class BarcodeGenerator {
-    fun displayBitmap(imageView: ImageView, value: String) {
-        val bitmap = createBarcodeBitmap(
-            barcodeValue = value,
-            barcodeColor = ContextCompat.getColor(imageView.context, R.color.one_layer_end),
-            backgroundColor = ContextCompat.getColor(imageView.context, R.color.white),
-            widthPixels = (imageView.resources.displayMetrics.widthPixels * 0.9f).toInt(),
-            heightPixels = ((imageView.resources.displayMetrics.widthPixels * 0.9f) * 0.4f).toInt()
-        )
 
-        imageView.setImageBitmap(
-            bitmap
-        )
+    private var _cachedBitmap: Bitmap? = null
+    private var _lastBarcodeValue: String? = null
+
+    fun displayBitmap(imageView: ImageView, value: String) {
+        if (_lastBarcodeValue != value) {
+            _cachedBitmap = createBarcodeBitmap(
+                barcodeValue = value,
+                barcodeColor = ContextCompat.getColor(imageView.context, R.color.one_layer_end),
+                backgroundColor = ContextCompat.getColor(imageView.context, R.color.white),
+                widthPixels = (imageView.resources.displayMetrics.widthPixels * 0.9f).toInt(),
+                heightPixels = ((imageView.resources.displayMetrics.widthPixels * 0.9f) * 0.4f).toInt()
+            )
+            imageView.setImageBitmap(
+                _cachedBitmap
+            )
+        }
+        else {
+            _lastBarcodeValue = value
+            val newBitmap = createBarcodeBitmap(
+                barcodeValue = value,
+                barcodeColor = ContextCompat.getColor(imageView.context, R.color.one_layer_end),
+                backgroundColor = ContextCompat.getColor(imageView.context, R.color.white),
+                widthPixels = (imageView.resources.displayMetrics.widthPixels * 0.9f).toInt(),
+                heightPixels = ((imageView.resources.displayMetrics.widthPixels * 0.9f) * 0.4f).toInt()
+            )
+            imageView.setImageBitmap(
+                newBitmap
+            )
+            _cachedBitmap?.let {
+                it.recycle()
+            }
+            _cachedBitmap = newBitmap
+        }
+    }
+
+    fun dispose() {
+        _cachedBitmap?.let {
+            it.recycle()
+        }
+        _cachedBitmap = null
+        _lastBarcodeValue = null
     }
 
     fun createBarcodeBitmap(

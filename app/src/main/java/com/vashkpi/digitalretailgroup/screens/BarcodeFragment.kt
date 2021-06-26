@@ -1,18 +1,9 @@
 package com.vashkpi.digitalretailgroup.screens
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import androidx.annotation.ColorInt
-import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.oned.Code128Writer
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentBarcodeBinding
@@ -28,6 +19,8 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
     override var _bottomNavigationViewVisibility = View.VISIBLE
 
     override val viewModel: BarcodeViewModel by viewModels()
+
+    private val barcodeGenerator = BarcodeGenerator()
 
     override fun setUpViews() {
         super.setUpViews()
@@ -71,8 +64,6 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
 
         viewModel.getBalance()
 
-        //displayBitmap(binding.barcodeImage, it)
-
     }
 
     override fun onStart() {
@@ -86,7 +77,7 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.barcodeValue.collect {
-                BarcodeGenerator().displayBitmap(binding.barcodeImage, it)
+                barcodeGenerator.displayBitmap(binding.barcodeImage, it)
             }
         }
 
@@ -166,21 +157,19 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
             }
         }
 
-        val outputDateFormat = SimpleDateFormat("mm:ss", Locale.getDefault()).apply {
-            timeZone = TimeZone.getTimeZone("UTC")
-        }
+        val countDownTimeFormat = SimpleDateFormat("mm:ss", Locale.getDefault())
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.countDown.collect {
-                binding.codeTimerTime.text = outputDateFormat.format(it)
-
-//                val minutes = TimeUnit.MILLISECONDS.toMinutes(it)
-//                val seconds = TimeUnit.MILLISECONDS.toSeconds(it)-minutes
-//
-//                binding.codeTimerTime.text = "$minutes:$seconds"
+                binding.codeTimerTime.text = countDownTimeFormat.format(it)
             }
         }
 
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        barcodeGenerator.dispose()
     }
 }

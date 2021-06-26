@@ -23,7 +23,9 @@ class MyFirebaseService : FirebaseMessagingService() {
         dataStoreRepository.fcmToken = newToken
         Timber.d("new FCM token obtained: $newToken")
 
-        //not very safe, probably should also obtain token in pref init somewhere
+        //send request to the server with new token?
+
+
     }
 
 }

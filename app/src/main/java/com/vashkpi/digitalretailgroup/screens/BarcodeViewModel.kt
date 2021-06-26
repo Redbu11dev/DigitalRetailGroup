@@ -2,6 +2,7 @@ package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.installations.FirebaseInstallations
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.DrgApplication
 import com.vashkpi.digitalretailgroup.R
@@ -11,6 +12,7 @@ import com.vashkpi.digitalretailgroup.data.models.domain.DeviceInfo
 import com.vashkpi.digitalretailgroup.data.models.domain.asDtoModel
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
+import com.vashkpi.digitalretailgroup.utils.obtainFcmToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -173,43 +175,49 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
     }
 
     fun trySaveDeviceInfoOnServer() {
+        obtainFcmToken(
+            {fcmToken ->
+                dataStoreRepository.fcmToken = fcmToken
+                val lastSavedDeviceInfo = dataStoreRepository.savedDeviceInfo
+                val currentDeviceInfo = DeviceInfo(
+                    dataStoreRepository.userId,
+                    fcmToken,
+                    dataStoreRepository.deviceId,
+                    AppConstants.DEVICE_OS
+                )
 
-        val lastSavedDeviceInfo = dataStoreRepository.savedDeviceInfo
-        val currentDeviceInfo = DeviceInfo(
-            dataStoreRepository.userId,
-            dataStoreRepository.fcmToken,
-            dataStoreRepository.deviceId,
-            AppConstants.DEVICE_OS
-        )
+                if (lastSavedDeviceInfo != currentDeviceInfo) {
+                    //attempt to save new device info on the server
+                    viewModelScope.launch {
+                        apiRepository.saveDeviceInfo(currentDeviceInfo.asDtoModel()).collect {
+                            when (it) {
+                                is Resource.Loading -> {
+                                    Timber.d("attempting to store new device info")
+                                }
+                                is Resource.Error -> {
+                                    val message = it.error?.message
+                                    Timber.d("Unable to store new device info: ${message}")
+                                }
+                                is Resource.Success -> {
+                                    Timber.d("it's success")
 
-        if (lastSavedDeviceInfo != currentDeviceInfo) {
-            //attempt to save new device info on the server
-            viewModelScope.launch {
-                apiRepository.saveDeviceInfo(currentDeviceInfo.asDtoModel()).collect {
-                    when (it) {
-                        is Resource.Loading -> {
-                            Timber.d("attempting to store new device info")
-                        }
-                        is Resource.Error -> {
-                            val message = it.error?.message
-                            Timber.d("Unable to store new device info: ${message}")
-                        }
-                        is Resource.Success -> {
-                            Timber.d("it's success")
+                                    dataStoreRepository.savedDeviceInfo = currentDeviceInfo
 
-                            dataStoreRepository.savedDeviceInfo = currentDeviceInfo
-
-                            //check if empty
-                            it.data?.let { data ->
-                                Timber.d("here is the data: $data")
+                                    //check if empty
+                                    it.data?.let { data ->
+                                        Timber.d("here is the data: $data")
+                                    }
+                                }
                             }
                         }
                     }
+
                 }
+            },
+            {
+                //do nothing?
             }
-
-        }
-
+        )
 
     }
 

@@ -67,6 +67,7 @@ class LoginPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneVie
         binding.phone.apply {
             doAfterTextChanged {
                 if (phoneNumberValueListener.rawValue.length > 10) {
+                    binding.phone.hideKeyboard()
                     val phoneRaw = phoneNumberValueListener.rawValue
                     val phoneFormatted = binding.phone.text.toString()
                     //viewModel.postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(it.toString()))

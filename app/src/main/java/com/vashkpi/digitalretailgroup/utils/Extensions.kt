@@ -17,8 +17,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.installations.FirebaseInstallations
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.vashkpi.digitalretailgroup.data.models.domain.Brand
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
@@ -202,3 +204,19 @@ fun Fragment.safeOpenAddressInBrowser(address: String) {
 
 fun String.capitalizeWords(): String = split(" ").map { it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(
     Locale.getDefault()) else it.toString() } }.joinToString(" ")
+
+fun obtainFcmToken(onSuccess: (String) -> Unit,
+                   onError: () -> Unit) {
+    FirebaseInstallations.getInstance().getToken(false).addOnCompleteListener { task ->
+        if (task.isSuccessful) {
+            task.result?.let { result ->
+                onSuccess(result.token)
+            } ?: run {
+                onError()
+            }
+        }
+        else {
+            onError()
+        }
+    }
+}
