@@ -34,7 +34,6 @@ fun Throwable.formatThrowableMessage(): Throwable {
 
 inline fun <NetworkType> networkResponse(
     crossinline fetch : suspend () -> ApiResponse<NetworkType>,
-    canBeEmptyResponse: Boolean,
     emitLoadingState: Boolean = true,
     crossinline onFetchSuccess: () -> Unit = { },
     crossinline onFetchFailed: () -> Unit = { }
@@ -55,7 +54,7 @@ inline fun <NetworkType> networkResponse(
             }
             is ApiEmptyResponse -> {
                 onFetchSuccess()
-                Timber.d("it's success")
+                Timber.d("it's success but empty")
                 emit(Resource.Success(null))
                 currentCoroutineContext().cancel()
             }

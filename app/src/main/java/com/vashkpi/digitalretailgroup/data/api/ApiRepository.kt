@@ -20,8 +20,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.registerPhone(registerPhoneDto))
-            },
-            false
+            }
         )
     }
 
@@ -30,8 +29,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.confirmCode(confirmCodeDto))
-            },
-            false
+            }
         )
     }
 
@@ -40,8 +38,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.saveProfileInfo(accountsDto))
-            },
-            false
+            }
         )
     }
 
@@ -50,8 +47,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.getProfileInfo(userId))
-            },
-            false
+            }
         )
     }
 
@@ -60,8 +56,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.saveDeviceInfo(devicesDto))
-            },
-            true
+            }
         )
     }
 
@@ -70,8 +65,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.getBalance(userId))
-            },
-            false
+            }
         )
     }
 
@@ -80,8 +74,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.getCode(userId))
-            },
-            false
+            }
         )
     }
 
@@ -90,8 +83,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.getSavePointsRules(userId))
-            },
-            false
+            }
         )
     }
 
@@ -100,8 +92,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.getSpendPointsRules(userId))
-            },
-            false
+            }
         )
     }
 
@@ -110,8 +101,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.getPromotionRules(userId))
-            },
-            false
+            }
         )
     }
 
@@ -291,7 +281,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         }
     }
 
-    suspend fun markNotificationRead(notificationPostDto: NotificationPostDto): Flow<Resource<Void?>> {
+    suspend fun markNotificationRead(notificationPostDto: NotificationPostDto): Flow<Resource<Unit?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {
@@ -328,7 +318,7 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         appDatabase.notificationDao().markUserRemoved(notificationId, false)
     }
 
-    suspend fun deleteNotificationRemotely(userId: String, notificationId: String): Flow<Resource<Void?>> {
+    suspend fun deleteNotificationRemotely(userId: String, notificationId: String): Flow<Resource<Unit?>> {
         Timber.d("trying")
         return networkResponse(
             fetch = {

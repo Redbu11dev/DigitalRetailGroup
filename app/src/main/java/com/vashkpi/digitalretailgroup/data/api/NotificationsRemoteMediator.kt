@@ -40,7 +40,6 @@ class NotificationsRemoteMediator(
                         fetch = {
                             ApiResponse.create(networkService.getNotifications(user_id, lastPageIndex+1))
                         },
-                        canBeEmptyResponse = false,
                         emitLoadingState = false
                     ).also {
                         lastPageIndex += 1
@@ -54,7 +53,6 @@ class NotificationsRemoteMediator(
                         fetch = {
                             ApiResponse.create(networkService.getNotifications(user_id, lastPageIndex))
                         },
-                        canBeEmptyResponse = false,
                         emitLoadingState = false
                     )
                 }.catch {
