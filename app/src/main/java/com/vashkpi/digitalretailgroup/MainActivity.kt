@@ -1,24 +1,69 @@
 package com.vashkpi.digitalretailgroup
 
-import android.graphics.PixelFormat
+import android.app.Activity
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vashkpi.digitalretailgroup.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+
+
+
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    fun Activity.transparentStatusAndNavigation(
+        systemUiScrim: Int = Color.parseColor("#40000000") // 25% black
+    ) {
+        var systemUiVisibility = 0
+        // Use a dark scrim by default since light status is API 23+
+        var statusBarColor = systemUiScrim
+        //  Use a dark scrim by default since light nav bar is API 27+
+        var navigationBarColor = systemUiScrim
+        val winParams = window.attributes
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            statusBarColor = Color.TRANSPARENT
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+            navigationBarColor = Color.TRANSPARENT
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            systemUiVisibility = systemUiVisibility or
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                    View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            window.decorView.systemUiVisibility = systemUiVisibility
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            winParams.flags = winParams.flags or
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            winParams.flags = winParams.flags and
+                    (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or
+                            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION).inv()
+            window.statusBarColor = statusBarColor
+            window.navigationBarColor = navigationBarColor
+        }
+
+        window.attributes = winParams
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_DigitalRetailGroup)
@@ -26,6 +71,9 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //transparentStatusAndNavigation()
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
         val navView: BottomNavigationView = binding.navView
 

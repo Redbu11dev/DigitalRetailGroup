@@ -35,6 +35,8 @@
         <item name="android:windowBackground">@drawable/splash_background</item>
         <item name="android:navigationBarColor">@color/bg</item>
 
+
+
 <!--        Styles-->
         <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
 
@@ -52,6 +54,16 @@
 <!--        <item name="android:textAppearance">@style/Widget.DigitalRetailGroup.TextGeneric</item>-->
 
         <item name="materialCalendarTheme">@style/ThemeOverlay.DigitalRetailGroup.DatePicker</item>
+
+<!--        <item name="android:navigationBarColor">@android:color/transparent</item>-->
+<!--        <item name="android:enforceNavigationBarContrast">false</item>-->
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
+<!--        <item name="android:windowTranslucentNavigation">true</item>-->
+<!--        <item name="android:fitsSystemWindows">true</item>-->
+<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--        <item name="android:windowLightNavigationBar">true</item>-->
+<!--        <item name="android:statusBarColor">@color/primary_dark</item>-->
+
     </style>
 
     <style name="ThemeOverlay.DigitalRetailGroup.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
