@@ -3,7 +3,7 @@ package com.vashkpi.digitalretailgroup.data.models.domain
 
 import com.vashkpi.digitalretailgroup.data.models.network.DevicesDto
 
-fun DeviceInfo.asDtoModel(): DevicesDto {
+fun DeviceInfo.asNetworkModel(): DevicesDto {
     return DevicesDto(
         user_id,
         token,

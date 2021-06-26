@@ -1,6 +1,5 @@
 package com.vashkpi.digitalretailgroup.screens
 
-import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
@@ -62,6 +61,10 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
             viewModel.getNewCode()
         }
 
+        binding.balanceAmountError.setOnClickListener {
+            viewModel.getBalance()
+        }
+
         viewModel.getBalance()
 
     }
@@ -83,30 +86,36 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.balance.collect {
-                if (it == -1) {
-                    binding.balanceAmountError.visibility = View.INVISIBLE
-                    binding.balanceAmountProgress.visibility = View.VISIBLE
-                    binding.balanceAmount.visibility = View.INVISIBLE
-                }
-                else if (it == -2) {
-                    binding.balanceAmountError.visibility = View.VISIBLE
-                    binding.balanceAmountProgress.visibility = View.INVISIBLE
-                    binding.balanceAmount.visibility = View.INVISIBLE
-                }
-                else {
-                    binding.balanceAmountError.visibility = View.INVISIBLE
-                    binding.balanceAmountProgress.visibility = View.INVISIBLE
-                    binding.balanceAmount.visibility = View.VISIBLE
+                binding.balanceAmount.text = it.toString()
+            }
+        }
 
-                    binding.balanceAmount.text = it.toString()
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.balanceViewState.collect {
+                when (it) {
+                    BarcodeViewModel.BalanceViewState.LOADING -> {
+                        binding.balanceAmountError.visibility = View.INVISIBLE
+                        binding.balanceAmountProgress.visibility = View.VISIBLE
+                        binding.balanceAmount.visibility = View.INVISIBLE
+                    }
+                    BarcodeViewModel.BalanceViewState.ERROR -> {
+                        binding.balanceAmountError.visibility = View.VISIBLE
+                        binding.balanceAmountProgress.visibility = View.INVISIBLE
+                        binding.balanceAmount.visibility = View.INVISIBLE
+                    }
+                    BarcodeViewModel.BalanceViewState.OBTAINED -> {
+                        binding.balanceAmountError.visibility = View.INVISIBLE
+                        binding.balanceAmountProgress.visibility = View.INVISIBLE
+                        binding.balanceAmount.visibility = View.VISIBLE
+                    }
                 }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.viewState.collect {
+            viewModel.codeViewState.collect {
                 when (it) {
-                    BarcodeViewModel.ViewState.ZERO_BALANCE -> {
+                    BarcodeViewModel.CodeViewState.UNAVAILABLE -> {
                         binding.howToGetPointsBtn.visibility = View.VISIBLE
                         binding.getCodeBtn.visibility = View.GONE
                         binding.codeInfoContainer.visibility = View.GONE
@@ -114,7 +123,7 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
                         binding.newCodeBtn.visibility = View.GONE
                         binding.newCodeTimerContainer.visibility = View.GONE
                     }
-                    BarcodeViewModel.ViewState.NEW_CODE_AVAILABLE -> {
+                    BarcodeViewModel.CodeViewState.NEW_CODE_AVAILABLE -> {
                         binding.howToGetPointsBtn.visibility = View.GONE
                         binding.getCodeBtn.visibility = View.GONE
                         binding.codeInfoContainer.visibility = View.VISIBLE
@@ -122,7 +131,7 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
                         binding.newCodeBtn.visibility = View.VISIBLE
                         binding.newCodeTimerContainer.visibility = View.GONE
                     }
-                    BarcodeViewModel.ViewState.NEW_CODE_MUST_WAIT -> {
+                    BarcodeViewModel.CodeViewState.NEW_CODE_MUST_WAIT -> {
                         binding.howToGetPointsBtn.visibility = View.GONE
                         binding.getCodeBtn.visibility = View.GONE
                         binding.codeInfoContainer.visibility = View.VISIBLE
@@ -130,7 +139,7 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
                         binding.newCodeBtn.visibility = View.GONE
                         binding.newCodeTimerContainer.visibility = View.VISIBLE
                     }
-                    BarcodeViewModel.ViewState.NEW_CODE_AVAILABLE_NEVER_OBTAINED -> {
+                    BarcodeViewModel.CodeViewState.NEW_CODE_AVAILABLE_NEVER_OBTAINED -> {
                         binding.howToGetPointsBtn.visibility = View.GONE
                         binding.getCodeBtn.visibility = View.VISIBLE
                         binding.codeInfoContainer.visibility = View.GONE
@@ -145,7 +154,6 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.code.collect {
                 binding.code.text = it.toString()
-
                 if (it == 0) {
                     binding.code.visibility = View.GONE
                     binding.codeDescription.visibility = View.GONE
@@ -158,7 +166,6 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
         }
 
         val countDownTimeFormat = SimpleDateFormat("mm:ss", Locale.getDefault())
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.countDown.collect {
                 binding.codeTimerTime.text = countDownTimeFormat.format(it)

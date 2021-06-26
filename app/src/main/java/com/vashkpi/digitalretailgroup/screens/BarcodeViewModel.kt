@@ -2,14 +2,12 @@ package com.vashkpi.digitalretailgroup.screens
 
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.installations.FirebaseInstallations
 import com.vashkpi.digitalretailgroup.AppConstants
-import com.vashkpi.digitalretailgroup.DrgApplication
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.models.domain.DeviceInfo
-import com.vashkpi.digitalretailgroup.data.models.domain.asDtoModel
+import com.vashkpi.digitalretailgroup.data.models.domain.asNetworkModel
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import com.vashkpi.digitalretailgroup.utils.obtainFcmToken
@@ -18,7 +16,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,7 +24,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
     private val _barcodeValue = MutableStateFlow(dataStoreRepository.userPhone)
     val barcodeValue: StateFlow<String> get() = _barcodeValue
 
-    private val _balance = MutableStateFlow(-1)
+    private val _balance = MutableStateFlow(0)
     val balance: StateFlow<Int> get() = _balance
 
     private val _code = MutableStateFlow(dataStoreRepository.lastObtainedCode)
@@ -46,8 +43,8 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
             val result = when {
                 (difference >= newCodeWaitTime) -> {
                     //time is up
-                    if (_viewState.value == ViewState.NEW_CODE_MUST_WAIT) {
-                        _viewState.value = ViewState.NEW_CODE_AVAILABLE
+                    if (_codeViewState.value == CodeViewState.NEW_CODE_MUST_WAIT) {
+                        _codeViewState.value = CodeViewState.NEW_CODE_AVAILABLE
                     }
                     0L
                 }
@@ -68,27 +65,30 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
 
     fun refreshViewState() {
         when {
-            _balance.value == 0 -> {
-                _viewState.value = ViewState.ZERO_BALANCE
+            balance.value == 0 -> {
+                _codeViewState.value = CodeViewState.UNAVAILABLE
+            }
+            _code.value == 0 -> {
+                _codeViewState.value = CodeViewState.NEW_CODE_AVAILABLE_NEVER_OBTAINED
+            }
+            newCodeObtainedAtDateMillis < (System.currentTimeMillis() - newCodeWaitTime ) -> {
+                _codeViewState.value = CodeViewState.NEW_CODE_AVAILABLE
             }
             else -> {
-                if (_code.value == 0) {
-                    _viewState.value = ViewState.NEW_CODE_AVAILABLE_NEVER_OBTAINED
-                }
-                else if (newCodeObtainedAtDateMillis < (System.currentTimeMillis() - newCodeWaitTime )) {
-                    _viewState.value = ViewState.NEW_CODE_AVAILABLE
-                }
-                else {
-                    _viewState.value = ViewState.NEW_CODE_MUST_WAIT
-                }
+                _codeViewState.value = CodeViewState.NEW_CODE_MUST_WAIT
             }
         }
     }
 
-    private val _viewState = MutableStateFlow(ViewState.ZERO_BALANCE)
-    val viewState: StateFlow<ViewState> get() = _viewState
+    private val _balanceViewState = MutableStateFlow(BalanceViewState.LOADING)
+    val balanceViewState: StateFlow<BalanceViewState> get() = _balanceViewState
 
-    enum class ViewState {ZERO_BALANCE, BALANCE_OBTAINING_ERROR, NEW_CODE_AVAILABLE_NEVER_OBTAINED, NEW_CODE_AVAILABLE, NEW_CODE_MUST_WAIT}
+    enum class BalanceViewState {LOADING, ERROR, OBTAINED}
+
+    private val _codeViewState = MutableStateFlow(CodeViewState.UNAVAILABLE)
+    val codeViewState: StateFlow<CodeViewState> get() = _codeViewState
+
+    enum class CodeViewState {UNAVAILABLE, NEW_CODE_AVAILABLE_NEVER_OBTAINED, NEW_CODE_AVAILABLE, NEW_CODE_MUST_WAIT}
 
     fun getNewCode() {
         viewModelScope.launch {
@@ -137,29 +137,37 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                         Timber.i("it's loading")
                         //postProgressViewVisibility(true)
                         refreshViewState()
+                        _balanceViewState.value = BalanceViewState.LOADING
                     }
                     is Resource.Error -> {
-                        val message = it.error?.message
+                        val message = it.error.message
                         Timber.i("it's error: ${message}")
-                        //it.error.
                         //postProgressViewVisibility(false)
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
-                        _balance.value = -2
                         refreshViewState()
+
+                        delay(500)
+                        _balanceViewState.value = BalanceViewState.ERROR
+
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
-                        //check if empty?!
-                        it.data?.let { data ->
-                            Timber.i("here is the data: $data")
 
-                            //val balance = data.balance
-                            val balance = 1 //mock
+                        Timber.i("here is the data: ${it.data}")
+
+                        it.data?.let {
+                            val balance = it.balance
+                            //val balance = 1 //mock
                             _balance.value = balance
+
                             refreshViewState()
+
+                            delay(500)
+                            _balanceViewState.value = BalanceViewState.OBTAINED
 
                             //postProgressViewVisibility(false)
                         }
+
                     }
                 }
             }
@@ -178,7 +186,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
         obtainFcmToken(
             {fcmToken ->
                 dataStoreRepository.fcmToken = fcmToken
-                val lastSavedDeviceInfo = dataStoreRepository.savedDeviceInfo
+                val savedDeviceInfo = dataStoreRepository.savedDeviceInfo
                 val currentDeviceInfo = DeviceInfo(
                     dataStoreRepository.userId,
                     fcmToken,
@@ -186,10 +194,10 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                     AppConstants.DEVICE_OS
                 )
 
-                if (lastSavedDeviceInfo != currentDeviceInfo) {
+                if (savedDeviceInfo != currentDeviceInfo) {
                     //attempt to save new device info on the server
                     viewModelScope.launch {
-                        apiRepository.saveDeviceInfo(currentDeviceInfo.asDtoModel()).collect {
+                        apiRepository.saveDeviceInfo(currentDeviceInfo.asNetworkModel()).collect {
                             when (it) {
                                 is Resource.Loading -> {
                                     Timber.d("attempting to store new device info")
@@ -215,6 +223,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                 }
             },
             {
+                //unable to obtain token
                 //do nothing?
             }
         )

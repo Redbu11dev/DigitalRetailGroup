@@ -8,13 +8,10 @@ import timber.log.Timber
 import java.net.UnknownHostException
 import kotlin.coroutines.CoroutineContext
 
-sealed class Resource<T>(
-    val data: T? = null,
-    val error: Throwable? = null
-) {
-    class Success<T>(data: T) : Resource<T>(data)
-    class Loading<T>(data: T? = null) : Resource<T>(data)
-    class Error<T>(throwable: Throwable, data: T? = null) : Resource<T>(data, throwable)
+sealed class Resource<T> {
+    data class Success<T>(val data: T) : Resource<T>()
+    data class Loading<T>(val data: T? = null) : Resource<T>()
+    data class Error<T>(val error: Throwable, val data: T? = null) : Resource<T>()
 }
 
 /**
@@ -63,7 +60,7 @@ inline fun <NetworkType> networkResponse(
                     onFetchFailed()
                     emit(
                         Resource.Error(
-                            throwable = Throwable("Response is empty"),
+                            error = Throwable("Response is empty"),
                             null
                         )
                     )
@@ -74,7 +71,7 @@ inline fun <NetworkType> networkResponse(
                 onFetchFailed()
                 emit(
                     Resource.Error(
-                        throwable = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"),
+                        error = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"),
                         null
                     )
                 )
@@ -128,7 +125,7 @@ inline fun <NetworkType, DatabaseType> networkBoundResource(
             is ApiEmptyResponse -> {
                 emit(
                     Resource.Error(
-                        throwable = Throwable("Response is empty"),
+                        error = Throwable("Response is empty"),
                         null
                     )
                 )
@@ -137,7 +134,7 @@ inline fun <NetworkType, DatabaseType> networkBoundResource(
             is ApiErrorResponse -> {
                 emit(
                     Resource.Error(
-                        throwable = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"),
+                        error = Throwable("${fetchResult.errorCode}: ${fetchResult.errorMessage}"),
                         null
                     )
                 )

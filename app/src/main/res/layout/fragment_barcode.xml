@@ -95,12 +95,15 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/balance_amount_error"
-                android:layout_width="match_parent"
+                android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginTop="14dp"
                 android:layout_gravity="center"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/balance_title"
                 app:srcCompat="@drawable/ic_baseline_warning_24"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
 
                 android:visibility="invisible"
                 tools:visibility="visible"
