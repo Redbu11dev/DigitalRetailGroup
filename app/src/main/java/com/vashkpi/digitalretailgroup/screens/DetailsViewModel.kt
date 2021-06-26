@@ -9,9 +9,6 @@ import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -40,7 +37,6 @@ class DetailsViewModel @Inject constructor(private val apiRepository: ApiReposit
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
@@ -56,10 +52,6 @@ class DetailsViewModel @Inject constructor(private val apiRepository: ApiReposit
                             _ruleText.value = data.rule_text
 
                             postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
                         }
                     }
                 }
@@ -76,7 +68,6 @@ class DetailsViewModel @Inject constructor(private val apiRepository: ApiReposit
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
@@ -92,10 +83,6 @@ class DetailsViewModel @Inject constructor(private val apiRepository: ApiReposit
                             _ruleText.value = data.rule_text
 
                             postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
                         }
                     }
                 }
@@ -112,7 +99,6 @@ class DetailsViewModel @Inject constructor(private val apiRepository: ApiReposit
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
@@ -128,10 +114,6 @@ class DetailsViewModel @Inject constructor(private val apiRepository: ApiReposit
                             _ruleText.value = data.rule_text
 
                             postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
                         }
                     }
                 }

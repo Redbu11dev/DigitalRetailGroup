@@ -10,7 +10,6 @@ import com.vashkpi.digitalretailgroup.data.models.domain.BrandInfo
 import com.vashkpi.digitalretailgroup.data.models.domain.BrandInfoRegion
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -48,7 +47,6 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
             apiRepository.getBrandInfo(brand.brand_id).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        //TODO()
                         Timber.i("it's loading")
                         it.data?.let { data ->
                             Timber.d("here is the old data: $data")
@@ -58,8 +56,6 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
                         //postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
-                        //TODO()
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
@@ -67,7 +63,6 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
-                        //TODO()
                         Timber.i("it's success")
                         //check if empty?!
                         it.data?.let { data ->
@@ -82,10 +77,6 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
 //                            _brandRegionsList.value = domainModel.regions.toMutableList()
 
                             //postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
                         }
                     }
                 }

@@ -9,8 +9,6 @@ import com.vashkpi.digitalretailgroup.data.models.database.asDomainModel
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -54,7 +52,6 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                         }
                     }
                     is Resource.Error -> {
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
@@ -72,10 +69,6 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                             _brandsList.value = data.map { it.asDomainModel() }.toMutableList()
 
                             //postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
                         }
                     }
                 }

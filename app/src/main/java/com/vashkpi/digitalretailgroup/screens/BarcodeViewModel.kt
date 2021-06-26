@@ -12,7 +12,6 @@ import com.vashkpi.digitalretailgroup.data.models.domain.asDtoModel
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -96,7 +95,6 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
@@ -117,10 +115,6 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                             refreshViewState()
 
                             postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
                         }
                     }
                 }
@@ -137,7 +131,6 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                         //postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
@@ -156,10 +149,6 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                             refreshViewState()
 
                             //postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
                         }
                     }
                 }
@@ -194,7 +183,6 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                             Timber.d("attempting to store new device info")
                         }
                         is Resource.Error -> {
-                            this@launch.cancel()
                             val message = it.error?.message
                             Timber.d("Unable to store new device info: ${message}")
                         }
@@ -206,9 +194,6 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                             //check if empty
                             it.data?.let { data ->
                                 Timber.d("here is the data: $data")
-                                this@launch.cancel()
-                            } ?: kotlin.run {
-                                this@launch.cancel()
                             }
                         }
                     }

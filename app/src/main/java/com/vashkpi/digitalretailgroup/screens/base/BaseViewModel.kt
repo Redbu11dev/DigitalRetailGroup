@@ -3,7 +3,6 @@ package com.vashkpi.digitalretailgroup.screens.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -36,7 +35,6 @@ abstract class BaseViewModel: ViewModel() {
     fun postNavigationEvent(action: NavDirections) {
         viewModelScope.launch {
             _navigationEvent.emit(action)
-            cancel()
         }
     }
 }

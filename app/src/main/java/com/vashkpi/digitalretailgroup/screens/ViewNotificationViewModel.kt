@@ -5,14 +5,11 @@ import androidx.navigation.NavDirections
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
-import com.vashkpi.digitalretailgroup.data.models.database.asDomainModel
-import com.vashkpi.digitalretailgroup.data.models.domain.Brand
 import com.vashkpi.digitalretailgroup.data.models.domain.Notification
 import com.vashkpi.digitalretailgroup.data.models.network.NotificationPostDto
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -48,7 +45,6 @@ class ViewNotificationViewModel @Inject constructor(private val dataStoreReposit
                         //postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
@@ -67,10 +63,6 @@ class ViewNotificationViewModel @Inject constructor(private val dataStoreReposit
                             Timber.i("here is the data: $data")
 
                             //postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
                         }
                     }
                 }
@@ -83,7 +75,6 @@ class ViewNotificationViewModel @Inject constructor(private val dataStoreReposit
     fun onDeletePressed() {
         viewModelScope.launch {
             _notificationRemovedEvent.emit(true)
-            cancel()
         }
     }
 

@@ -1,7 +1,5 @@
 package com.vashkpi.digitalretailgroup.data.api
 
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.isActive
 import timber.log.Timber

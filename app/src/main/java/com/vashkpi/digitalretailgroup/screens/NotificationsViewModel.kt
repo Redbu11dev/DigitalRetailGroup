@@ -11,10 +11,7 @@ import com.vashkpi.digitalretailgroup.data.models.database.asDomainModel
 import com.vashkpi.digitalretailgroup.data.models.domain.Notification
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
-import dagger.assisted.Assisted
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -106,7 +103,6 @@ class NotificationsViewModel @Inject constructor(
 //                        postProgressViewVisibility(true)
 //                    }
 //                    is Resource.Error -> {
-//                        this@launch.cancel()
 //                        val message = it.error?.message
 //                        Timber.i("it's error: ${message}")
 //                        //it.error.
@@ -125,9 +121,6 @@ class NotificationsViewModel @Inject constructor(
 //
 //                            postProgressViewVisibility(false)
 //
-//                            this@launch.cancel()
-//                        } ?: kotlin.run {
-//                            this@launch.cancel()
 //                        }
 //                    }
 //                }
@@ -138,14 +131,12 @@ class NotificationsViewModel @Inject constructor(
     fun deleteLocally(notificationId: String) {
         viewModelScope.launch {
             apiRepository.deleteNotificationLocally(notificationId)
-            cancel()
         }
     }
 
     fun restoreLocally(notificationId: String) {
         viewModelScope.launch {
             apiRepository.restoreNotificationLocally(notificationId)
-            cancel()
         }
     }
 
@@ -158,7 +149,6 @@ class NotificationsViewModel @Inject constructor(
                         //postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
@@ -182,10 +172,6 @@ class NotificationsViewModel @Inject constructor(
                             Timber.i("here is the data: $data")
 
                             //postProgressViewVisibility(false)
-
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
                         }
                     }
                 }
