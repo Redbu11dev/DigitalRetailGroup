@@ -6,11 +6,6 @@ import com.vashkpi.digitalretailgroup.data.models.network.GenericResponseDto
 import retrofit2.Response
 import timber.log.Timber
 
-//data class ApiResponse(
-//    val error: Throwable? = Throwable("Unknown error"),
-//    val response: Response<JsonElement>?
-//)
-
 sealed class ApiResponse<T> {
     companion object {
         fun <T> create(response: Response<T>): ApiResponse<T> {
@@ -30,7 +25,7 @@ sealed class ApiResponse<T> {
                     response.errorBody()?.string() ?: response.message()
                 }
                 if (message.isEmpty()) {
-                    message = "Unknown error"
+                    message = "Unexpected error"
                 }
                 //val message = response.errorBody()?.string() ?: response.message()
                 ApiErrorResponse(response.code(), message)

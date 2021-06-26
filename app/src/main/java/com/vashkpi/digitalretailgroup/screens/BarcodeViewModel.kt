@@ -152,7 +152,6 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
-
                         Timber.i("here is the data: ${it.data}")
 
                         it.data?.let {
