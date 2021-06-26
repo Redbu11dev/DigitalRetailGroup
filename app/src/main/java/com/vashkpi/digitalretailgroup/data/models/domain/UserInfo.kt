@@ -3,6 +3,7 @@ package com.vashkpi.digitalretailgroup.data.models.domain
 import com.vashkpi.digitalretailgroup.AppConstants
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.models.network.UserInfoDto
+import timber.log.Timber
 
 fun UserInfo.asNetworkModel(): UserInfoDto {
     return UserInfoDto(
@@ -15,6 +16,10 @@ fun UserInfo.asNetworkModel(): UserInfoDto {
 }
 
 fun String.convertDateToNetworkFormat(): String {
+    if (this.isBlank()) {
+        return ""
+    }
+
     val original = this.toCharArray()
     val day = String(charArrayOf(original[0], original[1]))
     val month = String(charArrayOf(original[3], original[4]))

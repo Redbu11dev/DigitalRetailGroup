@@ -3,6 +3,7 @@ package com.vashkpi.digitalretailgroup.screens.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -25,7 +26,10 @@ abstract class BaseViewModel: ViewModel() {
     private val _progressViewVisible = MutableStateFlow(false)
     val progressViewVisible: StateFlow<Boolean> get() = _progressViewVisible
 
-    fun postProgressViewVisibility(visible: Boolean) {
+    suspend fun postProgressViewVisibility(visible: Boolean, hideDelay: Long = 500L) {
+        if (!visible) {
+            delay(hideDelay)
+        }
         _progressViewVisible.value = visible
     }
 

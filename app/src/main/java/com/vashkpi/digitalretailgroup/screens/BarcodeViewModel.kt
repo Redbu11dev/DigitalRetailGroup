@@ -25,7 +25,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
     private val _barcodeValue = MutableStateFlow(dataStoreRepository.userPhone)
     val barcodeValue: StateFlow<String> get() = _barcodeValue
 
-    private val _balance = MutableStateFlow(0)
+    private val _balance = MutableStateFlow(-1)
     val balance: StateFlow<Int> get() = _balance
 
     private val _code = MutableStateFlow(dataStoreRepository.lastObtainedCode)
@@ -65,13 +65,15 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
     }
 
     fun refreshViewState() {
-        when (_balance.value) {
-            0 -> {
+        when {
+            _balance.value == 0 -> {
                 _viewState.value = ViewState.ZERO_BALANCE
-                //_viewState.value = ViewState.NEW_CODE_AVAILABLE
             }
             else -> {
-                if (newCodeObtainedAtDateMillis < (System.currentTimeMillis() - newCodeWaitTime )) {
+                if (_code.value == 0) {
+                    _viewState.value = ViewState.NEW_CODE_AVAILABLE_NEVER_OBTAINED
+                }
+                else if (newCodeObtainedAtDateMillis < (System.currentTimeMillis() - newCodeWaitTime )) {
                     _viewState.value = ViewState.NEW_CODE_AVAILABLE
                 }
                 else {
@@ -84,7 +86,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
     private val _viewState = MutableStateFlow(ViewState.ZERO_BALANCE)
     val viewState: StateFlow<ViewState> get() = _viewState
 
-    enum class ViewState {ZERO_BALANCE, NEW_CODE_AVAILABLE, NEW_CODE_MUST_WAIT}
+    enum class ViewState {ZERO_BALANCE, BALANCE_OBTAINING_ERROR, NEW_CODE_AVAILABLE_NEVER_OBTAINED, NEW_CODE_AVAILABLE, NEW_CODE_MUST_WAIT}
 
     fun getNewCode() {
         viewModelScope.launch {
@@ -93,6 +95,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                     is Resource.Loading -> {
                         Timber.i("it's loading")
                         postProgressViewVisibility(true)
+                        refreshViewState()
                     }
                     is Resource.Error -> {
                         val message = it.error?.message
@@ -100,6 +103,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                         //it.error.
                         postProgressViewVisibility(false)
                         postNavigationEvent(BarcodeFragmentDirections.actionGlobalMessageDialog(R.string.dialog_error_title, message.toString()))
+                        refreshViewState()
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
@@ -130,6 +134,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                     is Resource.Loading -> {
                         Timber.i("it's loading")
                         //postProgressViewVisibility(true)
+                        refreshViewState()
                     }
                     is Resource.Error -> {
                         val message = it.error?.message
@@ -137,6 +142,8 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
                         //it.error.
                         //postProgressViewVisibility(false)
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
+                        _balance.value = -2
+                        refreshViewState()
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")

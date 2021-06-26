@@ -81,6 +81,31 @@
                 android:textSize="48dp"
                 />
 
+            <ProgressBar
+                android:id="@+id/balance_amount_progress"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="14dp"
+                android:layout_gravity="center"
+                android:layout_below="@+id/balance_title"
+
+                android:visibility="invisible"
+                tools:visibility="visible"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/balance_amount_error"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="14dp"
+                android:layout_gravity="center"
+                android:layout_below="@+id/balance_title"
+                app:srcCompat="@drawable/ic_baseline_warning_24"
+
+                android:visibility="invisible"
+                tools:visibility="visible"
+                />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/balance_currency"
                 android:layout_width="match_parent"

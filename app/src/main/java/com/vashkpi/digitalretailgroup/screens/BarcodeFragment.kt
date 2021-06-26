@@ -65,6 +65,10 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
             viewModel.getNewCode()
         }
 
+        binding.getCodeBtn.setOnClickListener {
+            viewModel.getNewCode()
+        }
+
         viewModel.getBalance()
 
         //displayBitmap(binding.barcodeImage, it)
@@ -88,7 +92,23 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.balance.collect {
-                binding.balanceAmount.text = it.toString()
+                if (it == -1) {
+                    binding.balanceAmountError.visibility = View.INVISIBLE
+                    binding.balanceAmountProgress.visibility = View.VISIBLE
+                    binding.balanceAmount.visibility = View.INVISIBLE
+                }
+                else if (it == -2) {
+                    binding.balanceAmountError.visibility = View.VISIBLE
+                    binding.balanceAmountProgress.visibility = View.INVISIBLE
+                    binding.balanceAmount.visibility = View.INVISIBLE
+                }
+                else {
+                    binding.balanceAmountError.visibility = View.INVISIBLE
+                    binding.balanceAmountProgress.visibility = View.INVISIBLE
+                    binding.balanceAmount.visibility = View.VISIBLE
+
+                    binding.balanceAmount.text = it.toString()
+                }
             }
         }
 
@@ -99,6 +119,9 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
                         binding.howToGetPointsBtn.visibility = View.VISIBLE
                         binding.getCodeBtn.visibility = View.GONE
                         binding.codeInfoContainer.visibility = View.GONE
+
+                        binding.newCodeBtn.visibility = View.GONE
+                        binding.newCodeTimerContainer.visibility = View.GONE
                     }
                     BarcodeViewModel.ViewState.NEW_CODE_AVAILABLE -> {
                         binding.howToGetPointsBtn.visibility = View.GONE
@@ -115,6 +138,14 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
 
                         binding.newCodeBtn.visibility = View.GONE
                         binding.newCodeTimerContainer.visibility = View.VISIBLE
+                    }
+                    BarcodeViewModel.ViewState.NEW_CODE_AVAILABLE_NEVER_OBTAINED -> {
+                        binding.howToGetPointsBtn.visibility = View.GONE
+                        binding.getCodeBtn.visibility = View.VISIBLE
+                        binding.codeInfoContainer.visibility = View.GONE
+
+                        binding.newCodeBtn.visibility = View.GONE
+                        binding.newCodeTimerContainer.visibility = View.GONE
                     }
                 }
             }

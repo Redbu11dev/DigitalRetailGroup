@@ -72,11 +72,11 @@ class NotificationsViewModel @Inject constructor(
         _emptyContainerVisible.value = itemCount < 1
     }
 
-    fun onListStoppedLoading() {
+    suspend fun onListStoppedLoading() {
         postProgressViewVisibility(false)
     }
 
-    fun onListErrorLoading(throwable: Throwable) {
+    suspend fun onListErrorLoading(throwable: Throwable) {
         postProgressViewVisibility(false)
         //show error
         if (throwable is java.net.UnknownHostException) {
@@ -90,7 +90,7 @@ class NotificationsViewModel @Inject constructor(
         }
     }
 
-    fun onListLoading() {
+    suspend fun onListLoading() {
         postProgressViewVisibility(true)
     }
 
