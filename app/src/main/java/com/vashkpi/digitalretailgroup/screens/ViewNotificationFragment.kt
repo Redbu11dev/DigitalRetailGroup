@@ -68,7 +68,9 @@ class ViewNotificationFragment : BaseFragment<FragmentViewNotificationBinding, V
             }
         }
 
-        viewModel.markRead(notification)
+        if (!notification.read) {
+            viewModel.markRead(notification)
+        }
 
     }
 
