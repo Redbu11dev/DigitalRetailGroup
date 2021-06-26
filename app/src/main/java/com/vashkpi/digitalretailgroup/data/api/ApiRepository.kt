@@ -56,27 +56,6 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
             },
             false
         )
-//        return networkBoundResource(
-//            query = {
-//                //appDatabase.brandDao().getAll()
-//                    flow {
-//                        emit(dataStoreRepository.userInfo)
-//                    }
-//            },
-//            fetch = {
-//                ApiResponse.create(apiService.getProfileInfo(userId))
-//            },
-//            shouldFetch = {
-//                //it == null
-//                true
-//            },
-//            saveFetchResult = {
-//                dataStoreRepository.userInfo = it.user_info.asDomainModel()
-//            },
-//            mapper = {
-//                it.user_info.asDomainModel()
-//            }
-//        )
     }
 
     suspend fun saveDeviceInfo(devicesDto: DevicesDto): Flow<Resource<out GenericResponseDto?>> {

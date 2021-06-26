@@ -33,8 +33,6 @@ private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
-                        this@launch.cancel()
-
                         val message = it.error?.message ?: ""
                         Timber.i("it's error: ${message}")
                         //it.error.
@@ -62,14 +60,10 @@ private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
                             postProgressViewVisibility(false)
                             firebaseAnalytics.logEvent(AppConstants.FirebaseAnalyticsEvents.USER_AUTHORIZED.value, null)
                             postNavigationEvent(LoginCodeFragmentDirections.actionLoginCodeFragmentToProfileFragment(true, userId))
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
                         }
                     }
                 }
             }
-            //cancel()
         }
     }
 
@@ -80,10 +74,8 @@ private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
                     is Resource.Loading -> {
                         Timber.d("it's loading")
                         postProgressViewVisibility(true)
-                        //this@launch.cancel()
                     }
                     is Resource.Error -> {
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.d("it's error: ${message}")
                         //it.error.
@@ -92,7 +84,6 @@ private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
 
                     }
                     is Resource.Success -> {
-                        this@launch.cancel()
                         Timber.d("it's success")
                         //check if empty?!
                         it.data?.let {
@@ -105,7 +96,6 @@ private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
                     }
                 }
             }
-            //cancel()
         }
     }
 

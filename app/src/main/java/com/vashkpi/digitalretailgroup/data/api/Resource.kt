@@ -52,13 +52,11 @@ inline fun <NetworkType> networkResponse(
             is ApiSuccessResponse -> {
                 onFetchSuccess()
                 emit(Resource.Success(fetchResult.body))
-                //currentCoroutineContext().cancel()
             }
             is ApiEmptyResponse -> {
                 if (canBeEmptyResponse) {
                     onFetchSuccess()
                     emit(Resource.Success(null))
-                    //currentCoroutineContext().cancel()
                 }
                 else {
                     onFetchFailed()
@@ -68,7 +66,6 @@ inline fun <NetworkType> networkResponse(
                             null
                         )
                     )
-                    //currentCoroutineContext().cancel()
                 }
             }
             is ApiErrorResponse -> {
@@ -79,7 +76,6 @@ inline fun <NetworkType> networkResponse(
                         null
                     )
                 )
-                //currentCoroutineContext().cancel()
             }
         }
     } catch (throwable: Throwable) {
@@ -89,7 +85,6 @@ inline fun <NetworkType> networkResponse(
                 //it is made like that on the backend
                 onFetchSuccess()
                 emit(Resource.Success(null))
-                //currentCoroutineContext().cancel()
             }
             else -> {
                 onFetchFailed()
@@ -97,7 +92,6 @@ inline fun <NetworkType> networkResponse(
                 val formattedThrowable = throwable.formatThrowableMessage()
 
                 emit(Resource.Error(formattedThrowable, null))
-                //currentCoroutineContext().cancel()
             }
         }
     }

@@ -43,12 +43,9 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                     is Resource.Loading -> {
                         Timber.d("it's loading")
                         postProgressViewVisibility(true)
-                        //this@launch.cancel()
-
                         _localUserInfo.value = dataStoreRepository.userInfo
                     }
                     is Resource.Error -> {
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.d("it's error: ${message}")
                         //it.error.
@@ -69,7 +66,6 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
 
                     }
                     is Resource.Success -> {
-                        this@launch.cancel()
                         Timber.d("it's success")
                         //check if empty?!
                         it.data?.let {
@@ -88,7 +84,6 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                     }
                 }
             }
-            //cancel()
         }
     }
 
@@ -124,13 +119,10 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
             apiRepository.saveProfileInfo(AccountsDto(dataStoreRepository.userId, userInfo.asNetworkModel())).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        //TODO()
                         Timber.i("it's loading")
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
-                        //TODO()
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
@@ -138,7 +130,6 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
-                        //TODO()
                         Timber.i("it's success")
                         //check if empty?!
                         it.data?.let { data ->
@@ -155,9 +146,6 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                                 //compare values (to show/hide save button)
                                 compareLocalValuesToActual()
                             }
-                            this@launch.cancel()
-                        } ?: kotlin.run {
-                            this@launch.cancel()
                         }
                     }
                 }

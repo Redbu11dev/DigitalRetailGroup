@@ -23,10 +23,8 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
                     is Resource.Loading -> {
                         Timber.d("it's loading")
                         postProgressViewVisibility(true)
-                        //this@launch.cancel()
                     }
                     is Resource.Error -> {
-                        this@launch.cancel()
                         val message = it.error?.message
                         Timber.d("it's error: ${message}")
                         //it.error.
@@ -35,7 +33,6 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
 
                     }
                     is Resource.Success -> {
-                        this@launch.cancel()
                         Timber.d("it's success")
                         //check if empty?!
                         it.data?.let {
@@ -47,7 +44,6 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
                     }
                 }
             }
-            //cancel()
         }
     }
 
