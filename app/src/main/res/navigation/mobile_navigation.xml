@@ -95,8 +95,11 @@
         <action
             android:id="@+id/action_launcherFragment_to_navigation_barcode"
             app:destination="@id/navigation_barcode"
-            app:popUpTo="@id/launcherFragment"
-            app:popUpToInclusive="true" />
+
+            app:launchSingleTop="true"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true"
+            />
     </fragment>
     <fragment
         android:id="@+id/loginPhoneFragment"
