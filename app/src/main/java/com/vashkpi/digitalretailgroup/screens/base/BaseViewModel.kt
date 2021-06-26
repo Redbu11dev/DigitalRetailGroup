@@ -32,7 +32,7 @@ abstract class BaseViewModel: ViewModel() {
     private val _navigationEvent = MutableSharedFlow<NavDirections>(replay = 0)
     val navigationEvent: SharedFlow<NavDirections> get() = _navigationEvent
 
-    fun postNavigationEvent(action: NavDirections) {
+    fun postNavigationEvent(action: NavDirections, popBackStack: Boolean = false) {
         viewModelScope.launch {
             _navigationEvent.emit(action)
         }

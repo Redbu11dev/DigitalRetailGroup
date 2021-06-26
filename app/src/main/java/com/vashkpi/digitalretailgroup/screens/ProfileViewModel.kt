@@ -202,7 +202,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
 
     fun onSaveInfoDialogNegativeButtonClick(isRegistration: Boolean) {
         if (isRegistration) {
-            postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode())
+            postNavigationEvent(ProfileFragmentDirections.actionProfileFragmentToNavigationBarcode(), true)
         }
         else {
             //drop changes (reset to local cache)
