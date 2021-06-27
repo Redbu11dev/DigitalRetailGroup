@@ -25,6 +25,11 @@ class StoreInfoFragment : BaseFragment<FragmentStoreInfoBinding, StoreInfoViewMo
 
     private val args: StoreInfoFragmentArgs by navArgs()
 
+    override fun setupToolbar() {
+        super.setupToolbar()
+        getCustomToolbarBinding().showBackButtonIfAvailable(findNavController(), false)
+    }
+
     override fun setUpViews() {
         super.setUpViews()
 
@@ -59,6 +64,7 @@ class StoreInfoFragment : BaseFragment<FragmentStoreInfoBinding, StoreInfoViewMo
                 it?.let {
 
 //                    binding.customToolbar.toolbar.title = it.name
+                    getCustomToolbarBinding().setTitle(it.name)
 
                     val imageView = binding.image
                     val isSvg = it.image_parth.toString().endsWith(".svg")

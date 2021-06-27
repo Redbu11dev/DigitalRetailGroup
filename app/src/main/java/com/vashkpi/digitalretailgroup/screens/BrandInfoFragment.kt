@@ -19,10 +19,7 @@ import com.vashkpi.digitalretailgroup.databinding.FragmentBrandInfoBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentViewNotificationBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
-import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
-import com.vashkpi.digitalretailgroup.utils.safeNavigate
-import com.vashkpi.digitalretailgroup.utils.safeOpenCallDialer
-import com.vashkpi.digitalretailgroup.utils.safeOpenUrlInBrowser
+import com.vashkpi.digitalretailgroup.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -43,6 +40,11 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
         super.onCreate(savedInstanceState)
 
         viewModel.getBrandInfo(args.brand)
+    }
+
+    override fun setupToolbar() {
+        super.setupToolbar()
+        getCustomToolbarBinding().showBackButtonIfAvailable(findNavController(), false)
     }
 
     override fun setUpViews() {
@@ -81,6 +83,7 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
                 it?.let {
 
 //                    binding.customToolbar.toolbar.title = it.name
+                    getCustomToolbarBinding().setTitle(it.name)
 
                     val website = it.website
                     //val website = "www.mi.com/ru"

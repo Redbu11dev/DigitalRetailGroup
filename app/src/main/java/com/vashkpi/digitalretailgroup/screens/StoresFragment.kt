@@ -16,6 +16,8 @@ import com.vashkpi.digitalretailgroup.adapters.StoresAdapter
 import com.vashkpi.digitalretailgroup.databinding.FragmentStoreInfoBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentStoresBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
+import com.vashkpi.digitalretailgroup.utils.setTitle
+import com.vashkpi.digitalretailgroup.utils.showBackButtonIfAvailable
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -40,6 +42,11 @@ class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(Frag
         }
     }
 
+    override fun setupToolbar() {
+        super.setupToolbar()
+        getCustomToolbarBinding().showBackButtonIfAvailable(findNavController(), false)
+    }
+
     override fun setUpViews() {
         super.setUpViews()
 
@@ -50,13 +57,10 @@ class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(Frag
         val brand = args.brand
         val brandInfoRegion = args.brandInfoRegion
 
-//        adapter = StoresAdapter { view, store ->
-//            findNavController().navigate(StoresFragmentDirections.actionStoresFragmentToStoreInfoFragment(store.store_id))
-//        }
-
         binding.infoList.adapter = adapter
 
 //        binding.customToolbar.toolbar.title = brandInfoRegion.name
+        getCustomToolbarBinding().setTitle(brandInfoRegion.name)
 
         viewModel.obtainRegionStores(brand.brand_id, brandInfoRegion.region_id)
     }
