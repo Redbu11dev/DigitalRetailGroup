@@ -18,21 +18,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ViewNotificationViewModel @Inject constructor(private val dataStoreRepository: DataStoreRepository, private val apiRepository: ApiRepository): BaseViewModel() {
 
-//    private var _notification = MutableStateFlow<Notification?>(null)
-//    val notification: StateFlow<Notification?> get() = _notification
-//
-//    fun setNotification(notification: Notification) {
-//        _notification.value = notification
-//    }
-//
-//    //var _page: Int? = null
-//
-//    fun tryMarkRead() {
-//        _notification.value?.let {
-//            markRead(it)
-//        }
-//    }
-
     private val _notificationRemovedEvent = MutableSharedFlow<Boolean>(replay = 0)
     val notificationRemovedEvent: SharedFlow<Boolean> get() = _notificationRemovedEvent
 

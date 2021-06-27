@@ -66,6 +66,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                     }
                     is Resource.Success -> {
                         Timber.d("it's success")
+                        postProgressViewVisibility(false)
                         //check if empty?!
                         it.data?.let {
                             Timber.d("here is the data: $it")
@@ -78,7 +79,7 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
                             //cache after get
                             dataStoreRepository.userInfo = obtainedUserInfo
                         }
-                        postProgressViewVisibility(false)
+
 
                     }
                 }

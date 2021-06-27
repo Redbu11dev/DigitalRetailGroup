@@ -45,6 +45,7 @@ private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
+                        postProgressViewVisibility(false)
                         //check if empty?!
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
@@ -55,7 +56,7 @@ private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
                             dataStoreRepository.userId = userId
                             dataStoreRepository.userPhone = phone
 
-                            postProgressViewVisibility(false)
+
                             firebaseAnalytics.logEvent(AppConstants.FirebaseAnalyticsEvents.USER_AUTHORIZED.value, null)
                             postNavigationEvent(LoginCodeFragmentDirections.actionLoginCodeFragmentToProfileFragment(true, userId))
                         }
@@ -83,13 +84,14 @@ private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
                     }
                     is Resource.Success -> {
                         Timber.d("it's success")
+                        postProgressViewVisibility(false)
                         //check if empty?!
                         it.data?.let {
                             Timber.d("here is the data: $it")
 
                             postNavigationEvent(LoginPhoneFragmentDirections.actionGlobalMessageDialog(title = 0, message = it.message))
                         }
-                        postProgressViewVisibility(false)
+
 
                     }
                 }

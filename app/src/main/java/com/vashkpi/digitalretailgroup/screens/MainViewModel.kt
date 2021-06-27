@@ -22,6 +22,9 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
     private val _brandsList = MutableStateFlow(mutableListOf<Brand>())
     val brandsList: StateFlow<List<Brand>> get() = _brandsList
 
+    private val _brandsListLoading = MutableStateFlow(true)
+    val brandsListLoading: StateFlow<Boolean> get() = _brandsListLoading
+
     fun onMenuNotificationsItemClick() {
         postNavigationEvent(MainFragmentDirections.actionNavigationMainToNotificationsFragment())
     }
@@ -45,6 +48,7 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                     is Resource.Loading -> {
                         Timber.i("it's loading")
                         //postProgressViewVisibility(true)
+                        _brandsListLoading.value = true
                         it.data?.let { data ->
                             Timber.d("here is the old data: $data")
 
@@ -56,6 +60,7 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                         Timber.i("it's error: ${message}")
                         //it.error.
                         //postProgressViewVisibility(false)
+                        _brandsListLoading.value = false
                         if (it.error !is java.net.UnknownHostException) {
                             postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                         }
@@ -63,12 +68,12 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                     is Resource.Success -> {
                         Timber.i("it's success")
                         //check if empty?!
+                        //postProgressViewVisibility(false)
+                        _brandsListLoading.value = false
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
 
                             _brandsList.value = data.map { it.asDomainModel() }.toMutableList()
-
-                            //postProgressViewVisibility(false)
                         }
                     }
                 }

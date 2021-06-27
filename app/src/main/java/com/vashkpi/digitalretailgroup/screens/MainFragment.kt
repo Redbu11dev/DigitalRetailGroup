@@ -12,6 +12,7 @@ import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentMainBinding
 import com.vashkpi.digitalretailgroup.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 
@@ -129,7 +130,16 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
     override fun observeViewModel() {
         super.observeViewModel()
 
-
+        lifecycleScope.launchWhenResumed {
+            viewModel.brandsListLoading.collect {
+                if (it) {
+                   binding.partnersListProgress.visibility = View.VISIBLE
+                }
+                else {
+                    binding.partnersListProgress.visibility = View.GONE
+                }
+            }
+        }
 
     }
 

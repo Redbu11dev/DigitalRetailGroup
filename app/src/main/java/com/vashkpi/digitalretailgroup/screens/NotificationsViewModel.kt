@@ -25,9 +25,6 @@ class NotificationsViewModel @Inject constructor(
     private val appDatabase: AppDatabase
     ): BaseViewModel() {
 
-//    private val _notificationsList = MutableStateFlow(mutableListOf<Notification>())
-//    val notificationsList: StateFlow<List<Notification>> get() = _notificationsList
-
     private val _notificationsList = MutableStateFlow<PagingData<Notification>?>(null)
     val notificationsList get() = _notificationsList.asStateFlow()
 
@@ -93,40 +90,6 @@ class NotificationsViewModel @Inject constructor(
     suspend fun onListLoading() {
         postProgressViewVisibility(true)
     }
-
-//    fun obtainNotifications() {
-//        viewModelScope.launch {
-//            apiRepository.getNotifications(dataStoreRepository.userId, 1).collect {
-//                when (it) {
-//                    is Resource.Loading -> {
-//                        Timber.i("it's loading")
-//                        postProgressViewVisibility(true)
-//                    }
-//                    is Resource.Error -> {
-//                        val message = it.error?.message
-//                        Timber.i("it's error: ${message}")
-//                        //it.error.
-//                        postProgressViewVisibility(false)
-//                        postNavigationEvent(NotificationsFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
-//                    }
-//                    is Resource.Success -> {
-//                        Timber.i("it's success")
-//                        //check if empty?!
-//                        it.data?.let { data ->
-//                            Timber.i("here is the data: $data")
-//
-//                            _emptyContainerVisible.value = data.isEmpty()
-//
-//                            _notificationsList.value = data.map { it.asDomainModel() }.toMutableList()
-//
-//                            postProgressViewVisibility(false)
-//
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     fun deleteLocally(notificationId: String) {
         viewModelScope.launch {

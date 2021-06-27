@@ -33,11 +33,12 @@ class LoginPhoneViewModel @Inject constructor(private val apiRepository: ApiRepo
                     }
                     is Resource.Success -> {
                         Timber.d("it's success")
+                        postProgressViewVisibility(false)
                         //check if empty?!
                         it.data?.let {
                             Timber.d("here is the data: $it")
                         }
-                        postProgressViewVisibility(false)
+
                         postNavigationEvent(LoginPhoneFragmentDirections.actionLoginPhoneFragmentToLoginCodeFragment(phoneRaw, phoneFormatted))
 
                     }

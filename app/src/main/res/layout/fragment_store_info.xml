@@ -119,4 +119,8 @@
 
     </ScrollView>
 
+    <include
+        layout="@layout/item_progress"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

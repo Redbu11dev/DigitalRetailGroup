@@ -40,7 +40,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>(F
             }
             2 -> {
                 getCustomToolbarBinding().setTitle(getString(R.string.description_title_promotion_rules))
-                viewModel.getSpendPointsRules()
+                viewModel.getPromotionRules()
             }
             else -> {
                 getCustomToolbarBinding().setTitle("Unknown")
