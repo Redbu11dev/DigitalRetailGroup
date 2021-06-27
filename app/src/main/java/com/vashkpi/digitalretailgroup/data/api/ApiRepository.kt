@@ -105,107 +105,128 @@ class ApiRepository @Inject constructor(private val apiService: ApiService, priv
         )
     }
 
-    suspend fun getBrands(): Flow<Resource<List<BrandEntity>>> {
+    suspend fun getBrands(): Flow<Resource<BrandsResponseDto?>> {
         Timber.d("trying")
-        return networkBoundResource(
-            query = {
-                appDatabase.brandDao().getAll()
-            },
+        return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.getBrands(dataStoreRepository.userId))
-            },
-            shouldFetch = {
-                //it.isEmpty()
-                true
-            },
-            saveFetchResult = {
-                appDatabase.brandDao().insertMany(it.elements.map {
-                    it.asDatabaseModel()
-                })
-
-            },
-            mapper = {
-                it.elements.map {
-                    it.asDatabaseModel()
-                }
             }
         )
+//        return networkBoundResource(
+//            query = {
+//                appDatabase.brandDao().getAll()
+//            },
+//            fetch = {
+//                ApiResponse.create(apiService.getBrands(dataStoreRepository.userId))
+//            },
+//            shouldFetch = {
+//                //it.isEmpty()
+//                true
+//            },
+//            saveFetchResult = {
+//                appDatabase.brandDao().clearAll()
+//                appDatabase.brandDao().insertMany(it.elements.map {
+//                    it.asDatabaseModel()
+//                })
+//
+//            },
+//            mapper = {
+//                it.elements.map {
+//                    it.asDatabaseModel()
+//                }
+//            }
+//        )
     }
 
-    suspend fun getBrandInfo(brandId: String): Flow<Resource<BrandInfoEntityFull?>> {
+    suspend fun getBrandInfo(brandId: String): Flow<Resource<BrandInfoResponseDto?>> {
         Timber.d("trying")
-        return networkBoundResource(
-            query = {
-                    //flowOf<BrandInfoEntityFull?>(null)
-                appDatabase.brandInfoDao().getOne(brandId)
-            },
+        return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.getBrandInfo(dataStoreRepository.userId, brandId))
-            },
-            shouldFetch = {
-                //it == null
-                true
-            },
-            saveFetchResult = {
-                appDatabase.brandInfoDao().clearAll()
-                appDatabase.brandInfoDao().insertBrandInfoEntity(
-                    it.asDatabaseModel(brandId).brandInfoEntity,
-                    it.asDatabaseModel(brandId).regions
-                )
-            },
-            mapper = {
-                it.asDatabaseModel(brandId)
             }
         )
+//        return networkBoundResource(
+//            query = {
+//                    //flowOf<BrandInfoEntityFull?>(null)
+//                appDatabase.brandInfoDao().getOne(brandId)
+//            },
+//            fetch = {
+//                ApiResponse.create(apiService.getBrandInfo(dataStoreRepository.userId, brandId))
+//            },
+//            shouldFetch = {
+//                //it == null
+//                true
+//            },
+//            saveFetchResult = {
+//                appDatabase.brandInfoDao().clearAll()
+//                appDatabase.brandInfoDao().insertBrandInfoEntity(
+//                    it.asDatabaseModel(brandId).brandInfoEntity,
+//                    it.asDatabaseModel(brandId).regions
+//                )
+//            },
+//            mapper = {
+//                it.asDatabaseModel(brandId)
+//            }
+//        )
     }
 
-    suspend fun getRegionStores(brandId: String, regionId: String): Flow<Resource<List<StoreEntity>>> {
+    suspend fun getRegionStores(brandId: String, regionId: String): Flow<Resource<StoresResponseDto?>> {
         Timber.d("trying")
-        return networkBoundResource(
-            query = {
-                appDatabase.storeDao().getAll(brandId, regionId)
-            },
+        return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.getRegionStores(dataStoreRepository.userId, brandId, regionId))
-            },
-            shouldFetch = {
-                //it.isEmpty()
-                true
-            },
-            saveFetchResult = {
-                appDatabase.storeDao().insertMany(it.elements.map {
-                    it.asDatabaseModel(brandId, regionId)
-                })
-
-            },
-            mapper = {
-                it.elements.map {
-                    it.asDatabaseModel(brandId, regionId)
-                }
             }
         )
+//        return networkBoundResource(
+//            query = {
+//                appDatabase.storeDao().getAll(brandId, regionId)
+//            },
+//            fetch = {
+//                ApiResponse.create(apiService.getRegionStores(dataStoreRepository.userId, brandId, regionId))
+//            },
+//            shouldFetch = {
+//                //it.isEmpty()
+//                true
+//            },
+//            saveFetchResult = {
+//                appDatabase.storeDao().insertMany(it.elements.map {
+//                    it.asDatabaseModel(brandId, regionId)
+//                })
+//
+//            },
+//            mapper = {
+//                it.elements.map {
+//                    it.asDatabaseModel(brandId, regionId)
+//                }
+//            }
+//        )
     }
 
-    suspend fun getStoreInfo(storeId: String): Flow<Resource<StoreInfoEntity?>> {
+    suspend fun getStoreInfo(storeId: String): Flow<Resource<StoreInfoResponseDto?>> {
         Timber.d("trying")
-        return networkBoundResource(
-            query = {
-                appDatabase.storeInfoDao().getOne(storeId)
-            },
+        return networkResponse(
             fetch = {
                 ApiResponse.create(apiService.getRegionStoreInfo(dataStoreRepository.userId, storeId))
-            },
-            shouldFetch = {
-                //it == null
-                true
-            },
-            saveFetchResult = {
-                appDatabase.storeInfoDao().insertOne(it.asDatabaseModel(storeId))
-            },
-            mapper = {
-                it.asDatabaseModel(storeId)
             }
         )
+//        return networkBoundResource(
+//            query = {
+//                appDatabase.storeInfoDao().getOne(storeId)
+//            },
+//            fetch = {
+//                ApiResponse.create(apiService.getRegionStoreInfo(dataStoreRepository.userId, storeId))
+//            },
+//            shouldFetch = {
+//                //it == null
+//                true
+//            },
+//            saveFetchResult = {
+//                appDatabase.storeInfoDao().insertOne(it.asDatabaseModel(storeId))
+//            },
+//            mapper = {
+//                it.asDatabaseModel(storeId)
+//            }
+//        )
     }
 
 //    suspend fun getNotifications(userId: String, page: Int): Flow<Resource<List<NotificationEntity>>> {

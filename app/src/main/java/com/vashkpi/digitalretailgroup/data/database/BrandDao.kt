@@ -15,4 +15,7 @@ interface BrandDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMany(items: List<BrandEntity>)
+
+    @Query("DELETE FROM brands")
+    fun clearAll()
 }

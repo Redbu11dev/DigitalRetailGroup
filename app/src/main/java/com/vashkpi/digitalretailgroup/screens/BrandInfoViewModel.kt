@@ -8,6 +8,7 @@ import com.vashkpi.digitalretailgroup.data.models.database.asDomainModel
 import com.vashkpi.digitalretailgroup.data.models.domain.Brand
 import com.vashkpi.digitalretailgroup.data.models.domain.BrandInfo
 import com.vashkpi.digitalretailgroup.data.models.domain.BrandInfoRegion
+import com.vashkpi.digitalretailgroup.data.models.network.asDomainModel
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -48,23 +49,23 @@ class BrandInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
                 when (it) {
                     is Resource.Loading -> {
                         Timber.i("it's loading")
-                        it.data?.let { data ->
-                            Timber.d("here is the old data: $data")
-
-                            _brandInfo.value = data.asDomainModel()
-                        }
-                        //postProgressViewVisibility(true)
+//                        it.data?.let { data ->
+//                            Timber.d("here is the old data: $data")
+//
+//                            _brandInfo.value = data.asDomainModel()
+//                        }
+                        postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
                         val message = it.error?.message
                         Timber.i("it's error: ${message}")
                         //it.error.
-                        //postProgressViewVisibility(false, 200)
+                        postProgressViewVisibility(false, 200)
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
                         Timber.i("it's success")
-                        //postProgressViewVisibility(false, 200)
+                        postProgressViewVisibility(false, 200)
                         //check if empty?!
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")

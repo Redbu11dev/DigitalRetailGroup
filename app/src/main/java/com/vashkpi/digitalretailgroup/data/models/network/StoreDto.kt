@@ -3,6 +3,7 @@ package com.vashkpi.digitalretailgroup.data.models.network
 import android.os.Parcelable
 import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
 import com.vashkpi.digitalretailgroup.data.models.database.StoreEntity
+import com.vashkpi.digitalretailgroup.data.models.domain.Store
 import kotlinx.parcelize.Parcelize
 
 fun StoreDto.asDatabaseModel(brand_id: String,
@@ -11,6 +12,16 @@ fun StoreDto.asDatabaseModel(brand_id: String,
         brand_id,
         region_id,
 
+        name,
+        store_id,
+        image_parth,
+        order,
+        address
+    )
+}
+
+fun StoreDto.asDomainModel(): Store {
+    return Store(
         name,
         store_id,
         image_parth,

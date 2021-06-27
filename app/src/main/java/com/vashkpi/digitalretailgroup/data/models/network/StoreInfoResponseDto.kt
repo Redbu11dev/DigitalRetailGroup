@@ -3,11 +3,24 @@ package com.vashkpi.digitalretailgroup.data.models.network
 import com.vashkpi.digitalretailgroup.data.models.database.BrandEntity
 import com.vashkpi.digitalretailgroup.data.models.database.StoreEntity
 import com.vashkpi.digitalretailgroup.data.models.database.StoreInfoEntity
+import com.vashkpi.digitalretailgroup.data.models.domain.StoreInfo
 
 fun StoreInfoResponseDto.asDatabaseModel(store_id: String): StoreInfoEntity {
     return StoreInfoEntity(
         store_id,
 
+        name,
+        image_parth,
+        website,
+        time_of_work,
+        telephone,
+        address,
+        description,
+    )
+}
+
+fun StoreInfoResponseDto.asDomainModel(): StoreInfo {
+    return StoreInfo(
         name,
         image_parth,
         website,

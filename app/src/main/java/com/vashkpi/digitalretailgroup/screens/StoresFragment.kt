@@ -40,6 +40,8 @@ class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(Frag
                 adapter.submitList(it)
             }
         }
+
+        viewModel.obtainRegionStores(args.brand.brand_id, args.brandInfoRegion.region_id)
     }
 
     override fun setupToolbar() {
@@ -62,7 +64,7 @@ class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(Frag
 //        binding.customToolbar.toolbar.title = brandInfoRegion.name
         getCustomToolbarBinding().setTitle(brandInfoRegion.name)
 
-        viewModel.obtainRegionStores(brand.brand_id, brandInfoRegion.region_id)
+
     }
 
     override fun observeViewModel() {

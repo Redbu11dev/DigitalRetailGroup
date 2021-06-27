@@ -6,6 +6,8 @@ import com.vashkpi.digitalretailgroup.data.api.ApiRepository
 import com.vashkpi.digitalretailgroup.data.api.Resource
 import com.vashkpi.digitalretailgroup.data.models.domain.Brand
 import com.vashkpi.digitalretailgroup.data.models.database.asDomainModel
+import com.vashkpi.digitalretailgroup.data.models.network.asDatabaseModel
+import com.vashkpi.digitalretailgroup.data.models.network.asDomainModel
 import com.vashkpi.digitalretailgroup.data.preferences.DataStoreRepository
 import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -49,11 +51,11 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                         Timber.i("it's loading")
                         //postProgressViewVisibility(true)
                         _brandsListLoading.value = true
-                        it.data?.let { data ->
-                            Timber.d("here is the old data: $data")
-
-                            _brandsList.value = data.map { it.asDomainModel() }.toMutableList()
-                        }
+//                        it.data?.let { data ->
+//                            Timber.d("here is the old data: $data")
+//
+//                            _brandsList.value = data.map { it.asDomainModel() }.toMutableList()
+//                        }
                     }
                     is Resource.Error -> {
                         val message = it.error?.message
@@ -73,7 +75,8 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                         it.data?.let { data ->
                             Timber.i("here is the data: $data")
 
-                            _brandsList.value = data.map { it.asDomainModel() }.toMutableList()
+//                            _brandsList.value = data.map { it.asDomainModel() }.toMutableList()
+                            _brandsList.value = data.elements.map { it.asDomainModel() }.toMutableList()
                         }
                     }
                 }
