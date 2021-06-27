@@ -3,10 +3,11 @@ package com.vashkpi.digitalretailgroup.screens
 import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
+import androidx.navigation.fragment.findNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentBarcodeBinding
-import com.vashkpi.digitalretailgroup.utils.BarcodeGenerator
+import com.vashkpi.digitalretailgroup.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import java.text.SimpleDateFormat
@@ -22,8 +23,12 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
     private val barcodeGenerator = BarcodeGenerator()
 
     override fun setupToolbar() {
-        setUpCustomToolbarWithNavController(
-            showLogo = true,
+        getCustomToolbar().setUpWithNavController(
+            titleText = null,
+            navController = findNavController()
+        ).showLogo(
+            showLogo = true
+        ).setButtons(
             buttonIcons = arrayOf(
                 R.drawable.ic_bell,
                 R.drawable.ic_profile

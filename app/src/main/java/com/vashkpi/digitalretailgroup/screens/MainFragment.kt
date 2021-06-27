@@ -13,7 +13,7 @@ import com.vashkpi.digitalretailgroup.adapters.BrandsAdapter
 import com.vashkpi.digitalretailgroup.adapters.MainOptionsAdapter
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentMainBinding
-import com.vashkpi.digitalretailgroup.utils.changeAlphaOnTouch
+import com.vashkpi.digitalretailgroup.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -65,8 +65,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
     }
 
     override fun setupToolbar() {
-        setUpCustomToolbarWithNavController(
-            showLogo = true,
+        getCustomToolbar().setUpWithNavController(
+            titleText = null,
+            navController = findNavController()
+        ).showLogo(
+            showLogo = true
+        ).setButtons(
             buttonIcons = arrayOf(
                 R.drawable.ic_bell,
                 R.drawable.ic_profile

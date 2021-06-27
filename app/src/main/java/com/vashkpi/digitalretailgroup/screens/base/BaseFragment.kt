@@ -4,11 +4,8 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.transition.*
@@ -16,6 +13,7 @@ import com.vashkpi.digitalretailgroup.MainActivity
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.databinding.CustomToolbarBinding
 import com.vashkpi.digitalretailgroup.utils.safeNavigate
+import com.vashkpi.digitalretailgroup.utils.setUpWithNavController
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
 
@@ -59,74 +57,11 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
         }
     }
 
-    fun setUpCustomToolbarWithNavController(toolbarBinding: CustomToolbarBinding? = getCustomToolbar(),
-                               showLogo: Boolean = false,
-                               titleText: String? = getLabel(),
-                               showBackButtonIfAvailable: Boolean = !showLogo,
-                               showBackButtonText: Boolean = titleText?.isBlank() ?: true,
-                               buttonIcons: Array<Int>? = null,
-                               menuButtonClickListener: (buttonId: Int) -> Unit? = {}
-    ) {
-        toolbarBinding?.let { toolbar ->
-
-            if (showLogo) {
-                toolbar.logo.visibility = View.VISIBLE
-            }
-            else {
-                toolbar.logo.visibility = View.GONE
-            }
-
-            val titleView = toolbar.title
-            if (titleText.isNullOrBlank() || showLogo) {
-                titleView.visibility = View.GONE
-            }
-            else {
-                titleView.text = titleText
-                titleView.visibility = View.VISIBLE
-            }
-
-            val backButtonContainer = toolbar.backButtonContainer
-            if (!showBackButtonIfAvailable || findNavController().previousBackStackEntry == null) {
-                backButtonContainer.visibility = View.GONE
-            }
-            else {
-                backButtonContainer.setOnClickListener {
-                    findNavController().navigateUp()
-                }
-                if (showBackButtonText) {
-                    toolbar.backButtonText.visibility = View.VISIBLE
-                }
-                else {
-                    toolbar.backButtonText.visibility = View.GONE
-                }
-                backButtonContainer.visibility = View.VISIBLE
-            }
-
-            buttonIcons?.let {
-                if (buttonIcons.isNotEmpty()) {
-                    toolbar.menuButtons.visibility = View.VISIBLE
-                    it.forEachIndexed { index, iconResId ->
-                        if (index > 1) {
-                            throw IllegalStateException("can't have more than 2 buttons")
-                        }
-                        val button = (toolbar.menuButtons[index] as AppCompatImageView)
-                        button.visibility = View.VISIBLE
-                        button.setImageResource(iconResId)
-                        button.setOnClickListener {
-                            menuButtonClickListener(it.id)
-                        }
-                    }
-                }
-                else {
-                    toolbar.menuButtons.visibility = View.GONE
-                }
-            }
-
-        }
-    }
-
     open fun setupToolbar() {
-        setUpCustomToolbarWithNavController()
+        getCustomToolbar().setUpWithNavController(
+            titleText = getLabel(),
+            navController = findNavController()
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
