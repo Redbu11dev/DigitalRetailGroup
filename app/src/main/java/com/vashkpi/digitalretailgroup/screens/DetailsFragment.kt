@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.databinding.FragmentDetailsBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
+import com.vashkpi.digitalretailgroup.utils.setTitle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -28,23 +29,23 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>(F
 
         val type = args.type
 
-//        when (type) {
-//            0 -> {
-//                toolbar.title = getString(R.string.description_title_save)
-//                viewModel.getSavePointsRules()
-//            }
-//            1 -> {
-//                toolbar.title = getString(R.string.description_title_get)
-//                viewModel.getSpendPointsRules()
-//            }
-//            2 -> {
-//                toolbar.title = getString(R.string.description_title_promotion_rules)
-//                viewModel.getSpendPointsRules()
-//            }
-//            else -> {
-//                toolbar.title = "Unknown"
-//            }
-//        }
+        when (type) {
+            0 -> {
+                getCustomToolbarBinding().setTitle(getString(R.string.description_title_save))
+                viewModel.getSavePointsRules()
+            }
+            1 -> {
+                getCustomToolbarBinding().setTitle(getString(R.string.description_title_get))
+                viewModel.getSpendPointsRules()
+            }
+            2 -> {
+                getCustomToolbarBinding().setTitle(getString(R.string.description_title_promotion_rules))
+                viewModel.getSpendPointsRules()
+            }
+            else -> {
+                getCustomToolbarBinding().setTitle("Unknown")
+            }
+        }
 
     }
 
