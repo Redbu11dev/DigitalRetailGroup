@@ -181,49 +181,57 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
         postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToDetailsFragment(2))
     }
 
+    private fun saveDeviceInfoOnServer(newFcmToken: String?) {
+
+        val fcmTokenToUse = newFcmToken ?: dataStoreRepository.fcmToken
+
+        val savedDeviceInfo = dataStoreRepository.savedDeviceInfo
+        val currentDeviceInfo = DeviceInfo(
+            dataStoreRepository.userId,
+            fcmTokenToUse,
+            dataStoreRepository.deviceId,
+            AppConstants.DEVICE_OS
+        )
+
+        if (savedDeviceInfo != currentDeviceInfo) {
+            //attempt to save new device info on the server
+            viewModelScope.launch {
+                apiRepository.saveDeviceInfo(currentDeviceInfo.asNetworkModel()).collect {
+                    when (it) {
+                        is Resource.Loading -> {
+                            Timber.d("attempting to store new device info")
+                        }
+                        is Resource.Error -> {
+                            val message = it.error?.message
+                            Timber.d("Unable to store new device info: ${message}")
+                        }
+                        is Resource.Success -> {
+                            Timber.d("it's success")
+
+                            dataStoreRepository.savedDeviceInfo = currentDeviceInfo
+
+                            //check if empty
+                            it.data?.let { data ->
+                                Timber.d("here is the data: $data")
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
     fun trySaveDeviceInfoOnServer() {
         obtainFcmToken(
             {fcmToken ->
                 dataStoreRepository.fcmToken = fcmToken
-                val savedDeviceInfo = dataStoreRepository.savedDeviceInfo
-                val currentDeviceInfo = DeviceInfo(
-                    dataStoreRepository.userId,
-                    fcmToken,
-                    dataStoreRepository.deviceId,
-                    AppConstants.DEVICE_OS
-                )
-
-                if (savedDeviceInfo != currentDeviceInfo) {
-                    //attempt to save new device info on the server
-                    viewModelScope.launch {
-                        apiRepository.saveDeviceInfo(currentDeviceInfo.asNetworkModel()).collect {
-                            when (it) {
-                                is Resource.Loading -> {
-                                    Timber.d("attempting to store new device info")
-                                }
-                                is Resource.Error -> {
-                                    val message = it.error?.message
-                                    Timber.d("Unable to store new device info: ${message}")
-                                }
-                                is Resource.Success -> {
-                                    Timber.d("it's success")
-
-                                    dataStoreRepository.savedDeviceInfo = currentDeviceInfo
-
-                                    //check if empty
-                                    it.data?.let { data ->
-                                        Timber.d("here is the data: $data")
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                }
+                saveDeviceInfoOnServer(fcmToken)
             },
             {
                 //unable to obtain token
                 //do nothing?
+                saveDeviceInfoOnServer(null)
             }
         )
 
