@@ -64,6 +64,25 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
         }
     }
 
+    override fun setupToolbar() {
+        setUpCustomToolbarWithNavController(
+            showLogo = true,
+            buttonIcons = arrayOf(
+                R.drawable.ic_bell,
+                R.drawable.ic_profile
+            )
+        ) { id ->
+            when (id) {
+                R.id.button0 -> {
+                    viewModel.onMenuNotificationsItemClick()
+                }
+                R.id.button1 -> {
+                    viewModel.onMenuProfileItemClick()
+                }
+            }
+        }
+    }
+
     override fun setUpViews() {
         super.setUpViews()
 

@@ -4,18 +4,12 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.*
-import android.widget.LinearLayout
-import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.PopupMenu
-import androidx.core.view.forEachIndexed
 import androidx.core.view.get
-import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
-import com.google.android.material.textview.MaterialTextView
 import com.google.android.material.transition.*
 import com.vashkpi.digitalretailgroup.MainActivity
 import com.vashkpi.digitalretailgroup.R
@@ -56,16 +50,27 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
         }
     }
 
+    fun getLabel(): String? {
+        findNavController().currentDestination?.let {
+            return it.label.toString()
+        } ?: kotlin.run {
+            return null
+        }
+    }
+
     fun setUpCustomToolbarWithNavController(toolbarBinding: CustomToolbarBinding? = getCustomToolbar(),
-                                            titleText: String? = null,
-                                            showBackButtonText: Boolean = false,
+                                            showLogo: Boolean = false,
+                                            titleText: String? = getLabel(),
+                                            showBackButtonIfAvailable: Boolean = !showLogo,
+                                            showBackButtonText: Boolean = titleText?.isBlank() ?: true,
                                             buttonIcons: Array<Int>? = null,
                                             menuButtonClickListener: (buttonId: Int) -> Unit? = {}
                                             ) {
         toolbarBinding?.let { toolbar ->
 
             val titleView = toolbar.title
-            if (titleText.isNullOrBlank()) {
+
+            if (showLogo || titleText.isNullOrBlank()) {
                 titleView.visibility = View.GONE
             }
             else {
@@ -73,8 +78,16 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
                 titleView.visibility = View.VISIBLE
             }
 
+            if (showLogo) {
+                toolbar.logo.visibility = View.VISIBLE
+            }
+            else {
+                toolbar.logo.visibility = View.GONE
+            }
+
+
             val backButtonContainer = toolbar.backButtonContainer
-            if (findNavController().previousBackStackEntry == null) {
+            if (!showBackButtonIfAvailable || findNavController().previousBackStackEntry == null) {
                 backButtonContainer.visibility = View.GONE
             }
             else {
@@ -89,7 +102,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
                 }
                 backButtonContainer.visibility = View.VISIBLE
             }
-
 
             buttonIcons?.let {
                 if (buttonIcons.isNotEmpty()) {
@@ -111,6 +123,10 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
                 }
             }
         }
+    }
+
+    open fun setupToolbar() {
+        setUpCustomToolbarWithNavController()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -147,6 +163,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupToolbar()
         setUpViews()
         //observeViews()
         observeViewModel()

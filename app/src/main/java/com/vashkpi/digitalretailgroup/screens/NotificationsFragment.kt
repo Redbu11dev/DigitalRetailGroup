@@ -67,11 +67,13 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
         viewModel.syncNotifications()
     }
 
+//    override fun setupToolbar() {
+//        setUpCustomToolbarWithNavController(showBackButtonText = true)
+//    }
+
     @ExperimentalPagingApi
     override fun setUpViews() {
         super.setUpViews()
-
-        setUpCustomToolbarWithNavController(showBackButtonText = true)
 
 //        val toolbar = binding.customToolbar.toolbar
 //        val navController = findNavController()

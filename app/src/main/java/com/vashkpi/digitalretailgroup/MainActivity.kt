@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vashkpi.digitalretailgroup.databinding.ActivityMainBinding
@@ -91,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         //setupActionBarWithNavController(navController, appBarConfiguration)
 
-        //toolbar.setupWithNavController(navController, appBarConfiguration)
+        //Toolbar(this).setupWithNavController(navController, appBarConfiguration)
 
         navView.setupWithNavController(navController)
         navView.setOnNavigationItemSelectedListener {

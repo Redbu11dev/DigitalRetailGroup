@@ -21,10 +21,9 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
 
     private val barcodeGenerator = BarcodeGenerator()
 
-    override fun setUpViews() {
-        super.setUpViews()
-
+    override fun setupToolbar() {
         setUpCustomToolbarWithNavController(
+            showLogo = true,
             buttonIcons = arrayOf(
                 R.drawable.ic_bell,
                 R.drawable.ic_profile
@@ -44,6 +43,10 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
                 }
             }
         }
+    }
+
+    override fun setUpViews() {
+        super.setUpViews()
 
 //        val toolbar = binding.customToolbar.toolbar
 //
