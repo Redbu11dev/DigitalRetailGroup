@@ -3,20 +3,20 @@
 
     <!--    Overrides-->
 
-<!--    <color name="mtrl_textinput_default_box_stroke_color">#fff</color>-->
+    <!--    <color name="mtrl_textinput_default_box_stroke_color">#fff</color>-->
 
-<!--    Utility colors-->
+    <!--    Utility colors-->
 
     <color name="transparent">#00000000</color>
 
-<!--    Design colors (named as given)-->
+    <!--    Design colors (named as given)-->
 
     <color name="white">#F6FFFB</color>
 
     <color name="bg">#151D19</color>
 
     <color name="button_start">#E1D100</color>
-<!--    I need two same colors but different-->
+    <!--    I need two same colors but different-->
     <color name="button_start_99percent">#FEE1D100</color>
     <color name="button_end">#DB7200</color>
 
@@ -42,5 +42,10 @@
     <color name="input_strock">#394942</color>
 
     <color name="orange">#DB7200</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
 
 </resources>

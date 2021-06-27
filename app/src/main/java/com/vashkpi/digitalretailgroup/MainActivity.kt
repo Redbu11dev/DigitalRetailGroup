@@ -5,12 +5,9 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vashkpi.digitalretailgroup.databinding.ActivityMainBinding
@@ -36,14 +33,14 @@ class MainActivity : AppCompatActivity() {
         val winParams = window.attributes
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = Color.TRANSPARENT
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-            navigationBarColor = Color.TRANSPARENT
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//            statusBarColor = Color.TRANSPARENT
+//        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+//            navigationBarColor = Color.TRANSPARENT
+//        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             systemUiVisibility = systemUiVisibility or
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
@@ -51,18 +48,20 @@ class MainActivity : AppCompatActivity() {
                     View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
             window.decorView.systemUiVisibility = systemUiVisibility
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            winParams.flags = winParams.flags or
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            winParams.flags = winParams.flags and
-                    (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or
-                            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION).inv()
-            window.statusBarColor = statusBarColor
-            window.navigationBarColor = navigationBarColor
-        }
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//            winParams.flags = winParams.flags or
+//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+//        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            winParams.flags = winParams.flags and
+//                    (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or
+//                            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION).inv()
+////            window.statusBarColor = statusBarColor
+//            window.navigationBarColor = navigationBarColor
+//        }
+
+        window.navigationBarColor = navigationBarColor
 
         window.attributes = winParams
     }
@@ -71,13 +70,36 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_DigitalRetailGroup)
         super.onCreate(savedInstanceState)
 
+        //transparentStatusAndNavigation()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.navigationBarColor = Color.parseColor("#01000000")
+        val uiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        window.getDecorView().setSystemUiVisibility(uiVisibility)
+//        window.decorView.systemUiVisibility = (
+//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+//        )
 
         //transparentStatusAndNavigation()
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
         val navView: BottomNavigationView = binding.navView
+        navView.setOnApplyWindowInsetsListener(null)
+
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+//            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+//        )
+//        window.navigationBarColor = Color.TRANSPARENT
+//        window.isNavigationBarContrastEnforced = false
+//        window.statusBarColor = ContextCompat.getColor(this, R.color.orange)
 
         //val toolbar = binding.customToolbar.toolbar
 

@@ -96,6 +96,8 @@
     <!--    Snackbar-->
     <string name="snackbar_btn_cancel">Отменить</string>
     <string name="snackbar_msg_message_removed">Сообщение удалено</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 
 </resources>

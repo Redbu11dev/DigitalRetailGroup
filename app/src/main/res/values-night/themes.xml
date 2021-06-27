@@ -1,50 +1,50 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-<!--    <style name="Theme.DigitalRetailGroup" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
-<!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
-<!--        <item name="colorPrimary">@color/purple_200</item>-->
-<!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
-<!--        <item name="colorOnPrimary">@color/black</item>-->
-<!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
-<!--        <item name="colorSecondary">@color/teal_200</item>-->
-<!--        <item name="colorSecondaryVariant">@color/teal_200</item>-->
-<!--        <item name="colorOnSecondary">@color/black</item>-->
-<!--        &lt;!&ndash; Status bar color. &ndash;&gt;-->
-<!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
-<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--    <style name="Theme.DigitalRetailGroup" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+    <!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
+    <!--        <item name="colorPrimary">@color/purple_200</item>-->
+    <!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
+    <!--        <item name="colorOnPrimary">@color/black</item>-->
+    <!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
+    <!--        <item name="colorSecondary">@color/teal_200</item>-->
+    <!--        <item name="colorSecondaryVariant">@color/teal_200</item>-->
+    <!--        <item name="colorOnSecondary">@color/black</item>-->
+    <!--        &lt;!&ndash; Status bar color. &ndash;&gt;-->
+    <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
+    <!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
 
-<!--        <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>-->
+    <!--        <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>-->
 
-<!--    </style>-->
+    <!--    </style>-->
 
-<!--    <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">-->
-<!--        <item name="android:background">@drawable/toolbar_icon_background</item>-->
-<!--&lt;!&ndash;        <item name="android:padding">0dp</item>&ndash;&gt;-->
+    <!--    <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">-->
+    <!--        <item name="android:background">@drawable/toolbar_icon_background</item>-->
+    <!--&lt;!&ndash;        <item name="android:padding">0dp</item>&ndash;&gt;-->
 
-<!--        <item name="android:padding">0dp</item>-->
-<!--        <item name="android:minWidth">0dp</item>-->
-<!--        <item name="android:minHeight">0dp</item>-->
-<!--        <item name="android:paddingStart">0dp</item>-->
-<!--        <item name="android:paddingEnd">0dp</item>-->
+    <!--        <item name="android:padding">0dp</item>-->
+    <!--        <item name="android:minWidth">0dp</item>-->
+    <!--        <item name="android:minHeight">0dp</item>-->
+    <!--        <item name="android:paddingStart">0dp</item>-->
+    <!--        <item name="android:paddingEnd">0dp</item>-->
 
-<!--        &lt;!&ndash;        <item name="android:minWidth">0dip</item>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <item name="android:paddingStart">0dip</item>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <item name="android:paddingEnd">0dip</item>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <item name="android:paddingTop">0dip</item>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <item name="android:paddingBottom">0dip</item>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <item name="android:drawablePadding">0dp</item>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <item name="android:background">?attr/actionBarItemBackground</item>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <item name="android:minWidth">500dp</item>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <item name="android:minHeight">500dp</item>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <item name="android:scaleType">center</item>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <item name="android:gravity">center</item>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <item name="android:maxLines">2</item>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <item name="textAllCaps">@bool/abc_config_actionMenuItemAllCaps</item>&ndash;&gt;-->
-<!--    </style>-->
+    <!--        &lt;!&ndash;        <item name="android:minWidth">0dip</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="android:paddingStart">0dip</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="android:paddingEnd">0dip</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="android:paddingTop">0dip</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="android:paddingBottom">0dip</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="android:drawablePadding">0dp</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="android:background">?attr/actionBarItemBackground</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="android:minWidth">500dp</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="android:minHeight">500dp</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="android:scaleType">center</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="android:gravity">center</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="android:maxLines">2</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="textAllCaps">@bool/abc_config_actionMenuItemAllCaps</item>&ndash;&gt;-->
+    <!--    </style>-->
 
-<!--    <style name="ToolbarTheme" parent="@style/Theme.AppCompat.NoActionBar">-->
-<!--        &lt;!&ndash; Customize color of navigation drawer icon and back arrow &ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="colorControlNormal">@color/toolbar_color_control_normal</item>&ndash;&gt;-->
-<!--        <item name="android:homeAsUpIndicator">@drawable/ic_bell</item>-->
-<!--    </style>-->
+    <!--    <style name="ToolbarTheme" parent="@style/Theme.AppCompat.NoActionBar">-->
+    <!--        &lt;!&ndash; Customize color of navigation drawer icon and back arrow &ndash;&gt;-->
+    <!--&lt;!&ndash;        <item name="colorControlNormal">@color/toolbar_color_control_normal</item>&ndash;&gt;-->
+    <!--        <item name="android:homeAsUpIndicator">@drawable/ic_bell</item>-->
+    <!--    </style>-->
 </resources>

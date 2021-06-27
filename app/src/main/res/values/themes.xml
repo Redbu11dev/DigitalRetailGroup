@@ -3,41 +3,40 @@
     <!--    <style name="Theme.DigitalRetailGroup" parent="Theme.MaterialComponents">-->
     <style name="Theme.DigitalRetailGroup" parent="Theme.MaterialComponents.NoActionBar">
 
-<!--        <item name="colorPrimary">@color/bg</item>-->
-<!--        <item name="colorPrimaryVariant">@color/bg_shadow</item>-->
-<!--        <item name="colorOnPrimary">@color/app_white</item>-->
+        <!--        <item name="colorPrimary">@color/bg</item>-->
+        <!--        <item name="colorPrimaryVariant">@color/bg_shadow</item>-->
+        <!--        <item name="colorOnPrimary">@color/app_white</item>-->
 
-<!--        <item name="colorSecondary">@color/not_active</item>-->
-<!--        <item name="colorSecondaryVariant">@color/not_active</item>-->
-<!--        <item name="colorOnSecondary">#00FF00</item>&ndash;&gt;-->
+        <!--        <item name="colorSecondary">@color/not_active</item>-->
+        <!--        <item name="colorSecondaryVariant">@color/not_active</item>-->
+        <!--        <item name="colorOnSecondary">#00FF00</item>&ndash;&gt;-->
 
-<!--        <item name="colorSurface">@color/bg</item>-->
-<!--        <item name="colorOnSurface">@color/color_on_surface</item>-->
+        <!--        <item name="colorSurface">@color/bg</item>-->
+        <!--        <item name="colorOnSurface">@color/color_on_surface</item>-->
 
-<!--        <item name="android:colorBackground">@color/bg</item>-->
-<!--        <item name="colorOnBackground">@color/color_on_surface</item>-->
+        <!--        <item name="android:colorBackground">@color/bg</item>-->
+        <!--        <item name="colorOnBackground">@color/color_on_surface</item>-->
 
-<!--        <item name="colorError">@color/orange</item>-->
-<!--        <item name="colorOnError">@color/color_on_surface</item>-->
+        <!--        <item name="colorError">@color/orange</item>-->
+        <!--        <item name="colorOnError">@color/color_on_surface</item>-->
 
         <item name="colorPrimary">@color/bg</item>
 
         <!-- Customize your theme here. -->
 
-<!--        Strict element color definitions-->
-<!--        Scrim color reference-->
+        <!--        Strict element color definitions-->
+        <!--        Scrim color reference-->
         <item name="scrimBackground">@color/mtrl_scrim_color</item>
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/bg</item>
 
-<!--        Splash screen as android:windowBackground: https://stackoverflow.com/a/54756525-->
+        <!--        Splash screen as android:windowBackground: https://stackoverflow.com/a/54756525-->
         <item name="android:windowBackground">@drawable/splash_background</item>
-        <item name="android:navigationBarColor">@color/bg</item>
+        <!--        <item name="android:navigationBarColor">@color/bg</item>-->
 
 
-
-<!--        Styles-->
+        <!--        Styles-->
         <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
 
         <item name="snackbarStyle">@style/Widget.DigitalRetailGroup.Snackbar</item>
@@ -49,31 +48,40 @@
         <item name="android:colorControlActivated">@color/white</item>
         <item name="android:textColorPrimary">@color/white</item>
 
-<!--        <item name="fontFamily">@font/sf_ui_text_regular</item>-->
+        <!--        <item name="fontFamily">@font/sf_ui_text_regular</item>-->
 
-<!--        <item name="android:textAppearance">@style/Widget.DigitalRetailGroup.TextGeneric</item>-->
+        <!--        <item name="android:textAppearance">@style/Widget.DigitalRetailGroup.TextGeneric</item>-->
 
         <item name="materialCalendarTheme">@style/ThemeOverlay.DigitalRetailGroup.DatePicker</item>
 
-<!--        <item name="android:navigationBarColor">@android:color/transparent</item>-->
-<!--        <item name="android:enforceNavigationBarContrast">false</item>-->
-<!--        <item name="android:windowTranslucentStatus">true</item>-->
+<!--                <item name="android:windowTranslucentStatus">true</item>-->
+<!--                <item name="android:windowTranslucentNavigation">true</item>-->
+
+<!--        <item name="android:navigationBarColor">#00FFFFFF</item>-->
 <!--        <item name="android:windowTranslucentNavigation">true</item>-->
-<!--        <item name="android:fitsSystemWindows">true</item>-->
-<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
+<!--        <item name="android:navigationBarColor">#01000000</item>-->
 <!--        <item name="android:windowLightNavigationBar">true</item>-->
-<!--        <item name="android:statusBarColor">@color/primary_dark</item>-->
+
+        <!--        <item name="android:navigationBarColor">@android:color/transparent</item>-->
+        <!--        <item name="android:enforceNavigationBarContrast">false</item>-->
+        <!--        <item name="android:windowTranslucentStatus">true</item>-->
+        <!--        <item name="android:windowTranslucentNavigation">true</item>-->
+        <!--        <item name="android:fitsSystemWindows">true</item>-->
+        <!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--        <item name="android:windowLightNavigationBar">true</item>-->
+        <!--        <item name="android:statusBarColor">@color/primary_dark</item>-->
 
     </style>
 
     <style name="ThemeOverlay.DigitalRetailGroup.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="colorPrimary">@color/not_active</item>
         <item name="colorOnPrimary">@color/white</item>
-<!--        <item name="colorOnPrimary">@color/bg</item>-->
-<!--        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>-->
-<!--        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>-->
-<!--        &lt;!&ndash; Customize text field of the text input mode. &ndash;&gt;-->
-<!--        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>-->
+        <!--        <item name="colorOnPrimary">@color/bg</item>-->
+        <!--        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>-->
+        <!--        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>-->
+        <!--        &lt;!&ndash; Customize text field of the text input mode. &ndash;&gt;-->
+        <!--        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>-->
     </style>
 
 </resources>

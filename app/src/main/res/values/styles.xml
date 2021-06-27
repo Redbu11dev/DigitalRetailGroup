@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-<!--    Primary element styles-->
+    <!--    Primary element styles-->
 
     <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">
-<!--        Style is used for toolbar buttons-->
+        <!--        Style is used for toolbar buttons-->
         <item name="android:background">@drawable/selector_icon_background</item>
 
         <item name="android:padding">0dp</item>
@@ -34,7 +34,6 @@
         <!--        <item name="textAllCaps">@bool/abc_config_actionMenuItemAllCaps</item>-->
 
 
-
     </style>
 
     <style name="Widget.DigitalRetailGroup.Snackbar" parent="Widget.MaterialComponents.Snackbar">
@@ -57,7 +56,7 @@
         <item name="android:layout_marginBottom">0dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
-<!--        <item name="android:background">@drawable/snackbar_bgr</item>-->
+        <!--        <item name="android:background">@drawable/snackbar_bgr</item>-->
 
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16dp</item>
@@ -81,14 +80,14 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif</item>
-<!--        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Caption</item>-->
+        <!--        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Caption</item>-->
 
         <item name="android:background">@color/transparent</item>
 
-<!--        <item name="backgroundTint">@null</item>-->
+        <!--        <item name="backgroundTint">@null</item>-->
     </style>
 
-<!--    Other widget styles-->
+    <!--    Other widget styles-->
 
     <style name="Widget.DigitalRetailGroup.Button.Main" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="backgroundTint">@null</item>
@@ -97,10 +96,10 @@
         <item name="android:textColor">@color/bg</item>
         <item name="android:textStyle">bold</item>
 
-<!--        <item name="elevation">8dp</item>-->
+        <!--        <item name="elevation">8dp</item>-->
         <item name="android:elevation">6dp</item>
         <item name="android:layerType">software</item>
-<!--        <item name="android:outlineSpotShadowColor">#00FF00</item>-->
+        <!--        <item name="android:outlineSpotShadowColor">#00FF00</item>-->
     </style>
 
     <style name="Widget.DigitalRetailGroup.Button.Green" parent="Widget.MaterialComponents.Button.OutlinedButton">
@@ -129,7 +128,7 @@
         <item name="android:textSize">12dp</item>
         <item name="android:textColor">@color/selector_color_radio_btn_text</item>
 
-<!--        <item name="android:background">?selectableItemBackground</item>-->
+        <!--        <item name="android:background">?selectableItemBackground</item>-->
     </style>
 
     <style name="Widget.DigitalRetailGroup.IconImageButton" parent="Widget.AppCompat.ImageButton">
@@ -141,10 +140,10 @@
         <item name="android:background">?selectableItemBackground</item>
     </style>
 
-<!--    Text related styles (do not want to make separate text appearances because they are not defined by design)-->
+    <!--    Text related styles (do not want to make separate text appearances because they are not defined by design)-->
 
     <style name="Widget.DigitalRetailGroup.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-<!--        <item name="boxBackgroundColor">@color/bg</item>-->
+        <!--        <item name="boxBackgroundColor">@color/bg</item>-->
         <item name="android:background">@drawable/bgr_textfield</item>
         <item name="android:layerType">software</item>
 
@@ -185,7 +184,8 @@
     </style>
 
     <style name="Widget.DigitalRetailGroup.ClickableTextView.GradientTextView" parent="Widget.DigitalRetailGroup.ClickableTextView">
-        <item name="android:textColor">@color/selector_color_clickable_textview_gradient_start</item>
+        <item name="android:textColor">@color/selector_color_clickable_textview_gradient_start
+        </item>
         <item name="gtvSecondaryColor">@color/button_end</item>
     </style>
 
@@ -193,10 +193,15 @@
         <item name="android:textColor">@color/selector_color_clickable_textview_secondary</item>
     </style>
 
-<!--    etc-->
-<!--    <style name="Test" parent="">-->
-<!--        <item name="android:paddingLeft">40dp</item>-->
-<!--        <item name="android:paddingRight">40dp</item>-->
-<!--    </style>-->
+    <style name="Widget.Theme.DigitalRetailGroup.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+    <!--    etc-->
+    <!--    <style name="Test" parent="">-->
+    <!--        <item name="android:paddingLeft">40dp</item>-->
+    <!--        <item name="android:paddingRight">40dp</item>-->
+    <!--    </style>-->
 
 </resources>
