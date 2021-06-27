@@ -48,9 +48,9 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
     override fun setUpViews() {
         super.setUpViews()
 
-        val toolbar = binding.customToolbar.toolbar
-        val navController = findNavController()
-        toolbar.setupWithNavController(navController)
+//        val toolbar = binding.customToolbar.toolbar
+//        val navController = findNavController()
+//        toolbar.setupWithNavController(navController)
 
         val brand = args.brand
 
@@ -80,7 +80,7 @@ class BrandInfoFragment : BaseFragment<FragmentBrandInfoBinding, BrandInfoViewMo
             viewModel.brandInfo.collect {
                 it?.let {
 
-                    binding.customToolbar.toolbar.title = it.name
+//                    binding.customToolbar.toolbar.title = it.name
 
                     val website = it.website
                     //val website = "www.mi.com/ru"

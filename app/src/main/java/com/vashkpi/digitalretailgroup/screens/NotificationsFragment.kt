@@ -71,9 +71,11 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
     override fun setUpViews() {
         super.setUpViews()
 
-        val toolbar = binding.customToolbar.toolbar
-        val navController = findNavController()
-        toolbar.setupWithNavController(navController)
+        setUpCustomToolbarWithNavController(showBackButtonText = true)
+
+//        val toolbar = binding.customToolbar.toolbar
+//        val navController = findNavController()
+//        toolbar.setupWithNavController(navController)
 
 //        adapter = NotificationsAdapter { view, data ->
 //            //fixme need pages

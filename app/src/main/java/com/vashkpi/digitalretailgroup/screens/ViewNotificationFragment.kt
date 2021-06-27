@@ -40,9 +40,9 @@ class ViewNotificationFragment : BaseFragment<FragmentViewNotificationBinding, V
     override fun setUpViews() {
         super.setUpViews()
 
-        val toolbar = binding.customToolbar.toolbar
-        val navController = findNavController()
-        toolbar.setupWithNavController(navController)
+//        val toolbar = binding.customToolbar.toolbar
+//        val navController = findNavController()
+//        toolbar.setupWithNavController(navController)
 
         val notification = args.notification
 
@@ -50,23 +50,23 @@ class ViewNotificationFragment : BaseFragment<FragmentViewNotificationBinding, V
         binding.text.text = notification.text
         binding.date.text = notification.date.formatDateToNotificationDate()
 
-        toolbar.inflateMenu(R.menu.toolbar_menu_notifications)
-        toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.delete -> {
-                    //viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToNotificationsFragment())
-                    setFragmentResult(
-                        REQUEST_KEY, bundleOf(
-                            REQUEST_KEY to RESULT_DELETE,
-                            NOTIFICATION_ID to notification.notification_id
-                        )
-                    )
-                    viewModel.onDeletePressed()
-                    true
-                }
-                else -> false
-            }
-        }
+//        toolbar.inflateMenu(R.menu.toolbar_menu_notifications)
+//        toolbar.setOnMenuItemClickListener {
+//            when (it.itemId) {
+//                R.id.delete -> {
+//                    //viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToNotificationsFragment())
+//                    setFragmentResult(
+//                        REQUEST_KEY, bundleOf(
+//                            REQUEST_KEY to RESULT_DELETE,
+//                            NOTIFICATION_ID to notification.notification_id
+//                        )
+//                    )
+//                    viewModel.onDeletePressed()
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
 
         if (!notification.read) {
             viewModel.markRead(notification)

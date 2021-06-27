@@ -67,25 +67,27 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
     override fun setUpViews() {
         super.setUpViews()
 
-        val toolbar = binding.customToolbar.toolbar
 
-        toolbar.inflateMenu(R.menu.toolbar_main_menu)
-        toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.notifications -> {
-                    viewModel.onMenuNotificationsItemClick()
-                    true
-                }
-                R.id.profile -> {
-                    viewModel.onMenuProfileItemClick()
-                    true
-                }
-                else -> false
-            }
-        }
 
-        binding.customToolbar.logo.visibility = View.VISIBLE
-        toolbar.title = ""
+//        val toolbar = binding.customToolbar.toolbar
+//
+//        toolbar.inflateMenu(R.menu.toolbar_main_menu)
+//        toolbar.setOnMenuItemClickListener {
+//            when (it.itemId) {
+//                R.id.notifications -> {
+//                    viewModel.onMenuNotificationsItemClick()
+//                    true
+//                }
+//                R.id.profile -> {
+//                    viewModel.onMenuProfileItemClick()
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
+//
+//        binding.customToolbar.logo.visibility = View.VISIBLE
+//        toolbar.title = ""
 
 //        adapter = BrandsAdapter { view, data ->
 //            viewModel.onBrandsListItemClick(data)

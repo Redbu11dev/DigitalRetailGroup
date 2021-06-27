@@ -28,9 +28,9 @@ class StoreInfoFragment : BaseFragment<FragmentStoreInfoBinding, StoreInfoViewMo
     override fun setUpViews() {
         super.setUpViews()
 
-        val toolbar = binding.customToolbar.toolbar
-        val navController = findNavController()
-        toolbar.setupWithNavController(navController)
+//        val toolbar = binding.customToolbar.toolbar
+//        val navController = findNavController()
+//        toolbar.setupWithNavController(navController)
 
         viewModel.obtainStoreInfo(args.storeId)
 
@@ -58,7 +58,7 @@ class StoreInfoFragment : BaseFragment<FragmentStoreInfoBinding, StoreInfoViewMo
             viewModel.storeInfo.collect {
                 it?.let {
 
-                    binding.customToolbar.toolbar.title = it.name
+//                    binding.customToolbar.toolbar.title = it.name
 
                     val imageView = binding.image
                     val isSvg = it.image_parth.toString().endsWith(".svg")

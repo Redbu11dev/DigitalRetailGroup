@@ -22,29 +22,29 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>(F
     override fun setUpViews() {
         super.setUpViews()
 
-        val toolbar = binding.customToolbar.toolbar
-        val navController = findNavController()
-        toolbar.setupWithNavController(navController)
+//        val toolbar = binding.customToolbar.toolbar
+//        val navController = findNavController()
+//        toolbar.setupWithNavController(navController)
 
         val type = args.type
 
-        when (type) {
-            0 -> {
-                toolbar.title = getString(R.string.description_title_save)
-                viewModel.getSavePointsRules()
-            }
-            1 -> {
-                toolbar.title = getString(R.string.description_title_get)
-                viewModel.getSpendPointsRules()
-            }
-            2 -> {
-                toolbar.title = getString(R.string.description_title_promotion_rules)
-                viewModel.getSpendPointsRules()
-            }
-            else -> {
-                toolbar.title = "Unknown"
-            }
-        }
+//        when (type) {
+//            0 -> {
+//                toolbar.title = getString(R.string.description_title_save)
+//                viewModel.getSavePointsRules()
+//            }
+//            1 -> {
+//                toolbar.title = getString(R.string.description_title_get)
+//                viewModel.getSpendPointsRules()
+//            }
+//            2 -> {
+//                toolbar.title = getString(R.string.description_title_promotion_rules)
+//                viewModel.getSpendPointsRules()
+//            }
+//            else -> {
+//                toolbar.title = "Unknown"
+//            }
+//        }
 
     }
 

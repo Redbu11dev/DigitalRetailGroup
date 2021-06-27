@@ -3,16 +3,23 @@ package com.vashkpi.digitalretailgroup.screens.base
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.animation.Animation
+import android.view.*
+import android.widget.LinearLayout
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.forEachIndexed
+import androidx.core.view.get
+import androidx.core.view.isNotEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.google.android.material.textview.MaterialTextView
 import com.google.android.material.transition.*
 import com.vashkpi.digitalretailgroup.MainActivity
+import com.vashkpi.digitalretailgroup.R
+import com.vashkpi.digitalretailgroup.databinding.CustomToolbarBinding
 import com.vashkpi.digitalretailgroup.utils.safeNavigate
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
@@ -38,6 +45,73 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
     // This property is only valid between onCreateView and
     // onDestroyView.
     val binding get() = _binding!!
+
+    fun getCustomToolbar(): CustomToolbarBinding? {
+        val toolbarLayout = binding.root.findViewById<ViewGroup>(R.id.custom_toolbar)
+        if (toolbarLayout == null) {
+            return null
+        }
+        else {
+            return CustomToolbarBinding.bind(toolbarLayout)
+        }
+    }
+
+    fun setUpCustomToolbarWithNavController(toolbarBinding: CustomToolbarBinding? = getCustomToolbar(),
+                                            titleText: String? = null,
+                                            showBackButtonText: Boolean = false,
+                                            buttonIcons: Array<Int>? = null,
+                                            menuButtonClickListener: (buttonId: Int) -> Unit? = {}
+                                            ) {
+        toolbarBinding?.let { toolbar ->
+
+            val titleView = toolbar.title
+            if (titleText.isNullOrBlank()) {
+                titleView.visibility = View.GONE
+            }
+            else {
+                titleView.text = titleText
+                titleView.visibility = View.VISIBLE
+            }
+
+            val backButtonContainer = toolbar.backButtonContainer
+            if (findNavController().previousBackStackEntry == null) {
+                backButtonContainer.visibility = View.GONE
+            }
+            else {
+                backButtonContainer.setOnClickListener {
+                    findNavController().navigateUp()
+                }
+                if (showBackButtonText) {
+                    toolbar.backButtonText.visibility = View.VISIBLE
+                }
+                else {
+                    toolbar.backButtonText.visibility = View.GONE
+                }
+                backButtonContainer.visibility = View.VISIBLE
+            }
+
+
+            buttonIcons?.let {
+                if (buttonIcons.isNotEmpty()) {
+                    toolbar.menuButtons.visibility = View.VISIBLE
+                    it.forEachIndexed { index, iconResId ->
+                        if (index > 1) {
+                            throw IllegalStateException("can't have more than 2 buttons")
+                        }
+                        val button = (toolbar.menuButtons[index] as AppCompatImageView)
+                        button.visibility = View.VISIBLE
+                        button.setImageResource(iconResId)
+                        button.setOnClickListener {
+                            menuButtonClickListener(it.id)
+                        }
+                    }
+                }
+                else {
+                    toolbar.menuButtons.visibility = View.GONE
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

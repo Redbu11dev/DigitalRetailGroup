@@ -43,9 +43,9 @@ class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(Frag
     override fun setUpViews() {
         super.setUpViews()
 
-        val toolbar = binding.customToolbar.toolbar
-        val navController = findNavController()
-        toolbar.setupWithNavController(navController)
+//        val toolbar = binding.customToolbar.toolbar
+//        val navController = findNavController()
+//        toolbar.setupWithNavController(navController)
 
         val brand = args.brand
         val brandInfoRegion = args.brandInfoRegion
@@ -56,7 +56,7 @@ class StoresFragment : BaseFragment<FragmentStoresBinding, StoresViewModel>(Frag
 
         binding.infoList.adapter = adapter
 
-        binding.customToolbar.toolbar.title = brandInfoRegion.name
+//        binding.customToolbar.toolbar.title = brandInfoRegion.name
 
         viewModel.obtainRegionStores(brand.brand_id, brandInfoRegion.region_id)
     }

@@ -35,10 +35,10 @@ class LoginCodeFragment :
     override fun setUpViews() {
         super.setUpViews()
 
-        val toolbar = binding.customToolbar.toolbar
-
-        val navController = findNavController()
-        toolbar.setupWithNavController(navController)
+//        val toolbar = binding.customToolbar.toolbar
+//
+//        val navController = findNavController()
+//        toolbar.setupWithNavController(navController)
 
         val phoneStringRaw = args.phoneStringRaw
         val phoneStringFormattedFakeSpaces = args.phoneStringFormatted.replace(" ", " ")

@@ -24,25 +24,46 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
     override fun setUpViews() {
         super.setUpViews()
 
-        val toolbar = binding.customToolbar.toolbar
-
-        toolbar.inflateMenu(R.menu.toolbar_main_menu)
-        toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.notifications -> {
+        setUpCustomToolbarWithNavController(
+            buttonIcons = arrayOf(
+                R.drawable.ic_bell,
+                R.drawable.ic_profile
+            )
+        ) { id ->
+            when (id) {
+                R.id.button0 -> {
                     viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToNotificationsFragment())
-                    true
                 }
-                R.id.profile -> {
-                    viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToProfileFragment(false, ""))
-                    true
+                R.id.button1 -> {
+                    viewModel.postNavigationEvent(
+                        BarcodeFragmentDirections.actionNavigationBarcodeToProfileFragment(
+                            false,
+                            ""
+                        )
+                    )
                 }
-                else -> false
             }
         }
 
-        binding.customToolbar.logo.visibility = View.VISIBLE
-        toolbar.title = ""
+//        val toolbar = binding.customToolbar.toolbar
+//
+//        toolbar.inflateMenu(R.menu.toolbar_main_menu)
+//        toolbar.setOnMenuItemClickListener {
+//            when (it.itemId) {
+//                R.id.notifications -> {
+//                    viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToNotificationsFragment())
+//                    true
+//                }
+//                R.id.profile -> {
+//                    viewModel.postNavigationEvent(BarcodeFragmentDirections.actionNavigationBarcodeToProfileFragment(false, ""))
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
+//
+//        binding.customToolbar.logo.visibility = View.VISIBLE
+//        toolbar.title = ""
 
         binding.contactUs.setOnClickListener {
             viewModel.onPromotionRulesClick()

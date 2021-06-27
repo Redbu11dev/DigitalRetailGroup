@@ -36,11 +36,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
     override fun setUpViews() {
         super.setUpViews()
 
-        val toolbar = binding.customToolbar.toolbar
-
-        val navController = findNavController()
-
-        toolbar.setupWithNavController(navController)
+//        val toolbar = binding.customToolbar.toolbar
+//
+//        val navController = findNavController()
+//
+//        toolbar.setupWithNavController(navController)
         //NavigationUI.setupWithNavController(toolbar, navController, AppBarConfiguration(navController.graph))
 
 //        val configuration = AppBarConfiguration(navController.graph)
@@ -68,14 +68,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         if (isRegistration) {
             binding.saveBtn.setText(R.string.profile_btn_1_save_data)
             binding.logoutBtn.setText(R.string.profile_btn_2_later)
-            //findNavController().currentDestination?.label = getString(R.string.profile_title)
-            toolbar.setTitle(R.string.profile_title_is_registration)
+            //toolbar.setTitle(R.string.profile_title_is_registration)
 
         }
         else {
             binding.saveBtn.setText(R.string.profile_btn_1_save)
             binding.logoutBtn.setText(R.string.profile_btn_2_logout)
-            toolbar.setTitle(R.string.profile_title)
+            //toolbar.setTitle(R.string.profile_title)
         }
 
         binding.saveBtn.setOnClickListener {
