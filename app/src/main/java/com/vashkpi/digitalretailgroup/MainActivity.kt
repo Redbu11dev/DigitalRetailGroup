@@ -14,57 +14,54 @@ import com.vashkpi.digitalretailgroup.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
-
-
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    fun Activity.transparentStatusAndNavigation(
-        systemUiScrim: Int = Color.parseColor("#40000000") // 25% black
-    ) {
-        var systemUiVisibility = 0
-        // Use a dark scrim by default since light status is API 23+
-        var statusBarColor = systemUiScrim
-        //  Use a dark scrim by default since light nav bar is API 27+
-        var navigationBarColor = systemUiScrim
-        val winParams = window.attributes
-
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-//            statusBarColor = Color.TRANSPARENT
+//    fun Activity.transparentStatusAndNavigation(
+//        systemUiScrim: Int = Color.parseColor("#40000000") // 25% black
+//    ) {
+//        var systemUiVisibility = 0
+//        // Use a dark scrim by default since light status is API 23+
+//        var statusBarColor = systemUiScrim
+//        //  Use a dark scrim by default since light nav bar is API 27+
+//        var navigationBarColor = systemUiScrim
+//        val winParams = window.attributes
+//
+//
+////        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+////            systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+////            statusBarColor = Color.TRANSPARENT
+////        }
+////        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+////            systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+////            navigationBarColor = Color.TRANSPARENT
+////        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            systemUiVisibility = systemUiVisibility or
+//                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+//                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+//                    View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//            window.decorView.systemUiVisibility = systemUiVisibility
 //        }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-//            navigationBarColor = Color.TRANSPARENT
-//        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            systemUiVisibility = systemUiVisibility or
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                    View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            window.decorView.systemUiVisibility = systemUiVisibility
-        }
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-//            winParams.flags = winParams.flags or
-//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
-//        }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            winParams.flags = winParams.flags and
-//                    (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or
-//                            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION).inv()
-////            window.statusBarColor = statusBarColor
-//            window.navigationBarColor = navigationBarColor
-//        }
-
-        window.navigationBarColor = navigationBarColor
-
-        window.attributes = winParams
-    }
+//
+////        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+////            winParams.flags = winParams.flags or
+////                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+////        }
+////        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+////            winParams.flags = winParams.flags and
+////                    (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or
+////                            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION).inv()
+//////            window.statusBarColor = statusBarColor
+////            window.navigationBarColor = navigationBarColor
+////        }
+//
+//        window.navigationBarColor = navigationBarColor
+//
+//        window.attributes = winParams
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_DigitalRetailGroup)
@@ -75,10 +72,40 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.navigationBarColor = Color.parseColor("#01000000")
-        val uiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        window.getDecorView().setSystemUiVisibility(uiVisibility)
+//        window.navigationBarColor = Color.parseColor("#01000000")
+//        val uiVisibility =
+//            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYS
+//        window.decorView.systemUiVisibility = uiVisibility
+
+
+
+
+//        val uiVisibility =
+//            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//        window.decorView.systemUiVisibility = uiVisibility
+
+//        window.decorView.systemUiVisibility = (
+//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+
+
+
+
+//        val uiVisibility =
+//            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//        val uiVisibility =
+//            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_VISIBLE
+//        val uiVisibility =
+//            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        //window.decorView.systemUiVisibility = uiVisibility
+
+        //window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN)
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN
+//        )
+//        window.statusBarColor = Color.RED
+
 //        window.decorView.systemUiVisibility = (
 //                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 //                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)

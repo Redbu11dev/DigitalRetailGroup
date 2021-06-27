@@ -34,6 +34,7 @@
         <!--        Splash screen as android:windowBackground: https://stackoverflow.com/a/54756525-->
         <item name="android:windowBackground">@drawable/splash_background</item>
         <!--        <item name="android:navigationBarColor">@color/bg</item>-->
+        <item name="android:navigationBarColor">#01000000</item>
 
 
         <!--        Styles-->
@@ -54,8 +55,16 @@
 
         <item name="materialCalendarTheme">@style/ThemeOverlay.DigitalRetailGroup.DatePicker</item>
 
+<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>-->
+<!--        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>-->
+<!--        <item name="android:statusBarColor">@color/orange</item>-->
+<!--        <item name="android:navigationBarColor">#01000000</item>-->
+<!--        <item name="android:windowTranslucentNavigation">true</item>-->
+
 <!--                <item name="android:windowTranslucentStatus">true</item>-->
 <!--                <item name="android:windowTranslucentNavigation">true</item>-->
+<!--        <item name="android:fitsSystemWindows">true</item>-->
 
 <!--        <item name="android:navigationBarColor">#00FFFFFF</item>-->
 <!--        <item name="android:windowTranslucentNavigation">true</item>-->
@@ -63,14 +72,13 @@
 <!--        <item name="android:navigationBarColor">#01000000</item>-->
 <!--        <item name="android:windowLightNavigationBar">true</item>-->
 
-        <!--        <item name="android:navigationBarColor">@android:color/transparent</item>-->
-        <!--        <item name="android:enforceNavigationBarContrast">false</item>-->
-        <!--        <item name="android:windowTranslucentStatus">true</item>-->
-        <!--        <item name="android:windowTranslucentNavigation">true</item>-->
-        <!--        <item name="android:fitsSystemWindows">true</item>-->
-        <!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
-        <!--        <item name="android:windowLightNavigationBar">true</item>-->
-        <!--        <item name="android:statusBarColor">@color/primary_dark</item>-->
+<!--                <item name="android:navigationBarColor">@android:color/transparent</item>-->
+<!--                <item name="android:enforceNavigationBarContrast">false</item>-->
+<!--                <item name="android:windowTranslucentStatus">true</item>-->
+<!--                <item name="android:windowTranslucentNavigation">true</item>-->
+<!--                <item name="android:fitsSystemWindows">true</item>-->
+<!--                <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--                <item name="android:windowLightNavigationBar">true</item>-->
 
     </style>
 
