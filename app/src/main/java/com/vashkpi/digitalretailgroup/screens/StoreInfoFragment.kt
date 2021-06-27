@@ -52,7 +52,7 @@ class StoreInfoFragment : BaseFragment<FragmentStoreInfoBinding, StoreInfoViewMo
         binding.inclItemInfoWorkhours.root.changeAlphaOnTouch()
         binding.inclItemInfoAddress.root.changeAlphaOnTouch()
         binding.inclItemInfoAddress.root.setOnClickListener {
-            safeOpenAddressInMaps(binding.inclItemInfoAddress.text.text.toString())
+//            safeOpenAddressInMaps(binding.inclItemInfoAddress.text.text.toString())
         }
     }
 
