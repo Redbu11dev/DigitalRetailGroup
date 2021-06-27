@@ -15,9 +15,9 @@ fun CustomToolbarBinding?.showLogo(
             toolbarBinding.title.visibility = View.GONE
             toolbarBinding.backButtonContainer.visibility = View.GONE
 
-            toolbarBinding.logo.visibility = View.VISIBLE
+            toolbarBinding.logoContainer.visibility = View.VISIBLE
         } else {
-            toolbarBinding.logo.visibility = View.GONE
+            toolbarBinding.logoContainer.visibility = View.GONE
         }
     }
 
@@ -35,7 +35,7 @@ fun CustomToolbarBinding?.setTitle(
             titleView.text = titleText
             titleView.visibility = View.VISIBLE
 
-            toolbarBinding.logo.visibility = View.GONE
+            toolbarBinding.logoContainer.visibility = View.GONE
             toolbarBinding.backButtonText.visibility = View.GONE
         }
     }

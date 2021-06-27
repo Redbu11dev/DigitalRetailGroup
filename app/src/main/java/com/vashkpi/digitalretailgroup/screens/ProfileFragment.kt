@@ -19,6 +19,7 @@ import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.screens.dialogs.DatePickerDialogFragment
 import com.vashkpi.digitalretailgroup.screens.dialogs.SaveProfileDataDialogFragment
 import com.vashkpi.digitalretailgroup.utils.hideKeyboard
+import com.vashkpi.digitalretailgroup.utils.setTitle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
@@ -68,7 +69,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileViewModel>(F
         if (isRegistration) {
             binding.saveBtn.setText(R.string.profile_btn_1_save_data)
             binding.logoutBtn.setText(R.string.profile_btn_2_later)
-            //toolbar.setTitle(R.string.profile_title_is_registration)
+            getCustomToolbarBinding().setTitle(getString(R.string.profile_title_is_registration))
 
         }
         else {

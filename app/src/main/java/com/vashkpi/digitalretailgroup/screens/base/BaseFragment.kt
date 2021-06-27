@@ -39,7 +39,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
     // onDestroyView.
     val binding get() = _binding!!
 
-    fun getCustomToolbar(): CustomToolbarBinding? {
+    fun getCustomToolbarBinding(): CustomToolbarBinding? {
         val toolbarLayout = binding.root.findViewById<ViewGroup>(R.id.custom_toolbar)
         if (toolbarLayout == null) {
             return null
@@ -58,7 +58,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
     }
 
     open fun setupToolbar() {
-        getCustomToolbar().setUpWithNavController(
+        getCustomToolbarBinding().setUpWithNavController(
             titleText = getLabel(),
             navController = findNavController()
         )

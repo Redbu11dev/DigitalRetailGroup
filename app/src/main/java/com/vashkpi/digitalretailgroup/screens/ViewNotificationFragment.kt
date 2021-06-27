@@ -1,28 +1,19 @@
 package com.vashkpi.digitalretailgroup.screens
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import androidx.fragment.app.Fragment
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.data.models.domain.formatDateToNotificationDate
-import com.vashkpi.digitalretailgroup.databinding.FragmentNotificationsBinding
 import com.vashkpi.digitalretailgroup.databinding.FragmentViewNotificationBinding
 import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
-import com.vashkpi.digitalretailgroup.screens.base.BaseViewModel
-import com.vashkpi.digitalretailgroup.screens.dialogs.SaveProfileDataDialogFragment
-import com.vashkpi.digitalretailgroup.utils.safeNavigate
+import com.vashkpi.digitalretailgroup.utils.setButtons
+import com.vashkpi.digitalretailgroup.utils.setUpWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ViewNotificationFragment : BaseFragment<FragmentViewNotificationBinding, ViewNotificationViewModel>(FragmentViewNotificationBinding::inflate) {
@@ -36,6 +27,29 @@ class ViewNotificationFragment : BaseFragment<FragmentViewNotificationBinding, V
     override val viewModel: ViewNotificationViewModel by viewModels()
 
     private val args: ViewNotificationFragmentArgs by navArgs()
+
+    override fun setupToolbar() {
+        getCustomToolbarBinding().setUpWithNavController(
+            titleText = null,
+            navController = findNavController()
+        ).setButtons(
+            buttonIcons = arrayOf(
+                R.drawable.ic_trash
+            )
+        ) { id ->
+            when (id) {
+                R.id.button0 -> {
+                    setFragmentResult(
+                        REQUEST_KEY, bundleOf(
+                            REQUEST_KEY to RESULT_DELETE,
+                            NOTIFICATION_ID to args.notification.notification_id
+                        )
+                    )
+                    viewModel.onDeletePressed()
+                }
+            }
+        }
+    }
 
     override fun setUpViews() {
         super.setUpViews()

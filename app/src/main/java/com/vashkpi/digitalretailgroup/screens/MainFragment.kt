@@ -1,13 +1,10 @@
 package com.vashkpi.digitalretailgroup.screens
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import com.vashkpi.digitalretailgroup.R
 import com.vashkpi.digitalretailgroup.adapters.BrandsAdapter
 import com.vashkpi.digitalretailgroup.adapters.MainOptionsAdapter
@@ -15,11 +12,7 @@ import com.vashkpi.digitalretailgroup.screens.base.BaseFragment
 import com.vashkpi.digitalretailgroup.databinding.FragmentMainBinding
 import com.vashkpi.digitalretailgroup.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -65,7 +58,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(FragmentMa
     }
 
     override fun setupToolbar() {
-        getCustomToolbar().setUpWithNavController(
+        getCustomToolbarBinding().setUpWithNavController(
             titleText = null,
             navController = findNavController()
         ).showLogo(

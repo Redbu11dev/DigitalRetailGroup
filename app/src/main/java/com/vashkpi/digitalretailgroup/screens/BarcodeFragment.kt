@@ -23,7 +23,7 @@ class BarcodeFragment : BaseFragment<FragmentBarcodeBinding, BarcodeViewModel>(F
     private val barcodeGenerator = BarcodeGenerator()
 
     override fun setupToolbar() {
-        getCustomToolbar().setUpWithNavController(
+        getCustomToolbarBinding().setUpWithNavController(
             titleText = null,
             navController = findNavController()
         ).showLogo(
