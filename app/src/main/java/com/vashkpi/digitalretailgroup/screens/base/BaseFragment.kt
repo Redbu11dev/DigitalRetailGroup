@@ -8,6 +8,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.transition.*
@@ -59,24 +60,14 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
     }
 
     fun setUpCustomToolbarWithNavController(toolbarBinding: CustomToolbarBinding? = getCustomToolbar(),
-                                            showLogo: Boolean = false,
-                                            titleText: String? = getLabel(),
-                                            showBackButtonIfAvailable: Boolean = !showLogo,
-                                            showBackButtonText: Boolean = titleText?.isBlank() ?: true,
-                                            buttonIcons: Array<Int>? = null,
-                                            menuButtonClickListener: (buttonId: Int) -> Unit? = {}
-                                            ) {
+                               showLogo: Boolean = false,
+                               titleText: String? = getLabel(),
+                               showBackButtonIfAvailable: Boolean = !showLogo,
+                               showBackButtonText: Boolean = titleText?.isBlank() ?: true,
+                               buttonIcons: Array<Int>? = null,
+                               menuButtonClickListener: (buttonId: Int) -> Unit? = {}
+    ) {
         toolbarBinding?.let { toolbar ->
-
-            val titleView = toolbar.title
-
-            if (showLogo || titleText.isNullOrBlank()) {
-                titleView.visibility = View.GONE
-            }
-            else {
-                titleView.text = titleText
-                titleView.visibility = View.VISIBLE
-            }
 
             if (showLogo) {
                 toolbar.logo.visibility = View.VISIBLE
@@ -85,6 +76,14 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
                 toolbar.logo.visibility = View.GONE
             }
 
+            val titleView = toolbar.title
+            if (titleText.isNullOrBlank() || showLogo) {
+                titleView.visibility = View.GONE
+            }
+            else {
+                titleView.text = titleText
+                titleView.visibility = View.VISIBLE
+            }
 
             val backButtonContainer = toolbar.backButtonContainer
             if (!showBackButtonIfAvailable || findNavController().previousBackStackEntry == null) {
@@ -122,6 +121,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
                     toolbar.menuButtons.visibility = View.GONE
                 }
             }
+
         }
     }
 
