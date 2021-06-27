@@ -164,7 +164,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
                 when (loadStates.refresh) {
                     is LoadState.NotLoading -> {
                         viewModel.onListStoppedLoading()
-                        //viewModel.decideEmptyContainerVisibility(adapter.itemCount)
+                        viewModel.decideEmptyContainerVisibility(adapter.itemCount)
                     }
                     is LoadState.Loading -> {
                         viewModel.onListLoading()
