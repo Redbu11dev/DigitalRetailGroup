@@ -12,7 +12,7 @@ class LauncherViewModel @Inject constructor(private val dataStoreRepository: Dat
     fun checkIfHasToken() {
         val userId = dataStoreRepository.userId
 
-        Timber.i("saved user_id: ${userId}")
+        Timber.d("saved user_id: ${userId}")
 
         if (userId.isNotBlank()) {
             //go directly to home screen

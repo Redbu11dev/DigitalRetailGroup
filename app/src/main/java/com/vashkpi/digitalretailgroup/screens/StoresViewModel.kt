@@ -28,7 +28,7 @@ class StoresViewModel @Inject constructor(private val apiRepository: ApiReposito
             apiRepository.getRegionStores(brandId, regionId).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        Timber.i("it's loading")
+                        Timber.d("it's loading")
 //                        it.data?.let { data ->
 //                            Timber.d("here is the old data: $data")
 //
@@ -38,17 +38,17 @@ class StoresViewModel @Inject constructor(private val apiRepository: ApiReposito
                     }
                     is Resource.Error -> {
                         val message = it.error?.message
-                        Timber.i("it's error: ${message}")
+                        Timber.d("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false, 200)
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
-                        Timber.i("it's success")
+                        Timber.d("it's success")
                         postProgressViewVisibility(false, 200)
                         //check if empty?!
                         it.data?.let { data ->
-                            Timber.i("here is the data: $data")
+                            Timber.d("here is the data: $data")
 
 //                            _storesList.value = data.map { it.asDomainModel() }.toMutableList()
                             _storesList.value = data.elements.map { it.asDomainModel() }.toMutableList()

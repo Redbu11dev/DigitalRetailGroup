@@ -27,12 +27,12 @@ private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
             apiRepository.confirmCode(ConfirmCodeDto(phone, code, dataStoreRepository.deviceId, AppConstants.DEVICE_OS)).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        Timber.i("it's loading")
+                        Timber.d("it's loading")
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
                         val message = it.error?.message ?: ""
-                        Timber.i("it's error: ${message}")
+                        Timber.d("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false)
 
@@ -44,11 +44,11 @@ private val firebaseAnalytics: FirebaseAnalytics): BaseViewModel() {
                         }
                     }
                     is Resource.Success -> {
-                        Timber.i("it's success")
+                        Timber.d("it's success")
                         postProgressViewVisibility(false)
                         //check if empty?!
                         it.data?.let { data ->
-                            Timber.i("here is the data: $data")
+                            Timber.d("here is the data: $data")
 
                             //obtain user id from data
                             val userId = data.user_id

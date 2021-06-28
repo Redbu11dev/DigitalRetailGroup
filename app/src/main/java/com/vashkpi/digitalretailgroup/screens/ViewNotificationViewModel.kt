@@ -26,12 +26,12 @@ class ViewNotificationViewModel @Inject constructor(private val dataStoreReposit
             apiRepository.markNotificationRead(NotificationPostDto(dataStoreRepository.userId, notification.notification_id)).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        Timber.i("it's loading")
+                        Timber.d("it's loading")
                         //postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
                         val message = it.error?.message
-                        Timber.i("it's error: ${message}")
+                        Timber.d("it's error: ${message}")
                         //it.error.
                         //postProgressViewVisibility(false)
                         if (it.error is java.net.UnknownHostException) {
@@ -42,10 +42,10 @@ class ViewNotificationViewModel @Inject constructor(private val dataStoreReposit
                         }
                     }
                     is Resource.Success -> {
-                        Timber.i("it's success")
+                        Timber.d("it's success")
                         //check if empty?!
                         it.data?.let { data ->
-                            Timber.i("here is the data: $data")
+                            Timber.d("here is the data: $data")
 
                             //postProgressViewVisibility(false)
                         }

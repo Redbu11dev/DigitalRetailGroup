@@ -178,7 +178,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding, Notific
 
 //        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
 //            viewModel.obtainNotifications().collectLatest { notifications ->
-//                Timber.i("calling submit data")
+//                Timber.d("calling submit data")
 //                adapter.submitData(notifications)
 //            }
 //        }

@@ -108,12 +108,12 @@ class NotificationsViewModel @Inject constructor(
             apiRepository.deleteNotificationRemotely(dataStoreRepository.userId, notificationId).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        Timber.i("it's loading")
+                        Timber.d("it's loading")
                         //postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
                         val message = it.error?.message
-                        Timber.i("it's error: ${message}")
+                        Timber.d("it's error: ${message}")
                         //it.error.
                         //postProgressViewVisibility(false)
 
@@ -126,13 +126,13 @@ class NotificationsViewModel @Inject constructor(
                         }
                     }
                     is Resource.Success -> {
-                        Timber.i("it's success")
+                        Timber.d("it's success")
                         //check if empty?!
 
                         onDeletionSuccess()
 
                         it.data?.let { data ->
-                            Timber.i("here is the data: $data")
+                            Timber.d("here is the data: $data")
 
                             //postProgressViewVisibility(false)
                         }

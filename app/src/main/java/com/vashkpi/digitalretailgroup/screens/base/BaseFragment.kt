@@ -198,7 +198,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(private val in
 //        viewLifecycleOwner.lifecycleScope.launch {
 //            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
 //                viewModel.navigationEvent.collect {
-//                    Timber.i("collecting navigation event ${it}")
+//                    Timber.d("collecting navigation event ${it}")
 //                    findNavController().safeNavigate(it)
 //                }
 //            }

@@ -48,7 +48,7 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
             apiRepository.getBrands().collect {
                 when (it) {
                     is Resource.Loading -> {
-                        Timber.i("it's loading")
+                        Timber.d("it's loading")
                         //postProgressViewVisibility(true)
                         _brandsListLoading.value = true
 //                        it.data?.let { data ->
@@ -59,7 +59,7 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                     }
                     is Resource.Error -> {
                         val message = it.error?.message
-                        Timber.i("it's error: ${message}")
+                        Timber.d("it's error: ${message}")
                         //it.error.
                         //postProgressViewVisibility(false)
                         _brandsListLoading.value = false
@@ -68,12 +68,12 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
                         }
                     }
                     is Resource.Success -> {
-                        Timber.i("it's success")
+                        Timber.d("it's success")
                         //check if empty?!
                         //postProgressViewVisibility(false)
                         _brandsListLoading.value = false
                         it.data?.let { data ->
-                            Timber.i("here is the data: $data")
+                            Timber.d("here is the data: $data")
 
 //                            _brandsList.value = data.map { it.asDomainModel() }.toMutableList()
                             _brandsList.value = data.elements.map { it.asDomainModel() }.toMutableList()

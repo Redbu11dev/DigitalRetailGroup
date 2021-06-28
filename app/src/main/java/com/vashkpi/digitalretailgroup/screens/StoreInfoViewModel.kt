@@ -29,7 +29,7 @@ class StoreInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
             apiRepository.getStoreInfo(storeId).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        Timber.i("it's loading")
+                        Timber.d("it's loading")
 //                        it.data?.let { data ->
 //                            Timber.d("here is the old data: $data")
 //
@@ -39,17 +39,17 @@ class StoreInfoViewModel @Inject constructor(private val apiRepository: ApiRepos
                     }
                     is Resource.Error -> {
                         val message = it.error?.message
-                        Timber.i("it's error: ${message}")
+                        Timber.d("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false, 200)
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
-                        Timber.i("it's success")
+                        Timber.d("it's success")
                         postProgressViewVisibility(false, 200)
                         //check if empty?!
                         it.data?.let { data ->
-                            Timber.i("here is the data: $data")
+                            Timber.d("here is the data: $data")
 
                             _storeInfo.value = data.asDomainModel()
                         }

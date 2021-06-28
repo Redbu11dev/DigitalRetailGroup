@@ -51,10 +51,10 @@ class LoginPhoneFragment : BaseFragment<FragmentLoginPhoneBinding, LoginPhoneVie
             ) {
 
                 rawValue = Regex("[^0-9]").replace(formattedValue, "")
-                Timber.i("phone: $rawValue")
+                Timber.d("phone: $rawValue")
 
-//                Timber.i("extractedValue: $extractedValue")
-//                Timber.i("formattedValue: $formattedValue")
+//                Timber.d("extractedValue: $extractedValue")
+//                Timber.d("formattedValue: $formattedValue")
             }
         }
         val listener: MaskedTextChangedListener = MaskedTextChangedListener.installOn(

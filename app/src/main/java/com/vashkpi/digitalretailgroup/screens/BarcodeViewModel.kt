@@ -59,6 +59,7 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
     }
 
     init {
+        //Timber.d("Barcode vm init")
         trySaveDeviceInfoOnServer()
     }
 
@@ -94,23 +95,23 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
             apiRepository.getCode(dataStoreRepository.userId).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        Timber.i("it's loading")
+                        Timber.d("it's loading")
                         postProgressViewVisibility(true)
                         refreshViewState()
                     }
                     is Resource.Error -> {
                         val message = it.error?.message
-                        Timber.i("it's error: ${message}")
+                        Timber.d("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false)
                         postNavigationEvent(BarcodeFragmentDirections.actionGlobalMessageDialog(R.string.dialog_error_title, message.toString()))
                         refreshViewState()
                     }
                     is Resource.Success -> {
-                        Timber.i("it's success")
+                        Timber.d("it's success")
                         //check if empty?!
                         it.data?.let { data ->
-                            Timber.i("here is the data: $data")
+                            Timber.d("here is the data: $data")
 
                             val code = data.code
                             _code.value = code
@@ -133,14 +134,14 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
             apiRepository.getBalance(dataStoreRepository.userId).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        Timber.i("it's loading")
+                        Timber.d("it's loading")
                         //postProgressViewVisibility(true)
                         refreshViewState()
                         _balanceViewState.value = BalanceViewState.LOADING
                     }
                     is Resource.Error -> {
                         val message = it.error.message
-                        Timber.i("it's error: ${message}")
+                        Timber.d("it's error: ${message}")
                         //postProgressViewVisibility(false)
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                         refreshViewState()
@@ -150,8 +151,8 @@ class BarcodeViewModel @Inject constructor(private val apiRepository: ApiReposit
 
                     }
                     is Resource.Success -> {
-                        Timber.i("it's success")
-                        Timber.i("here is the data: ${it.data}")
+                        Timber.d("it's success")
+                        Timber.d("here is the data: ${it.data}")
 
                         it.data?.let {
                             val balance = it.balance

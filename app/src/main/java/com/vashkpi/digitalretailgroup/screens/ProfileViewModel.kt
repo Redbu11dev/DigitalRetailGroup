@@ -119,21 +119,21 @@ class ProfileViewModel @Inject constructor(private val dataStoreRepository: Data
             apiRepository.saveProfileInfo(AccountsDto(dataStoreRepository.userId, userInfo.asNetworkModel())).collect {
                 when (it) {
                     is Resource.Loading -> {
-                        Timber.i("it's loading")
+                        Timber.d("it's loading")
                         postProgressViewVisibility(true)
                     }
                     is Resource.Error -> {
                         val message = it.error?.message
-                        Timber.i("it's error: ${message}")
+                        Timber.d("it's error: ${message}")
                         //it.error.
                         postProgressViewVisibility(false)
                         postNavigationEvent(ProfileFragmentDirections.actionGlobalMessageDialog(title = R.string.dialog_error_title, message = message.toString()))
                     }
                     is Resource.Success -> {
-                        Timber.i("it's success")
+                        Timber.d("it's success")
                         //check if empty?!
                         it.data?.let { data ->
-                            Timber.i("here is the data: $data")
+                            Timber.d("here is the data: $data")
 
                             postProgressViewVisibility(false)
                             firebaseAnalytics.logEvent(AppConstants.FirebaseAnalyticsEvents.PROFILE_FILLED.value, null)
