@@ -14,11 +14,16 @@ fun UserInfoDto.asDomainModel(): UserInfo {
 }
 
 fun String.convertDateToDomainFormat(): String {
-    val original = this.toCharArray()
-    val year = String(charArrayOf(original[0], original[1], original[2], original[3]))
-    val month = String(charArrayOf(original[5], original[6]))
-    val day = String(charArrayOf(original[8], original[9]))
-    return "$day.$month.$year"
+    if (this.length != 10) {
+        return ""
+    }
+    else {
+        val original = this.toCharArray()
+        val year = String(charArrayOf(original[0], original[1], original[2], original[3]))
+        val month = String(charArrayOf(original[5], original[6]))
+        val day = String(charArrayOf(original[8], original[9]))
+        return "$day.$month.$year"
+    }
 }
 
 data class UserInfoDto(

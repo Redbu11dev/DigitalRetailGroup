@@ -16,15 +16,16 @@ fun UserInfo.asNetworkModel(): UserInfoDto {
 }
 
 fun String.convertDateToNetworkFormat(): String {
-    if (this.isBlank()) {
+    if (this.length != 10) {
         return ""
     }
-
-    val original = this.toCharArray()
-    val day = String(charArrayOf(original[0], original[1]))
-    val month = String(charArrayOf(original[3], original[4]))
-    val year = String(charArrayOf(original[6], original[7], original[8], original[9]))
-    return "$year.$month.$day"
+    else {
+        val original = this.toCharArray()
+        val day = String(charArrayOf(original[0], original[1]))
+        val month = String(charArrayOf(original[3], original[4]))
+        val year = String(charArrayOf(original[6], original[7], original[8], original[9]))
+        return "$year.$month.$day"
+    }
 }
 
 data class UserInfo(
