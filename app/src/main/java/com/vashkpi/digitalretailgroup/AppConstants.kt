@@ -20,8 +20,6 @@ object AppConstants {
 //    const val DEFAULT_API_BASE_URL = "http://109.226.211.209:59301/sbs/"
     const val DEFAULT_API_BASE_URL = "http://cp.vashkpi.ru:59301/sbs/hs/bss/v1/"
 
-    //const val DEFAULT_API_BASE_URL = "http://akpoker.vashkpi.ru/sbs/"
-
     const val API_TIMEOUT_CONNECTION_SECONDS = 15L
     const val API_TIMEOUT_READ_SECONDS = 15L //
     const val API_TIMEOUT_WRITE_SECONDS = 15L
